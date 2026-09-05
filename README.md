@@ -17,6 +17,7 @@ service, or tool. Graduation moves product ownership, not the research record:
 this repository retains protocols, results, provenance, and a durable reference
 to the standalone project.
 
-See [research governance](docs/governance.md) and the
+See [research governance](docs/governance.md), the
+[experiment inventory](docs/experiment-inventory.md), the
+[labnote metadata contract](docs/labnote-metadata.md), and the
 [migration ledger](docs/migration-ledger.md).
-

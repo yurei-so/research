@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-002
+title: "Shakespeare monologue downstream-response pilot (v0.3.1)"
+date: 2026-07-01
+status: complete
+outcome: negative
+question: "Does adding delivery/prosody information to a transcript improve or meaningfully change an LLM's conversational response?"
+tags: ["conversational-prosody","negative-result"]
+lineage: ["prosody-001"]
+publish: true
+---
 # Lab note: Shakespeare monologue downstream-response pilot (v0.3.1)
 
 **Run date:** 2026-07-01  

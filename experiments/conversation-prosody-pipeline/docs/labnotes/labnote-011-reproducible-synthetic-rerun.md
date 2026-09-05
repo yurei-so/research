@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-011
+title: "Reproducible synthetic conversational-audio rerun"
+date: 2026-08-23
+status: complete
+outcome: inconclusive
+question: "Does the negative Labnote 003 matched-versus-shuffled result persist when every audio clip is generated locally by a known, fingerprinted synthesizer and exact transcript fidelity is verified before downstream generation?"
+tags: ["conversational-prosody","holdout","inconclusive-result","provenance","revision","synthetic-audio"]
+lineage: ["prosody-003"]
+publish: true
+---
 # Lab note: Reproducible synthetic conversational-audio rerun
 
 **Run date:** 2026-08-23  

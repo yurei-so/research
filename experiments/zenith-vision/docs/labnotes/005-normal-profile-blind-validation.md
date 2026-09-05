@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-005
+title: "Normal profile blind human validation"
+date: 2026-08-24
+status: complete
+outcome: positive
+question: "Does the frozen Normal UI crop profile agree with independently drawn human boxes on fresh gameplay frames?"
+tags: ["computer-vision","guild-wars-2","holdout","positive-result","privacy"]
+lineage: ["zenith-004"]
+publish: true
+---
 # Labnote 005: Normal profile blind human validation
 
 ## Question

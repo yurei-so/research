@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-006
+title: "Familiarity-gated speculative cognition"
+date: 2026-08-15
+status: complete
+outcome: negative
+question: "Can a runtime use a sub-millisecond readiness policy to select the minority of unfinished conversational turns where private speculative response work has positive net value, while abstaining everywhere else?"
+tags: ["conversational-prosody","negative-result","speculative-execution"]
+lineage: ["prosody-005"]
+publish: true
+---
 # Lab note: Familiarity-gated speculative cognition
 
 **Run date:** 2026-08-15

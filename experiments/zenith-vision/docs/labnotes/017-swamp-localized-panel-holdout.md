@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-017
+title: "swamp localized panel holdout"
+date: 2026-08-25
+status: complete
+outcome: negative
+question: "Does snowy-Hero successor candidate `3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8` generalize to a fresh balanced swamp holdout?"
+tags: ["computer-vision","guild-wars-2","holdout","negative-result","panel-recognition","privacy"]
+lineage: ["zenith-016"]
+publish: true
+---
 # Labnote 017: swamp localized panel holdout
 
 ## Question

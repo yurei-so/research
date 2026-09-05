@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-012
+title: "localized panel frozen holdout"
+date: 2026-08-25
+status: complete
+outcome: negative
+question: "Does the localized panel candidate that passed development cross-validation generalize to a separately frozen, balanced live Small-UI holdout?"
+tags: ["computer-vision","guild-wars-2","holdout","negative-result","panel-recognition","privacy"]
+lineage: ["zenith-011"]
+publish: true
+---
 # Labnote 012: localized panel frozen holdout
 
 ## Question

@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-011
+title: "localized panel transfer"
+date: 2026-08-24
+status: complete
+outcome: positive
+question: "Can class-specific localized evidence avoid the environmental confounding seen by whole-tile transfer learning while preserving development-only evaluation?"
+tags: ["computer-vision","guild-wars-2","holdout","panel-recognition","positive-result","privacy"]
+lineage: ["zenith-010"]
+publish: true
+---
 # Labnote 011: localized panel transfer
 
 ## Question

@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-014
+title: "deterministic localized transfer"
+date: 2026-08-25
+status: complete
+outcome: positive
+question: "Does deterministic, class-balanced full-batch multiple-instance training retain Hero generalization after adding varied Inventory-only position data?"
+tags: ["computer-vision","guild-wars-2","holdout","panel-recognition","positive-result","privacy"]
+lineage: ["zenith-013"]
+publish: true
+---
 # Labnote 014: deterministic localized transfer
 
 ## Question

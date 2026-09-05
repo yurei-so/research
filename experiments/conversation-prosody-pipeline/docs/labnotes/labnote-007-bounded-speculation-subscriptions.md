@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-007
+title: "LLM-directed bounded speculation subscriptions"
+date: 2026-08-15
+status: complete
+outcome: inconclusive
+question: "Can a conversational model recognize a predictable semantic trajectory once per completed turn and request a bounded runtime-owned subscription that selects future speculative work more effectively than a stateless numeric readiness gate?"
+tags: ["conversational-prosody","inconclusive-result","speculative-execution"]
+lineage: ["prosody-006"]
+publish: true
+---
 # Lab note: LLM-directed bounded speculation subscriptions
 
 **Run date:** 2026-08-15

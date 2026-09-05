@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-008
+title: "first visual panel baseline"
+date: 2026-08-24
+status: complete
+outcome: negative
+question: "Can a compact CPU ridge classifier trained on masked Small-UI panel tiles generalize from two development batches to a recognition-disabled frozen holdout captured during a live world boss?"
+tags: ["blinded-review","computer-vision","guild-wars-2","holdout","negative-result","panel-recognition","privacy"]
+lineage: ["zenith-007"]
+publish: true
+---
 # Labnote 008: first visual panel baseline
 
 ## Question

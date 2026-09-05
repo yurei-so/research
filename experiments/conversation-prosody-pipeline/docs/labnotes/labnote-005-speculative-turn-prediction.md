@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-005
+title: "Speculative semantic branch and turn-state prediction"
+date: 2026-08-13
+status: complete
+outcome: negative
+question: "Can semantic branch prediction during an unfinished human turn safely hide language model latency, while a turn-state estimator reduces premature interruption and supports optional collaborative completion?"
+tags: ["conversational-prosody","negative-result","speculative-execution","synthetic-audio"]
+lineage: ["prosody-004"]
+publish: true
+---
 # Lab note: Speculative semantic branch and turn-state prediction
 
 **Run date:** 2026-08-13 through 2026-08-14

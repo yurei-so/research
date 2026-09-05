@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-016
+title: "snowy Hero development fold"
+date: 2026-08-25
+status: complete
+outcome: positive
+question: "Does adding independently collected Hero-only Hoelbrak development data repair the snowy Hero weakness exposed by Labnote 015 without regressing Inventory?"
+tags: ["computer-vision","guild-wars-2","holdout","positive-result","privacy","revision"]
+lineage: ["zenith-015"]
+publish: true
+---
 # Labnote 016: snowy Hero development fold
 
 ## Question

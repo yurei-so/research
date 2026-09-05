@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-013
+title: "varied Inventory position transfer"
+date: 2026-08-25
+status: complete
+outcome: mixed
+question: "Does adding new Inventory-only development batches staged at left, right, and center positions repair the localized candidate's position dependence?"
+tags: ["computer-vision","guild-wars-2","holdout","mixed-result","panel-recognition","privacy","revision"]
+lineage: ["zenith-012"]
+publish: true
+---
 # Labnote 013: varied Inventory position transfer
 
 ## Question

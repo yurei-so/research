@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-003
+title: "Amy-LM synthetic prosody downstream-response pilot (v0.3.1)"
+date: 2026-07-01
+status: complete
+outcome: inconclusive
+question: "Does adding delivery cues derived from the correct audio improve an LLM's response to flattened conversational text relative to text-only and shuffled-cue controls?"
+tags: ["conversational-prosody","holdout","inconclusive-result","provenance","revision","synthetic-audio"]
+lineage: ["prosody-002"]
+publish: true
+---
 # Lab note: Amy-LM synthetic prosody downstream-response pilot (v0.3.1)
 
 **Run date:** 2026-07-01  

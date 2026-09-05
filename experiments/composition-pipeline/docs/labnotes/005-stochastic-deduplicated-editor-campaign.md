@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: composition-005
+title: "Stochastic deduplicated optional editor campaign"
+date: 2026-08-23
+status: complete
+outcome: negative
+question: "A modest nonzero sampling temperature can produce enough distinct optional editor outcomes to support a useful conditional blind review, provided exact duplicate answer pairs are removed before operator intake and remain visible as multiplicity telemetry rather than independent samples."
+tags: ["blinded-review","composition","deduplication","human-review","negative-result","revision"]
+lineage: ["composition-004"]
+publish: true
+---
 # Labnote 005: Stochastic deduplicated optional editor campaign
 
 Date: 2026-08-23

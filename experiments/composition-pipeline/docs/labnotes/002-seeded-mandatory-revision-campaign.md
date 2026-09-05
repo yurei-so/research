@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: composition-002
+title: "Seeded mandatory-revision campaign"
+date: 2026-08-22
+status: complete
+outcome: inconclusive
+question: "Schema-constrained revision can reliably transform a seeded draft through real virtual-buffer mutations and produce outputs suitable for blinded comparison with direct rewriting."
+tags: ["blinded-review","composition","human-review","inconclusive-result","revision"]
+lineage: ["composition-001"]
+publish: true
+---
 # Labnote 002: Seeded mandatory-revision campaign
 
 Date: 2026-08-22

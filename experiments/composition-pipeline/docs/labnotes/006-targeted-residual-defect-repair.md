@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: composition-006
+title: "Targeted residual-defect repair"
+date: 2026-08-23
+status: complete
+outcome: mixed
+question: "A second model pass may justify its cost when restricted to repairing one explicit residual defect in an otherwise complete direct rewrite, even though unrestricted optional editing showed no preference advantage in Labnote 005."
+tags: ["blinded-review","composition","human-review","mixed-result","revision"]
+lineage: ["composition-005"]
+publish: true
+---
 # Labnote 006: Targeted residual-defect repair
 
 Date: 2026-08-23

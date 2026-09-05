@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: composition-001
+title: "Prompted and constrained editing baseline"
+date: 2026-08-22
+status: complete
+outcome: positive
+question: "An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified."
+tags: ["composition","human-review","positive-result","revision"]
+lineage: []
+publish: true
+---
 # Labnote 001: Prompted and constrained editing baseline
 
 Date: 2026-08-22

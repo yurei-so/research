@@ -9,6 +9,8 @@ interpret them in one place.
 
 - `experiments/` — bounded research projects and their labnotes.
 - `apparatus/` — reusable evaluation, annotation, and review tools.
+- `demos/` — research-derived demonstrations that preserve an experimental
+  connection but have their own runnable surface.
 - `docs/` — repository-wide governance, migration records, and decisions.
 - `references/` — pointers to projects that graduated into standalone repos.
 

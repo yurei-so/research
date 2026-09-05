@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-001
+title: "default-layout geometry on a real holdout"
+date: 2026-08-24
+status: complete
+outcome: negative
+question: "Can the deterministic default-layout proposal serve as a UI-region detector, or is it only suitable for conservative crop routing?"
+tags: ["computer-vision","guild-wars-2","holdout","negative-result","panel-recognition","privacy"]
+lineage: []
+publish: true
+---
 # Labnote 001: default-layout geometry on a real holdout
 
 ## Question

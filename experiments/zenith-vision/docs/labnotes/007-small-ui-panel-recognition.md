@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-007
+title: "Small-UI panel recognition"
+date: 2026-08-24
+status: complete
+outcome: mixed
+question: "Can Zenith Vision recognize a concrete open Guild Wars 2 UI panel in a messy live scene without retaining the full frame or emitting unrelated screen text?"
+tags: ["computer-vision","guild-wars-2","mixed-result","panel-recognition","privacy"]
+lineage: ["zenith-006"]
+publish: true
+---
 # Labnote 007: Small-UI panel recognition
 
 ## Question

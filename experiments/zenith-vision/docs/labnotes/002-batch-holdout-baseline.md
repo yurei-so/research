@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-002
+title: "batch holdout geometry confirmation"
+date: 2026-08-24
+status: complete
+outcome: negative
+question: "Does the default-layout geometry baseline recover operator-reviewed visible HUD regions across a larger private gameplay holdout?"
+tags: ["blinded-review","computer-vision","guild-wars-2","holdout","negative-result","privacy"]
+lineage: ["zenith-001"]
+publish: true
+---
 # Labnote 002: batch holdout geometry confirmation
 
 ## Question

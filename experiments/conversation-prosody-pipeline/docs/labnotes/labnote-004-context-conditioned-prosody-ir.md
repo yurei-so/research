@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-004
+title: "Context-conditioned prosody IR inference and synthesis"
+date: 2026-08-13
+status: awaiting-review
+outcome: pending
+question: "Can a language model infer an intended, backend-independent prosodic structure from discourse context when the literal target utterance is held fixed? Separately, can a Kokoro compiler render that structure so a listener can recover the intended reading?"
+tags: ["blinded-review","conversational-prosody","synthetic-audio"]
+lineage: ["prosody-003"]
+publish: true
+---
 # Lab note: Context-conditioned prosody IR inference and synthesis
 
 **Run date:** 2026-08-13

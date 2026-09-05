@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: composition-003
+title: "Optional editor-access campaign"
+date: 2026-08-23
+status: complete
+outcome: negative
+question: "Giving a model optional access to constrained revision after a matched direct rewrite may improve judged output without forcing a mutation. Finalizing the initial candidate unchanged is a first-class treatment outcome."
+tags: ["blinded-review","composition","human-review","negative-result","revision"]
+lineage: ["composition-002"]
+publish: true
+---
 # Labnote 003: Optional editor-access campaign
 
 Date: 2026-08-23

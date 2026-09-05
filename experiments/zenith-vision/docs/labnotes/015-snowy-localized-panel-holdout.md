@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-015
+title: "snowy localized panel holdout"
+date: 2026-08-25
+status: complete
+outcome: mixed
+question: "Does deterministic localized candidate `bc155807a28aee1a2d7d10fb18a96b24d40b9fe300fc3e01650f70e5d61cc649` generalize to a fresh balanced holdout captured during the snowy Claw of Jormag encounter?"
+tags: ["computer-vision","guild-wars-2","holdout","mixed-result","panel-recognition","privacy"]
+lineage: ["zenith-014"]
+publish: true
+---
 # Labnote 015: snowy localized panel holdout
 
 ## Question

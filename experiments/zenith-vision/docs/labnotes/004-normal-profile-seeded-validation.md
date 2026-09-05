@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-004
+title: "frozen Normal profile seeded validation"
+date: 2026-08-24
+status: complete
+outcome: mixed
+question: "Does the frozen Normal UI crop profile remain visually acceptable across a fresh, independently collected gameplay batch?"
+tags: ["blinded-review","computer-vision","guild-wars-2","holdout","mixed-result","privacy"]
+lineage: ["zenith-003"]
+publish: true
+---
 # Labnote 004: frozen Normal profile seeded validation
 
 ## Question

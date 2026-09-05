@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: composition-004
+title: "Changed-output optional editor campaign"
+date: 2026-08-23
+status: complete
+outcome: inconclusive
+question: "Optional editor access may be useful specifically when it chooses to change a direct rewrite, even if most assignments appropriately remain unchanged. A larger campaign can estimate both overall usefulness and preference conditional on a genuine editor-caused change without requiring the owner to review identical texts."
+tags: ["blinded-review","composition","human-review","inconclusive-result","revision"]
+lineage: ["composition-003"]
+publish: true
+---
 # Labnote 004: Changed-output optional editor campaign
 
 Date: 2026-08-23

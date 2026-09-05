@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: prosody-001
+title: "Selected Poems real-media ingest (v0.1.0)"
+date: 2026-06-27
+status: complete
+outcome: positive
+question: "Can the packaged file and simulated-stream ingestion paths produce consistent prosodic metadata from real spoken audio when transcription remains an external step?"
+tags: ["conversational-prosody","positive-result","real-audio"]
+lineage: []
+publish: true
+---
 # Lab note: Selected Poems real-media ingest (v0.1.0)
 
 **Run date:** 2026-06-27  

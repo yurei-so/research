@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-003
+title: "UI-scale stratification"
+date: 2026-08-24
+status: complete
+outcome: negative
+question: "Does one generic default-layout geometry describe the visible Guild Wars 2 HUD across the Small, Normal, and Large UI profiles?"
+tags: ["blinded-review","computer-vision","deduplication","guild-wars-2","holdout","negative-result","privacy"]
+lineage: ["zenith-002"]
+publish: true
+---
 # Labnote 003: UI-scale stratification
 
 ## Question

@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-009
+title: "panel transfer baseline"
+date: 2026-08-24
+status: complete
+outcome: negative
+question: "Does a frozen ImageNet-pretrained MobileNet V3 Small backbone provide enough visual structure to recognize Hero and Inventory across development batches without spending another holdout?"
+tags: ["computer-vision","guild-wars-2","holdout","negative-result","panel-recognition","privacy"]
+lineage: ["zenith-008"]
+publish: true
+---
 # Labnote 009: panel transfer baseline
 
 ## Question

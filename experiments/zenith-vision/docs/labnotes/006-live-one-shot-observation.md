@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-006
+title: "live one-shot observation"
+date: 2026-08-24
+status: complete
+outcome: positive
+question: "Can Zenith Vision execute its complete live privacy and authority boundary once against Guild Wars 2 without allowing an optional OCR failure to suppress valid MumbleLink telemetry?"
+tags: ["computer-vision","guild-wars-2","positive-result","privacy"]
+lineage: ["zenith-005"]
+publish: true
+---
 # Labnote 006: live one-shot observation
 
 ## Question

@@ -1,15 +1,15 @@
 # Experiment inventory
 
-Inventory taken 2026-09-05 before experiment-repository imports. Source
-checkouts remain authoritative until each row is migrated and verified in this
-repository.
+Inventory taken 2026-09-05 and expanded during full-history imports. Source
+checkouts remain operationally authoritative until each imported suite is
+verified and the source repository is explicitly archived.
 
 ## Conversation prosody family
 
 Source: `yurei-so/conversation-prosody-pipeline`, local branch
 `experiment/labnote-004-listener-review` at `fcf8e2d`. The branch is clean but
-contains one local commit not present on its upstream branch; migration must
-preserve it.
+formerly contained one local-only commit. It was pushed upstream as `fcf8e2d`
+before migration and is preserved in the imported history.
 
 | Future ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
 | --- | --- | --- | --- | --- | --- |
@@ -38,13 +38,27 @@ Source: `yurei-so/composition-pipeline`, clean `dev` branch at `197ca75`.
 | `composition-005` | Stochastic deduplicated editor campaign | Complete | Negative | `composition`, `blinded-review`, `deduplication`, `negative-result` | Diversity improved, but the extra editor pass did not justify its cost. |
 | `composition-006` | Targeted residual-defect repair | Complete | Mixed | `composition`, `targeted-repair`, `deduplication`, `mixed-result` | Repair mechanism worked, but diversity gates correctly withheld human review. |
 
+## Zenith Vision family
+
+Source: `yurei-so/zenith-vision`, clean `dev` branch at `fc011d0`. This is an
+experiment-first perception repository rather than the live Zenith product;
+Zenith App retains ownership of production telemetry and UI behavior.
+
+| Future IDs | Count | Status | Outcome summary | Primary tags | Inventory note |
+| --- | ---: | --- | --- | --- | --- |
+| `zenith-001`–`zenith-017` | 17 | Complete | 5 positive, 4 mixed, 8 negative | `guild-wars-2`, `computer-vision`, `privacy`, `holdout`, `panel-recognition` | Preserves the full progression from conservative crop geometry through frozen holdouts, localized transfer, environment-confounding failures, and the final decision to end the frozen-backbone classifier branch. |
+
+The final Labnote 017 result is especially important provenance: repeated
+fresh holdouts exposed environment-specific Hero failures, so the branch ended
+rather than spending more operator attention or tuning against spent holdouts.
+
 ## Related project classification
 
 - `composition-review` is reusable human-review apparatus and has already been
   imported with full history under `apparatus/composition-review`.
-- `prosody-demo` is not itself a numbered experiment corpus. Classify it during
-  migration as either a graduated standalone demonstration referenced here or
-  an experiment implementation with an explicit parent labnote.
+- `prosody-demo` is not itself a numbered experiment corpus. It is imported as
+  a research-derived runnable demonstration under `demos/prosody-demo`; it must
+  continue pointing back to the Prosody evidence that bounds its claims.
 
 ## Migration checks
 
@@ -57,4 +71,3 @@ Before marking either family imported:
    unpushed Prosody commit.
 4. Validate IDs, controlled status/outcome values, relative links, and unique
    note identity before building Pages indexes.
-

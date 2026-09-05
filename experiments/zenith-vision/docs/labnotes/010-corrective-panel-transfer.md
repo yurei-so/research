@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: zenith-010
+title: "corrective panel transfer"
+date: 2026-08-24
+status: complete
+outcome: negative
+question: "Does adding an approved Inventory-only and closed-panel development batch fix the cross-batch false-positive behavior of the frozen MobileNet V3 Small panel classifier without spending a fresh holdout?"
+tags: ["computer-vision","guild-wars-2","holdout","negative-result","panel-recognition","privacy"]
+lineage: ["zenith-009"]
+publish: true
+---
 # Labnote 010: corrective panel transfer
 
 ## Question

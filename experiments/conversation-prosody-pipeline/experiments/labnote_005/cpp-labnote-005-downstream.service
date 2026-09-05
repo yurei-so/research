@@ -1,0 +1,15 @@
+[Unit]
+Description=Conversation Prosody Pipeline Labnote 005b downstream plan study
+After=network-online.target ollama.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/github/conversation-prosody-pipeline
+ExecStart=/usr/bin/python3 experiments/labnote_005/run_downstream.py --prediction-dir artifacts/labnote-005/predictions --run-dir artifacts/labnote-005/downstream-plan
+Restart=on-failure
+RestartSec=15
+StandardOutput=append:%h/github/conversation-prosody-pipeline/artifacts/labnote-005/downstream-plan/service.log
+StandardError=append:%h/github/conversation-prosody-pipeline/artifacts/labnote-005/downstream-plan/service.log
+
+[Install]
+WantedBy=default.target

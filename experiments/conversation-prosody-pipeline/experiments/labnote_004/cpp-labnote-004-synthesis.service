@@ -1,0 +1,20 @@
+[Unit]
+Description=Conversation Prosody Pipeline Labnote 004 oracle synthesis matrix
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/alu52/github/conversation-prosody-pipeline
+ExecStart=/home/alu52/github/conversation-prosody-pipeline/.venv-kokoro/bin/python /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_004/run_synthesis.py --run-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-004/oracle-synthesis
+Restart=on-abnormal
+RestartSec=10
+Nice=10
+IOSchedulingClass=idle
+Environment=PYTHONUNBUFFERED=1
+Environment=HF_HUB_OFFLINE=1
+Environment=TRANSFORMERS_OFFLINE=1
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

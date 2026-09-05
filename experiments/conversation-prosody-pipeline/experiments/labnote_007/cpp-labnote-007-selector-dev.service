@@ -1,0 +1,15 @@
+[Unit]
+Description=Conversation Prosody Pipeline Labnote 007 development subscription selector
+After=network-online.target ollama.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/github/conversation-prosody-pipeline
+ExecStart=/usr/bin/python3 experiments/labnote_007/run_selectors.py --source-dir artifacts/labnote-006/counterfactual --run-dir artifacts/labnote-007/selector-dev --session-start 0 --session-end 29
+Restart=on-failure
+RestartSec=15
+StandardOutput=append:%h/github/conversation-prosody-pipeline/artifacts/labnote-007/selector-dev/service.log
+StandardError=append:%h/github/conversation-prosody-pipeline/artifacts/labnote-007/selector-dev/service.log
+
+[Install]
+WantedBy=default.target

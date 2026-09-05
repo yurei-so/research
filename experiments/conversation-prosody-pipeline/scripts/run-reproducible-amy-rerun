@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root=/home/alu52/github/conversation-prosody-pipeline
+run_dir="$root/artifacts/labnote-011/reproducible-rerun"
+args=(
+  --source-snapshot "$root/artifacts/labnote-011/source-rows.json"
+  --run-dir "$run_dir"
+)
+if [[ -f "$run_dir/transcripts.json" ]]; then
+  args+=(--transcripts-json "$run_dir/transcripts.json" --generate --model qwen3:8b)
+fi
+exec env PYTHONPATH="$root/src" "$root/.venv-kokoro/bin/python" \
+  "$root/experiments/labnote_011/run_rerun.py" "${args[@]}"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+exec /home/alu52/github/conversation-prosody-pipeline/.venv-kokoro/bin/python \
+  /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_010/run_prominence_gate.py \
+  --source-run /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-004/oracle-synthesis \
+  --output-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-010/native-prominence-v1

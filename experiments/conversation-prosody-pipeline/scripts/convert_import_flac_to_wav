@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  scripts/convert_import_flac_to_wav [source_dir] [output_dir]
+
+Defaults:
+  source_dir  import/LibriSpeech/dev-clean
+  output_dir  import/converted
+
+Converts every .flac file under source_dir into a matching .wav path under
+output_dir. If a LibriSpeech transcript sidecar exists, it also writes a copied
+.txt transcript beside each converted .wav.
+
+Dependencies:
+  - bash, awk, basename, dirname, find, mkdir, sort
+  - one audio converter CLI:
+      flac   preferred: flac -d -f -o output.wav input.flac
+      ffmpeg fallback:  ffmpeg -nostdin -hide_banner -loglevel error -y -i input.flac output.wav
+
+No Python audio packages are used.
+
+Environment:
+  AUDIO_CONVERTER=flac|ffmpeg  Force converter choice.
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+source_dir="${1:-import/LibriSpeech/dev-clean}"
+output_dir="${2:-import/converted}"
+
+if [[ ! -d "$source_dir" ]]; then
+  echo "Source directory not found: $source_dir" >&2
+  exit 1
+fi
+
+choose_converter() {
+  if [[ -n "${AUDIO_CONVERTER:-}" ]]; then
+    case "$AUDIO_CONVERTER" in
+      flac|ffmpeg) echo "$AUDIO_CONVERTER" ;;
+      *)
+        echo "Unsupported AUDIO_CONVERTER: $AUDIO_CONVERTER" >&2
+        exit 1
+        ;;
+    esac
+    return
+  fi
+
+  if command -v flac >/dev/null 2>&1; then
+    echo "flac"
+  elif command -v ffmpeg >/dev/null 2>&1; then
+    echo "ffmpeg"
+  else
+    echo "Missing converter: install the 'flac' CLI, or ffmpeg as a fallback." >&2
+    exit 1
+  fi
+}
+
+convert_one() {
+  local converter="$1"
+  local input_path="$2"
+  local output_path="$3"
+
+  case "$converter" in
+    flac)
+      flac -d -f -o "$output_path" "$input_path" >/dev/null
+      ;;
+    ffmpeg)
+      ffmpeg -nostdin -hide_banner -loglevel error -y -i "$input_path" "$output_path"
+      ;;
+  esac
+}
+
+transcript_for_id() {
+  local transcript_file="$1"
+  local utterance_id="$2"
+
+  if [[ -f "$transcript_file" ]]; then
+    awk -v id="$utterance_id" '$1 == id {sub($1 " ", ""); print; exit}' "$transcript_file"
+  fi
+}
+
+converter="$(choose_converter)"
+converted_count=0
+skipped_count=0
+transcript_count=0
+
+echo "Source:    $source_dir"
+echo "Output:    $output_dir"
+echo "Converter: $converter"
+
+while IFS= read -r -d '' input_path; do
+  relative_path="${input_path#"$source_dir"/}"
+  output_path="$output_dir/${relative_path%.flac}.wav"
+  output_parent="$(dirname "$output_path")"
+  mkdir -p "$output_parent"
+
+  if [[ -f "$output_path" && "$output_path" -nt "$input_path" ]]; then
+    skipped_count=$((skipped_count + 1))
+  else
+    convert_one "$converter" "$input_path" "$output_path"
+    converted_count=$((converted_count + 1))
+  fi
+
+  utterance_id="$(basename "$input_path" .flac)"
+  chapter_id="${utterance_id%-*}"
+  transcript_file="$(dirname "$input_path")/$chapter_id.trans.txt"
+  transcript="$(transcript_for_id "$transcript_file" "$utterance_id")"
+  if [[ -n "$transcript" ]]; then
+    printf '%s\n' "$transcript" >"${output_path%.wav}.txt"
+    transcript_count=$((transcript_count + 1))
+  fi
+done < <(find "$source_dir" -type f -name '*.flac' -print0 | sort -z)
+
+echo "Converted:   $converted_count"
+echo "Skipped:     $skipped_count"
+echo "Transcripts: $transcript_count"

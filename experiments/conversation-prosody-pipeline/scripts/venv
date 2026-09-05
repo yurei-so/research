@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VENV_DIR="${VENV_DIR:-"${ROOT_DIR}/.venv"}"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
+
+usage() {
+  cat <<EOF
+Usage: scripts/venv <command> [args...]
+
+Commands:
+  create      Create the virtualenv if it does not exist.
+  install     Create the virtualenv, upgrade pip, and install this package editable.
+  recreate    Remove and rebuild the virtualenv.
+  remove      Delete the virtualenv.
+  run CMD     Run a command inside the virtualenv.
+  python      Print the virtualenv Python path.
+  activate    Print the shell command for activation.
+  help        Show this help.
+
+Environment:
+  VENV_DIR    Virtualenv path. Defaults to ${ROOT_DIR}/.venv
+  PYTHON_BIN  Python executable used to create the venv. Defaults to python3
+
+Examples:
+  scripts/venv install
+  scripts/venv run python examples/minimal_turn.py
+  source .venv/bin/activate
+EOF
+}
+
+venv_python() {
+  printf '%s\n' "${VENV_DIR}/bin/python"
+}
+
+venv_pip() {
+  printf '%s\n' "${VENV_DIR}/bin/pip"
+}
+
+ensure_venv() {
+  if [[ ! -x "$(venv_python)" ]]; then
+    local created_dir=0
+    if [[ ! -e "${VENV_DIR}" ]]; then
+      created_dir=1
+    fi
+
+    if ! "${PYTHON_BIN}" -m venv "${VENV_DIR}"; then
+      if [[ "${created_dir}" -eq 1 ]]; then
+        rm -rf "${VENV_DIR}"
+      fi
+
+      cat >&2 <<EOF
+
+Failed to create a virtualenv with: ${PYTHON_BIN} -m venv ${VENV_DIR}
+
+On Debian/Ubuntu, install the venv package for your Python version, for example:
+  sudo apt install python3-venv
+
+If your system uses a versioned package, it may look like:
+  sudo apt install python3.13-venv
+
+You can also point at a different Python with:
+  PYTHON_BIN=/path/to/python scripts/venv create
+EOF
+      exit 1
+    fi
+  fi
+}
+
+create_venv() {
+  ensure_venv
+  printf 'Virtualenv ready: %s\n' "${VENV_DIR}"
+  printf 'Activate with: source %s/bin/activate\n' "${VENV_DIR}"
+}
+
+install_project() {
+  ensure_venv
+  "$(venv_python)" -m pip install --upgrade pip
+  "$(venv_pip)" install -e "${ROOT_DIR}"
+}
+
+remove_venv() {
+  if [[ "${VENV_DIR}" == "/" || "${VENV_DIR}" == "${HOME}" ]]; then
+    printf 'Refusing to remove unsafe VENV_DIR: %s\n' "${VENV_DIR}" >&2
+    exit 1
+  fi
+
+  rm -rf "${VENV_DIR}"
+  printf 'Removed virtualenv: %s\n' "${VENV_DIR}"
+}
+
+run_in_venv() {
+  ensure_venv
+  if [[ "$#" -eq 0 ]]; then
+    printf 'scripts/venv run requires a command.\n' >&2
+    exit 1
+  fi
+
+  PATH="${VENV_DIR}/bin:${PATH}" \
+    VIRTUAL_ENV="${VENV_DIR}" \
+    PYTHONPATH="${ROOT_DIR}/src${PYTHONPATH:+:${PYTHONPATH}}" \
+    "$@"
+}
+
+command="${1:-help}"
+if [[ "$#" -gt 0 ]]; then
+  shift
+fi
+
+case "${command}" in
+  create)
+    create_venv
+    ;;
+  install)
+    install_project
+    ;;
+  recreate)
+    remove_venv
+    install_project
+    ;;
+  remove)
+    remove_venv
+    ;;
+  run)
+    run_in_venv "$@"
+    ;;
+  python)
+    ensure_venv
+    venv_python
+    ;;
+  activate)
+    create_venv
+    ;;
+  help | -h | --help)
+    usage
+    ;;
+  *)
+    printf 'Unknown command: %s\n\n' "${command}" >&2
+    usage >&2
+    exit 1
+    ;;
+esac

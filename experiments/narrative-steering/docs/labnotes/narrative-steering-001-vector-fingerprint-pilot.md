@@ -3,7 +3,7 @@ schema_version: 1
 id: narrative-steering-001
 title: "Matched-state narrative steering vector pilot"
 date: 2026-09-05
-status: planned
+status: running
 outcome: pending
 question: "Can blinded ratings of continuations from matched narrative states recover a repeatable directional steering vector for each model, distinct from story and prompt effects?"
 tags: ["human-review","model-comparison","narrative-steering","panel-recognition","prosody-control","story-engine"]
@@ -90,3 +90,13 @@ This pilot earns a larger preregistered study only if:
 A passed gate demonstrates that the apparatus detects a candidate repeatable
 signal. It does not validate the coordinate ontology or justify the deferred
 cone visualization.
+
+## Generation checkpoint
+
+The frozen 48-cell generation matrix completed on 2026-09-05 using the three
+digest-pinned local models. The private artifact passed completeness, digest,
+blinding, and exact review-intake checks. A format-only screen found no empty
+responses or instruction/self-identification leakage. Five continuations were
+shorter than the requested 120 words (minimum 98; maximum across the matrix
+175). They remain in the frozen set as disclosed protocol deviations; no
+selective regeneration was performed before review.

@@ -15,7 +15,7 @@ const families = {
     directory: "experiments/narrative-steering/docs/labnotes",
     pattern: /^narrative-steering-(\d{3})-.*\.md$/,
     dates: { "001": "2026-09-05" },
-    statuses: { "001": "planned" },
+    statuses: { "001": "running" },
     outcomes: { "001": "pending" },
     lineage: { "001": [] },
     baseTags: ["human-review", "model-comparison", "narrative-steering", "story-engine"],

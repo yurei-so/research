@@ -10,6 +10,12 @@ function canonical(value) {
   return `{${Object.keys(value).sort().map((key) => `${canonical(key)}:${canonical(value[key])}`).join(",")}}`;
 }
 
+function canonicalUnicode(value) {
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalUnicode).join(",")}]`;
+  return `{${Object.keys(value).sort().map((key) => `${canonicalUnicode(key)}:${canonicalUnicode(value[key])}`).join(",")}}`;
+}
+
 export function fixture(treatmentArm = "schema_revision") {
   const bundle = {
     format: "composition-pipeline.blinded-review", version: 1,
@@ -81,7 +87,7 @@ export async function writeScalarFixture(directory) {
     items: [
       { item_id: "item-one", case_id: "case-1", variant_id: "neutral",
         story_state: { title: "Station", state: { intent: "Wait" } }, instruction: "Continue.",
-        continuation: "The clock ticks.", dimensions: ["agency", "closure"],
+        continuation: "The clock ticks—it is late.", dimensions: ["agency", "closure"],
         anchors: { agency: { negative: "overrides choice", positive: "preserves choice" }, closure: { negative: "opens", positive: "resolves" } },
         score_range: [-2, 2], confidence_range: [1, 3] },
       { item_id: "item-two", case_id: "case-1", variant_id: "agency_guard",
@@ -91,7 +97,7 @@ export async function writeScalarFixture(directory) {
         score_range: [-2, 2], confidence_range: [1, 3] },
     ],
   };
-  bundle.bundle_digest = createHash("sha256").update(canonical(bundle)).digest("hex");
+  bundle.bundle_digest = createHash("sha256").update(canonicalUnicode(bundle)).digest("hex");
   const key = { format: "narrative-steering.reveal", version: 1,
     bundle_digest: bundle.bundle_digest,
     items: [

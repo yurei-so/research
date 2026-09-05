@@ -27,6 +27,15 @@ function digest(value) {
   return createHash("sha256").update(canonical(value)).digest("hex");
 }
 
+function unicodeDigest(value) {
+  const stable = (item) => {
+    if (item === null || typeof item !== "object") return JSON.stringify(item);
+    if (Array.isArray(item)) return `[${item.map(stable).join(",")}]`;
+    return `{${Object.keys(item).sort().map((name) => `${stable(name)}:${stable(item[name])}`).join(",")}}`;
+  };
+  return createHash("sha256").update(stable(value), "utf8").digest("hex");
+}
+
 function exactKeys(value, expected) {
   return value && typeof value === "object" && !Array.isArray(value)
     && Object.keys(value).length === expected.length
@@ -38,7 +47,7 @@ function validateBundle(bundle, key) {
     && bundle.format === "narrative-steering.review-bundle" && bundle.version === 1;
   if (scalarMode) {
     const unsigned = Object.fromEntries(Object.entries(bundle).filter(([name]) => name !== "bundle_digest"));
-    if (bundle.bundle_digest !== digest(unsigned) || !Array.isArray(bundle.items)
+    if (bundle.bundle_digest !== unicodeDigest(unsigned) || !Array.isArray(bundle.items)
         || bundle.items.length < 1 || bundle.items.length > 500
         || !exactKeys(key, ["format", "version", "bundle_digest", "items"])
         || key.format !== "narrative-steering.reveal" || key.version !== 1

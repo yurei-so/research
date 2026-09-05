@@ -19,6 +19,10 @@ The pilot does not call a model directly. Generation is a separately approved
 campaign that must produce the frozen input contract. Review preparation strips
 model identity and writes owner-private bundle and reveal files.
 
+The frozen local campaign uses digest-pinned `qwen3:8b`, `gemma3:12b`, and
+`llama3.2:latest` models. `run_generation.py` checkpoints after every response
+and refuses to continue if any installed model digest drifts.
+
 Run the tests with:
 
 ```bash

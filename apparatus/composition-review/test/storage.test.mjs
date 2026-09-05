@@ -5,7 +5,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { ReviewError, ReviewStore } from "../src/storage.mjs";
-import { writeAudioFixture, writeFixture } from "./helpers.mjs";
+import { writeAudioFixture, writeFixture, writeScalarFixture } from "./helpers.mjs";
 
 test("review stays blinded, locks judgments, resumes, then reveals", async () => {
   const directory = await mkdtemp(join(tmpdir(), "composition-review-"));
@@ -103,4 +103,31 @@ test("audio review rejects tampered assets", async () => {
       statePath: join(directory, "judgments.json") }),
     (error) => error.code === "review_asset_digest_mismatch",
   );
+});
+
+test("scalar review produces analyzer-compatible locked judgments", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "composition-review-scalar-"));
+  const { bundlePath, keyPath, bundle } = await writeScalarFixture(directory);
+  const statePath = join(directory, "state/judgments.json");
+  const store = await ReviewStore.open({ bundlePath, keyPath, statePath });
+  const first = store.session();
+  assert.equal(first.mode, "scalar");
+  assert.equal(first.item.item_id, "item-one");
+  assert.equal(JSON.stringify(first).includes("model-a"), false);
+  await assert.rejects(
+    store.commit({ item_id: "item-two", scores: { agency: 0, closure: 0 }, confidence: 2 }),
+    (error) => error.code === "item_order_conflict",
+  );
+  await store.commit({ item_id: "item-one", scores: { agency: -1, closure: 2 }, confidence: 3 });
+  await assert.rejects(
+    store.commit({ item_id: "item-two", scores: { agency: 0 }, confidence: 2 }),
+    (error) => error.code === "invalid_scalar_judgment",
+  );
+  await store.commit({ item_id: "item-two", scores: { agency: 1, closure: 0 }, confidence: 2 });
+  assert.equal(store.results().judgment_count, 2);
+  const persisted = JSON.parse(await readFile(statePath, "utf8"));
+  assert.equal(persisted.format, "narrative-steering.judgments");
+  assert.equal(persisted.bundle_digest, bundle.bundle_digest);
+  assert.deepEqual(Object.keys(persisted.judgments[0].scores).sort(), ["agency", "closure"]);
+  assert.equal((await stat(statePath)).mode & 0o777, 0o600);
 });

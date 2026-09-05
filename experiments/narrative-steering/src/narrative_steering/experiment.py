@@ -59,6 +59,14 @@ def _validate_sources(protocol: dict[str, Any], corpus: dict[str, Any]) -> None:
         raise ContractError("case and prompt variant ids must be unique")
     if variant_ids != protocol["prompt_variants"]:
         raise ContractError("corpus prompt variants do not match the frozen protocol")
+    dimensions = protocol.get("dimensions")
+    anchors = protocol.get("dimension_anchors")
+    if not isinstance(dimensions, list) or not isinstance(anchors, dict) or set(anchors) != set(dimensions):
+        raise ContractError("every frozen dimension must have review anchors")
+    if any(not isinstance(anchors[name], dict) or set(anchors[name]) != {"negative", "positive"}
+           or not all(isinstance(value, str) and value.strip() for value in anchors[name].values())
+           for name in dimensions):
+        raise ContractError("invalid dimension review anchors")
 
 
 def prepare_review(
@@ -119,6 +127,7 @@ def prepare_review(
             "instruction": variants[variant_id]["instruction"],
             "continuation": record["text"],
             "dimensions": protocol["dimensions"],
+            "anchors": protocol["dimension_anchors"],
             "score_range": [protocol["score_min"], protocol["score_max"]],
             "confidence_range": [protocol["confidence_min"], protocol["confidence_max"]],
         })

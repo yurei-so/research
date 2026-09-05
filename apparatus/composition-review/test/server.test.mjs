@@ -5,11 +5,12 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { writeAudioFixture, writeFixture } from "./helpers.mjs";
+import { writeAudioFixture, writeFixture, writeScalarFixture } from "./helpers.mjs";
 
 async function startServer(directory, mode = "text") {
   const { bundlePath, keyPath } = mode === "audio"
-    ? await writeAudioFixture(directory) : await writeFixture(directory);
+    ? await writeAudioFixture(directory) : mode === "scalar"
+      ? await writeScalarFixture(directory) : await writeFixture(directory);
   const tokenPath = join(directory, "token"); const token = "owner-enrollment-token";
   await writeFile(tokenPath, `${token}\n`, { mode: 0o600 });
   const child = spawn(process.execPath, ["src/server.mjs"], {
@@ -72,4 +73,18 @@ test("server serves verified audio only after enrollment", async (context) => {
   assert.equal(audio.status, 200);
   assert.equal(audio.headers.get("content-type"), "audio/wav");
   assert.match(await (await fetch(`${base}/app.js`, { headers })).text(), /composition_audio_ready/);
+});
+
+test("server accepts a scalar judgment without exposing reveal identity", async (context) => {
+  const directory = await mkdtemp(join(tmpdir(), "composition-review-scalar-server-"));
+  const { child, base, token } = await startServer(directory, "scalar");
+  context.after(() => child.kill("SIGTERM"));
+  const enrolled = await fetch(`${base}/enroll/${token}`, { redirect: "manual" });
+  const headers = { cookie: enrolled.headers.get("set-cookie").split(";")[0], "content-type": "application/json" };
+  const session = await (await fetch(`${base}/api/session`, { headers })).json();
+  assert.equal(session.mode, "scalar");
+  assert.equal(JSON.stringify(session).includes("model-a"), false);
+  const next = await fetch(`${base}/api/judgments`, { method: "POST", headers,
+    body: JSON.stringify({ item_id: session.item.item_id, scores: { agency: 0, closure: 1 }, confidence: 2 }) });
+  assert.equal(next.status, 200);
 });

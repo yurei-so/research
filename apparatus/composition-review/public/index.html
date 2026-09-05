@@ -64,7 +64,20 @@
         </article>
       </div>
 
-      <div class="decision-bar">
+      <div id="scalarResponse" class="hidden" aria-label="Continuation scoring">
+        <article class="response-card scalar-card">
+          <div class="response-heading"><span>Continuation</span></div>
+          <div id="scalarContinuation" class="response-text"></div>
+        </article>
+        <div class="decision-bar">
+          <p>Score every steering coordinate, then record your confidence.</p>
+          <div id="scalarScoreGrid" class="score-grid"></div>
+          <label>Confidence <select id="scalarConfidence"></select></label>
+          <button id="commitScalar" class="choose-button" type="button">Lock scores and continue</button>
+        </div>
+      </div>
+
+      <div id="pairDecision" class="decision-bar">
         <button class="tie-button" data-choice="tie" type="button"><span>They’re equal</span><kbd>T</kbd></button>
         <details id="details">
           <summary>Optional detailed scores</summary>

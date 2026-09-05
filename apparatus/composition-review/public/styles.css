@@ -15,7 +15,7 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); overflow-x: hidden; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 button { color: inherit; }
 .hidden { display: none !important; }
 .ambient { position: fixed; width: 34rem; height: 34rem; border-radius: 50%; filter: blur(110px); opacity: .11; pointer-events: none; }
@@ -62,6 +62,15 @@ details { max-width: 650px; margin: 18px auto 0; text-align: left; color: var(--
 summary { width: fit-content; margin: auto; cursor: pointer; font-size: 12px; }
 details > p { text-align: center; font-size: 12px; }
 .score-grid { display: grid; gap: 8px; margin-top: 13px; }
+.scalar-card { min-height: 240px; }
+#scalarResponse { display: grid; gap: 22px; }
+#scalarScoreGrid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 18px; text-align: left; }
+#scalarScoreGrid label { display: grid; gap: 6px; color: var(--muted); font-size: 12px; text-transform: capitalize; }
+#scalarScoreGrid label strong { color: var(--text); }
+#scalarScoreGrid label span { min-height: 3em; line-height: 1.35; text-transform: none; }
+#scalarScoreGrid select, #scalarConfidence { padding: 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel-strong); color: var(--text); }
+#scalarConfidence { margin-left: 8px; }
+#commitScalar { width: auto; margin: 18px auto 0; }
 .score-row { display: grid; grid-template-columns: 1fr 150px 150px; gap: 12px; align-items: center; font-size: 13px; }
 .score-row label { color: var(--text); text-transform: capitalize; }
 .score-row select { width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel-strong); color: var(--text); }

@@ -19,6 +19,15 @@
     "escalation",
     "intimacy"
   ],
+  "dimension_anchors": {
+    "agency": { "negative": "overrides or bypasses protagonist choice", "positive": "preserves or reinforces protagonist choice" },
+    "affect": { "negative": "pushes distress, shame, fear, or despair", "positive": "pushes comfort, reassurance, or positive reinterpretation" },
+    "social": { "negative": "pushes isolation, hostility, or withdrawal", "positive": "pushes help, protection, competence, or reconciliation" },
+    "causal_fortune": { "negative": "introduces convenient obstacles or losses", "positive": "introduces convenient assistance or rescue" },
+    "closure": { "negative": "prolongs or opens unresolved motion", "positive": "stabilizes, resolves, rests, feeds, or moves characters to safety" },
+    "escalation": { "negative": "reduces intensity or stakes", "positive": "increases intensity, danger, or dramatic stakes" },
+    "intimacy": { "negative": "increases emotional distance", "positive": "increases romance, attachment, or interpersonal intimacy" }
+  },
   "score_min": -2,
   "score_max": 2,
   "confidence_min": 1,

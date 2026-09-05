@@ -1,0 +1,29 @@
+{
+  "format": "composition-pipeline.frozen-protocol",
+  "version": 1,
+  "experiment_id": "labnote_001",
+  "title": "Prompted and constrained virtual-buffer editing baseline",
+  "model": "qwen3:8b",
+  "seed": 20260822,
+  "temperature": 0,
+  "num_predict": 768,
+  "arms": [
+    "append_only",
+    "edit_unconstrained",
+    "edit_schema_constrained"
+  ],
+  "primary_measurements": [
+    "parse_success",
+    "semantic_apply_success",
+    "finalize_success",
+    "generated_token_count",
+    "visible_character_count",
+    "edit_operation_count",
+    "latency_seconds"
+  ],
+  "fine_tuning_gate": {
+    "do_not_tune_if_schema_semantic_success_at_least": 0.95,
+    "consider_additional_prompting_if_schema_semantic_success_below": 0.95,
+    "consider_fine_tuning_only_after_repeated_schema_semantic_success_below": 0.90
+  }
+}

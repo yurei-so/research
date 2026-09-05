@@ -1,0 +1,30 @@
+{
+  "format": "composition-pipeline.corpus",
+  "version": 1,
+  "cases": [
+    {
+      "id": "concise-architecture",
+      "prompt": "Explain in at most 90 words why a resource coordinator should not preempt a running GPU job. Write for a technical operator."
+    },
+    {
+      "id": "remove-redundancy",
+      "prompt": "Write one polished paragraph explaining that durable checkpoints survive restarts while warm caches only improve efficiency. Avoid repeating the distinction."
+    },
+    {
+      "id": "correct-contradiction",
+      "prompt": "Write a short operational note that resolves this contradiction: interactive work has higher queue priority, but it may not interrupt an experiment that is already running."
+    },
+    {
+      "id": "friendly-technical",
+      "prompt": "Write a friendly two-sentence message telling a developer that malformed editor operations will be rejected without losing the current draft."
+    },
+    {
+      "id": "bounded-list",
+      "prompt": "Give exactly three concise safeguards for a model-accessible virtual text buffer. Do not mention desktop automation."
+    },
+    {
+      "id": "revision-sensitive",
+      "prompt": "Draft a brief explanation of why exact-match replacement is safer than cursor offsets for an initial text-editing experiment, then make it less absolute by acknowledging one limitation."
+    }
+  ]
+}

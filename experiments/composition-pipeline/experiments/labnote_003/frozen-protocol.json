@@ -1,0 +1,28 @@
+{
+  "format": "composition-pipeline.frozen-protocol",
+  "version": 1,
+  "experiment_id": "labnote_003",
+  "title": "Optional editor-access campaign",
+  "model": "qwen3:8b",
+  "base_seed": 20260823,
+  "temperature": 0,
+  "num_predict": 768,
+  "planned_trials": 48,
+  "protocol_revision": "transactional-fallback-v1",
+  "arms": ["direct_rewrite", "optional_editor"],
+  "prompt_styles": ["concise", "preservation_first"],
+  "primary_measurements": [
+    "protocol_success",
+    "editor_invoked",
+    "revision_operation_count",
+    "revision_operation_types",
+    "finalize_behavior",
+    "visible_character_count",
+    "generated_token_count",
+    "prompt_token_count",
+    "draft_similarity",
+    "latency_seconds",
+    "blinded_operator_scores"
+  ],
+  "decision_boundary": "Mechanical results may advance outputs to blinded review. Optional editor access earns adoption only through blinded user preference that justifies its latency and compute overhead."
+}

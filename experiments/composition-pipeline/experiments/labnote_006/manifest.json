@@ -1,0 +1,18 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "labnote_006",
+  "axes": {
+    "case_id": ["lease-priority", "checkpoint-cache", "safe-rejection", "three-safeguards", "uncertain-status", "exact-replacement", "privacy-console", "nonpreemptive-experiment", "stale-data", "approval-boundary", "actor-role", "review-blinding"],
+    "prompt_style": ["concise", "preservation_first"],
+    "protocol_revision": ["targeted-residual-repair-v4"],
+    "sampling_temperature": [0.35]
+  },
+  "repetitions": 5,
+  "limits": {
+    "max_trials": 120,
+    "retry_count": 4,
+    "max_failures": 12,
+    "failure_rate": {"maximum": 0.15, "min_completed": 24}
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "labnote_003",
+  "axes": {
+    "arm": ["direct_rewrite", "optional_editor"],
+    "case_id": [
+      "architecture-boundary",
+      "checkpoint-clarity",
+      "safe-failure",
+      "bounded-safeguards",
+      "status-note",
+      "replacement-tradeoff"
+    ],
+    "prompt_style": ["concise", "preservation_first"],
+    "protocol_revision": ["transactional-fallback-v1"]
+  },
+  "repetitions": 2,
+  "limits": {
+    "max_trials": 48,
+    "retry_count": 1,
+    "max_failures": 8,
+    "failure_rate": {"maximum": 0.25, "min_completed": 12}
+  }
+}

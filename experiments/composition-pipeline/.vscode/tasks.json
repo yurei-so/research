@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "venv: create",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/venv",
+      "args": ["create"],
+      "problemMatcher": []
+    },
+    {
+      "label": "venv: install",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/venv",
+      "args": ["install"],
+      "problemMatcher": []
+    },
+    {
+      "label": "test: unittest",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/venv",
+      "args": ["run", "python", "-m", "unittest", "discover", "-s", "tests"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

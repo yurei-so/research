@@ -23,6 +23,11 @@ The frozen local campaign uses digest-pinned `qwen3:8b`, `gemma3:12b`, and
 `llama3.2:latest` models. `run_generation.py` checkpoints after every response
 and refuses to continue if any installed model digest drifts.
 
+`compile_fingerprint.py` produces state-bootstrap intervals and leave-one-state-
+out stability diagnostics. Its optional scorer-calibration path evaluates a
+complete blinded automated score set against locked human judgments and grants
+assisted-expansion eligibility separately for each coordinate.
+
 Run the tests with:
 
 ```bash

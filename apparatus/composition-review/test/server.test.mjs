@@ -87,4 +87,6 @@ test("server accepts a scalar judgment without exposing reveal identity", async 
   const next = await fetch(`${base}/api/judgments`, { method: "POST", headers,
     body: JSON.stringify({ item_id: session.item.item_id, scores: { agency: 0, closure: 1 }, confidence: 2 }) });
   assert.equal(next.status, 200);
+  const app = await (await fetch(`${base}/app.js`, { headers })).text();
+  assert.match(app, /if \(!scalar\) resetScores\(current\.criteria\)/);
 });

@@ -110,7 +110,7 @@ function renderSession(session) {
     $("#responseA").textContent = current.response_a;
     $("#responseB").textContent = current.response_b;
   }
-  resetScores(current.criteria);
+  if (!scalar) resetScores(current.criteria);
   window.scrollTo({ top: 0, behavior: done ? "smooth" : "auto" });
 }
 

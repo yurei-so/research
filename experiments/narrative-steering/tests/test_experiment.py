@@ -10,6 +10,7 @@ from narrative_steering.experiment import (
     prepare_review,
     protocol_digest,
 )
+from narrative_steering.fingerprint import calibrate_scorer, compile_fingerprints
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -129,6 +130,32 @@ class NarrativeSteeringExperimentTests(unittest.TestCase):
             judgments_path.write_text(json.dumps(judgments))
             with self.assertRaisesRegex(ContractError, "incomplete score vector"):
                 analyze_judgments(PROTOCOL, bundle_path, reveal_path, judgments_path)
+
+    def test_compiles_state_bootstrap_fingerprint_and_calibrates_scorer(self):
+        with tempfile.TemporaryDirectory() as temp:
+            directory = Path(temp)
+            bundle, reveal, bundle_path, reveal_path = self.prepare(directory)
+            model_by_item = {item["item_id"]: item["model_id"] for item in reveal["items"]}
+            values = {"model-a": 1, "model-b": 0, "model-c": -1}
+            human = {"format": "narrative-steering.judgments", "version": 1,
+                "bundle_digest": bundle["bundle_digest"], "judgments": [
+                    {"item_id": item["item_id"], "scores": {dimension: values[model_by_item[item["item_id"]]]
+                        for dimension in self.protocol["dimensions"]}, "confidence": 2}
+                    for item in bundle["items"]]}
+            automated = {"format": "narrative-steering.automated-judgments", "version": 1,
+                "bundle_digest": bundle["bundle_digest"], "scorer": "test-scorer",
+                "judgments": [{"item_id": item["item_id"], "scores": dict(item["scores"]), "confidence": 2}
+                    for item in human["judgments"]]}
+            human_path = directory / "human.json"; auto_path = directory / "auto.json"
+            human_path.write_text(json.dumps(human)); auto_path.write_text(json.dumps(automated))
+            fingerprint = compile_fingerprints(PROTOCOL, reveal_path, human_path, bootstrap_samples=100, seed=7)
+            coordinate = fingerprint["models"]["model-a"]["coordinates"]["agency"]
+            self.assertEqual(1.0, coordinate["neutral_raw_mean"])
+            self.assertEqual(1.0, coordinate["neutral_relative_mean"])
+            self.assertEqual(4, coordinate["same_direction_states"])
+            calibration = calibrate_scorer(PROTOCOL, reveal_path, human_path, auto_path)
+            self.assertEqual(0.0, calibration["dimensions"]["agency"]["raw_mae"])
+            self.assertTrue(calibration["dimensions"]["agency"]["eligible_for_expansion"])
 
 
 if __name__ == "__main__":

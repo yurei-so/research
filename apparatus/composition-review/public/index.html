@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Composition Review</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">◈</span>
+        <div><p>Composition Pipeline</p><h1>Blind review</h1></div>
+      </div>
+      <div class="progress-copy"><strong id="progressLabel">Loading…</strong><span>judgments locked on submit</span></div>
+    </header>
+    <div class="progress-track" aria-hidden="true"><div id="progressBar"></div></div>
+
+    <section id="audioGate" class="audio-gate hidden" aria-live="polite">
+      <span class="completion-mark">♪</span>
+      <p class="eyebrow">Audio readiness</p>
+      <h2>Set a comfortable listening level.</h2>
+      <p>Use headphones or quiet speakers. Keep the volume consistent for the entire blinded session.</p>
+      <audio id="calibrationAudio" class="calibration-audio hidden" controls preload="metadata"></audio>
+      <label class="ready-check"><input id="audioReadyCheck" type="checkbox"> I can hear the sample clearly and will not change devices.</label>
+      <button id="beginAudioReview" class="choose-button" type="button">Begin blinded audio review</button>
+    </section>
+
+    <section id="review" class="review hidden" aria-live="polite">
+      <div class="context-card">
+        <div class="context-heading"><span class="eyebrow">Review brief</span><button id="contextToggle" class="quiet-button" type="button">Hide context</button></div>
+        <div id="contextBody">
+          <div class="context-section"><h2>Task</h2><p id="task"></p></div>
+          <div class="context-section draft"><h2>Starting draft</h2><p id="draft"></p></div>
+        </div>
+      </div>
+
+      <div id="textResponses" class="responses" aria-label="Candidate responses">
+        <article class="response-card" id="cardA">
+          <div class="response-heading"><span>Response A</span><kbd>A</kbd></div>
+          <div id="responseA" class="response-text"></div>
+          <button class="choose-button" data-choice="a" type="button">Choose A</button>
+        </article>
+        <article class="response-card" id="cardB">
+          <div class="response-heading"><span>Response B</span><kbd>B</kbd></div>
+          <div id="responseB" class="response-text"></div>
+          <button class="choose-button" data-choice="b" type="button">Choose B</button>
+        </article>
+      </div>
+
+      <div id="audioResponses" class="responses hidden" aria-label="Candidate audio clips">
+        <article class="response-card audio-card">
+          <div class="response-heading"><span>Audio A</span><kbd>A</kbd></div>
+          <audio id="audioA" controls preload="metadata"></audio>
+          <button class="choose-button" data-choice="a" type="button">Choose A</button>
+        </article>
+        <article class="response-card audio-card">
+          <div class="response-heading"><span>Audio B</span><kbd>B</kbd></div>
+          <audio id="audioB" controls preload="metadata"></audio>
+          <button class="choose-button" data-choice="b" type="button">Choose B</button>
+        </article>
+      </div>
+
+      <div class="decision-bar">
+        <button class="tie-button" data-choice="tie" type="button"><span>They’re equal</span><kbd>T</kbd></button>
+        <details id="details">
+          <summary>Optional detailed scores</summary>
+          <p>Score only dimensions you care about. Leaving these blank is completely fine.</p>
+          <div id="scoreGrid" class="score-grid"></div>
+        </details>
+        <p class="shortcut-hint">Press <kbd>A</kbd>, <kbd>B</kbd>, or <kbd>T</kbd> to commit and continue.</p>
+      </div>
+    </section>
+
+    <section id="complete" class="complete hidden" aria-live="polite">
+      <span class="completion-mark">✓</span>
+      <p class="eyebrow">Review complete</p>
+      <h2>All judgments are locked.</h2>
+      <p>You stayed blind through the entire set. The treatment mapping is now available.</p>
+      <div id="resultCards" class="result-cards"></div>
+      <p id="resultNote" class="result-note"></p>
+    </section>
+
+    <section id="error" class="error hidden" role="alert">
+      <h2>Review unavailable</h2><p id="errorMessage"></p>
+      <button id="retry" type="button">Try again</button>
+    </section>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Composition Review
+Comment=Review blinded Composition Pipeline responses
+Exec=/home/alu52/github/composition-review/scripts/open-review
+Icon=preferences-desktop
+Terminal=false
+Categories=Development;Utility;

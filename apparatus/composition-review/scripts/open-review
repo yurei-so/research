@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+token_file=/home/alu52/.local/state/composition-review/prosody-labnote-009-native-stress-v1/enrollment-token
+IFS= read -r enrollment_token < "$token_file"
+exec xdg-open "http://127.0.0.1:4193/enroll/$enrollment_token"

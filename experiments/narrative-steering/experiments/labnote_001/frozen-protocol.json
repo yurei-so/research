@@ -1,0 +1,27 @@
+{
+  "format": "narrative-steering.protocol",
+  "version": 1,
+  "experiment_id": "narrative-steering-001",
+  "model_count": 3,
+  "repetitions": 2,
+  "generation": {
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "max_output_tokens": 220
+  },
+  "prompt_variants": ["neutral", "agency_guard"],
+  "dimensions": [
+    "agency",
+    "affect",
+    "social",
+    "causal_fortune",
+    "closure",
+    "escalation",
+    "intimacy"
+  ],
+  "score_min": -2,
+  "score_max": 2,
+  "confidence_min": 1,
+  "confidence_max": 3,
+  "expected_continuations": 48
+}

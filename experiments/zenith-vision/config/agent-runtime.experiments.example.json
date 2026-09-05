@@ -1,0 +1,56 @@
+{
+  "format": "agent-runtime.experiment-definitions",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "zenith-vision.contract-smoke",
+      "display_name": "Zenith Vision contract smoke",
+      "description": "Verify the fixed experiment entrypoint and telemetry-authority invariant.",
+      "repository_root": "/home/USER/github/zenith-vision",
+      "executable": "/home/USER/github/zenith-vision/scripts/run-experiment",
+      "args": ["contract_smoke"],
+      "environment": {},
+      "timeout_seconds": 30
+    },
+    {
+      "id": "zenith-vision.ui-layout-baseline",
+      "display_name": "Zenith Vision UI layout baseline",
+      "description": "Evaluate deterministic default-HUD crop proposals on committed synthetic labels.",
+      "repository_root": "/home/USER/github/zenith-vision",
+      "executable": "/home/USER/github/zenith-vision/scripts/run-experiment",
+      "args": ["ui_layout_baseline"],
+      "environment": {},
+      "timeout_seconds": 30
+    },
+    {
+      "id": "zenith-vision.synthetic-corpus-smoke",
+      "display_name": "Zenith Vision synthetic corpus smoke",
+      "description": "Generate and validate a temporary text-free HUD corpus without operator pixels.",
+      "repository_root": "/home/USER/github/zenith-vision",
+      "executable": "/home/USER/github/zenith-vision/scripts/run-experiment",
+      "args": ["synthetic_corpus_smoke"],
+      "environment": {},
+      "timeout_seconds": 30
+    },
+    {
+      "id": "zenith-vision.panel-transfer-baseline",
+      "display_name": "Zenith Vision panel transfer baseline",
+      "description": "Train and cross-validate a frozen MobileNet V3 Small panel classifier on private masked development tiles.",
+      "repository_root": "/home/USER/github/zenith-vision",
+      "executable": "/home/USER/github/zenith-vision/scripts/run-panel-transfer-baseline",
+      "args": [],
+      "environment": {},
+      "timeout_seconds": 900
+    },
+    {
+      "id": "zenith-vision.panel-localized-transfer",
+      "display_name": "Zenith Vision localized panel transfer",
+      "description": "Cross-validate class-specific Hero header/icon-rail and Inventory-grid evidence on private masked development tiles.",
+      "repository_root": "/home/USER/github/zenith-vision",
+      "executable": "/home/USER/github/zenith-vision/scripts/run-panel-localized-transfer",
+      "args": [],
+      "environment": {},
+      "timeout_seconds": 1200
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "format": "zenith-vision.dataset-manifest",
+  "version": 1,
+  "name": "replace-with-a-versioned-dataset-name",
+  "items": [
+    {
+      "id": "synthetic-001",
+      "media": "media/synthetic-001.png",
+      "sha256": "replace-with-64-character-content-digest",
+      "source_class": "synthetic",
+      "license": "CC0-1.0",
+      "consent": "not_applicable",
+      "redaction_status": "not_required",
+      "split": "train",
+      "labels": "labels/synthetic-001.json"
+    }
+  ]
+}

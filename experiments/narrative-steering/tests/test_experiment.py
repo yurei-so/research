@@ -109,6 +109,7 @@ class NarrativeSteeringExperimentTests(unittest.TestCase):
             self.assertEqual(1.0, result["models"]["model-a"]["raw"]["closure"]["mean"])
             self.assertEqual(1.0, result["models"]["model-a"]["agency_guard_shift"]["agency"])
             self.assertAlmostEqual(1.0, result["models"]["model-a"]["matched_centered"]["closure"]["mean"])
+            self.assertEqual(1.0, result["models"]["model-a"]["by_state_variant"]["late-train"]["neutral"]["closure"])
             self.assertEqual(3.0, result["models"]["model-a"]["mean_confidence"])
 
     def test_rejects_incomplete_score_vector(self):

@@ -216,6 +216,7 @@ def analyze_judgments(
     by_cell: dict[tuple[str, str, int], list[dict[str, Any]]] = defaultdict(list)
     by_variant: dict[tuple[str, str], dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
     by_state: dict[tuple[str, str], dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+    by_state_variant: dict[tuple[str, str, str], dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
     confidence_by_model: dict[str, list[float]] = defaultdict(list)
     for row in scored:
         confidence_by_model[row["model_id"]].append(row["confidence"])
@@ -225,6 +226,7 @@ def analyze_judgments(
             raw[row["model_id"]][dimension].append(value)
             by_variant[(row["model_id"], row["variant_id"])][dimension].append(value)
             by_state[(row["model_id"], row["case_id"])][dimension].append(value)
+            by_state_variant[(row["model_id"], row["case_id"], row["variant_id"])][dimension].append(value)
 
     centered: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
     for rows in by_cell.values():
@@ -254,6 +256,16 @@ def analyze_judgments(
             },
             "by_state": {
                 case_id: {dimension: fmean(by_state[(model, case_id)][dimension]) for dimension in dimensions}
+                for case_id in sorted({row["case_id"] for row in scored})
+            },
+            "by_state_variant": {
+                case_id: {
+                    variant: {
+                        dimension: fmean(by_state_variant[(model, case_id, variant)][dimension])
+                        for dimension in dimensions
+                    }
+                    for variant in protocol["prompt_variants"]
+                }
                 for case_id in sorted({row["case_id"] for row in scored})
             },
             "mean_confidence": fmean(confidence_by_model[model]),

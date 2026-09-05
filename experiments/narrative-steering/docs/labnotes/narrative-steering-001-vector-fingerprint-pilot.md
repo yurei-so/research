@@ -3,10 +3,10 @@ schema_version: 1
 id: narrative-steering-001
 title: "Matched-state narrative steering vector pilot"
 date: 2026-09-05
-status: running
-outcome: pending
+status: complete
+outcome: positive
 question: "Can blinded ratings of continuations from matched narrative states recover a repeatable directional steering vector for each model, distinct from story and prompt effects?"
-tags: ["human-review","model-comparison","narrative-steering","panel-recognition","prosody-control","story-engine"]
+tags: ["human-review","model-comparison","narrative-steering","panel-recognition","positive-result","prosody-control","story-engine"]
 lineage: []
 publish: true
 ---
@@ -100,3 +100,41 @@ responses or instruction/self-identification leakage. Five continuations were
 shorter than the requested 120 words (minimum 98; maximum across the matrix
 175). They remain in the frozen set as disclosed protocol deviations; no
 selective regeneration was performed before review.
+
+## Results
+
+One reviewer completed and locked all 48 blinded judgments before model
+identity was revealed. Mean confidence was modest (`1.69`–`1.88` of `3`), so
+the estimates remain pilot evidence rather than calibrated ground truth.
+
+Matched-cell-centered mean vectors were:
+
+| Model | Agency | Affect | Social | Fortune | Closure | Escalation | Intimacy |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Qwen 3 8B | +0.917 | -0.333 | -0.500 | -0.229 | -0.229 | +0.167 | -0.021 |
+| Gemma 3 12B | -0.333 | +0.229 | +0.250 | -0.292 | +0.271 | -0.333 | -0.021 |
+| Llama 3.2 3B | -0.583 | +0.104 | +0.250 | +0.521 | -0.042 | +0.167 | +0.042 |
+
+The clearest repeatable direction was agency. In neutral prompts, Qwen ranked
+highest on agency preservation in all four story states. Removing all five
+under-length continuations removes the affected council comparison but leaves
+Qwen highest in each of the other three states, so the signal is not solely an
+artifact of those deviations. Gemma and Llama did not maintain a stable lower
+ordering.
+
+Other directional candidates were Llama's elevated convenient-fortune score,
+Gemma's lower relative escalation, and Qwen's lower relative social-support
+score. These aggregate differences varied more by story state and should not
+yet be called stable fingerprints.
+
+The agency-guard perturbation did not uniformly improve agency scores: mean
+shifts were `-0.125` for Qwen, `+0.125` for Gemma, and `-0.375` for Llama.
+This is a useful negative result for the assumption that an explicit agency
+instruction simply rotates every model in the intended direction.
+
+## Conclusion
+
+The promotion gate passes for a candidate repeatable agency direction. The
+pilot supports a larger preregistered replication with multiple reviewers and
+more states; it does not validate the full seven-axis ontology, a total model
+ranking, or the deferred cone representation.

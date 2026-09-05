@@ -1,0 +1,26 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "labnote_005",
+  "axes": {
+    "arm": ["direct_rewrite", "optional_editor"],
+    "case_id": [
+      "architecture-boundary",
+      "checkpoint-clarity",
+      "safe-failure",
+      "bounded-safeguards",
+      "status-note",
+      "replacement-tradeoff"
+    ],
+    "prompt_style": ["concise", "preservation_first"],
+    "sampling_temperature": [0.35],
+    "protocol_revision": ["stochastic-deduplicated-review-v1"]
+  },
+  "repetitions": 10,
+  "limits": {
+    "max_trials": 240,
+    "retry_count": 1,
+    "max_failures": 24,
+    "failure_rate": {"maximum": 0.2, "min_completed": 24}
+  }
+}

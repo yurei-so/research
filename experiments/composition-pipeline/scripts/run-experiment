@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Run one fixed repository-owned experiment entrypoint."""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+import re
+import sys
+from typing import NoReturn
+
+
+EXPERIMENT_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,79}$")
+
+
+def fail(message: str) -> NoReturn:
+    print(message, file=sys.stderr)
+    raise SystemExit(2)
+
+
+def main() -> None:
+    if len(sys.argv) < 2:
+        fail("usage: scripts/run-experiment EXPERIMENT_ID [ARGS...]")
+
+    experiment_id = sys.argv[1]
+    if EXPERIMENT_ID.fullmatch(experiment_id) is None:
+        fail("invalid experiment identifier")
+
+    repository = Path(__file__).resolve().parent.parent
+    experiment_directory = repository / "experiments" / experiment_id
+    entrypoint = experiment_directory / "run.py"
+
+    if experiment_directory.is_symlink() or not experiment_directory.is_dir():
+        fail("experiment directory not found")
+    if entrypoint.is_symlink() or not entrypoint.is_file():
+        fail("experiment entrypoint not found")
+
+    os.chdir(repository)
+    source_root = str(repository / "src")
+    existing_pythonpath = os.environ.get("PYTHONPATH")
+    os.environ["PYTHONPATH"] = (
+        f"{source_root}{os.pathsep}{existing_pythonpath}"
+        if existing_pythonpath
+        else source_root
+    )
+    os.execv(sys.executable, [sys.executable, str(entrypoint), *sys.argv[2:]])
+
+
+if __name__ == "__main__":
+    main()

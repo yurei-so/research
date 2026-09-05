@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prosody Demo</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Conversation laboratory</p>
+        <h1>Prosody Demo</h1>
+        <p>Compare conventional endpointing with measured conversational cues.</p>
+      </header>
+      <section class="controls" aria-label="Demo controls">
+        <label>Ollama model
+          <select id="model"><option>Loading models…</option></select>
+        </label>
+        <fieldset>
+          <legend>Endpoint mode</legend>
+          <label><input type="radio" name="mode" value="baseline" checked> A · Silence / VAD</label>
+          <label><input type="radio" name="mode" value="prosody"> B · Measured prosody</label>
+        </fieldset>
+        <label class="toggle"><input id="auto-send" type="checkbox"> Auto-send speech</label>
+        <button id="reset" type="button">New session</button>
+      </section>
+      <section class="telemetry">
+        <div>
+          <h2>Latest measurement</h2>
+          <output id="prosody">No recorded turn yet.</output>
+        </div>
+        <div>
+          <h2>Latest response timing</h2>
+          <output id="timing">No completed turn yet.</output>
+        </div>
+      </section>
+      <section class="comparison" aria-labelledby="comparison-title">
+        <div class="comparison-heading">
+          <h2 id="comparison-title">Last A/B comparison</h2>
+          <output id="turn-delta">Complete another turn to see a round-trip delta.</output>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Measurement</th><th>A · Silence</th><th>B · Prosody</th><th>Δ B−A</th></tr>
+          </thead>
+          <tbody id="comparison-body">
+            <tr><th>Endpoint wait</th><td>—</td><td>—</td><td>—</td></tr>
+            <tr><th>Transcription pipeline</th><td>—</td><td>—</td><td>—</td></tr>
+            <tr><th>Ollama round trip</th><td>—</td><td>—</td><td>—</td></tr>
+            <tr><th>Post-speech total</th><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p>Latest turn from each mode; different speech and model output can affect the result.</p>
+      </section>
+      <section id="status" class="status" aria-live="polite">Connecting to Ollama…</section>
+      <section id="messages" class="messages" aria-live="polite"></section>
+      <form id="composer">
+        <label for="prompt">Message</label>
+        <div class="compose-row">
+          <textarea id="prompt" rows="3" maxlength="16000" required placeholder="Type a test turn…"></textarea>
+          <button id="record" class="record" type="button">Start mic</button>
+          <button id="send" type="submit">Send</button>
+        </div>
+      </form>
+    </main>
+    <script src="/endpointing.js" defer></script>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

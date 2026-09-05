@@ -1,0 +1,18 @@
+[Unit]
+Description=Conversation Prosody Pipeline Labnote 005 branch predictions
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/alu52/github/conversation-prosody-pipeline
+ExecStart=/usr/bin/python3 /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_005/run_predictions.py --run-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-005/predictions
+Restart=on-abnormal
+RestartSec=10
+Nice=10
+IOSchedulingClass=idle
+Environment=PYTHONUNBUFFERED=1
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

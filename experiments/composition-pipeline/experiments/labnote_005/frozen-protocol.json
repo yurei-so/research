@@ -1,0 +1,16 @@
+{
+  "format": "composition-pipeline.frozen-protocol",
+  "version": 1,
+  "experiment_id": "labnote_005",
+  "title": "Stochastic deduplicated optional editor campaign",
+  "model": "qwen3:8b",
+  "base_seed": 20260825,
+  "temperature": 0.35,
+  "num_predict": 768,
+  "planned_trials": 240,
+  "matched_assignments": 120,
+  "protocol_revision": "stochastic-deduplicated-review-v1",
+  "review_inclusion": "Self-match each optional final output against its exact pre-editor candidate. Count normalized-identical outputs as automatic ties. Content-hash normalized unordered changed pairs and include exactly one representative of each unique pair in blinded review.",
+  "multiplicity_policy": "Preserve duplicate changed-trial multiplicity as aggregate telemetry but never present duplicates as independent human-review items or independent inferential samples.",
+  "decision_boundary": "Inspect diversity before review intake. Do not open a chamber whose unique changed-pair count is too small to justify operator review, and do not promote optional editing from a conditional subset alone."
+}

@@ -1,0 +1,15 @@
+{
+  "confidence_threshold": 0.0,
+  "development_rows": 1500,
+  "development_safe_reuse_rate": 0.09969788519637462,
+  "development_subscription_requests": 449,
+  "development_total_net_saved_ms": 25123.40028,
+  "development_wasted_compute_ms": 236317.271858,
+  "frozen_before_held_out_selector_generation": true,
+  "runtime_cancellation": {
+    "misses_before_close": 1,
+    "topic_mismatch_closes": true,
+    "ttl_max_turns": 3
+  },
+  "selection_rule": "maximize development total latency subject to at least 70% waste reduction versus always-on"
+}

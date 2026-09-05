@@ -29,3 +29,6 @@ evidence trail and links to the exact graduated revision.
 6. Treat repository retirement, redirects, and remote changes as separate,
    reviewable operations.
 
+Migrated labnotes use the repository's
+[versioned metadata contract](labnote-metadata.md). Metadata exists to index and
+preview the canonical Markdown; it does not replace the scientific narrative.

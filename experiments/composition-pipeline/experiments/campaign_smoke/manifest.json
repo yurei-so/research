@@ -1,0 +1,15 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "campaign_smoke",
+  "axes": {
+    "arm": ["direct", "constrained"],
+    "case": ["alpha", "beta"]
+  },
+  "repetitions": 2,
+  "limits": {
+    "max_trials": 8,
+    "retry_count": 0,
+    "max_failures": 0
+  }
+}

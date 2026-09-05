@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec /home/alu52/github/conversation-prosody-pipeline/.venv-kokoro/bin/python \
+  /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_009/run_native_stress.py \
+  --source-run /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-004/oracle-synthesis \
+  --output-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-009/native-stress-v1
+

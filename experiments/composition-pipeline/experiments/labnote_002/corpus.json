@@ -1,0 +1,36 @@
+{
+  "format": "composition-pipeline.seeded-corpus",
+  "version": 1,
+  "cases": [
+    {
+      "id": "architecture-boundary",
+      "task": "Produce one concise operator-facing paragraph explaining that queued interactive work has priority but cannot interrupt a live accelerator lease.",
+      "draft": "Interactive jobs are always most important. They can interrupt any experiment immediately. The accelerator coordinator coordinates accelerator jobs. This priority rule is absolute and has no exceptions."
+    },
+    {
+      "id": "checkpoint-clarity",
+      "task": "Revise this into two clear sentences distinguishing durable checkpoints from warm caches without repetition.",
+      "draft": "A checkpoint survives a restart. A warm cache can make work faster. Checkpoints survive restarts because they are durable. Warm caches are also checkpoints, although they disappear after restarts."
+    },
+    {
+      "id": "safe-failure",
+      "task": "Make this a friendly two-sentence developer message that accurately describes safe rejection of malformed edit operations.",
+      "draft": "Your edit was bad. We threw everything away. Try again and maybe use valid operations next time. The current draft might still exist."
+    },
+    {
+      "id": "bounded-safeguards",
+      "task": "Return exactly three concise safeguards for a model-accessible virtual text buffer and do not mention desktop automation.",
+      "draft": "1. Bound the buffer. 2. Validate operations. 3. Emulate desktop input. 4. Keep every intermediate forever."
+    },
+    {
+      "id": "status-note",
+      "task": "Turn this into a calm operational status note with no contradiction and no unsupported certainty.",
+      "draft": "The campaign definitely failed, but all trials completed successfully. The GPU may be idle. There is no need to inspect the authoritative run state because the dashboard is always correct."
+    },
+    {
+      "id": "replacement-tradeoff",
+      "task": "Explain briefly why exact-match replacement is a safe initial choice while acknowledging its main limitation.",
+      "draft": "Exact-match replacement is perfect and works for every document. Cursor offsets are always unsafe. Exact matching has no ambiguity and never fails."
+    }
+  ]
+}

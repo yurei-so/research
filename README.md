@@ -9,6 +9,8 @@ interpret them in one place.
 
 - `experiments/` — bounded research projects and their labnotes.
 - `apparatus/` — reusable evaluation, annotation, and review tools.
+- `demos/` — research-derived demonstrations that preserve an experimental
+  connection but have their own runnable surface.
 - `docs/` — repository-wide governance, migration records, and decisions.
 - `references/` — pointers to projects that graduated into standalone repos.
 
@@ -17,6 +19,7 @@ service, or tool. Graduation moves product ownership, not the research record:
 this repository retains protocols, results, provenance, and a durable reference
 to the standalone project.
 
-See [research governance](docs/governance.md) and the
+See [research governance](docs/governance.md), the
+[experiment inventory](docs/experiment-inventory.md), the
+[labnote metadata contract](docs/labnote-metadata.md), and the
 [migration ledger](docs/migration-ledger.md).
-

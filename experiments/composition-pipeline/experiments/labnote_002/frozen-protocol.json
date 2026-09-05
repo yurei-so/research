@@ -1,0 +1,23 @@
+{
+  "format": "composition-pipeline.frozen-protocol",
+  "version": 1,
+  "experiment_id": "labnote_002",
+  "title": "Seeded mandatory-revision campaign",
+  "model": "qwen3:8b",
+  "base_seed": 20260822,
+  "temperature": 0,
+  "num_predict": 768,
+  "planned_trials": 48,
+  "arms": ["direct_rewrite", "schema_revision"],
+  "prompt_styles": ["concise", "preservation_first"],
+  "primary_measurements": [
+    "protocol_success",
+    "revision_operation_count",
+    "visible_character_count",
+    "generated_token_count",
+    "draft_similarity",
+    "latency_seconds",
+    "blinded_operator_scores"
+  ],
+  "decision_boundary": "Mechanical results may advance outputs to blinded review but cannot establish writing quality or justify fine-tuning."
+}

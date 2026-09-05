@@ -1,0 +1,19 @@
+[Unit]
+Description=Conversation Prosody Pipeline Labnote 004 inference matrix
+After=network.target
+OnSuccess=cpp-labnote-004-synthesis.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/alu52/github/conversation-prosody-pipeline
+ExecStart=/usr/bin/python3 /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_004/run_inference.py --run-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-004/inference
+Restart=on-abnormal
+RestartSec=10
+Nice=10
+IOSchedulingClass=idle
+Environment=PYTHONUNBUFFERED=1
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

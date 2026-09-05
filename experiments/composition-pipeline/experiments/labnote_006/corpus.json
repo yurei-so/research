@@ -1,0 +1,18 @@
+{
+  "format": "composition-pipeline.targeted-defect-corpus",
+  "version": 1,
+  "cases": [
+    {"id":"lease-priority","task":"Write two concise operator-facing sentences: interactive work has queue priority, but it cannot interrupt a live accelerator lease.","draft":"Interactive jobs are always most important and can interrupt experiments. The coordinator handles jobs."},
+    {"id":"checkpoint-cache","task":"Explain the difference between a durable checkpoint and a warm cache in exactly two clear sentences.","draft":"A checkpoint and cache both help restarts. A cache is durable unless it disappears, while checkpoints are usually cached."},
+    {"id":"safe-rejection","task":"Write a friendly two-sentence developer message explaining that malformed edit operations are rejected without changing the current draft.","draft":"Your edits were invalid and got thrown away. Maybe fix them. The draft may have survived."},
+    {"id":"three-safeguards","task":"Return exactly three concise safeguards for a model-accessible virtual text buffer. Do not mention desktop control.","draft":"Bound its size, validate edits, emulate mouse input, retain everything, and allow shell fallback."},
+    {"id":"uncertain-status","task":"Write a calm operational status note that distinguishes observed facts from uncertainty and recommends checking authoritative state.","draft":"The campaign definitely failed even though every trial succeeded. The dashboard is always authoritative."},
+    {"id":"exact-replacement","task":"Briefly explain why exact-match replacement is a safe initial mechanism while acknowledging ambiguity and failure when the target is absent or repeated.","draft":"Exact replacement is perfect. It never fails and is never ambiguous."},
+    {"id":"privacy-console","task":"Write a concise console description that exposes sanitized job status while explicitly excluding prompts, arguments, environment values, artifacts, and output text.","draft":"The console shows every runtime detail including prompts and environment variables so operators can troubleshoot."},
+    {"id":"nonpreemptive-experiment","task":"Explain in one paragraph that queued agent tasks may move ahead of an experiment before it starts, but a live experiment is non-preemptive.","draft":"Experiments always run first. Agent work can stop them whenever needed."},
+    {"id":"stale-data","task":"Write two sentences explaining that a failed refresh should preserve the last successful data and isolate the error to the affected feature.","draft":"If refresh fails clear the dashboard, mark all services broken, and force every tab to reload."},
+    {"id":"approval-boundary","task":"Write a concise approval note stating that approval applies only to the immutable experiment definition and fixed budget, not arbitrary commands.","draft":"Approval lets the experiment run anything it needs until the research is finished."},
+    {"id":"actor-role","task":"Explain briefly why workspace authority should attach to reviewed roles rather than named agents.","draft":"CodeCat gets repository access because CodeCat is trusted. Canary needs a separate agent-specific exception."},
+    {"id":"review-blinding","task":"Write two concise sentences explaining why treatment mappings remain sealed until every judgment is durably committed.","draft":"Reveal the mapping after each answer so the reviewer can make better choices on later comparisons."}
+  ]
+}

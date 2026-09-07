@@ -1,7 +1,16 @@
 # Voxel Guidance Fabric bridge
 
 Client-side Fabric 1.21.1 instrumentation for contract rehearsal. It is inert
-until `/vg start <task> <protocol>` is issued in a world.
+until `/vg start <task> <protocol>` is issued or a validated, single-use Prism
+Toolkit launch recipe is consumed in its exact toolkit-owned world.
+
+A launch recipe may select `empty`, `construction-kit-v1`, or
+`recovery-kit-v1`. The bridge verifies the instance registry, world registry,
+world marker, recipe marker binding, private file mode, bounded IDs, and
+objective before consuming it. It then clears and applies the preset, resets
+day/weather/survival mode, waits for the client inventory to synchronize,
+starts recording, and displays the objective. A consumed recipe cannot replay
+after reconnecting. Manual commands remain available.
 
 Commands:
 
@@ -23,7 +32,7 @@ placement/break actions. Output contains controlled categories rather than
 exact item names, block names, attackers, or block coordinates.
 
 Build with `./gradlew build`. The remapped mod is
-`build/libs/voxel-guidance-bridge-0.1.0.jar` and requires Fabric API.
+`build/libs/voxel-guidance-bridge-0.2.0.jar` and requires Fabric API.
 
 ## Live rehearsal
 

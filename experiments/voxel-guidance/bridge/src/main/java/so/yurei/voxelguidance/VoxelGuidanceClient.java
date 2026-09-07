@@ -17,11 +17,15 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public final class VoxelGuidanceClient implements ClientModInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger("voxel-guidance-bridge");
     private final SessionRecorder recorder = new SessionRecorder();
+    private final LaunchRecipeManager launchRecipes = new LaunchRecipeManager();
 
     @Override
     public void onInitializeClient() {
         LOGGER.info("Voxel Guidance Bridge initialized; recording is off");
-        ClientTickEvents.END_CLIENT_TICK.register(recorder::tick);
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            launchRecipes.tick(client, recorder);
+            recorder.tick(client);
+        });
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> recorder.disconnect(client));
         AttackBlockCallback.EVENT.register((player, world, hand, position, direction) -> {
             recorder.watchBreak(world, position);

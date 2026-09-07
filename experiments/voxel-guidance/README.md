@@ -30,3 +30,11 @@ Raw event streams, coordinates, world identifiers, and free text remain
 owner-private. Public artifacts contain protocols, code, aggregate vectors,
 uncertainty, and documented limitations only.
 
+The [version-1 event contract](docs/event-contract-v1.md) and first
+implementation slice live in `src/voxel_guidance`: a strict event validator and
+a transparent session-feature compiler. It intentionally emits auditable
+measurements rather than a learned tensor or claimed fingerprint.
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests -v
+```

@@ -38,6 +38,18 @@
       "world_settings_valid": true,
       "apparatus_manifest_valid": true,
       "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-a-construct",
+      "attempt": 1,
+      "status": "accepted",
+      "duration_seconds": 444.178,
+      "contract_valid": true,
+      "explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
     }
   ]
 }

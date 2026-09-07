@@ -60,6 +60,16 @@ rather than spending more operator attention or tuning against spent holdouts.
   a research-derived runnable demonstration under `demos/prosody-demo`; it must
   continue pointing back to the Prosody evidence that bounds its claims.
 
+## Voxel Guidance family
+
+Infrastructure: `yurei-so/prism-toolkit`, local branch
+`feat/owned-instance-boundary` at `bb1aa2a`. Prism Toolkit is a standalone
+launcher-control dependency; experimental protocols and evidence remain here.
+
+| ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
+| --- | --- | --- | --- | --- | --- |
+| `voxel-guidance-001` | Minecraft behavioral-vector pilot | Planned | Pending | `minecraft`, `behavioral-telemetry`, `repeated-measures`, `human-in-the-loop` | Begin with a narrow telemetry/marker contract and instrumentation rehearsal. Only the toolkit-owned lab instance is in collection scope. |
+
 ## Migration checks
 
 Before marking either family imported:

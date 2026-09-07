@@ -102,9 +102,27 @@ Otherwise the outcome is negative or inconclusive and preserved as such.
 The version-1 event contract and transparent feature compiler pass their
 contract tests. The Fabric bridge built and initialized in an isolated live
 launcher rehearsal on 2026-09-07; recording remained off and no world was
-opened. The restored convenience-mod set presently has an unrelated
-Accessories/Trinkets initialization conflict, so the in-world start/marker/stop
-rehearsal remains pending.
+opened. A subsequent Accessories/Trinkets compatibility problem in the restored
+convenience-mod set was corrected before the in-world rehearsal.
 
-Proceed only with that instrumentation rehearsal. Do not collect pilot evidence
-until the task battery and analysis plan are frozen.
+### First in-world rehearsal
+
+After the mod compatibility issue was corrected, a private in-world rehearsal
+completed successfully:
+
+- duration: 382.572 seconds;
+- 385 contiguous events: start, 382 position samples, one controlled marker,
+  and a clean `stopped` boundary;
+- event-file permissions: owner read/write only (`0600`);
+- sampling cadence: approximately one position sample per second;
+- derived spatial summary: 50 coarse 16-block cells, 808.50 blocks of path
+  distance, and 0.513 route directness; and
+- no raw coordinates or route map were promoted into the research record.
+
+This is instrumentation evidence only. Inventory, block-action, damage, and
+recovery coordinates remain zero because the rehearsal bridge does not emit
+those events yet. Crash recovery and multi-session separation remain untested,
+so Phase 0 is not complete.
+
+Proceed only with the remaining Phase 0 instrumentation checks. Do not collect
+pilot evidence until the task battery and analysis plan are frozen.

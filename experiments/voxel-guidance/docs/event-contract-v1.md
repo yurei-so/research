@@ -43,6 +43,13 @@ Position samples are raw private apparatus data. The compiler reduces them to
 distance and coarse 16-block occupancy cells. It does not export an occupancy
 map, retain block contents, or feed a learned spatial tensor.
 
+The bridge derives inventory changes from one-second category snapshots and
+flushes a final snapshot on clean closure. Damage is observed from client health
+loss and therefore uses the conservative `other` source category; it does not
+guess an attacker. Block events are emitted only after a previously observed
+interaction is confirmed by a matching world-state change. Exact item IDs,
+block IDs, inventory contents, and block coordinates are not emitted.
+
 ## Controlled values
 
 - Dimensions: `overworld`, `nether`, `end`.

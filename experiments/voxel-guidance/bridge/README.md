@@ -16,6 +16,11 @@ disconnect callback closes the session as `disconnected` without guessing its
 cause. A hard process termination that cannot deliver that callback leaves the
 stream incomplete; analysis rejects it rather than inventing an end event.
 
+While recording, the bridge observes one-second position and coarse inventory
+snapshots, health/death/respawn transitions, and world-confirmed block
+placement/break actions. Output contains controlled categories rather than
+exact item names, block names, attackers, or block coordinates.
+
 Build with `./gradlew build`. The remapped mod is
 `build/libs/voxel-guidance-bridge-0.1.0.jar` and requires Fabric API.
 

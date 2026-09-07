@@ -96,6 +96,20 @@ class ContractTests(unittest.TestCase):
             events[-1]["payload"]["reason"] = reason
             self.assertEqual(validate_session(events)[-1]["payload"]["reason"], reason)
 
+    def test_accepts_remaining_bounded_telemetry_vocabulary(self) -> None:
+        events = [
+            event(0, "session_start", {"protocol_id": "rehearsal-v1"}, 0),
+            event(1, "inventory_delta", {"category": "tool", "delta": 1}, 1),
+            event(2, "block_action", {"action": "broken", "category": "resource", "count": 1}, 2),
+            event(3, "damage", {"amount": 20.0, "source_category": "other"}, 3),
+            event(4, "death", {}, 3),
+            event(5, "respawn", {}, 4),
+            event(6, "session_end", {"reason": "explicit_stop"}, 5),
+        ]
+        checked = validate_session(events)
+        self.assertEqual([item["kind"] for item in checked[1:-1]],
+                         ["inventory_delta", "block_action", "damage", "death", "respawn"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,6 +5,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.world.InteractionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +23,14 @@ public final class VoxelGuidanceClient implements ClientModInitializer {
         LOGGER.info("Voxel Guidance Bridge initialized; recording is off");
         ClientTickEvents.END_CLIENT_TICK.register(recorder::tick);
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> recorder.disconnect(client));
+        AttackBlockCallback.EVENT.register((player, world, hand, position, direction) -> {
+            recorder.watchBreak(world, position);
+            return InteractionResult.PASS;
+        });
+        UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
+            recorder.watchPlacement(player, world, hand, hit);
+            return InteractionResult.PASS;
+        });
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(
                 literal("vg")
                     .then(literal("start")

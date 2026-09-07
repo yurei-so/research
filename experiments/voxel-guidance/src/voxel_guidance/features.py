@@ -40,7 +40,18 @@ def compile_session_features(events: Any, *, cell_size: int = 16) -> dict[str, A
     markers = [event for event in checked if event["kind"] == "marker"]
     marker_counts = {name: sum(event["payload"]["marker"] == name for event in markers)
                      for name in ("plan_started", "plan_revised", "setback", "recovered", "task_complete")}
-    acquired = [event for event in checked if event["kind"] == "inventory_delta" and event["payload"]["delta"] > 0]
+    acquired = []
+    recovery_window = False
+    excluded_inventory_events = 0
+    for event in checked:
+        if event["kind"] == "death":
+            recovery_window = True
+        elif event["kind"] == "marker" and event["payload"]["marker"] == "recovered":
+            recovery_window = False
+        elif event["kind"] == "inventory_delta" and recovery_window:
+            excluded_inventory_events += 1
+        elif event["kind"] == "inventory_delta" and event["payload"]["delta"] > 0:
+            acquired.append(event)
     acquired_total = sum(event["payload"]["delta"] for event in acquired)
     selected_resources = sum(event["payload"]["delta"] for event in acquired
                              if event["payload"]["category"] == "resource")
@@ -57,6 +68,7 @@ def compile_session_features(events: Any, *, cell_size: int = 16) -> dict[str, A
         "task_id": checked[0]["task_id"],
         "event_count": len(checked),
         "duration_seconds": duration,
+        "quality": {"inventory_events_excluded_during_recovery": excluded_inventory_events},
         "metrics": {
             "exploration_cells": len(visited),
             "path_distance": path_distance,

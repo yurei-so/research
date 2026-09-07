@@ -110,6 +110,22 @@ class ContractTests(unittest.TestCase):
         self.assertEqual([item["kind"] for item in checked[1:-1]],
                          ["inventory_delta", "block_action", "damage", "death", "respawn"])
 
+    def test_excludes_post_death_inventory_churn_until_recovery_marker(self) -> None:
+        events = [
+            event(0, "session_start", {"protocol_id": "rehearsal-v1"}, 0),
+            event(1, "inventory_delta", {"category": "resource", "delta": 2}, 1),
+            event(2, "death", {}, 2),
+            event(3, "inventory_delta", {"category": "resource", "delta": -10}, 3),
+            event(4, "respawn", {}, 4),
+            event(5, "inventory_delta", {"category": "resource", "delta": 10}, 5),
+            event(6, "marker", {"marker": "recovered"}, 6),
+            event(7, "inventory_delta", {"category": "building", "delta": 2}, 7),
+            event(8, "session_end", {"reason": "explicit_stop"}, 8),
+        ]
+        result = compile_session_features(events)
+        self.assertEqual(result["quality"]["inventory_events_excluded_during_recovery"], 2)
+        self.assertEqual(result["metrics"]["resource_selectivity"], 0.5)
+
 
 if __name__ == "__main__":
     unittest.main()

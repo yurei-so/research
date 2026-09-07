@@ -50,6 +50,11 @@ guess an attacker. Block events are emitted only after a previously observed
 interaction is confirmed by a matching world-state change. Exact item IDs,
 block IDs, inventory contents, and block coordinates are not emitted.
 
+For derived acquisition and construction metrics, inventory deltas after a
+death are excluded until a controlled `recovered` marker. This prevents death
+drops and their recollection from masquerading as newly selected resources.
+The compiler reports the excluded event count as a quality diagnostic.
+
 ## Controlled values
 
 - Dimensions: `overworld`, `nether`, `end`.

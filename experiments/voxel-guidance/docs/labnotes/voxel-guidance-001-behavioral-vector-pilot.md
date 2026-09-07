@@ -185,6 +185,25 @@ Phase 0 is complete. Hard-termination handling is deliberately fail-closed:
 from compilation, not guessing how or when the process died. Feature
 compilation is deterministic under the same validated event input.
 
-Proceed to implementing the remaining declared event sources, then freeze the
-task battery and analysis plan. None of the rehearsal streams may enter pilot
-evidence.
+### Full event-surface rehearsal
+
+`rehearsal-005` exercised the expanded bridge in one 76.046-second session. Its
+120 contiguous events included 76 positions, 25 coarse inventory deltas, 11
+world-confirmed block actions, three health-loss observations, one death, one
+later respawn, one setback marker, and a clean `explicit_stop`. All event
+channels validated under the version-1 contract.
+
+The death rehearsal exposed a second analysis confound: inventory removal and
+recollection around death initially inflated acquisition denominators. The
+compiler now excludes inventory deltas from a death until a controlled
+`recovered` marker. Nineteen such events were excluded in this rehearsal and
+reported as a quality diagnostic. The corrected construction-allocation value
+was 0.138 rather than the confounded 0.037. Because no recovery marker was
+issued, no post-death inventory activity entered acquisition metrics.
+
+This rehearsal remains apparatus evidence only. Exact item/block identities,
+block coordinates, attackers, and raw routes were never emitted.
+
+The declared event sources have now passed an in-world rehearsal. Proceed to
+freezing the task battery and analysis plan. None of the rehearsal streams may
+enter pilot evidence.

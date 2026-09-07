@@ -142,5 +142,20 @@ recovery coordinates remain zero because the rehearsal bridge does not emit
 those events yet. Multi-session separation has passed; crash recovery remains
 untested, so Phase 0 is not complete.
 
+### World-exit rehearsal
+
+In `rehearsal-003`, recording was started and the world was exited without an
+explicit `/vg stop`. The bridge received the graceful disconnect event and
+produced:
+
+- a 5.969-second owner-private stream;
+- one start, five position samples, and exactly one clean session end;
+- end reason `stopped`;
+- a third distinct session identity with no cross-session events; and
+- valid compilation with marker latency left unobserved (`null`).
+
+This validates automatic closure on ordinary world exit. It does not validate
+hard-crash behavior: the game remained able to execute its disconnect handler.
+
 Proceed only with the remaining Phase 0 instrumentation checks. Do not collect
 pilot evidence until the task battery and analysis plan are frozen.

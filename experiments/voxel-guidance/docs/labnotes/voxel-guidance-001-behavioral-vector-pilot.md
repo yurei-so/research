@@ -139,8 +139,8 @@ rejects duplicate session identities.
 
 These are instrumentation results only. Inventory, block-action, damage, and
 recovery coordinates remain zero because the rehearsal bridge does not emit
-those events yet. Multi-session separation has passed; crash recovery remains
-untested, so Phase 0 is not complete.
+those events yet. Multi-session separation passed here; termination behavior
+was tested separately below.
 
 ### World-exit rehearsal
 
@@ -169,7 +169,22 @@ callback. The old bridge therefore labeled the end `stopped`, which could not
 distinguish explicit stop, world exit, and managed crash. Future bridge output
 uses `explicit_stop` for `/vg stop` and the cause-neutral `disconnected` for the
 callback. Historical `stopped` streams remain valid. Hard termination without
-a callback remains to be tested.
+a callback was therefore tested separately.
 
-Proceed only with the remaining Phase 0 instrumentation checks. Do not collect
-pilot evidence until the task battery and analysis plan are frozen.
+### Hard-termination rehearsal
+
+In `rehearsal-004`, the Minecraft window was terminated with `xkill` while
+recording. The owner-private stream contains one start and 15 contiguous
+position samples, ending at sequence 15 with no session end. The validator
+rejects it specifically because its session boundary is incomplete. No repair,
+usable feature vector, or synthetic crash end is produced, and the four earlier
+recordings remain unchanged.
+
+Phase 0 is complete. Hard-termination handling is deliberately fail-closed:
+"recovery" means retaining an auditable incomplete stream while excluding it
+from compilation, not guessing how or when the process died. Feature
+compilation is deterministic under the same validated event input.
+
+Proceed to implementing the remaining declared event sources, then freeze the
+task battery and analysis plan. None of the rehearsal streams may enter pilot
+evidence.

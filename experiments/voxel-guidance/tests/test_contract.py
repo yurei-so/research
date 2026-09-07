@@ -33,6 +33,7 @@ class ContractTests(unittest.TestCase):
         events = self.fixture()
         self.assertEqual(validate_session(events), events)
         result = compile_session_features(events)
+        self.assertEqual(result, compile_session_features(events))
         self.assertEqual(result["metrics"]["exploration_cells"], 2)
         self.assertEqual(result["metrics"]["route_directness"], 1.0)
         self.assertEqual(result["metrics"]["resource_selectivity"], 1.0)

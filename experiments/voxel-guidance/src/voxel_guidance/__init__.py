@@ -1,5 +1,4 @@
-from .contract import ContractError, validate_session
+from .contract import ContractError, validate_session, validate_session_set
 from .features import compile_session_features
 
-__all__ = ["ContractError", "compile_session_features", "validate_session"]
-
+__all__ = ["ContractError", "compile_session_features", "validate_session", "validate_session_set"]

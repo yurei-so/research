@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from voxel_guidance import ContractError, compile_session_features, validate_session
+from voxel_guidance import ContractError, compile_session_features, validate_session, validate_session_set
 
 
 def event(sequence: int, kind: str, payload: dict, second: int) -> dict:
@@ -75,6 +75,19 @@ class ContractTests(unittest.TestCase):
         events[1]["payload"]["x"] = float("nan")
         with self.assertRaisesRegex(ContractError, "finite"):
             validate_session(events)
+
+    def test_missing_marker_is_not_encoded_as_maximal_latency(self) -> None:
+        events = [item for item in self.fixture() if item["kind"] != "marker"]
+        for sequence, item in enumerate(events):
+            item["sequence"] = sequence
+        self.assertIsNone(compile_session_features(events)["metrics"]["first_marker_latency_fraction"])
+
+    def test_session_set_requires_distinct_session_ids(self) -> None:
+        first = self.fixture()
+        second = self.fixture()
+        self.assertEqual(len(validate_session_set([first])), 1)
+        with self.assertRaisesRegex(ContractError, "duplicate session_id"):
+            validate_session_set([first, second])
 
 
 if __name__ == "__main__":

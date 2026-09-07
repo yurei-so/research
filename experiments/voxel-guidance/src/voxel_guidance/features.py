@@ -49,7 +49,7 @@ def compile_session_features(events: Any, *, cell_size: int = 16) -> dict[str, A
     broken = sum(event["payload"]["count"] for event in block_events if event["payload"]["action"] == "broken")
     duration = (_time(checked[-1]["observed_at"]) - _time(checked[0]["observed_at"])).total_seconds()
     marker_latency = ((_time(markers[0]["observed_at"]) - _time(checked[0]["observed_at"])).total_seconds()
-                      if markers else duration)
+                      if markers else None)
     return {
         "format": "voxel-guidance.session-features",
         "version": 1,
@@ -65,7 +65,6 @@ def compile_session_features(events: Any, *, cell_size: int = 16) -> dict[str, A
             "resource_selectivity": _ratio(selected_resources, acquired_total),
             "setback_recovery_rate": _ratio(marker_counts["recovered"], marker_counts["setback"]),
             "construction_allocation": _ratio(placed, placed + broken + acquired_total),
-            "first_marker_latency_fraction": _ratio(marker_latency, duration),
+            "first_marker_latency_fraction": _ratio(marker_latency, duration) if marker_latency is not None else None,
         },
     }
-

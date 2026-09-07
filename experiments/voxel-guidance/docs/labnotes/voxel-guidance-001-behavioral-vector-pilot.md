@@ -119,10 +119,28 @@ completed successfully:
   distance, and 0.513 route directness; and
 - no raw coordinates or route map were promoted into the research record.
 
-This is instrumentation evidence only. Inventory, block-action, damage, and
+### Second in-world rehearsal
+
+A separate `rehearsal-002` stream also validated successfully:
+
+- duration: 194.992 seconds;
+- 197 contiguous events: start, 195 position samples, and a clean `stopped`
+  boundary;
+- event-file permissions: owner read/write only (`0600`);
+- derived spatial summary: 7 coarse cells, 223.37 blocks of path distance, and
+  0.005 route directness; and
+- a distinct session identity and task identity, with no event mixing between
+  the two rehearsals.
+
+The second session intentionally contained no marker. It exposed an ambiguity
+in the compiler: missing marker latency had been encoded as `1.0`. The compiler
+now emits `null` for an unobserved first marker, and the session-set validator
+rejects duplicate session identities.
+
+These are instrumentation results only. Inventory, block-action, damage, and
 recovery coordinates remain zero because the rehearsal bridge does not emit
-those events yet. Crash recovery and multi-session separation remain untested,
-so Phase 0 is not complete.
+those events yet. Multi-session separation has passed; crash recovery remains
+untested, so Phase 0 is not complete.
 
 Proceed only with the remaining Phase 0 instrumentation checks. Do not collect
 pilot evidence until the task battery and analysis plan are frozen.

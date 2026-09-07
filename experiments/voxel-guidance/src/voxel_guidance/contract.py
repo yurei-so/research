@@ -124,3 +124,13 @@ def validate_session(events: Any) -> list[dict[str, Any]]:
         if sequence and sequence < len(checked) - 1 and event["kind"] in {"session_start", "session_end"}:
             raise ContractError("duplicate session boundary")
     return checked
+
+
+def validate_session_set(sessions: Any) -> list[list[dict[str, Any]]]:
+    if not isinstance(sessions, list) or not sessions:
+        raise ContractError("session set must be a nonempty array")
+    checked = [validate_session(events) for events in sessions]
+    identities = [events[0]["session_id"] for events in checked]
+    if len(set(identities)) != len(identities):
+        raise ContractError("duplicate session_id in session set")
+    return checked

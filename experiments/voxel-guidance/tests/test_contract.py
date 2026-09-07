@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import unittest
+import json
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
-from voxel_guidance import ContractError, compile_session_features, validate_session, validate_session_set
+from voxel_guidance import (ContractError, compile_pilot, compile_session_features,
+                            validate_protocol, validate_session, validate_session_set)
 
 
 def event(sequence: int, kind: str, payload: dict, second: int) -> dict:
@@ -125,6 +129,83 @@ class ContractTests(unittest.TestCase):
         result = compile_session_features(events)
         self.assertEqual(result["quality"]["inventory_events_excluded_during_recovery"], 2)
         self.assertEqual(result["metrics"]["resource_selectivity"], 0.5)
+
+
+ROOT = Path(__file__).parents[1]
+
+
+def pilot_event(session_id: str, task_id: str, sequence: int, kind: str,
+                payload: dict, second: int) -> dict:
+    observed = datetime(2026, 9, 8, tzinfo=timezone.utc) + timedelta(seconds=second)
+    return {
+        "format": "voxel-guidance.event", "version": 1,
+        "session_id": session_id, "sequence": sequence,
+        "observed_at": observed.isoformat().replace("+00:00", "Z"),
+        "instance_id": "Voxel Guidance Lab", "task_id": task_id,
+        "kind": kind, "payload": payload,
+    }
+
+
+def pilot_session(task_id: str, task: str) -> list[dict]:
+    rows = [
+        ("session_start", {"protocol_id": "pilot-v1"}, 0),
+        ("marker", {"marker": "plan_started"}, 10),
+        ("position_sample", {"x": 0, "y": 64, "z": 0, "dimension": "overworld"}, 20),
+        ("position_sample", {"x": 64, "y": 64, "z": 32, "dimension": "overworld"}, 100),
+    ]
+    if task == "acquire":
+        rows += [("inventory_delta", {"category": "resource", "delta": 4}, 150),
+                 ("position_sample", {"x": 2, "y": 64, "z": 1, "dimension": "overworld"}, 300)]
+    elif task == "construct":
+        rows += [("block_action", {"action": "placed", "category": "building", "count": 8}, 150),
+                 ("inventory_delta", {"category": "building", "delta": -8}, 151)]
+    elif task == "recover":
+        rows += [("marker", {"marker": "setback"}, 120), ("damage", {"amount": 20, "source_category": "other"}, 121),
+                 ("death", {}, 121), ("respawn", {}, 130), ("marker", {"marker": "recovered"}, 200)]
+    rows += [("marker", {"marker": "task_complete"}, 470),
+             ("session_end", {"reason": "explicit_stop"}, 480)]
+    return [pilot_event("session-" + task_id, task_id, index, kind, payload, second)
+            for index, (kind, payload, second) in enumerate(rows)]
+
+
+class PilotTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.protocol = json.loads((ROOT / "experiments/labnote_001/frozen-protocol.json").read_text())
+        cls.manifest = json.loads((ROOT / "experiments/labnote_001/modpack-manifest.json").read_text())
+
+    def sessions(self) -> list[list[dict]]:
+        return [pilot_session(f"vg-{block['id']}-{task}", task)
+                for block in self.protocol["blocks"] for task in block["order"]]
+
+    def test_frozen_protocol_and_manifest_are_bound(self) -> None:
+        result = validate_protocol(self.protocol, self.manifest)
+        self.assertEqual(len(result["protocol_digest"]), 64)
+        self.assertEqual(len(result["manifest_digest"]), 64)
+
+    def test_compiles_only_aggregate_deterministic_fingerprint(self) -> None:
+        sessions = self.sessions()
+        first = compile_pilot(self.protocol, self.manifest, sessions)
+        self.assertEqual(first, compile_pilot(self.protocol, self.manifest, sessions))
+        self.assertEqual(first["session_count"], 12)
+        self.assertEqual(set(first["coordinates"]), set(self.protocol["fingerprint_coordinates"]))
+        self.assertNotIn("sessions", first)
+        self.assertNotIn("blocks", first)
+
+    def test_rejects_incomplete_matrix_and_nonexplicit_stop(self) -> None:
+        sessions = self.sessions()
+        with self.assertRaisesRegex(ContractError, "matrix is incomplete"):
+            compile_pilot(self.protocol, self.manifest, sessions[:-1])
+        sessions = self.sessions()
+        sessions[0][-1]["payload"]["reason"] = "disconnected"
+        with self.assertRaisesRegex(ContractError, "explicit stop"):
+            compile_pilot(self.protocol, self.manifest, sessions)
+
+    def test_rejects_manifest_drift(self) -> None:
+        manifest = json.loads(json.dumps(self.manifest))
+        next(mod for mod in manifest["mods"] if mod["file"] == "voxel-guidance-bridge-0.1.0.jar")["sha256"] = "0" * 64
+        with self.assertRaisesRegex(ContractError, "bridge digest mismatch"):
+            validate_protocol(self.protocol, manifest)
 
 
 if __name__ == "__main__":

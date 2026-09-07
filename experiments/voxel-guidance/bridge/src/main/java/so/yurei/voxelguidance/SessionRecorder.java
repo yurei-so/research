@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.time.Instant;
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -36,6 +37,7 @@ final class SessionRecorder {
     private String taskId;
     private int sequence;
     private int ticks;
+    private Instant startedAt;
     private Map<String, Integer> inventory = Map.of();
     private float previousHealth;
     private boolean previousDead;
@@ -56,6 +58,7 @@ final class SessionRecorder {
         taskId = task;
         sequence = 0;
         ticks = 0;
+        startedAt = Instant.now();
         inventory = inventorySnapshot(client.player);
         previousHealth = client.player.getHealth();
         previousDead = client.player.isDeadOrDying();
@@ -114,7 +117,8 @@ final class SessionRecorder {
             payload.addProperty("dimension", dimension);
             write("position_sample", payload);
             sampleInventory(client.player);
-            notify(client, "RECORDING " + taskId);
+            long elapsed = Duration.between(startedAt, Instant.now()).toSeconds();
+            notify(client, "RECORDING " + taskId + " " + (elapsed / 60) + ":" + String.format("%02d", elapsed % 60));
         } catch (IOException error) {
             fail(client, error);
         }

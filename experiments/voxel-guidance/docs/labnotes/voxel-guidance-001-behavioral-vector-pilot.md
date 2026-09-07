@@ -204,6 +204,32 @@ issued, no post-death inventory activity entered acquisition metrics.
 This rehearsal remains apparatus evidence only. Exact item/block identities,
 block coordinates, attackers, and raw routes were never emitted.
 
-The declared event sources have now passed an in-world rehearsal. Proceed to
-freezing the task battery and analysis plan. None of the rehearsal streams may
-enter pilot evidence.
+## Frozen pilot design
+
+The pre-collection protocol is frozen at digest
+`320e6bf8a8e2a3978e6125da3be5c2e0b4db52b1e8bea869b41b17225c65877c`.
+The live 22-mod apparatus exactly matched manifest digest
+`ebcb2db3723b6398b696d7b117b5a5dcee81242ed677d2a3cb97bb3b284acb59`
+at freeze time.
+
+The battery contains 12 eight-minute sessions: exploration, acquisition,
+construction, and controlled recovery tasks across three seed blocks. Worlds
+within a block share a seed but remain separate saves. Task order is rotated
+across blocks to reduce simple order effects. Sessions under seven minutes,
+over ten minutes, lacking an explicit stop, or missing required markers are
+excluded under predeclared rules.
+
+The compiled fingerprint has seven coordinates: exploration breadth, route
+closure, plan revision rate, resource selectivity, construction allocation,
+recovery efficiency, and deliberation latency. Each coordinate is aggregated
+at the seed-block level, receives a 95% block-bootstrap interval, and reports a
+leave-one-block-out range. Missing values remain `null`; there is no learned
+embedding, imputation, or single combined score.
+
+The compiler refuses incomplete or duplicate session matrices and emits no
+session- or block-level vectors. Public projection is limited to aggregate
+coordinates, uncertainty, exclusions, protocol and apparatus digests, and the
+claim boundary.
+
+The event sources, task battery, and analysis plan are frozen. Pilot collection
+may begin in protocol order. None of the rehearsal streams may enter evidence.

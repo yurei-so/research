@@ -44,3 +44,7 @@ default and controlled in-game with `/vg start <task> <protocol>`, `/vg marker
 <name>`, `/vg status`, and `/vg stop`. The bridge independently verifies the
 toolkit registry, instance marker, and `Prism Toolkit` group before creating a
 private session stream.
+
+The frozen pilot schedule, world setup, modpack manifest, and aggregate-only
+compiler are under `experiments/labnote_001/`. The pilot is 12 eight-minute
+sessions; do not reuse the five rehearsal streams as evidence.

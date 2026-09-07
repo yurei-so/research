@@ -15,6 +15,7 @@ While active, a `RECORDING` action-bar indicator remains visible. A delivered
 disconnect callback closes the session as `disconnected` without guessing its
 cause. A hard process termination that cannot deliver that callback leaves the
 stream incomplete; analysis rejects it rather than inventing an end event.
+The indicator includes elapsed `mm:ss` time for protocol timing.
 
 While recording, the bridge observes one-second position and coarse inventory
 snapshots, health/death/respawn transitions, and world-confirmed block

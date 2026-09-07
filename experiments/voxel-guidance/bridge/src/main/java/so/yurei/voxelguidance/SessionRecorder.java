@@ -90,7 +90,7 @@ final class SessionRecorder {
 
     synchronized void disconnect(Minecraft client) {
         if (writer == null) return;
-        try { stop(client, "stopped"); }
+        try { stop(client, "disconnected"); }
         catch (IOException error) { fail(client, error); }
     }
 
@@ -132,4 +132,3 @@ final class SessionRecorder {
         if (client.player != null) client.player.displayClientMessage(Component.literal("[Voxel Guidance] " + message), true);
     }
 }
-

@@ -33,7 +33,7 @@ ALLOWED = {
     "block_category": {"building", "resource", "functional", "other"},
     "damage_source": {"environment", "mob", "player", "other"},
     "marker": {"plan_started", "plan_revised", "setback", "recovered", "task_complete"},
-    "end_reason": {"completed", "stopped", "crash_recovered"},
+    "end_reason": {"completed", "stopped", "explicit_stop", "disconnected", "crash_recovered"},
 }
 
 

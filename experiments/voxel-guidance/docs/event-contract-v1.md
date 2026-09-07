@@ -33,7 +33,7 @@ event in a stream has the same session, task, and instance identity, begins with
 | `death` | empty object |
 | `respawn` | empty object |
 | `marker` | one controlled marker name |
-| `session_end` | `completed`, `stopped`, or `crash_recovered` reason |
+| `session_end` | `explicit_stop`, `disconnected`, `completed`, or `crash_recovered` reason |
 
 Unknown envelope or payload fields are rejected. In particular, the contract
 has no place for player/account names, chat, server addresses, world names,
@@ -56,3 +56,7 @@ This vocabulary is intentionally small. Adding a kind, field, or controlled
 value requires a new contract version or an explicitly backward-compatible
 revision with matching validator and bridge tests.
 
+`stopped` remains accepted for the first three rehearsal streams. New bridge
+builds distinguish an explicit `/vg stop` from a neutral `disconnected` event.
+Minecraft's managed debug crash can still deliver a disconnect callback, so
+`disconnected` deliberately makes no claim about why the connection closed.

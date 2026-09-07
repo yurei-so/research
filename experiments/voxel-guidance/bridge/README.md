@@ -9,11 +9,12 @@ Commands:
   NDJSON session.
 - `/vg marker <name>` — append one controlled marker.
 - `/vg status` — show whether recording is active.
-- `/vg stop` — append a clean session boundary and close the stream.
+- `/vg stop` — append an `explicit_stop` boundary and close the stream.
 
-While active, a `RECORDING` action-bar indicator remains visible. Disconnecting
-closes the session as `stopped`. A process crash leaves the stream incomplete;
-analysis rejects it rather than inventing an end event.
+While active, a `RECORDING` action-bar indicator remains visible. A delivered
+disconnect callback closes the session as `disconnected` without guessing its
+cause. A hard process termination that cannot deliver that callback leaves the
+stream incomplete; analysis rejects it rather than inventing an end event.
 
 Build with `./gradlew build`. The remapped mod is
 `build/libs/voxel-guidance-bridge-0.1.0.jar` and requires Fabric API.
@@ -28,4 +29,3 @@ The user's larger mod selection was restored after the isolated check. That
 selection currently fails later during Trinkets static-component registration
 through the Accessories compatibility stack. This does not implicate the
 bridge, but it must be reconciled before an in-world command rehearsal.
-

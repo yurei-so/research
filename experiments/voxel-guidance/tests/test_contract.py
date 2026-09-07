@@ -89,6 +89,12 @@ class ContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "duplicate session_id"):
             validate_session_set([first, second])
 
+    def test_accepts_precise_modern_end_reasons(self) -> None:
+        for reason in ("explicit_stop", "disconnected"):
+            events = self.fixture()
+            events[-1]["payload"]["reason"] = reason
+            self.assertEqual(validate_session(events)[-1]["payload"]["reason"], reason)
+
 
 if __name__ == "__main__":
     unittest.main()

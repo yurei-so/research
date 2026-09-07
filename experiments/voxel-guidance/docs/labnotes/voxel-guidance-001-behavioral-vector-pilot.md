@@ -157,5 +157,19 @@ produced:
 This validates automatic closure on ordinary world exit. It does not validate
 hard-crash behavior: the game remained able to execute its disconnect handler.
 
+### Managed debug-crash rehearsal
+
+A second recording reused the human-facing `rehearsal-003` task ID and was
+terminated with Minecraft's F3+C debug crash. It created a new UUID-backed file
+rather than overwriting the earlier rehearsal. The 39-event stream retained
+owner-only permissions, contiguous sequencing, and exactly one end boundary.
+
+F3+C also performs enough orderly shutdown to deliver Fabric's disconnect
+callback. The old bridge therefore labeled the end `stopped`, which could not
+distinguish explicit stop, world exit, and managed crash. Future bridge output
+uses `explicit_stop` for `/vg stop` and the cause-neutral `disconnected` for the
+callback. Historical `stopped` streams remain valid. Hard termination without
+a callback remains to be tested.
+
 Proceed only with the remaining Phase 0 instrumentation checks. Do not collect
 pilot evidence until the task battery and analysis plan are frozen.

@@ -34,7 +34,7 @@ public final class VoxelGuidanceClient implements ClientModInitializer {
                             .executes(context -> run(context.getSource().getClient(), () -> recorder.marker(
                                     context.getSource().getClient(), StringArgumentType.getString(context, "name"))))))
                     .then(literal("stop").executes(context -> run(context.getSource().getClient(),
-                            () -> recorder.stop(context.getSource().getClient(), "stopped"))))
+                            () -> recorder.stop(context.getSource().getClient(), "explicit_stop"))))
                     .then(literal("status").executes(context -> {
                         SessionRecorder.notify(context.getSource().getClient(), recorder.active() ? "recording" : "idle");
                         return 1;

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "voxel-guidance-bridge",
+  "version": "${version}",
+  "name": "Voxel Guidance Bridge",
+  "description": "Explicit, bounded telemetry and marker bridge for the Voxel Guidance experiment.",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["so.yurei.voxelguidance.VoxelGuidanceClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

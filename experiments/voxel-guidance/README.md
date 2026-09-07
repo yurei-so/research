@@ -38,3 +38,9 @@ measurements rather than a learned tensor or claimed fingerprint.
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests -v
 ```
+
+`bridge/` contains the Fabric 1.21.1 rehearsal bridge. Recording is off by
+default and controlled in-game with `/vg start <task> <protocol>`, `/vg marker
+<name>`, `/vg status`, and `/vg stop`. The bridge independently verifies the
+toolkit registry, instance marker, and `Prism Toolkit` group before creating a
+private session stream.

@@ -1,4 +1,5 @@
 .venv/
+.gradle/
 node_modules/
 __pycache__/
 *.py[cod]
@@ -12,4 +13,3 @@ import/
 .env
 .env.*
 !.env.example
-

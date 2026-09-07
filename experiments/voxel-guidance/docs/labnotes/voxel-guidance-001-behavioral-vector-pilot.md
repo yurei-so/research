@@ -99,6 +99,12 @@ Otherwise the outcome is negative or inconclusive and preserved as such.
 
 ## Current decision
 
-Proceed only with the telemetry/marker contract and bridge rehearsal. Do not
-collect pilot evidence until the task battery and analysis plan are frozen.
+The version-1 event contract and transparent feature compiler pass their
+contract tests. The Fabric bridge built and initialized in an isolated live
+launcher rehearsal on 2026-09-07; recording remained off and no world was
+opened. The restored convenience-mod set presently has an unrelated
+Accessories/Trinkets initialization conflict, so the in-world start/marker/stop
+rehearsal remains pending.
 
+Proceed only with that instrumentation rehearsal. Do not collect pilot evidence
+until the task battery and analysis plan are frozen.

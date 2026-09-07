@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -64,7 +65,7 @@ final class LaunchRecipeManager {
         String end = active.recipe.onDurationEnd;
         recorder.stop(client, "explicit_stop");
         active = null;
-        if ("stop_and_exit_world".equals(end)) client.disconnect();
+        if ("stop_and_exit_world".equals(end)) client.disconnect(new TitleScreen());
         else if ("stop_and_quit_game".equals(end)) client.stop();
     }
 

@@ -3,6 +3,10 @@
 This directory freezes the 12-session pilot. Rehearsals 001–005 are apparatus
 tests and must not be copied into pilot inputs.
 
+`collection-ledger.json` records owner-safe acceptance and exclusion receipts.
+It deliberately omits raw session identifiers, file paths, routes, events, and
+session-level behavioral vectors.
+
 ## World preparation
 
 Create one fresh single-player world for every scheduled session. Name it
@@ -43,4 +47,3 @@ After respawning, mark `/vg marker recovered` only when a viable state has
 actually been restored. Complete every block in its frozen order. Do not rerun
 or replace a session after seeing compiled results; record interruptions and
 apply exclusions before analysis.
-

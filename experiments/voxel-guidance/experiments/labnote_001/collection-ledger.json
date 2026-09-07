@@ -1,0 +1,31 @@
+{
+  "format": "voxel-guidance.collection-ledger",
+  "version": 1,
+  "experiment_id": "voxel-guidance-001",
+  "protocol_digest": "320e6bf8a8e2a3978e6125da3be5c2e0b4db52b1e8bea869b41b17225c65877c",
+  "manifest_digest": "ebcb2db3723b6398b696d7b117b5a5dcee81242ed677d2a3cb97bb3b284acb59",
+  "privacy": "Owner-safe collection receipts only. Raw session IDs, paths, routes, events, and session vectors are excluded.",
+  "attempts": [
+    {
+      "task_id": "vg-block-a-explore",
+      "attempt": 1,
+      "status": "excluded",
+      "duration_seconds": 503.853,
+      "reason": "world_seed_mismatch",
+      "expected_seed": "5514116794647692161",
+      "observed_seed": "-3104547116601193410"
+    },
+    {
+      "task_id": "vg-block-a-explore",
+      "attempt": 2,
+      "status": "accepted",
+      "duration_seconds": 482.775,
+      "contract_valid": true,
+      "explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
+    }
+  ]
+}

@@ -12,6 +12,13 @@ day/weather/survival mode, waits for the client inventory to synchronize,
 starts recording, and displays the objective. A consumed recipe cannot replay
 after reconnecting. Manual commands remain available.
 
+Recipe automation supports bounded elapsed-time, exact inventory-item,
+spawn-distance, death/respawn-count, confirmed block-action, `all`, and `any`
+predicates. One-shot rules may emit a controlled marker or invoke the single
+bounded action `kill_player`. At the declared duration the bridge first writes
+and closes an `explicit_stop` boundary, then optionally exits the world or
+quits the client. Subjective milestones remain manual markers.
+
 Commands:
 
 - `/vg start <task> <protocol>` — verify toolkit ownership and begin a private

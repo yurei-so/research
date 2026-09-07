@@ -41,6 +41,9 @@ final class SessionRecorder {
     private Map<String, Integer> inventory = Map.of();
     private float previousHealth;
     private boolean previousDead;
+    private int deathCount;
+    private int respawnCount;
+    private final Map<String, Integer> blockActionCounts = new HashMap<>();
     private final Map<BlockPos, PendingBlock> pendingBlocks = new HashMap<>();
 
     synchronized void start(Minecraft client, String task, String protocol) throws IOException {
@@ -62,6 +65,9 @@ final class SessionRecorder {
         inventory = inventorySnapshot(client.player);
         previousHealth = client.player.getHealth();
         previousDead = client.player.isDeadOrDying();
+        deathCount = 0;
+        respawnCount = 0;
+        blockActionCounts.clear();
         pendingBlocks.clear();
         Path output = directory.resolve(sessionId + ".ndjson");
         writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8,
@@ -181,8 +187,8 @@ final class SessionRecorder {
             payload.addProperty("source_category", "other");
             write("damage", payload);
         }
-        if (!previousDead && dead) write("death", new JsonObject());
-        else if (previousDead && !dead) write("respawn", new JsonObject());
+        if (!previousDead && dead) { write("death", new JsonObject()); deathCount++; }
+        else if (previousDead && !dead) { write("respawn", new JsonObject()); respawnCount++; }
         previousHealth = health;
         previousDead = dead;
     }
@@ -204,6 +210,7 @@ final class SessionRecorder {
                 payload.addProperty("category", pending.category());
                 payload.addProperty("count", 1);
                 write("block_action", payload);
+                blockActionCounts.merge((pending.expected() == null ? "broken" : "placed") + ":" + pending.category(), 1, Integer::sum);
                 iterator.remove();
             }
         }
@@ -269,6 +276,16 @@ final class SessionRecorder {
         try { if (writer != null) writer.close(); } catch (IOException ignored) {}
         writer = null;
         notify(client, "recording failed: " + error.getMessage());
+    }
+
+    synchronized long elapsedSeconds() {
+        return startedAt == null ? 0 : Duration.between(startedAt, Instant.now()).toSeconds();
+    }
+
+    synchronized int deathCount() { return deathCount; }
+    synchronized int respawnCount() { return respawnCount; }
+    synchronized int blockActionCount(String action, String category) {
+        return blockActionCounts.getOrDefault(action + ":" + category, 0);
     }
 
     private record PendingBlock(BlockPos position, Block original, Block expected, String category,

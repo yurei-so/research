@@ -172,6 +172,21 @@
       "world_settings_valid": true,
       "apparatus_manifest_valid": true,
       "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-b-recover",
+      "attempt": 1,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.022,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "recovery_event_order_valid": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
     }
   ]
 }

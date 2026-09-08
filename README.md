@@ -24,7 +24,7 @@ See [research governance](docs/governance.md), the
 [labnote metadata contract](docs/labnote-metadata.md), and the
 [migration ledger](docs/migration-ledger.md).
 
-## Public observation window
+## Public research library
 
 The research library site is a generated public projection, not a repository
 mirror. Labnotes opt in with `publish: true`; the build validates their

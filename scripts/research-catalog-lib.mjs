@@ -105,8 +105,7 @@ export function collectCatalog(root) {
   const families = [...new Set(labnotes.map((note) => note.family))].sort().map((id) => {
     const notes = labnotes.filter((note) => note.family === id);
     const latest = [...notes].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id))[0];
-    const status = notes.some((note) => ["running", "planned", "awaiting-review"].includes(note.status)) ? "active" : "complete";
-    return { id, title: familyTitle(id), status, labnote_count: notes.length, latest_labnote_id: latest.id,
+    return { id, title: familyTitle(id), labnote_count: notes.length, latest_labnote_id: latest.id,
       outcomes: Object.fromEntries([...outcomes].sort().map((outcome) => [outcome, notes.filter((note) => note.outcome === outcome).length]).filter(([, count]) => count)) };
   });
   let revision = "unknown";

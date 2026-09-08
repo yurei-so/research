@@ -33,6 +33,23 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const tags = note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const title = escapeHtml(record.metadata.title);
   const question = escapeHtml(record.metadata.question);
+  const relationCard = (id, current = false) => {
+    const related = manifest.labnotes.find((entry) => entry.id === id);
+    if (!related) throw new Error(`${note.id}: public relation target ${id} is missing`);
+    const content = `<span class="lineage-id">${escapeHtml(related.id)}</span><strong>${escapeHtml(related.title)}</strong><span class="lineage-meta"><span data-outcome="${related.outcome}">${escapeHtml(related.outcome)}</span> · ${escapeHtml(related.date)}</span>`;
+    return current ? `<div class="lineage-card current" aria-current="page">${content}</div>`
+      : `<a class="lineage-card" href="../${escapeHtml(related.id)}/">${content}</a>`;
+  };
+  const follows = note.relations.follows.map((id) => relationCard(id)).join("");
+  const continuedBy = note.relations.continued_by.map((id) => relationCard(id)).join("");
+  const lineage = follows || continuedBy ? `<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards">${follows || '<span class="lineage-empty">No earlier note</span>'}</div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards">${relationCard(note.id, true)}</div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards">${continuedBy || '<span class="lineage-empty">No published follow-up</span>'}</div></div>
+</div></nav>` : "";
   const page = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
@@ -43,6 +60,7 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
 <article class="labnote"><header class="note-header"><div class="eyebrow">LABNOTE / ${escapeHtml(note.family)}</div><h1>${title}</h1>
 <div class="note-vitals"><span>${note.id}</span><span>${note.date}</span><span data-outcome="${note.outcome}">${note.outcome}</span><span>${note.status}</span></div>
 <p class="question">${question}</p><div class="tags">${tags}</div></header>
+${lineage}
 <div class="note-body">${renderMarkdown(record.body)}</div></article></main>
 <footer><span>YUREI RESEARCH</span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);

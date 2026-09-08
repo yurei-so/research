@@ -36,6 +36,6 @@ metadata contract and tests before building. GitHub receives only `dist/` as
 the deployment artifact. The workflow has read-only repository access plus the
 minimal Pages and identity-token permissions required for deployment.
 
-The public manifest drives the observation deck, research stream, filters,
+The public manifest drives the research-area index, labnote list, filters,
 outcome counts, labnote routes, and future feeds. Those views must not grow
 independent hand-maintained indexes.

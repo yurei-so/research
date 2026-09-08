@@ -4,7 +4,7 @@ const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll(
 
 function familyCard(family) {
   const outcomes = Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("");
-  return `<button class="family-card" data-family="${family.id}" type="button"><span class="cell-state"><i></i>${escapeHtml(family.status)}</span><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published observations</p><div class="outcomes">${outcomes}</div><span class="inspect">ISOLATE CELL →</span></button>`;
+  return `<button class="family-card" data-family="${family.id}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">VIEW LABNOTES →</span></button>`;
 }
 
 function noteCard(note) {
@@ -40,7 +40,7 @@ async function boot() {
     if (!card) return;
     family = family === card.dataset.family ? "" : card.dataset.family;
     render();
-    $(".archive").scrollIntoView({ behavior: "smooth", block: "start" });
+    $(".archive").scrollIntoView({ block: "start" });
   });
   render();
 }

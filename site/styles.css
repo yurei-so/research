@@ -20,15 +20,14 @@ html { background: var(--ground); scroll-behavior: smooth; }
 body { margin: 0; overflow-x: hidden; color: var(--ink); background: radial-gradient(circle at 80% 0%, #11101d 0, transparent 32rem), var(--ground); font-family: var(--sans); line-height: 1.55; }
 a { color: inherit; }
 .terminal-bar, footer { min-height: 3.5rem; padding: 0 4vw; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: .68rem var(--mono); letter-spacing: .13em; }
-.wordmark { color: var(--ink); text-decoration: none; font-weight: 700; }
-.signal { display: inline-block; width: .48rem; height: .48rem; margin-right: .75rem; border-radius: 50%; background: var(--signal); box-shadow: 0 0 1rem #a98aff88; }
+.wordmark { display: inline-flex; align-items: center; gap: .65rem; color: var(--ink); text-decoration: none; font-weight: 700; }
+.wordmark img { width: 1.15rem; height: 1.15rem; image-rendering: pixelated; }
 main { width: min(1180px, 92vw); margin: auto; }
-.hero { min-height: 35rem; padding: 8rem 0 5rem; border-bottom: 1px solid var(--line); }
+.hero { padding: 5.5rem 0 4.5rem; border-bottom: 1px solid var(--line); }
 .eyebrow { color: var(--signal); font: .7rem var(--mono); letter-spacing: .16em; text-transform: uppercase; }
-.hero h1 { max-width: 830px; margin: 1.35rem 0 1.75rem; font-size: clamp(3.2rem, 8vw, 7.6rem); font-weight: 520; line-height: .91; letter-spacing: -.065em; }
-.hero h1 em { color: var(--muted); font-style: normal; font-weight: 350; }
+.hero h1 { max-width: 830px; margin: .8rem 0 1.25rem; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 520; line-height: 1; letter-spacing: -.045em; }
 .hero > p { max-width: 620px; color: #a9afbc; font-size: 1.1rem; }
-.hero-readout { display: flex; flex-wrap: wrap; gap: 2rem 4rem; margin-top: 4rem; color: var(--muted); font: .7rem var(--mono); letter-spacing: .12em; }
+.hero-readout { display: flex; flex-wrap: wrap; gap: 2rem 4rem; margin-top: 3rem; color: var(--muted); font: .7rem var(--mono); letter-spacing: .12em; }
 .hero-readout b { display: block; margin-bottom: .3rem; color: var(--ink); font-size: 1.15rem; letter-spacing: 0; }
 .deck, .archive { padding: 5rem 0; border-bottom: 1px solid var(--line); }
 .section-heading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2rem; }
@@ -40,9 +39,7 @@ main { width: min(1180px, 92vw); margin: auto; }
 .family-card { min-height: 16rem; padding: 1.7rem; border: 0; color: inherit; background: var(--surface); text-align: left; cursor: pointer; transition: background .18s ease; }
 .family-card:hover, .family-card.selected { background: var(--surface-2); }
 .family-card.selected { box-shadow: inset 3px 0 var(--signal); }
-.cell-state { color: var(--muted); font: .65rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-.cell-state i { display: inline-block; width: .35rem; height: .35rem; margin-right: .5rem; border-radius: 50%; background: var(--green); }
-.family-card h3 { margin: 2.5rem 0 .25rem; font-size: 1.55rem; font-weight: 500; }
+.family-card h3 { margin: .25rem 0; font-size: 1.55rem; font-weight: 500; }
 .family-card p { margin: 0; color: var(--muted); }
 .outcomes, .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
 .outcomes span, .tags span { padding: .23rem .45rem; border: 1px solid var(--line); color: var(--muted); font: .61rem var(--mono); text-transform: uppercase; }
@@ -92,7 +89,7 @@ tr:last-child td { border-bottom: 0; }
 th:last-child, td:last-child { border-right: 0; }
 @media (max-width: 720px) {
   .terminal-bar { padding: 0 1rem; } .terminal-bar > span:last-child { display: none; }
-  .hero { padding-top: 5rem; } .hero h1 { font-size: clamp(2.65rem, 13vw, 4rem); } .family-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding-top: 4rem; } .hero h1 { font-size: clamp(2.5rem, 12vw, 3.5rem); } .family-grid { grid-template-columns: minmax(0, 1fr); }
   .section-heading { align-items: start; flex-direction: column; }
   .controls { grid-template-columns: 1fr; } #result-count { text-align: left; }
   .feed-entry { grid-template-columns: 1fr 1.5rem; gap: 1rem; }

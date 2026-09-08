@@ -18,9 +18,9 @@ if (mode === "check") {
 const output = path.join(root, "dist");
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(path.join(output, "assets"), { recursive: true });
-for (const name of ["index.html", "styles.css", "app.js"]) {
+for (const name of ["index.html", "styles.css", "app.js", "favicon.png"]) {
   const source = path.join(root, "site", name);
-  const destination = name === "index.html" ? path.join(output, name) : path.join(output, "assets", name);
+  const destination = ["index.html", "favicon.png"].includes(name) ? path.join(output, name) : path.join(output, "assets", name);
   fs.copyFileSync(source, destination);
 }
 fs.writeFileSync(path.join(output, "research-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
@@ -36,15 +36,15 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const page = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
-<meta name="description" content="${question}"><title>${escapeHtml(record.metadata.id)} — Yurei Research</title>
+<meta name="description" content="${question}"><title>${escapeHtml(record.metadata.id)} — Yurei Research</title><link rel="icon" href="../../favicon.png" type="image/png">
 <link rel="stylesheet" href="../../assets/styles.css"></head><body>
-<header class="terminal-bar"><a class="wordmark" href="../../"><span class="signal"></span>YUREI RESEARCH</a><span>PUBLIC OBSERVATION TERMINAL</span></header>
-<main class="note-shell"><a class="back" href="../../">← Return to observation deck</a>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
 <article class="labnote"><header class="note-header"><div class="eyebrow">LABNOTE / ${escapeHtml(note.family)}</div><h1>${title}</h1>
 <div class="note-vitals"><span>${note.id}</span><span>${note.date}</span><span data-outcome="${note.outcome}">${note.outcome}</span><span>${note.status}</span></div>
 <p class="question">${question}</p><div class="tags">${tags}</div></header>
 <div class="note-body">${renderMarkdown(record.body)}</div></article></main>
-<footer><span>CURATED PUBLIC PROJECTION</span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
+<footer><span>YUREI RESEARCH</span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);
 }
 console.log(`Built public research library with ${manifest.labnotes.length} labnotes in dist/.`);

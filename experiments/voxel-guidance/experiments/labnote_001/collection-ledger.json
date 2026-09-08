@@ -129,6 +129,20 @@
       "world_settings_valid": true,
       "apparatus_manifest_valid": true,
       "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-a-recover",
+      "attempt": 2,
+      "collection_epoch": 2,
+      "analysis_included": false,
+      "status": "excluded",
+      "duration_seconds": 480.001,
+      "reason": "missing_required_recovered_marker",
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "setback_event_order_valid": true,
+      "required_markers_exactly_once": false,
+      "private_file_mode_valid": true
     }
   ]
 }

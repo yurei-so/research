@@ -101,6 +101,20 @@
       "world_settings_valid": true,
       "apparatus_manifest_valid": true,
       "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-a-acquire",
+      "attempt": 2,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.009,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
     }
   ]
 }

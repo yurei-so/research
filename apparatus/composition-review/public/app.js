@@ -4,6 +4,7 @@ const complete = $("#complete");
 const errorPanel = $("#error");
 const dimensions = ["clarity", "fidelity", "concision", "naturalness"];
 let current = null;
+let currentScalar = null;
 let busy = false;
 let reviewMode = "text";
 let activeDimensions = dimensions;
@@ -59,7 +60,8 @@ function secondaryScores() {
 }
 
 function renderSession(session) {
-  current = session.pair;
+  current = session.pair ?? null;
+  currentScalar = session.item ?? null;
   reviewMode = session.mode ?? "text";
   const { completed: done, total } = session.progress;
   $("#progressLabel").textContent = `${Math.min(done + (session.complete ? 0 : 1), total)} / ${total}`;
@@ -75,17 +77,40 @@ function renderSession(session) {
   }
   $("#audioGate").classList.add("hidden");
   errorPanel.classList.add("hidden"); complete.classList.add("hidden"); review.classList.remove("hidden");
-  $("#task").textContent = current.task;
-  $("#draft").textContent = current.draft;
-  $("#textResponses").classList.toggle("hidden", reviewMode === "audio");
+  const scalar = reviewMode === "scalar";
+  const context = scalar ? currentScalar : current;
+  $("#task").textContent = scalar ? context.instruction : context.task;
+  $("#draft").textContent = scalar ? JSON.stringify(context.story_state, null, 2) : context.draft;
+  $("#scalarResponse").classList.toggle("hidden", !scalar);
+  $("#pairDecision").classList.toggle("hidden", scalar);
+  $("#textResponses").classList.toggle("hidden", scalar || reviewMode === "audio");
   $("#audioResponses").classList.toggle("hidden", reviewMode !== "audio");
-  if (reviewMode === "audio") {
+  if (scalar) {
+    $("#scalarContinuation").textContent = context.continuation;
+    const grid = $("#scalarScoreGrid"); grid.replaceChildren();
+    for (const dimension of context.dimensions) {
+      const label = document.createElement("label");
+      const name = document.createElement("strong"); name.textContent = dimension.replaceAll("_", " ");
+      const anchors = document.createElement("span");
+      anchors.textContent = `− ${context.anchors[dimension].negative} · + ${context.anchors[dimension].positive}`;
+      const select = document.createElement("select"); select.dataset.scalarDimension = dimension;
+      for (let value = context.score_range[0]; value <= context.score_range[1]; value += 1) {
+        const option = document.createElement("option"); option.value = String(value);
+        option.textContent = value > 0 ? `+${value}` : String(value); select.append(option);
+      }
+      select.value = "0"; label.append(name, anchors, select); grid.append(label);
+    }
+    const confidence = $("#scalarConfidence"); confidence.replaceChildren();
+    for (let value = context.confidence_range[0]; value <= context.confidence_range[1]; value += 1) {
+      const option = document.createElement("option"); option.value = String(value); option.textContent = String(value); confidence.append(option);
+    }
+  } else if (reviewMode === "audio") {
     $("#audioA").src = current.audio_a; $("#audioB").src = current.audio_b;
   } else {
     $("#responseA").textContent = current.response_a;
     $("#responseB").textContent = current.response_b;
   }
-  resetScores(current.criteria);
+  if (!scalar) resetScores(current.criteria);
   window.scrollTo({ top: 0, behavior: done ? "smooth" : "auto" });
 }
 
@@ -106,9 +131,29 @@ async function choose(choice) {
   }
 }
 
+async function commitScalar() {
+  if (busy || !currentScalar) return;
+  const scores = Object.fromEntries([...document.querySelectorAll("[data-scalar-dimension]")]
+    .map((select) => [select.dataset.scalarDimension, Number(select.value)]));
+  busy = true; review.classList.add("busy");
+  try {
+    renderSession(await request("/api/judgments", { method: "POST", body: JSON.stringify({
+      item_id: currentScalar.item_id, scores, confidence: Number($("#scalarConfidence").value),
+    }) }));
+  } catch (error) { showError(`Could not save this judgment: ${error.message}`); }
+  finally { busy = false; review.classList.remove("busy"); }
+}
+
 async function renderResults() {
   try {
     const results = await request("/api/results");
+    if (results.format === "composition-review.scalar-complete") {
+      review.classList.add("hidden"); errorPanel.classList.add("hidden"); complete.classList.remove("hidden");
+      $("#progressLabel").textContent = `${results.judgment_count} / ${results.judgment_count}`;
+      $("#progressBar").style.width = "100%"; $("#resultCards").replaceChildren();
+      $("#resultNote").textContent = "The blinded score set is complete and ready for analysis with the separate reveal file.";
+      return;
+    }
     const baseline = results.baseline_arm ?? "direct_rewrite";
     const treatment = results.treatment_arm;
     const baselineLabel = baseline.split("_").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
@@ -156,4 +201,5 @@ $("#beginAudioReview").addEventListener("click", () => {
   if (!$("#audioReadyCheck").checked) return;
   sessionStorage.setItem("composition_audio_ready", "yes"); void load();
 });
+$("#commitScalar").addEventListener("click", () => void commitScalar());
 void load();

@@ -11,6 +11,15 @@ if (!new Set(["apply", "check"]).has(mode)) {
 }
 
 const families = {
+  "narrative-steering": {
+    directory: "experiments/narrative-steering/docs/labnotes",
+    pattern: /^narrative-steering-(\d{3})-.*\.md$/,
+    dates: { "001": "2026-09-05", "002": "2026-09-05" },
+    statuses: { "001": "complete", "002": "complete" },
+    outcomes: { "001": "positive", "002": "mixed" },
+    lineage: { "001": [], "002": ["narrative-steering-001"] },
+    baseTags: ["human-review", "model-comparison", "narrative-steering", "story-engine"],
+  },
   prosody: {
     directory: "experiments/conversation-prosody-pipeline/docs/labnotes",
     pattern: /^labnote-(\d{3})-.*\.md$/,
@@ -182,5 +191,5 @@ for (const [familyName, family] of Object.entries(families)) {
   }
 }
 
-if (count !== 34) throw new Error(`expected 34 labnotes, found ${count}`);
+if (count !== 36) throw new Error(`expected 36 labnotes, found ${count}`);
 console.log(`${mode === "apply" ? "Applied" : "Validated"} metadata for ${count} labnotes.`);

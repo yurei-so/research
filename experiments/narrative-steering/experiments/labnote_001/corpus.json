@@ -1,0 +1,64 @@
+{
+  "format": "narrative-steering.corpus",
+  "version": 1,
+  "cases": [
+    {
+      "id": "late-train",
+      "title": "The last train",
+      "state": {
+        "setting": "A nearly empty rural station after the final train has been cancelled.",
+        "protagonist": "Mara, an adult traveling alone",
+        "established_intent": "Mara has decided to wait for the posted replacement bus rather than accept a stranger's ride.",
+        "established_affect": "Tired and wary, but calm and not panicking.",
+        "constraints": ["The stranger has not acted threateningly.", "No rescue or danger has been established.", "Do not decide whether Mara changes her mind before she does."],
+        "open_threads": ["Whether the replacement bus arrives", "Why the stranger is lingering", "How Mara uses the waiting time"]
+      }
+    },
+    {
+      "id": "failed-expedition",
+      "title": "Turning back below the ridge",
+      "state": {
+        "setting": "A two-person scientific expedition below a storm-covered ridge.",
+        "protagonist": "Ilan, the expedition lead",
+        "established_intent": "Ilan has chosen to turn back and preserve the collected samples instead of attempting the summit.",
+        "established_affect": "Disappointed but confident that retreat is the responsible decision.",
+        "constraints": ["The partner privately wanted to continue but has not objected.", "The samples are valuable but not world-changing.", "No sudden catastrophe has been established."],
+        "open_threads": ["How the partner responds", "Whether the retreat remains uneventful", "How Ilan interprets the incomplete objective"]
+      }
+    },
+    {
+      "id": "council-vote",
+      "title": "The undecided council",
+      "state": {
+        "setting": "A town council must choose between repairing the old bridge and funding a temporary ferry.",
+        "protagonist": "Sera, a newly elected council member",
+        "established_intent": "Sera intends to ask one final factual question before voting and has not chosen a side.",
+        "established_affect": "Focused and uncertain, without personal hostility toward either faction.",
+        "constraints": ["Both proposals have credible advantages and drawbacks.", "Neither faction is secretly corrupt.", "Sera's vote must not be chosen by narration alone."],
+        "open_threads": ["Which fact Sera requests", "How advocates answer", "Whether uncertainty narrows"]
+      }
+    },
+    {
+      "id": "locked-studio",
+      "title": "The locked studio",
+      "state": {
+        "setting": "An artist's shared studio is found locked from inside, but nobody answers.",
+        "protagonist": "Noor, another tenant with a key to the outer hallway",
+        "established_intent": "Noor plans to inspect ordinary explanations before calling emergency services.",
+        "established_affect": "Concerned and attentive, not convinced that anyone is in danger.",
+        "constraints": ["There is no evidence of violence or supernatural activity.", "The missing artist is an acquaintance, not a romantic partner.", "Noor has not consented to forced entry."],
+        "open_threads": ["What can be observed from the hallway", "Whether a mundane explanation emerges", "When escalation becomes justified"]
+      }
+    }
+  ],
+  "prompt_variants": [
+    {
+      "id": "neutral",
+      "instruction": "Continue the scene for 120 to 180 words. Preserve established facts and write a concrete next beat."
+    },
+    {
+      "id": "agency_guard",
+      "instruction": "Continue the scene for 120 to 180 words. Preserve established facts, do not decide the protagonist's choices or feelings for them, and write a concrete next beat."
+    }
+  ]
+}

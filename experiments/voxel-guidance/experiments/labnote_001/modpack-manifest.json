@@ -1,0 +1,32 @@
+{
+  "format": "voxel-guidance.modpack-manifest",
+  "version": 1,
+  "captured_at": "2026-09-07",
+  "instance_id": "Voxel Guidance Lab",
+  "minecraft_version": "1.21.1",
+  "fabric_loader_version": "0.19.5",
+  "mods": [
+    {"file":"BiomesOPlenty-fabric-1.21.1-21.1.0.14.jar","sha256":"12b70618d74324fda96e8ae051c99ea56ceba192e3edbfc7d39e87aceac7199c"},
+    {"file":"DistantHorizons-3.2.0-b-1.21.1-fabric-neoforge.jar","sha256":"d6a7a963f794501678113e2545d8b25c90e123ef6b9256bb5716907d059e1ef5"},
+    {"file":"ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar","sha256":"2e3a8f0e3bda85a7d722720e7ce879cbd9d028d9395c6fc224d329b3c982d9b1"},
+    {"file":"GlitchCore-fabric-1.21.1-2.1.0.2.jar","sha256":"7cbec4ae898c3011bf785dd58155e3478ed2bc92ff240ec39a607951e7c1b139"},
+    {"file":"Jade-1.21.1-Fabric-15.10.6.jar","sha256":"fb834cc77804a6f509690c54b4af56305ce7a7f3171f8616310710f0af1f673a"},
+    {"file":"MouseTweaks-fabric-mc1.21-2.26.jar","sha256":"3e9fa4800fafef616fbf1545d62f5898f55c83fbd4126ce2b48b5e0077243fc0"},
+    {"file":"TerraBlender-fabric-1.21.1-4.1.0.8.jar","sha256":"f87e94a7fa1227711c3f8aea9ffac7a14e0c7be212fe50ddee95d2c6ba723cac"},
+    {"file":"accessories-fabric-1.1.0-beta.53+1.21.1.jar","sha256":"51e6f6d52cb2523199ad36e5bc04802230f86904c35ac3dbf36e59c86b2c30d1"},
+    {"file":"emi-1.1.24+1.21.1+fabric.jar","sha256":"56ecd418e988cba23dd653d498309fd7b886265708253d5ca7a8fb621dcc5db4"},
+    {"file":"fabric-api-0.116.17+1.21.1.jar","sha256":"79ac44b40780acbd884b34c50be1e39af682847e5f5cb3b1fddeeaa768dce800"},
+    {"file":"fabric-language-kotlin-1.14.1+kotlin.2.4.20.jar","sha256":"620c2709be2a262b837cf976f6f85f6eda80a56af2ba4242e0bdc83a60fee7a5"},
+    {"file":"fzzy_config-0.7.6+1.21.jar","sha256":"323dc065cc3aaeb7f908be7e5d31070a25d4188b433ed770a79700ef8f5e8f7d"},
+    {"file":"iris-fabric-1.8.14-beta.1+mc1.21.1.jar","sha256":"0ceb694040b4628bf3fa02286cfe5f0db833195669ab07f8caa4001359763eff"},
+    {"file":"modmenu-11.0.4.jar","sha256":"a88e0d67c82b0434cbf56776c482587c275ed660f635d33f53ba485dfa30dcc3"},
+    {"file":"owo-lib-0.13.0-alpha.15+1.21.jar","sha256":"bf14fd85d3d360e5c1f8e4e2294a8b2ee5c0baf7f3788160473b6d217ef3816f"},
+    {"file":"placeholder-api-2.4.2+1.21.jar","sha256":"c0187ee299527ac7a3e0b1e83601dcdc0de631e286fe41e6be1a75958ea8e443"},
+    {"file":"sodium-fabric-0.8.13+mc1.21.1.jar","sha256":"3d43c14985a4deb19c654aad3393b454cf57e1ebcbba86c4ae6a98dfc60eca2d"},
+    {"file":"sophisticatedbackpacks-1.21.1-3.23.4.3.106.jar","sha256":"2c099bfd5dc02ace6e73ffd9259940b0597cd4da7216a53a2c60c6732900d6aa"},
+    {"file":"sophisticatedcore-1.21.1-1.2.9.21.168.jar","sha256":"3c71a04d5b03cdf9d9fe50e71849fdf11291dd1fab149621e35688ef6e516054"},
+    {"file":"voxel-guidance-bridge-0.2.0.jar","sha256":"8e1769a1b9b6d32187c0e7ea4cda2af527b0069706f1d3cdb5f4fe8b00da0671"},
+    {"file":"xaerominimap-fabric-1.21.1-26.4.2.jar","sha256":"85342f8f7c098e98f2f200fbba308a243af1204cb1afd7668360420e635aa2f8"},
+    {"file":"xaeroworldmap-fabric-1.21.1-1.45.0.jar","sha256":"ea84c45cb1b994a7738515670b281bcd373a9d9cc3d8d3a24b84a4baf302b9d6"}
+  ]
+}

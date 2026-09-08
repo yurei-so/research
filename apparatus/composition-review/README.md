@@ -1,7 +1,7 @@
 # Composition Review
 
-A small, owner-local blinded A/B review surface for text and audio experiment
-bundles.
+A small, owner-local blinded review surface for text, audio, and signed scalar
+experiment bundles.
 
 The app shows one pair at a time with identical candidate presentation. A, B,
 or Tie commits immediately and cannot be edited. Progress is stored atomically
@@ -42,6 +42,13 @@ fully supported.
 
 The default address is `http://127.0.0.1:4193`. Navigate once to the owner-only
 `/enroll/<token>` URL to set the seven-day HttpOnly browser cookie.
+
+Narrative-steering scalar bundles use the experiment's review bundle as
+`COMPOSITION_REVIEW_BUNDLE` and its separate reveal file as
+`COMPOSITION_REVIEW_KEY`. The UI requires every signed coordinate and a
+confidence rating for each continuation. Its private state file is written
+directly as `narrative-steering.judgments` and can be passed unchanged to the
+experiment analyzer after review is complete.
 
 Run the dependency-free test suite with `npm test`.
 

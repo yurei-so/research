@@ -10,6 +10,12 @@ function canonical(value) {
   return `{${Object.keys(value).sort().map((key) => `${canonical(key)}:${canonical(value[key])}`).join(",")}}`;
 }
 
+function canonicalUnicode(value) {
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalUnicode).join(",")}]`;
+  return `{${Object.keys(value).sort().map((key) => `${canonicalUnicode(key)}:${canonicalUnicode(value[key])}`).join(",")}}`;
+}
+
 export function fixture(treatmentArm = "schema_revision") {
   const bundle = {
     format: "composition-pipeline.blinded-review", version: 1,
@@ -72,4 +78,33 @@ export async function writeAudioFixture(directory) {
     writeFile(`${directory}/clip-one.wav`, first), writeFile(`${directory}/clip-two.wav`, second),
   ]);
   return { bundlePath, keyPath, bundle, key, first, second };
+}
+
+export async function writeScalarFixture(directory) {
+  const bundle = {
+    format: "narrative-steering.review-bundle", version: 1,
+    experiment_id: "narrative-steering-001", protocol_digest: "protocol", source_digest: "source",
+    items: [
+      { item_id: "item-one", case_id: "case-1", variant_id: "neutral",
+        story_state: { title: "Station", state: { intent: "Wait" } }, instruction: "Continue.",
+        continuation: "The clock ticks—it is late.", dimensions: ["agency", "closure"],
+        anchors: { agency: { negative: "overrides choice", positive: "preserves choice" }, closure: { negative: "opens", positive: "resolves" } },
+        score_range: [-2, 2], confidence_range: [1, 3] },
+      { item_id: "item-two", case_id: "case-1", variant_id: "agency_guard",
+        story_state: { title: "Station", state: { intent: "Wait" } }, instruction: "Preserve agency.",
+        continuation: "She considers the timetable.", dimensions: ["agency", "closure"],
+        anchors: { agency: { negative: "overrides choice", positive: "preserves choice" }, closure: { negative: "opens", positive: "resolves" } },
+        score_range: [-2, 2], confidence_range: [1, 3] },
+    ],
+  };
+  bundle.bundle_digest = createHash("sha256").update(canonicalUnicode(bundle)).digest("hex");
+  const key = { format: "narrative-steering.reveal", version: 1,
+    bundle_digest: bundle.bundle_digest,
+    items: [
+      { item_id: "item-one", model_id: "model-a", case_id: "case-1", variant_id: "neutral", sample_id: 1 },
+      { item_id: "item-two", model_id: "model-b", case_id: "case-1", variant_id: "agency_guard", sample_id: 1 },
+    ] };
+  const bundlePath = `${directory}/scalar-bundle.json`; const keyPath = `${directory}/scalar-key.json`;
+  await Promise.all([writeFile(bundlePath, JSON.stringify(bundle)), writeFile(keyPath, JSON.stringify(key))]);
+  return { bundlePath, keyPath, bundle, key };
 }

@@ -27,6 +27,15 @@ function digest(value) {
   return createHash("sha256").update(canonical(value)).digest("hex");
 }
 
+function unicodeDigest(value) {
+  const stable = (item) => {
+    if (item === null || typeof item !== "object") return JSON.stringify(item);
+    if (Array.isArray(item)) return `[${item.map(stable).join(",")}]`;
+    return `{${Object.keys(item).sort().map((name) => `${stable(name)}:${stable(item[name])}`).join(",")}}`;
+  };
+  return createHash("sha256").update(stable(value), "utf8").digest("hex");
+}
+
 function exactKeys(value, expected) {
   return value && typeof value === "object" && !Array.isArray(value)
     && Object.keys(value).length === expected.length
@@ -34,6 +43,47 @@ function exactKeys(value, expected) {
 }
 
 function validateBundle(bundle, key) {
+  const scalarMode = exactKeys(bundle, ["format", "version", "experiment_id", "protocol_digest", "source_digest", "items", "bundle_digest"])
+    && bundle.format === "narrative-steering.review-bundle" && bundle.version === 1;
+  if (scalarMode) {
+    const unsigned = Object.fromEntries(Object.entries(bundle).filter(([name]) => name !== "bundle_digest"));
+    if (bundle.bundle_digest !== unicodeDigest(unsigned) || !Array.isArray(bundle.items)
+        || bundle.items.length < 1 || bundle.items.length > 500
+        || !exactKeys(key, ["format", "version", "bundle_digest", "items"])
+        || key.format !== "narrative-steering.reveal" || key.version !== 1
+        || key.bundle_digest !== bundle.bundle_digest || !Array.isArray(key.items)) {
+      throw new ReviewError("invalid_scalar_review_bundle");
+    }
+    const itemIds = new Set();
+    for (const item of bundle.items) {
+      if (!exactKeys(item, ["item_id", "case_id", "variant_id", "story_state", "instruction", "continuation", "dimensions", "anchors", "score_range", "confidence_range"])
+          || typeof item.item_id !== "string" || itemIds.has(item.item_id)
+          || typeof item.instruction !== "string" || typeof item.continuation !== "string"
+          || !Array.isArray(item.dimensions) || item.dimensions.length < 1
+          || new Set(item.dimensions).size !== item.dimensions.length
+          || !item.dimensions.every((name) => typeof name === "string" && /^[a-z][a-z0-9_]{0,39}$/.test(name))
+          || !exactKeys(item.anchors, item.dimensions)
+          || !item.dimensions.every((name) => exactKeys(item.anchors[name], ["negative", "positive"])
+            && typeof item.anchors[name].negative === "string" && typeof item.anchors[name].positive === "string")
+          || !Array.isArray(item.score_range) || item.score_range.length !== 2
+          || !item.score_range.every(Number.isInteger) || item.score_range[0] >= item.score_range[1]
+          || !Array.isArray(item.confidence_range) || item.confidence_range.length !== 2
+          || !item.confidence_range.every(Number.isInteger) || item.confidence_range[0] >= item.confidence_range[1]) {
+        throw new ReviewError("invalid_scalar_review_item");
+      }
+      itemIds.add(item.item_id);
+    }
+    const revealIds = key.items.map((item) => item?.item_id);
+    if (key.items.length !== itemIds.size || new Set(revealIds).size !== itemIds.size
+        || revealIds.some((id) => !itemIds.has(id))
+        || key.items.some((item) => !exactKeys(item, ["item_id", "model_id", "case_id", "variant_id", "sample_id"])
+          || typeof item.model_id !== "string" || typeof item.case_id !== "string"
+          || typeof item.variant_id !== "string" || !Number.isInteger(item.sample_id))) {
+      throw new ReviewError("invalid_scalar_review_reveal");
+    }
+    return { bundleDigest: bundle.bundle_digest, bundle, reveal: null,
+      baselineArm: null, treatmentArm: null, mode: "scalar", assets: new Map() };
+  }
   const textMode = exactKeys(bundle, ["format", "version", "campaign_digest", "pairs"])
     && bundle.format === "composition-pipeline.blinded-review" && bundle.version === 1;
   const audioMode = exactKeys(bundle, ["format", "version", "campaign_digest", "mode", "calibration_asset", "assets", "pairs"])
@@ -216,17 +266,44 @@ export class ReviewStore {
     } catch (error) {
       if (error.code !== "ENOENT") throw error;
       const timestamp = now().toISOString();
-      state = {
+      state = validation.mode === "scalar" ? {
+        format: "narrative-steering.judgments", version: 1,
+        bundle_digest: validation.bundleDigest, judgments: [],
+        started_at: timestamp, updated_at: timestamp, completed_at: null,
+      } : {
         format: "composition-review.judgments", version: 1,
         bundle_digest: validation.bundleDigest, judgments: {},
         started_at: timestamp, updated_at: timestamp, completed_at: null,
       };
       await atomicWrite(absoluteState, state);
     }
+    const expectedStateFormat = validation.mode === "scalar" ? "narrative-steering.judgments" : "composition-review.judgments";
     if (!exactKeys(state, ["format", "version", "bundle_digest", "judgments", "started_at", "updated_at", "completed_at"])
-        || state.format !== "composition-review.judgments" || state.version !== 1
-        || state.bundle_digest !== validation.bundleDigest || !state.judgments || typeof state.judgments !== "object") {
+        || state.format !== expectedStateFormat || state.version !== 1
+        || state.bundle_digest !== validation.bundleDigest || !state.judgments || typeof state.judgments !== "object"
+        || (validation.mode === "scalar" && !Array.isArray(state.judgments))
+        || (validation.mode !== "scalar" && Array.isArray(state.judgments))) {
       throw new ReviewError("judgment_state_mismatch");
+    }
+    if (validation.mode === "scalar") {
+      const knownItems = new Map(bundle.items.map((item) => [item.item_id, item]));
+      const seen = new Set();
+      for (const judgment of state.judgments) {
+        const item = knownItems.get(judgment?.item_id);
+        if (!item || seen.has(judgment.item_id)
+            || !exactKeys(judgment, ["item_id", "scores", "confidence", "committed_at"])
+            || !exactKeys(judgment.scores, item.dimensions)
+            || !Object.values(judgment.scores).every((score) => Number.isInteger(score)
+              && score >= item.score_range[0] && score <= item.score_range[1])
+            || !Number.isInteger(judgment.confidence)
+            || judgment.confidence < item.confidence_range[0] || judgment.confidence > item.confidence_range[1]) {
+          throw new ReviewError("invalid_judgment_state");
+        }
+        seen.add(judgment.item_id);
+      }
+      return new ReviewStore({ bundle: validation.bundle, reveal: null,
+        baselineArm: null, treatmentArm: null, mode: validation.mode,
+        audioAssets, state, statePath: absoluteState, now });
     }
     const knownIds = new Set(bundle.pairs.map((pair) => pair.pair_id));
     for (const [pairId, judgment] of Object.entries(state.judgments)) {
@@ -257,6 +334,21 @@ export class ReviewStore {
   }
 
   session() {
+    if (this.mode === "scalar") {
+      const completedIds = new Set(this.state.judgments.map((item) => item.item_id));
+      const item = this.bundle.items.find((candidate) => !completedIds.has(candidate.item_id));
+      return {
+        format: "composition-review.session", version: 2, mode: "scalar",
+        progress: { completed: completedIds.size, total: this.bundle.items.length },
+        complete: !item,
+        item: !item ? null : {
+          item_id: item.item_id, case_id: item.case_id, variant_id: item.variant_id,
+          story_state: item.story_state, instruction: item.instruction,
+          continuation: item.continuation, dimensions: item.dimensions, anchors: item.anchors,
+          score_range: item.score_range, confidence_range: item.confidence_range,
+        },
+      };
+    }
     const completed = Object.keys(this.state.judgments).length;
     const pair = this.bundle.pairs.find((item) => !Object.hasOwn(this.state.judgments, item.pair_id));
     const pairView = !pair ? null : this.mode === "audio" ? {
@@ -285,7 +377,28 @@ export class ReviewStore {
     return this.audioAssets.get(assetId);
   }
 
-  async commit({ pair_id: pairId, choice, secondary }) {
+  async commit(payload) {
+    if (this.mode === "scalar") {
+      const current = this.session().item;
+      if (!current) throw new ReviewError("review_complete", 409);
+      if (payload.item_id !== current.item_id) throw new ReviewError("item_order_conflict", 409);
+      if (!exactKeys(payload, ["item_id", "scores", "confidence"])
+          || !exactKeys(payload.scores, current.dimensions)
+          || !Object.values(payload.scores).every((score) => Number.isInteger(score)
+            && score >= current.score_range[0] && score <= current.score_range[1])
+          || !Number.isInteger(payload.confidence)
+          || payload.confidence < current.confidence_range[0]
+          || payload.confidence > current.confidence_range[1]) {
+        throw new ReviewError("invalid_scalar_judgment");
+      }
+      const timestamp = this.now().toISOString();
+      this.state.judgments.push({ ...payload, committed_at: timestamp });
+      this.state.updated_at = timestamp;
+      if (this.state.judgments.length === this.bundle.items.length) this.state.completed_at = timestamp;
+      await atomicWrite(this.statePath, this.state);
+      return this.session();
+    }
+    const { pair_id: pairId, choice, secondary } = payload;
     if (typeof pairId !== "string" || !CHOICES.has(choice)) throw new ReviewError("invalid_judgment");
     const current = this.session().pair;
     if (!current) throw new ReviewError("review_complete", 409);
@@ -304,6 +417,14 @@ export class ReviewStore {
   }
 
   results() {
+    if (this.mode === "scalar") {
+      if (!this.state.completed_at || this.state.judgments.length !== this.bundle.items.length) {
+        throw new ReviewError("review_not_complete", 409);
+      }
+      return { format: "composition-review.scalar-complete", version: 1,
+        bundle_digest: this.state.bundle_digest, completed_at: this.state.completed_at,
+        judgment_count: this.state.judgments.length };
+    }
     if (!this.state.completed_at || Object.keys(this.state.judgments).length !== this.bundle.pairs.length) {
       throw new ReviewError("review_not_complete", 409);
     }

@@ -70,7 +70,7 @@ footer { border-top: 1px solid var(--line); border-bottom: 0; }
 .back { color: var(--muted); font: .7rem var(--mono); text-decoration: none; }
 .labnote { margin-top: 3rem; }
 .note-header { padding-bottom: 3rem; border-bottom: 1px solid var(--line); }
-.note-header h1 { max-width: 780px; margin: 1rem 0; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 520; line-height: 1; letter-spacing: -.045em; }
+.note-header h1 { max-width: 850px; margin: 1rem 0; font-size: clamp(2.25rem, 4.25vw, 3.75rem); font-weight: 520; line-height: 1.05; letter-spacing: -.04em; }
 .note-vitals { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; color: var(--muted); font: .65rem var(--mono); text-transform: uppercase; }
 .question { max-width: 760px; margin: 2rem 0 0; color: #b7bdc9; font-size: 1.15rem; }
 .lineage { padding: 2.25rem 0; border-bottom: 1px solid var(--line); }

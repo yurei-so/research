@@ -19,6 +19,11 @@ bounded action `kill_player`. At the declared duration the bridge first writes
 and closes an `explicit_stop` boundary, then optionally exits the world or
 quits the client. Subjective milestones remain manual markers.
 
+Automatic game quit is accepted only for toolkit-marked ephemeral worlds. The
+client receives ten seconds for normal shutdown after the private recorder is
+closed; a daemon watchdog then terminates a mod-induced zombie process. World
+state may be incomplete by design, but the already-closed recording is intact.
+
 Commands:
 
 - `/vg start <task> <protocol>` — verify toolkit ownership and begin a private

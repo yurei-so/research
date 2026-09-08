@@ -66,7 +66,15 @@ final class LaunchRecipeManager {
         recorder.stop(client, "explicit_stop");
         active = null;
         if ("stop_and_exit_world".equals(end)) client.disconnect(new TitleScreen());
-        else if ("stop_and_quit_game".equals(end)) client.stop();
+        else if ("stop_and_quit_game".equals(end)) {
+            Thread watchdog = new Thread(() -> {
+                try { Thread.sleep(10_000); } catch (InterruptedException ignored) { return; }
+                Runtime.getRuntime().halt(0);
+            }, "voxel-guidance-quit-watchdog");
+            watchdog.setDaemon(true);
+            watchdog.start();
+            client.stop();
+        }
     }
 
     private void discover(Minecraft client) throws IOException {
@@ -117,6 +125,9 @@ final class LaunchRecipeManager {
         String onEnd = string(automation, "onDurationEnd");
         if (duration < 30 || duration > 3600 || !Set.of("stop_recording", "stop_and_exit_world", "stop_and_quit_game").contains(onEnd)) {
             throw new IOException("invalid automation duration or end action");
+        }
+        if ("stop_and_quit_game".equals(onEnd) && !bool(marker, "ephemeral")) {
+            throw new IOException("automatic game quit requires an ephemeral world");
         }
         List<Rule> rules = new ArrayList<>();
         if (!automation.has("rules") || !automation.get("rules").isJsonArray() || automation.getAsJsonArray("rules").size() > 16) {
@@ -238,6 +249,9 @@ final class LaunchRecipeManager {
     }
     private static int integer(JsonObject object, String key) throws IOException {
         try { return object.get(key).getAsInt(); } catch (RuntimeException error) { throw new IOException("missing " + key); }
+    }
+    private static boolean bool(JsonObject object, String key) throws IOException {
+        try { return object.get(key).getAsBoolean(); } catch (RuntimeException error) { throw new IOException("missing " + key); }
     }
     private static double decimal(JsonObject object, String key) throws IOException {
         try { return object.get(key).getAsDouble(); } catch (RuntimeException error) { throw new IOException("missing " + key); }

@@ -46,7 +46,8 @@ def validate_protocol(protocol: Any, manifest: Any) -> dict[str, Any]:
         raise ContractError("session count mismatch")
     if tuple(protocol.get("fingerprint_coordinates", ())) != COORDINATES:
         raise ContractError("fingerprint coordinates changed")
-    bridge = next((mod for mod in manifest.get("mods", []) if mod.get("file") == "voxel-guidance-bridge-0.1.0.jar"), None)
+    bridge_file = f"voxel-guidance-bridge-{protocol['apparatus']['bridge_version']}.jar"
+    bridge = next((mod for mod in manifest.get("mods", []) if mod.get("file") == bridge_file), None)
     if bridge is None or bridge.get("sha256") != protocol["apparatus"]["bridge_sha256"]:
         raise ContractError("bridge digest mismatch")
     if protocol["publication"].get("raw_events") or protocol["publication"].get("exact_routes"):
@@ -98,8 +99,8 @@ def compile_pilot(protocol: dict[str, Any], manifest: dict[str, Any], sessions: 
         task_id = events[0]["task_id"]
         if task_id not in expected or task_id in observed:
             raise ContractError("unexpected or duplicate scheduled task")
-        if events[0]["payload"]["protocol_id"] != "pilot-v1":
-            raise ContractError("session is not bound to pilot-v1")
+        if events[0]["payload"]["protocol_id"] != protocol["protocol_id"]:
+            raise ContractError(f"session is not bound to {protocol['protocol_id']}")
         if events[-1]["payload"]["reason"] != protocol["design"]["session_end_required"]:
             raise ContractError("pilot session requires explicit stop")
         duration = _seconds(events[-1], events[0])

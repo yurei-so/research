@@ -146,9 +146,9 @@ def pilot_event(session_id: str, task_id: str, sequence: int, kind: str,
     }
 
 
-def pilot_session(task_id: str, task: str) -> list[dict]:
+def pilot_session(task_id: str, task: str, protocol_id: str = "pilot-v2") -> list[dict]:
     rows = [
-        ("session_start", {"protocol_id": "pilot-v1"}, 0),
+        ("session_start", {"protocol_id": protocol_id}, 0),
         ("marker", {"marker": "plan_started"}, 10),
         ("position_sample", {"x": 0, "y": 64, "z": 0, "dimension": "overworld"}, 20),
         ("position_sample", {"x": 64, "y": 64, "z": 32, "dimension": "overworld"}, 100),
@@ -203,7 +203,8 @@ class PilotTests(unittest.TestCase):
 
     def test_rejects_manifest_drift(self) -> None:
         manifest = json.loads(json.dumps(self.manifest))
-        next(mod for mod in manifest["mods"] if mod["file"] == "voxel-guidance-bridge-0.1.0.jar")["sha256"] = "0" * 64
+        bridge_file = f"voxel-guidance-bridge-{self.protocol['apparatus']['bridge_version']}.jar"
+        next(mod for mod in manifest["mods"] if mod["file"] == bridge_file)["sha256"] = "0" * 64
         with self.assertRaisesRegex(ContractError, "bridge digest mismatch"):
             validate_protocol(self.protocol, manifest)
 

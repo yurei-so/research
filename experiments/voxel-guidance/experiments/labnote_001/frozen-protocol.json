@@ -2,14 +2,15 @@
   "format": "voxel-guidance.protocol",
   "version": 1,
   "experiment_id": "voxel-guidance-001",
+  "protocol_id": "pilot-v2",
   "frozen_at": "2026-09-07",
   "status": "frozen-before-pilot-collection",
   "apparatus": {
     "instance_id": "Voxel Guidance Lab",
     "minecraft_version": "1.21.1",
     "fabric_loader_version": "0.19.5",
-    "bridge_version": "0.1.0",
-    "bridge_sha256": "c2f7a05866521987930ab107f51ce264d4a72d55b529c3f84ddee6c05d81e5d8",
+    "bridge_version": "0.2.0",
+    "bridge_sha256": "8e1769a1b9b6d32187c0e7ea4cda2af527b0069706f1d3cdb5f4fe8b00da0671",
     "modpack_manifest": "modpack-manifest.json",
     "raw_event_policy": "owner-private"
   },
@@ -50,6 +51,21 @@
     "generate_structures": true,
     "starting_time": "day",
     "weather": "clear"
+  },
+  "automation": {
+    "world_creation": "Prism Toolkit owned ephemeral save shell; Minecraft generates chunks and new-seed spawn",
+    "inventory_presets": ["empty", "construction-kit-v1", "recovery-kit-v1"],
+    "duration_seconds": 480,
+    "on_duration_end": "stop_and_quit_game",
+    "stop_boundary": "explicit_stop is written and closed before world exit",
+    "subjective_markers": "manual",
+    "recover_rules": [
+      {
+        "marker": "setback",
+        "action": "kill_player",
+        "when": {"type": "elapsed_seconds", "seconds": 120}
+      }
+    ]
   },
   "tasks": {
     "explore": {

@@ -25,7 +25,7 @@
     {"file":"sodium-fabric-0.8.13+mc1.21.1.jar","sha256":"3d43c14985a4deb19c654aad3393b454cf57e1ebcbba86c4ae6a98dfc60eca2d"},
     {"file":"sophisticatedbackpacks-1.21.1-3.23.4.3.106.jar","sha256":"2c099bfd5dc02ace6e73ffd9259940b0597cd4da7216a53a2c60c6732900d6aa"},
     {"file":"sophisticatedcore-1.21.1-1.2.9.21.168.jar","sha256":"3c71a04d5b03cdf9d9fe50e71849fdf11291dd1fab149621e35688ef6e516054"},
-    {"file":"voxel-guidance-bridge-0.1.0.jar","sha256":"c2f7a05866521987930ab107f51ce264d4a72d55b529c3f84ddee6c05d81e5d8"},
+    {"file":"voxel-guidance-bridge-0.2.0.jar","sha256":"8e1769a1b9b6d32187c0e7ea4cda2af527b0069706f1d3cdb5f4fe8b00da0671"},
     {"file":"xaerominimap-fabric-1.21.1-26.4.2.jar","sha256":"85342f8f7c098e98f2f200fbba308a243af1204cb1afd7668360420e635aa2f8"},
     {"file":"xaeroworldmap-fabric-1.21.1-1.45.0.jar","sha256":"ea84c45cb1b994a7738515670b281bcd373a9d9cc3d8d3a24b84a4baf302b9d6"}
   ]

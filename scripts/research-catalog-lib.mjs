@@ -102,6 +102,13 @@ export function collectCatalog(root) {
     lineage: [...metadata.lineage],
     href: `labnotes/${metadata.id}/`,
   })).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+  for (const note of labnotes) {
+    note.relations = {
+      follows: [...note.lineage],
+      continued_by: labnotes.filter((candidate) => candidate.lineage.includes(note.id)).map((candidate) => candidate.id)
+        .sort((a, b) => a.localeCompare(b)),
+    };
+  }
   const families = [...new Set(labnotes.map((note) => note.family))].sort().map((id) => {
     const notes = labnotes.filter((note) => note.family === id);
     const latest = [...notes].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id))[0];

@@ -14,8 +14,12 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.ok(manifest.labnotes.some((note) => note.id === "voxel-guidance-001"));
   assert.equal(manifest.families.length, 5);
   assert.ok(manifest.families.every((family) => !Object.hasOwn(family, "status")));
-  assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "status", "tags", "title"]);
+  assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "title"]);
   assert.ok(manifest.labnotes.every((note) => !JSON.stringify(note).includes("/home/")));
+  const finalComposition = manifest.labnotes.find((note) => note.id === "composition-006");
+  assert.deepEqual(finalComposition.relations, { follows: ["composition-005"], continued_by: [] });
+  const firstComposition = manifest.labnotes.find((note) => note.id === "composition-001");
+  assert.deepEqual(firstComposition.relations, { follows: [], continued_by: ["composition-002"] });
 });
 
 test("publish false is excluded from the public projection", () => {

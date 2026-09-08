@@ -39,3 +39,9 @@ minimal Pages and identity-token permissions required for deployment.
 The public manifest drives the research-area index, labnote list, filters,
 outcome counts, labnote routes, and future feeds. Those views must not grow
 independent hand-maintained indexes.
+
+The compiler also derives publication-safe reverse lineage. A note's `lineage`
+field supplies its direct predecessors; the public manifest adds `relations`
+with `follows` and `continued_by` IDs. Individual note pages render that local
+timeline directly into static HTML. Unpublished notes cannot appear as either
+side of a public relationship.

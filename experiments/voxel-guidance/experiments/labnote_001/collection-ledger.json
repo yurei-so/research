@@ -201,6 +201,19 @@
       "world_settings_valid": true,
       "apparatus_manifest_valid": true,
       "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-b-construct",
+      "attempt": 1,
+      "collection_epoch": 2,
+      "analysis_included": false,
+      "status": "excluded",
+      "duration_seconds": 242.867,
+      "reason": "disconnected_before_frozen_duration",
+      "contract_valid": true,
+      "automatic_explicit_stop": false,
+      "required_markers_exactly_once": true,
+      "private_file_mode_valid": true
     }
   ]
 }

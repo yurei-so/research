@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A curated public observation window into Yurei's reproducible AI research.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+  <title>Yurei Research — Observation Terminal</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="terminal-bar">
+    <a class="wordmark" href="./"><span class="signal"></span>YUREI RESEARCH</a>
+    <span>PUBLIC OBSERVATION TERMINAL</span>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">OBSERVATION WINDOW / AUTHORIZED PUBLIC VIEW</div>
+      <h1>Research in its<br><em>natural habitat.</em></h1>
+      <p>A curated view of protocols, experiments, and findings from the Yurei laboratory. Negative and inconclusive results remain part of the record.</p>
+      <div class="hero-readout"><span><b id="note-count">—</b> LABNOTES</span><span><b id="family-count">—</b> RESEARCH CELLS</span><span><b id="revision">—</b> REVISION</span></div>
+    </section>
+    <section class="deck" aria-labelledby="deck-title">
+      <div class="section-heading"><div><span>01</span><h2 id="deck-title">Observation deck</h2></div><p>Active research families and completed lines of inquiry.</p></div>
+      <div id="families" class="family-grid" aria-live="polite"></div>
+    </section>
+    <section class="archive" aria-labelledby="archive-title">
+      <div class="section-heading"><div><span>02</span><h2 id="archive-title">Research stream</h2></div><p>Published observations ordered by authoritative research date.</p></div>
+      <div class="controls">
+        <label>FILTER <input id="search" type="search" placeholder="ID, question, method…"></label>
+        <label>OUTCOME <select id="outcome"><option value="">All outcomes</option></select></label>
+        <span id="result-count" aria-live="polite"></span>
+      </div>
+      <div id="feed" class="feed" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer><span>CURATED PUBLIC PROJECTION</span><span id="generated">CATALOG OFFLINE</span></footer>
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>

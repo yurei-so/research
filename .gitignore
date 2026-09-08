@@ -9,6 +9,7 @@ dist/
 build/
 artifacts/
 import/
+coverage/
 *.log
 .env
 .env.*

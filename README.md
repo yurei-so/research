@@ -23,3 +23,10 @@ See [research governance](docs/governance.md), the
 [experiment inventory](docs/experiment-inventory.md), the
 [labnote metadata contract](docs/labnote-metadata.md), and the
 [migration ledger](docs/migration-ledger.md).
+
+## Public observation window
+
+The research library site is a generated public projection, not a repository
+mirror. Labnotes opt in with `publish: true`; the build validates their
+metadata and emits only the allowlisted catalog and rendered eligible notes.
+See the [publication boundary and local build](docs/publication.md).

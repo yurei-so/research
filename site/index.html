@@ -4,9 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A curated public observation window into Yurei's reproducible AI research.">
+  <meta name="google-site-verification" content="DFlcz2TxTmBRtMtN7CxoSZ5YJMGbXYb7KiqA3oJDsi8">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Yurei Research Library">
+  <meta property="og:description" content="Protocols, labnotes, and results from Yurei's reproducible AI research.">
+  <meta property="og:url" content="https://yurei-so.github.io/research/">
   <title>Yurei Research Library</title>
+  <link rel="canonical" href="https://yurei-so.github.io/research/">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -15,16 +21,16 @@
     <a class="wordmark" href="./"><img src="favicon.png" alt="">YUREI RESEARCH</a>
     <span>RESEARCH LIBRARY</span>
   </header>
-  <main>
+  <main itemscope itemtype="https://schema.org/CollectionPage">
     <section class="hero">
       <div class="eyebrow">YUREI RESEARCH</div>
       <h1>Research library</h1>
       <p>Protocols, labnotes, and results from Yurei's experimental work. Positive, negative, inconclusive, and ongoing work remain part of the record.</p>
-      <div class="hero-readout"><span><b id="note-count">—</b> LABNOTES</span><span><b id="family-count">—</b> RESEARCH AREAS</span><span><b id="revision">—</b> REVISION</span></div>
+      <div class="hero-readout"><span><b id="note-count">{{NOTE_COUNT}}</b> LABNOTES</span><span><b id="family-count">{{FAMILY_COUNT}}</b> RESEARCH AREAS</span><span><b id="revision">{{REVISION}}</b> REVISION</span></div>
     </section>
     <section class="deck" aria-labelledby="deck-title">
       <div class="section-heading"><div><span>01</span><h2 id="deck-title">Research areas</h2></div><p>Browse published experiment families.</p></div>
-      <div id="families" class="family-grid" aria-live="polite"></div>
+      <div id="families" class="family-grid" aria-live="polite">{{FAMILY_CARDS}}</div>
     </section>
     <section class="archive" aria-labelledby="archive-title">
       <div class="section-heading"><div><span>02</span><h2 id="archive-title">Labnotes</h2></div><p>Published records ordered by research date.</p></div>
@@ -33,10 +39,10 @@
         <label>OUTCOME <select id="outcome"><option value="">All outcomes</option></select></label>
         <span id="result-count" aria-live="polite"></span>
       </div>
-      <div id="feed" class="feed" aria-live="polite"></div>
+      <div id="feed" class="feed" aria-live="polite">{{LABNOTE_CARDS}}</div>
     </section>
   </main>
-  <footer><span>YUREI RESEARCH</span><span id="generated">CATALOG OFFLINE</span></footer>
+  <footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span id="generated">CATALOG {{GENERATED_AT}} / REV {{REVISION}}</span></footer>
   <script type="module" src="assets/app.js"></script>
 </body>
 </html>

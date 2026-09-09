@@ -6,6 +6,8 @@ import process from "node:process";
 import { collectCatalog, escapeHtml, renderMarkdown } from "./research-catalog-lib.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
+const siteUrl = "https://yurei-so.github.io/research/";
+const repositoryUrl = "https://github.com/yurei-so/research";
 const mode = process.argv[2] ?? "check";
 if (!new Set(["check", "build"]).has(mode)) throw new Error("usage: node scripts/research-catalog.mjs [check|build]");
 
@@ -18,13 +20,27 @@ if (mode === "check") {
 const output = path.join(root, "dist");
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(path.join(output, "assets"), { recursive: true });
-for (const name of ["index.html", "styles.css", "app.js", "favicon.png"]) {
+for (const name of ["styles.css", "app.js", "favicon.png"]) {
   const source = path.join(root, "site", name);
-  const destination = ["index.html", "favicon.png"].includes(name) ? path.join(output, name) : path.join(output, "assets", name);
+  const destination = name === "favicon.png" ? path.join(output, name) : path.join(output, "assets", name);
   fs.copyFileSync(source, destination);
 }
+const familyCard = (family) => `<button class="family-card" data-family="${escapeHtml(family.id)}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("")}</div><span class="inspect">VIEW LABNOTES →</span></button>`;
+const noteCard = (note) => `<article class="feed-entry" data-family="${escapeHtml(note.family)}"><div class="entry-index"><time datetime="${note.date}">${note.date}</time><b>${escapeHtml(note.id)}</b></div><div class="entry-main"><div class="entry-state"><span>${escapeHtml(note.status)}</span><span data-outcome="${note.outcome}">${escapeHtml(note.outcome)}</span></div><h3><a href="${escapeHtml(note.href)}">${escapeHtml(note.title)}</a></h3><p>${escapeHtml(note.question)}</p><div class="tags">${note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="${escapeHtml(note.href)}" aria-label="Open ${escapeHtml(note.id)}">↗</a></article>`;
+const indexTemplate = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");
+const indexPage = indexTemplate
+  .replaceAll("{{NOTE_COUNT}}", String(manifest.labnotes.length))
+  .replaceAll("{{FAMILY_COUNT}}", String(manifest.families.length))
+  .replaceAll("{{REVISION}}", escapeHtml(manifest.source_revision))
+  .replaceAll("{{GENERATED_AT}}", escapeHtml(manifest.generated_at.slice(0, 10)))
+  .replace("{{FAMILY_CARDS}}", manifest.families.map(familyCard).join(""))
+  .replace("{{LABNOTE_CARDS}}", manifest.labnotes.map(noteCard).join(""));
+fs.writeFileSync(path.join(output, "index.html"), indexPage);
 fs.writeFileSync(path.join(output, "research-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 fs.writeFileSync(path.join(output, ".nojekyll"), "");
+fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /research/\n\nSitemap: ${siteUrl}sitemap.xml\n`);
+const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];
+fs.writeFileSync(path.join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(({ loc, lastmod }) => `  <url><loc>${escapeHtml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>\n`);
 
 for (const record of records.filter((entry) => entry.metadata.publish)) {
   const note = manifest.labnotes.find((entry) => entry.id === record.metadata.id);
@@ -33,6 +49,8 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const tags = note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const title = escapeHtml(record.metadata.title);
   const question = escapeHtml(record.metadata.question);
+  const canonicalUrl = `${siteUrl}${note.href}`;
+  const sourceUrl = `${repositoryUrl}/blob/main/${record.relative.split("/").map(encodeURIComponent).join("/")}`;
   const relationCard = (id, current = false) => {
     const related = manifest.labnotes.find((entry) => entry.id === id);
     if (!related) throw new Error(`${note.id}: public relation target ${id} is missing`);
@@ -53,16 +71,18 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const page = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
-<meta name="description" content="${question}"><title>${escapeHtml(record.metadata.id)} — Yurei Research</title><link rel="icon" href="../../favicon.png" type="image/png">
+<meta name="description" content="${question}">
+<meta property="og:type" content="article"><meta property="og:title" content="${title}"><meta property="og:description" content="${question}"><meta property="og:url" content="${canonicalUrl}">
+<title>${title} — ${escapeHtml(record.metadata.id)} | Yurei Research</title><link rel="canonical" href="${canonicalUrl}"><link rel="icon" href="../../favicon.png" type="image/png">
 <link rel="stylesheet" href="../../assets/styles.css"></head><body>
 <header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
 <main class="note-shell"><a class="back" href="../../">← Return to research library</a>
-<article class="labnote"><header class="note-header"><div class="eyebrow">LABNOTE / ${escapeHtml(note.family)}</div><h1>${title}</h1>
-<div class="note-vitals"><span>${note.id}</span><span>${note.date}</span><span data-outcome="${note.outcome}">${note.outcome}</span><span>${note.status}</span></div>
-<p class="question">${question}</p><div class="tags">${tags}</div></header>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="${canonicalUrl}"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow">LABNOTE / ${escapeHtml(note.family)}</div><h1 itemprop="headline">${title}</h1>
+<div class="note-vitals"><span>${note.id}</span><time itemprop="datePublished" datetime="${note.date}">${note.date}</time><span data-outcome="${note.outcome}">${note.outcome}</span><span>${note.status}</span></div>
+<p class="question" itemprop="description">${question}</p><div class="tags">${tags}</div><p class="source-link"><a href="${sourceUrl}">View source record on GitHub ↗</a></p></header>
 ${lineage}
 <div class="note-body">${renderMarkdown(record.body)}</div></article></main>
-<footer><span>YUREI RESEARCH</span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
+<footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);
 }
 console.log(`Built public research library with ${manifest.labnotes.length} labnotes in dist/.`);

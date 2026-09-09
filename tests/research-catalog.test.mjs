@@ -22,6 +22,16 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.deepEqual(firstComposition.relations, { follows: [], continued_by: ["composition-002"] });
 });
 
+test("every published labnote has enough metadata for a standalone discovery page", () => {
+  const { manifest } = collectCatalog(path.resolve(import.meta.dirname, ".."));
+  for (const note of manifest.labnotes) {
+    assert.ok(note.title.length >= 8, `${note.id} needs a descriptive title`);
+    assert.ok(note.question.length >= 24, `${note.id} needs a descriptive question`);
+    assert.ok(note.tags.length >= 1, `${note.id} needs discovery terminology`);
+    assert.match(note.href, new RegExp(`^labnotes/${note.id}/$`));
+  }
+});
+
 test("publish false is excluded from the public projection", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "research-catalog-"));
   const dir = path.join(root, "experiments", "demo", "docs", "labnotes");

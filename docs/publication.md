@@ -40,6 +40,19 @@ The public manifest drives the research-area index, labnote list, filters,
 outcome counts, labnote routes, and future feeds. Those views must not grow
 independent hand-maintained indexes.
 
+The build renders the complete public catalog into static HTML before the
+optional filtering script runs. It also emits canonical URLs, descriptive
+per-note metadata, valid `TechArticle` microdata, `robots.txt`, and a generated
+`sitemap.xml`. Each public note links to its canonical source record. Search
+discovery does not weaken the publication boundary: only eligible labnotes are
+included in any of these surfaces.
+
+Because this is a GitHub Pages project site under `/research/`, only a site at
+the `yurei-so.github.io` origin root can publish the origin-authoritative
+`/robots.txt`. The project-local file documents the intended allow policy and
+advertises the sitemap when fetched directly; Search Console should also be
+given `https://yurei-so.github.io/research/sitemap.xml` explicitly.
+
 The compiler also derives publication-safe reverse lineage. A note's `lineage`
 field supplies its direct predecessors; the public manifest adds `relations`
 with `follows` and `continued_by` IDs. Individual note pages render that local

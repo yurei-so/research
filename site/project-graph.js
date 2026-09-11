@@ -5,8 +5,25 @@ async function boot() {
   if (!response.ok) throw new Error(`project graph unavailable (${response.status})`);
   const graph = await response.json();
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
+  const stage = $(".graph-stage");
+  const map = $(".project-map");
+  const naturalWidth = Number(map.dataset.naturalWidth);
+  const naturalHeight = Number(map.dataset.naturalHeight);
+  let zoom = .82;
   let selected = graph.notes.at(-1)?.id;
   let tracing = false;
+
+  const setZoom = (next) => {
+    const oldWidth = map.getBoundingClientRect().width || naturalWidth * zoom;
+    const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / (oldWidth * naturalHeight / naturalWidth) };
+    zoom = Math.max(.45, Math.min(1.4, next));
+    map.style.width = `${Math.round(naturalWidth * zoom)}px`;
+    $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
+    requestAnimationFrame(() => {
+      stage.scrollLeft = focus.x * map.clientWidth - stage.clientWidth / 2;
+      stage.scrollTop = focus.y * map.clientHeight - stage.clientHeight / 2;
+    });
+  };
 
   const neighborhood = (root) => {
     const seen = new Set([root]);
@@ -73,12 +90,34 @@ async function boot() {
     $("#edge-note").textContent = edge.dataset.rationale;
   }));
   $("#trace-lineage").addEventListener("click", () => { tracing = !tracing; $("#trace-lineage").setAttribute("aria-pressed", String(tracing)); renderInspector(); });
+  $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
+  $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
+  $("#zoom-fit").addEventListener("click", () => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
+  let pan = null;
+  stage.addEventListener("pointerdown", (event) => {
+    if (event.target.closest(".graph-node, .graph-edge")) return;
+    pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop };
+    stage.setPointerCapture(event.pointerId);
+    stage.classList.add("panning");
+  });
+  stage.addEventListener("pointermove", (event) => {
+    if (!pan) return;
+    stage.scrollLeft = pan.left - (event.clientX - pan.x);
+    stage.scrollTop = pan.top - (event.clientY - pan.y);
+  });
+  const stopPanning = () => { pan = null; stage.classList.remove("panning"); };
+  stage.addEventListener("pointerup", stopPanning);
+  stage.addEventListener("pointercancel", stopPanning);
   $("#copy-link").addEventListener("click", async () => {
     const url = new URL(`../../${byId.get(selected).href}`, location.href).href;
     await navigator.clipboard.writeText(url);
     $("#copy-link").textContent = "COPIED";
   });
   renderInspector();
+  requestAnimationFrame(() => {
+    stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
+    stage.scrollTop = (stage.scrollHeight - stage.clientHeight) / 2;
+  });
 }
 
 boot().catch((error) => { $("#edge-note").textContent = error.message; });

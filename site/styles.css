@@ -105,8 +105,15 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .project-header h1 { margin: .7rem 0; font-size: clamp(2.35rem, 5vw, 4.25rem); font-weight: 520; letter-spacing: -.045em; }
 .project-header p { max-width: 720px; color: #a9afbc; }
 .graph-layout { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 1.25rem; align-items: start; }
-.graph-stage { min-width: 0; overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
-.project-map { display: block; width: max(100%, var(--graph-width)); height: auto; min-height: 24rem; }
+.graph-panel { min-width: 0; border: 1px solid var(--line); background: var(--surface); }
+.graph-toolbar { display: flex; min-height: 2.7rem; padding: .4rem .6rem; border-bottom: 1px solid var(--line); align-items: center; gap: .45rem; color: var(--muted); font: .58rem var(--mono); letter-spacing: .07em; }
+.graph-toolbar button { min-width: 2rem; height: 1.85rem; border: 1px solid var(--line); color: var(--ink); background: #11151e; font: .7rem var(--mono); cursor: pointer; }
+.graph-toolbar button:hover { border-color: var(--signal); color: var(--signal); }
+.graph-toolbar span:last-child { margin-left: auto; }
+.graph-stage { min-width: 0; height: min(62vh, 640px); overflow: auto; overscroll-behavior: contain; background-image: radial-gradient(circle, #282e3c 1px, transparent 1px); background-size: 28px 28px; scrollbar-color: #596278 #11151e; touch-action: pan-x pan-y; }
+.graph-stage:not(.panning) { cursor: grab; }
+.graph-stage.panning { cursor: grabbing; user-select: none; }
+.project-map { display: block; max-width: none; height: auto; }
 .graph-edge path { fill: none; stroke: #424a5d; stroke-width: 2; marker-end: url(#arrow); }
 .graph-edge text { fill: #8d96a9; font: 12px var(--mono); letter-spacing: .07em; }
 .graph-edge { cursor: help; }
@@ -117,8 +124,8 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .graph-node:hover rect, .graph-node:focus rect { stroke: var(--signal); }
 .graph-node.selected rect { fill: #171421; stroke: var(--signal); stroke-width: 3; }
 .graph-node.unrelated { opacity: .18; }
-.graph-node .node-id, .graph-node .node-date { fill: #8d96a9; font: 12px var(--mono); }
-.graph-node .node-title { fill: #e2e5ed; font: 600 17px var(--sans); }
+.graph-node .node-id, .graph-node .node-date { fill: #8d96a9; font: 10px var(--mono); }
+.graph-node .node-title { fill: #e2e5ed; font: 600 15px var(--sans); }
 .graph-inspector { position: sticky; top: 1rem; min-height: 24rem; padding: 1.4rem; border: 1px solid var(--line); background: var(--surface); }
 .graph-inspector h2 { margin: .5rem 0; font-size: 1.35rem; font-weight: 560; line-height: 1.2; }
 .inspector-vitals { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--muted); font: .62rem var(--mono); text-transform: uppercase; }
@@ -151,5 +158,7 @@ th:last-child, td:last-child { border-right: 0; }
   .lineage-card, .lineage-empty { min-height: 6.5rem; }
   .graph-layout { grid-template-columns: 1fr; }
   .graph-inspector { position: static; min-height: 0; }
+  .graph-toolbar span:last-child { display: none; }
+  .graph-stage { height: 60vh; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

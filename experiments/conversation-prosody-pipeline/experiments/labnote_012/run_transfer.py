@@ -18,6 +18,10 @@ def duration(path: Path) -> float:
     with wave.open(str(path), "rb") as audio:
         return audio.getnframes() / audio.getframerate()
 
+def plausible_generated_duration(seconds: float) -> bool:
+    """Reject empty/truncated/runaway output without scoring reference padding."""
+    return 0.8 <= seconds <= 8.0
+
 def execute(protocol_path: Path, manifest_path: Path, reference_dir: Path,
             output_dir: Path, device: str | None) -> dict[str, Any]:
     from f5_tts.api import F5TTS
@@ -42,20 +46,26 @@ def execute(protocol_path: Path, manifest_path: Path, reference_dir: Path,
                 model.infer(ref_file=str(reference), ref_text=pair["target"],
                             gen_text=pair["target"], file_wave=str(output), seed=seed,
                             remove_silence=False)
-                ratio = duration(output) / duration(reference)
+                reference_seconds = duration(reference)
+                generated_seconds = duration(output)
+                ratio = generated_seconds / reference_seconds
                 trials.append({"trial_id": trial_id, "pair_id": pair["pair_id"],
                     "condition_id": condition["condition_id"], "context": condition["context"],
                     "target": pair["target"], "focus": condition["focus"], "seed": seed,
                     "reference_sha256": expected[condition["reference_file"]]["sha256"],
                     "audio_path": str(output.relative_to(output_dir)),
                     "audio_sha256": digest(output.read_bytes()),
-                    "duration_ratio": round(ratio, 6), "passed_integrity": 0.65 <= ratio <= 1.5})
+                    "reference_duration_seconds": round(reference_seconds, 6),
+                    "generated_duration_seconds": round(generated_seconds, 6),
+                    "duration_ratio": round(ratio, 6),
+                    "passed_integrity": plausible_generated_duration(generated_seconds)})
     hashes = [trial["audio_sha256"] for trial in trials]
     gate_passed = len(trials) == 8 and len(set(hashes)) == 8 \
         and all(trial["passed_integrity"] for trial in trials)
     report = {"format": "conversation-prosody.reference-focus-run", "version": 1,
               "protocol_sha256": manifest["protocol_sha256"], "backend": protocol["backend"],
               "post_processing": "none", "trials": trials, "integrity_gate_passed": gate_passed,
+              "integrity_gate": "eight unique WAV files, each 0.8 to 8.0 seconds",
               "listener_review_ready": False,
               "review_blocker": "naturalness and directional-focus checks are required"}
     (output_dir / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")

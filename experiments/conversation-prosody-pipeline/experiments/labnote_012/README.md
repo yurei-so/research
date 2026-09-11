@@ -17,6 +17,8 @@ different private location.
 Validate private references with `validate_references.py`, then run
 `run_transfer.py` inside an isolated F5-TTS environment. Passing integrity does not
 authorize listener review: naturalness and directional-focus gates remain mandatory.
+`amendment-001.md` records a pre-listening correction to the mechanical duration
+gate after interactive capture padding made total reference duration unsuitable.
 
 The official F5-TTS code is MIT licensed; its pretrained weights are CC-BY-NC. This is
 noncommercial research. The runner never downloads or publishes reference audio itself.

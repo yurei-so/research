@@ -13,6 +13,11 @@ MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader
 SPEC.loader.exec_module(MODULE)
 
+RUN_SPEC = importlib.util.spec_from_file_location("run_transfer", EXPERIMENT / "run_transfer.py")
+RUN_MODULE = importlib.util.module_from_spec(RUN_SPEC)
+assert RUN_SPEC.loader
+RUN_SPEC.loader.exec_module(RUN_MODULE)
+
 
 def write_wav(path: Path, seconds: float = 1.1) -> None:
     with wave.open(str(path), "wb") as audio:
@@ -39,6 +44,12 @@ class ReferenceFocusValidationTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(ValueError, "missing reference"):
                 MODULE.validate(EXPERIMENT / "protocol.json", Path(directory), Path(directory) / "out.json")
+
+    def test_generated_duration_gate_does_not_depend_on_reference_padding(self):
+        self.assertFalse(RUN_MODULE.plausible_generated_duration(0.79))
+        self.assertTrue(RUN_MODULE.plausible_generated_duration(2.0))
+        self.assertTrue(RUN_MODULE.plausible_generated_duration(8.0))
+        self.assertFalse(RUN_MODULE.plausible_generated_duration(8.01))
 
 
 if __name__ == "__main__":

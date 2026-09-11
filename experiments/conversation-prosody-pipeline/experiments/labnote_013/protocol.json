@@ -1,0 +1,53 @@
+{
+  "format": "conversation-prosody.instruction-focus-pilot",
+  "version": 1,
+  "backend": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "backend_license": "Apache-2.0",
+  "speaker": "Aiden",
+  "language": "English",
+  "seeds": [1301, 2303],
+  "generation": {"do_sample": true, "temperature": 0.9, "top_p": 0.95},
+  "post_processing": "none",
+  "pairs": [
+    {
+      "pair_id": "location-day",
+      "target": "We meet at the library on Friday.",
+      "conditions": [
+        {
+          "condition_id": "location",
+          "context": "Correct the meeting location.",
+          "focus": "library",
+          "competing_focus": "Friday",
+          "instruction": "Read the sentence naturally and neutrally. Use contrastive emphasis on the word 'library' to correct the meeting location. Do not emphasize 'Friday'."
+        },
+        {
+          "condition_id": "day",
+          "context": "Correct the meeting day.",
+          "focus": "Friday",
+          "competing_focus": "library",
+          "instruction": "Read the sentence naturally and neutrally. Use contrastive emphasis on the word 'Friday' to correct the meeting day. Do not emphasize 'library'."
+        }
+      ]
+    },
+    {
+      "pair_id": "person-object",
+      "target": "Jordan borrowed my bicycle again.",
+      "conditions": [
+        {
+          "condition_id": "person",
+          "context": "Correct who borrowed it.",
+          "focus": "Jordan",
+          "competing_focus": "bicycle",
+          "instruction": "Read the sentence naturally and neutrally. Use contrastive emphasis on the word 'Jordan' to correct who borrowed it. Do not emphasize 'bicycle'."
+        },
+        {
+          "condition_id": "object",
+          "context": "Correct what was borrowed.",
+          "focus": "bicycle",
+          "competing_focus": "Jordan",
+          "instruction": "Read the sentence naturally and neutrally. Use contrastive emphasis on the word 'bicycle' to correct what was borrowed. Do not emphasize 'Jordan'."
+        }
+      ]
+    }
+  ]
+}

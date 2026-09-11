@@ -1,5 +1,9 @@
 # Labnote 012 reference-conditioned focus transfer
 
+**Status:** Complete negative result. Eight mechanically valid outputs failed the
+owner-local naturalness admission gate, so directional scoring and blinded review were
+not performed.
+
 This bounded pilot asks whether whole-utterance reference conditioning can reproduce a
 demonstrated contrastive focus without post-hoc DSP. Four private recordings from one
 consenting speaker cover two unchanged sentences and both authored focus readings.

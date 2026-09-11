@@ -132,7 +132,7 @@ discourse reading; naturalness is secondary.
 
 ## Execution and recovery
 
-Both phases use native systemd user services on `mpai`, not an interactive SSH process.
+Both phases use native systemd user services on the local GPU workstation, not an interactive SSH process.
 Inference results are committed individually to a WAL-mode SQLite ledger. A terminated
 service resets only an in-progress task and skips every completed task on restart.
 Generated ledgers, audio, exports, and model files remain under ignored `artifacts/`
@@ -143,9 +143,9 @@ enabled after a successful two-voice cache warm-up and fingerprint pass. A detac
 12-clip offline smoke matrix completed without failures, demonstrating that synthesis
 does not require DNS or model-hub access during the experiment.
 
-The production Agent Runtime scheduler and its CodeCat worker were intentionally
+The production experiment scheduler and its competing model worker were intentionally
 stopped and disabled before the run so they cannot contend for model resources.
-The separate Agent Companion service remained active.
+The separate operator-control service remained active.
 
 ## Results
 

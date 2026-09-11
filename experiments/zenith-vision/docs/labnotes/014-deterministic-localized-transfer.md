@@ -26,8 +26,8 @@ Hero generalization after adding varied Inventory-only position data?
 - Training change: replace order-sensitive per-sample optimizer steps with a
   normalized smooth-maximum, class-balanced full-batch objective.
 - Evaluation: seven leave-one-development-batch-out folds.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `fbb1b860-f50b-4d16-8ca1-4a388e4ec8ab`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 
@@ -50,7 +50,7 @@ The gate emitted content-addressed candidate
 `bc155807a28aee1a2d7d10fb18a96b24d40b9fe300fc3e01650f70e5d61cc649`,
 bound to development corpus
 `303b996aa1791eeb5f151bcc85a4df571046d9fec17e640b83955bdcf0f34796`.
-The job completed on CUDA with exit code 0 and no stderr, and roostd released
+The job completed on CUDA with exit code 0 and no stderr, and the compute broker released
 the accelerator lease normally.
 
 ## Decision

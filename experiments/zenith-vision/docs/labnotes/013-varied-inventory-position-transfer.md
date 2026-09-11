@@ -25,8 +25,8 @@ center positions repair the localized candidate's position dependence?
 - Spent holdout: excluded and not read.
 - Model, regions, threshold, and development gate: unchanged from Labnote 011.
 - Evaluation: seven leave-one-development-batch-out folds.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `17e8831a-d31a-4573-987e-8455e3c61693`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 
@@ -45,8 +45,8 @@ three new position folds, but the second original environment collapsed through
 four missed Hero states. The 44.4% fold violated the frozen 70% floor, so the
 development gate failed and no candidate was emitted.
 
-The job completed on CUDA with exit code 0 and no stderr. Agent Runtime and
-roostd remained healthy with zero restarts, and the accelerator lease was
+The job completed on CUDA with exit code 0 and no stderr. The scheduler and
+compute broker remained healthy with zero restarts, and the accelerator lease was
 released normally.
 
 ## Decision

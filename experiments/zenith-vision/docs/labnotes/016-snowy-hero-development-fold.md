@@ -26,8 +26,8 @@ the snowy Hero weakness exposed by Labnote 015 without regressing Inventory?
 - Architecture, threshold, deterministic training objective, and development
   gate: unchanged from Labnote 014.
 - Evaluation: eight leave-one-development-batch-out folds.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `f064481f-15ec-4fd1-a9e7-54c13c42591d`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 
@@ -51,7 +51,7 @@ The gate emitted content-addressed candidate
 `3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8`,
 bound to development corpus
 `87a54b2d6a2448f76a86056102e113ed070ed9b2695d25f8bd75844cece91afc`.
-The run completed on CUDA with exit code 0 and no stderr, and roostd released
+The run completed on CUDA with exit code 0 and no stderr, and the compute broker released
 the accelerator lease normally.
 
 ## Decision

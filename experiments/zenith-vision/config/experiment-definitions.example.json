@@ -1,5 +1,5 @@
 {
-  "format": "agent-runtime.experiment-definitions",
+  "format": "experiment-scheduler.definitions",
   "version": 1,
   "definitions": [
     {

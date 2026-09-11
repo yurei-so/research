@@ -21,12 +21,12 @@ without spending another holdout?
 ## Method
 
 - Private input: three approved, structurally masked development batches only.
-- Spent holdout: not transferred to mpai and not read by the experiment.
+- Spent holdout: not transferred to the execution environment and not read by the experiment.
 - Model: pretrained MobileNet V3 Small with frozen backbone; classifier head only.
 - Augmentation: bounded translation, scale, brightness, contrast, and saturation.
 - Evaluation: three leave-one-batch-out folds.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `f2cdd2d9-7476-4f2d-96b3-dc56283329d0`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 

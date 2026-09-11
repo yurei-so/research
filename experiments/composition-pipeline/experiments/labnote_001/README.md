@@ -15,7 +15,7 @@ Six frozen, non-sensitive writing prompts are evaluated through three arms:
 
 The runtime accepts only append, exact unique replacement, exact unique deletion,
 and finalization. It records protocol validity, edit count, generated-token count,
-visible output size, and latency. Final texts are retained only in Agent Runtime's
+visible output size, and latency. Final texts are retained only in the scheduler's
 private experiment output for later blinded quality review.
 
 ## Interpretation boundary
@@ -25,4 +25,4 @@ not justified by a single bad run. It becomes a candidate only after prompt and
 schema approaches repeatedly fail the frozen semantic-application threshold.
 
 This experiment does not train a model, expose hidden reasoning, alter Chat
-Runtime, or bypass roostd accelerator ownership.
+Runtime, or bypass accelerator-lease ownership.

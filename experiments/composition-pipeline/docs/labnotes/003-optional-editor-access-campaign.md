@@ -30,7 +30,7 @@ initial candidate unchanged is a first-class treatment outcome.
 - Arms: matched direct rewrite and optional editor access
 - Planned trials: 48
 - Blinded pairs: 24
-- Accelerator ownership: one non-preemptive roostd experiment lease
+- Accelerator ownership: one non-preemptive accelerator lease
 
 The optional arm receives the same deterministic initial rewrite as its matched
 direct arm, followed by one editor decision. It may finalize unchanged or apply

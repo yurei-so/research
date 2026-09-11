@@ -31,8 +31,8 @@ Jormag encounter?
 - Training and calibration: disabled.
 - Gate: at least 87.5% aggregate exact accuracy, at least 75% exact accuracy in
   every state, and no class above a 12.5% aggregate error rate.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `493e5c21-aa9a-4957-a843-11dffd555aa2`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 

@@ -32,8 +32,8 @@ generalize to a separately frozen, balanced live Small-UI holdout?
 - Promotion gate, fixed before evaluation: at least 87.5% aggregate exact
   accuracy, at least 75% exact accuracy in every state, and no class above a
   12.5% aggregate false-call-plus-miss rate.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `2ed92d59-2e2b-4270-8856-8f1f4843f316`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 

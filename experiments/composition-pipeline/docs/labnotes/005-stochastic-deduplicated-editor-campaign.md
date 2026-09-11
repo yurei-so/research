@@ -33,7 +33,7 @@ multiplicity telemetry rather than independent samples.
 - Matched assignments: 120
 - Execution trials: 240
 - Protocol revision: `stochastic-deduplicated-review-v1`
-- Accelerator ownership: one non-preemptive roostd experiment lease
+- Accelerator ownership: one non-preemptive accelerator lease
 
 Each optional result is self-matched against its exact pre-editor candidate.
 Normalized-identical outputs become automatic ties. Normalized unordered

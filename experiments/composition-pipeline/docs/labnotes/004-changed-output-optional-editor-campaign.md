@@ -32,7 +32,7 @@ identical texts.
 - Matched assignments: 120
 - Execution trials: 240
 - Protocol revision: `self-matched-changed-output-review-v2`
-- Accelerator ownership: one non-preemptive roostd experiment lease
+- Accelerator ownership: one non-preemptive accelerator lease
 
 Each optional-editor trial preserves its own pre-editor candidate as the direct
 rewrite baseline. Narrow normalization covers only line endings, trailing

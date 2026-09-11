@@ -20,4 +20,4 @@ tests/         Automated tests
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for the local workflow.
 See [docs/experiment-contract.md](docs/experiment-contract.md) for registration
-with Agent Runtime's approval-gated roostd experiment path.
+with the approval-gated scheduler and compute-broker path.

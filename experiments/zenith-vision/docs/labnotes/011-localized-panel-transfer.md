@@ -20,7 +20,7 @@ by whole-tile transfer learning while preserving development-only evaluation?
 ## Method
 
 - Private input: four approved, structurally masked development batches only.
-- Spent and future holdouts: not transferred to mpai and not read.
+- Spent and future holdouts: not transferred to the execution environment and not read.
 - Evidence plan: ten Hero header/icon-rail proposals and eight Inventory-grid
   proposals across the overlapping left and center tiles.
 - Backbone: ImageNet-pretrained MobileNet V3 Small, frozen.
@@ -31,8 +31,8 @@ by whole-tile transfer learning while preserving development-only evaluation?
 - Promotion gate, fixed before evaluation: at least 80% aggregate exact
   accuracy, at least 70% exact accuracy in every fold, and no class above a
   20% aggregate false-call-plus-miss rate.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `e00f5b3b-7afe-45e5-9bf2-07436241061c`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 
@@ -45,8 +45,8 @@ by whole-tile transfer learning while preserving development-only evaluation?
 
 Aggregate exact accuracy was 39/42 (92.9%). Hero's aggregate error rate was
 4.8%; Inventory's was 2.4%. The frozen development gate passed. The job
-completed on CUDA in 35.6 seconds with exit code 0 and no stderr. Agent Runtime
-and roostd remained healthy with zero restarts, and the accelerator lease was
+completed on CUDA in 35.6 seconds with exit code 0 and no stderr. The scheduler
+and compute broker remained healthy with zero restarts, and the accelerator lease was
 released normally.
 
 ## Decision

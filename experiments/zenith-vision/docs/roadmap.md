@@ -5,7 +5,7 @@
 - [x] Normalize the existing Zenith MumbleLink relay contract.
 - [x] Enforce telemetry authority and fail closed when it is stale.
 - [x] Add provenance-bearing visual observations.
-- [x] Add the fixed Agent Runtime experiment entrypoint.
+- [x] Add the fixed experiment-scheduler entrypoint.
 - [x] Add digest-bound dataset manifests and privacy intake checks.
 - [x] Add an independently testable reverse-reveal pixel boundary.
 - [x] Add a fail-closed local OCR verification contract.
@@ -27,7 +27,7 @@
 - [x] Evaluate and reject a compact global visual baseline on the frozen holdout.
 - [x] Build localized Hero-header/icon-rail and Inventory-grid evidence.
 - [x] Freeze and evaluate a new balanced holdout for the localized detector.
-- [x] Cross-validate a frozen-backbone MobileNet panel classifier through roostd.
+- [x] Cross-validate a frozen-backbone MobileNet panel classifier through the compute broker.
 - [x] Collect corrective Hero-negative and Inventory-only development scenes.
 - [x] Reject the corrective frozen-backbone run after cross-batch confounding persisted.
 - [ ] Add class-specific, visually diverse negative development scenes.
@@ -50,7 +50,7 @@
 - [ ] Evaluate the frozen UI-state baseline on the real holdout.
 - [ ] Evaluate icon classification on held-out licensed/synthetic fixtures.
 - [x] Add OCR after independently testing the redaction policy.
-- [ ] Measure latency and accuracy on the single 4070 through roostd.
+- [ ] Measure latency and accuracy on the single 4070 through the compute broker.
 
 ## Integration gates
 

@@ -53,20 +53,20 @@ Downstream LLM generation is forbidden unless:
 If either gate fails, the failure is the result. If both pass, reproduce Labnote 003's
 five conditions with the same system prompt, temperature 0.4, seed 42, and
 deterministic next-row cue derangement. The historical `qwen2.5:3b` model is no longer
-installed on mpai; the rerun therefore preregisters the available `qwen3:8b` successor
+installed on the local GPU workstation; the rerun therefore preregisters the available `qwen3:8b` successor
 and records this as a model-generation change rather than claiming a strict replication.
 The label condition remains an unfair reference control and must not be interpreted as
 synthesized prosody.
 
 ## Execution
 
-Agent Runtime submitted each phase to roostd as a non-preemptive experiment workload.
-The synthesis phase completed as run `4f24fd61-4411-4e8b-87d1-b62ea7d1c33a`.
+The experiment scheduler submitted each phase as a non-preemptive accelerator workload.
+The synthesis phase completed successfully; its internal identifier is withheld.
 Independent local `faster-whisper` `small.en` transcription then evaluated the frozen
-WAVs. The first downstream attempt, run `ca0605f3-48c9-41ac-ac18-f4c66096c91a`,
+WAVs. The first downstream attempt, whose internal identifier is withheld,
 failed before retaining a response because the historical `qwen2.5:3b` model was not
 installed. The explicitly revised, checkpointed `qwen3:8b` run
-`3f3e9ac5-66bc-4676-a67c-7ca0a0856542` completed 100 responses with exit code zero.
+The corrected downstream attempt completed 100 responses with exit code zero.
 
 Reproducibility facts:
 

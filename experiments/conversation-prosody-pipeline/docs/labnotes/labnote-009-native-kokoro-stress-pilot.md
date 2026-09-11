@@ -44,7 +44,7 @@ trial passes the phoneme and bounded audio-integrity gates.
 
 ## Result
 
-The approval-gated Agent Runtime/roostd run completed all four trials. Every condition
+The approval-gated scheduled run completed all four trials. Every condition
 changed exactly one competing token from primary to secondary stress; all intended and
 non-focus phonemes remained unchanged. Audio pairs were distinct and duration drift was
 0.9–3.7 percent.

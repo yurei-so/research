@@ -10,5 +10,5 @@ at least 75% exact accuracy in each staged panel state, and no class above a
 scientific result, not permission to tune against the holdout.
 
 Both the candidate path and four distinct holdout segment names are required by
-the Agent Runtime definition. Segment resolution rejects duplicates, symlinks,
+the scheduler definition. Segment resolution rejects duplicates, symlinks,
 and path traversal. Each digest-bound definition is retired after its one use.

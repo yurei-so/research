@@ -9,7 +9,8 @@ const rules = [
   ["private RFC1918 address", /\b(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b/],
   ["owner-specific home path", /\/home\/alu52\b/],
   ["private workstation hostname", /\bmpaiServer[-A-Za-z0-9.]*/i],
-  ["internal Runtime run coordinate", /(?:Authoritative\s+)?Agent Runtime run:\s*`?[0-9a-f]{8}-[0-9a-f-]{27,}/i],
+  ["internal execution UUID", /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/i],
+  ["private service or repository name", /\b(?:roostd|roost-sso|roost-console|agent[- ]runtime|chat[- ]runtime|agent[- ]companion|access[- ]server|personal[- ]access[- ]server|mpai(?:server)?|mamagpt|codecat|eden)\b/i],
   ["private actor identity", /\bactor:openai:[a-z0-9_-]+\b/i],
   ["Context Server operation name", /\b(?:request_actor_session|bind_sso_session|send_direct_context|list_direct_inbox|acknowledge_direct_context)\b/],
 ];

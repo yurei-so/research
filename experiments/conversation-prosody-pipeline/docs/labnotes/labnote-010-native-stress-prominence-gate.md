@@ -28,7 +28,7 @@ human review is prepared from a failed campaign.
 
 ## Result
 
-The approval-gated Agent Runtime/roostd run completed synthesis and analysis, then
+The approval-gated scheduled run completed synthesis and analysis, then
 exited with the intentional failed-gate status. Zero of six pair/voice trials passed;
 only two of twelve individual focus words cleared the two-dimension rule. Some words
 changed duration or energy, but effects were inconsistent, and median F0 remained

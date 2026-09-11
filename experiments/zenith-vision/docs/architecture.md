@@ -73,8 +73,8 @@ a separately reviewed real holdout meets a frozen promotion gate.
 5. Only after measured success: publish a stable vision-evidence contract that
    Zenith may consume.
 
-No phase grants input control. GPU experiments enter through Agent Runtime and
-roostd; telemetry normalization and CPU preprocessing do not need an accelerator
+No phase grants input control. GPU experiments enter through the approval-gated
+scheduler and compute broker; telemetry normalization and CPU preprocessing do not need an accelerator
 lease.
 
 Pixel handling follows the reverse-reveal boundary documented in

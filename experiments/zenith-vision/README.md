@@ -42,7 +42,7 @@ ephemeral interpreted scene with:
 ./scripts/run-interpreted-scene-once
 ```
 
-The fixed runner prefers `.venv/bin/python` when present so Agent Runtime uses
+The fixed runner prefers `.venv/bin/python` when present so the experiment scheduler uses
 the repository's declared dependencies rather than ambient system packages.
 
 See [docs/architecture.md](docs/architecture.md),

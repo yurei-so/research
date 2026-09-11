@@ -30,10 +30,10 @@ justified.
 - Corpus: six frozen, non-sensitive writing cases
 - Arms: append-only, unconstrained JSON editing, and schema-constrained JSON
   editing
-- Accelerator ownership: one non-preemptive roostd experiment lease
+- Accelerator ownership: one non-preemptive accelerator lease
 
 The committed protocol and corpus are the authoritative inputs. Generated text
-remains in Agent Runtime's private artifact store and is not reproduced here.
+remains in a private artifact store and is not reproduced here.
 
 ## Runtime result
 

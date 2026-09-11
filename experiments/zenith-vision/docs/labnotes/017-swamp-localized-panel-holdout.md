@@ -30,7 +30,7 @@ generalize to a fresh balanced swamp holdout?
 - Threshold: candidate's frozen 0.65 threshold.
 - Training and calibration: disabled.
 - Gate: unchanged from Labnotes 012 and 015.
-- Run: `89de33e6-63f8-4620-91cf-faa9c264002e`.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 

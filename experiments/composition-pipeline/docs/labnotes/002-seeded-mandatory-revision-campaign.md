@@ -32,7 +32,7 @@ with direct rewriting.
 - Prompt styles: concise and preservation-first
 - Repetitions: two
 - Planned trials: 48
-- Accelerator ownership: one non-preemptive roostd experiment lease
+- Accelerator ownership: one non-preemptive accelerator lease
 
 The committed manifest, protocol, and corpus are the authoritative inputs. Raw
 prompts, drafts, generated texts, checkpoints, review pairs, and the arm-reveal

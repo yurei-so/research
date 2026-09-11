@@ -23,15 +23,15 @@ classifier without spending a fresh holdout?
 - Private input: four approved, structurally masked development batches only.
 - Corrective batch: 12 Small-UI observations containing eight Inventory-only
   states and four closed-panel negatives.
-- Spent and future holdouts: not transferred to mpai and not read by the
+- Spent and future holdouts: not transferred to the execution environment and not read by the
   experiment.
 - Model: ImageNet-pretrained MobileNet V3 Small with frozen backbone;
   classifier head only.
 - Augmentation: bounded translation, scale, brightness, contrast, and
   saturation.
 - Evaluation: four leave-one-batch-out folds, 18 epochs per fold.
-- Accelerator: RTX 4070 through the non-preemptive roostd experiment lease.
-- Run: `ced33ac9-6ad6-4e8c-afc3-109f989d4045`.
+- Accelerator: RTX 4070 through a non-preemptive accelerator lease.
+- Internal execution record retained; identifier withheld.
 
 ## Result
 
@@ -43,7 +43,7 @@ classifier without spending a fresh holdout?
 | 004 corrective | 8/12 (66.7%) | 0/4/0 | 6/0/2 |
 
 Aggregate exact accuracy was 29/42 (69.0%). The job completed on CUDA with
-exit code 0 and no stderr. Agent Runtime and roostd remained healthy with zero
+exit code 0 and no stderr. The scheduler and compute broker remained healthy with zero
 restarts, and the accelerator lease was released normally.
 
 ## Decision

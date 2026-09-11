@@ -41,7 +41,7 @@ owner-only state. Public output contains only aggregate campaign telemetry.
 
 ## Status
 
-Protocol v4 is frozen and awaiting its coordinated Agent Runtime / roostd run.
+Protocol v4 is frozen and awaiting its coordinated approval-gated run.
 
 The initial v1 execution completed 120/120 trials with no scheduler failures,
 but is invalid for scientific interpretation. It diagnosed 40 residual defects

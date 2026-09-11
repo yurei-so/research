@@ -130,7 +130,7 @@ export function collectCatalog(root) {
     const notes = labnotes.filter((note) => note.family === id);
     const latest = [...notes].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id))[0];
     return { id, title: familyTitle(id), labnote_count: notes.length, latest_labnote_id: latest.id,
-      has_graph: notes.some((note) => note.relations.some((relation) => relation.type !== "follows")),
+      has_graph: notes.some((note) => note.relations.length > 0),
       outcomes: Object.fromEntries([...outcomes].sort().map((outcome) => [outcome, notes.filter((note) => note.outcome === outcome).length]).filter(([, count]) => count)) };
   });
   let revision = "unknown";

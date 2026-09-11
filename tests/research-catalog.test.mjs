@@ -25,6 +25,8 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.equal(namespaceAblation.relations[0].type, "motivated-by");
   assert.equal(namespaceAblation.relations[0].target, "voxel-guidance-004");
   assert.ok(manifest.families.find((family) => family.id === "voxel-guidance").has_graph);
+  assert.deepEqual(manifest.families.filter((family) => family.has_graph).map((family) => family.id),
+    ["composition", "narrative-steering", "prosody", "voxel-guidance", "zenith"]);
 });
 
 test("every published labnote has enough metadata for a standalone discovery page", () => {

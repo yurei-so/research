@@ -123,13 +123,17 @@ for (const family of manifest.families.filter((entry) => entry.has_graph)) {
   const noteIds = new Set(notes.map((note) => note.id));
   const graphNotes = notes.map((note) => ({ ...note, source_url: `${repositoryUrl}/blob/main/${recordById.get(note.id).relative.split("/").map(encodeURIComponent).join("/")}` }));
   const relations = notes.flatMap((note) => note.relations.filter((relation) => noteIds.has(relation.target)).map((relation) => ({ source: note.id, ...relation })));
-  const graphWidth = 1400;
-  const graphHeight = 950;
+  const graphWidth = notes.length > 7 ? 1500 : 1200;
+  const graphHeight = notes.length > 7 ? 1200 : 900;
   const center = { x: graphWidth / 2, y: graphHeight / 2 };
   const positions = new Map(notes.map((note, index) => {
     if (index === 0) return [note.id, { cx: center.x, cy: center.y, x: center.x - 110, y: center.y - 59 }];
-    const radius = 150 + index * 68;
-    const angle = -Math.PI / 2 + (index - 1) * 1.72;
+    const firstRingCapacity = 6;
+    const ring = index <= firstRingCapacity ? 0 : 1;
+    const positionInRing = ring === 0 ? index - 1 : index - firstRingCapacity - 1;
+    const population = ring === 0 ? Math.min(firstRingCapacity, notes.length - 1) : notes.length - firstRingCapacity - 1;
+    const radius = ring === 0 ? 265 : 505;
+    const angle = -Math.PI / 2 + ring * .24 + positionInRing / population * Math.PI * 2;
     const cx = center.x + Math.cos(angle) * radius;
     const cy = center.y + Math.sin(angle) * radius;
     return [note.id, { cx, cy, x: cx - 110, y: cy - 59 }];

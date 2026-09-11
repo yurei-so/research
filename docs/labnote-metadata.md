@@ -43,6 +43,11 @@ publish: true
   `motivated-by`, `reuses-data`, `reuses-apparatus`, `extends`, `ablates`,
   `replicates`, `supports`, `challenges`, and `supersedes`. These authored
   relationships—not inferred similarity—drive project graphs.
+
+When a note has `lineage` but no richer matching `relations` entry, the public
+graph renders that authored connection as the neutral `FOLLOWED BY` type. Do
+not promote it to a causal or evidentiary type without a source-backed
+rationale.
 - `publish` — whether the note belongs in the public Pages projection.
 
 `status` and `outcome` stay separate. A completed experiment may have a

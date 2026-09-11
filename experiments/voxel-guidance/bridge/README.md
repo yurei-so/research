@@ -43,8 +43,11 @@ snapshots, health/death/respawn transitions, and world-confirmed block
 placement/break actions. Output contains controlled categories rather than
 exact item names, block names, attackers, or block coordinates.
 
-Build with `./gradlew build`. The remapped mod is
-`build/libs/voxel-guidance-bridge-0.2.0.jar` and requires Fabric API.
+Build with `./gradlew build`. Version 0.3.1 adds a fail-closed, session-bound
+local guidance mailbox; it displays one persistent chat hint or an explicit
+low-confidence abstention but never executes an action. The remapped mod is
+`build/libs/voxel-guidance-bridge-0.3.1.jar` and
+requires Fabric API. Frozen pilot collection remains bound to version 0.2.0.
 
 ## Live rehearsal
 

@@ -1,0 +1,242 @@
+{
+  "format": "voxel-guidance.semantic-namespace-ablation",
+  "horizon_seconds": 120,
+  "interpretation_boundary": "Exploratory single-model ablation on reused sessions; variant differences are not confirmatory evidence.",
+  "model": "qwen3:8b",
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "output_contract": "one enum task in structured JSON",
+  "pairwise_prediction_agreement": {
+    "full_field_legend_vs_opaque_schema_only": 4,
+    "full_field_legend_vs_semantic_namespace_group_legend": 1,
+    "full_field_legend_vs_semantic_namespace_only": 4,
+    "semantic_namespace_group_legend_vs_opaque_schema_only": 2,
+    "semantic_namespace_only_vs_opaque_schema_only": 12,
+    "semantic_namespace_only_vs_semantic_namespace_group_legend": 2
+  },
+  "repeat_check": {
+    "accuracy_by_variant": {
+      "full_field_legend": [
+        0.5833333333333334,
+        0.5833333333333334
+      ],
+      "opaque_schema_only": [
+        0.25,
+        0.25
+      ],
+      "semantic_namespace_group_legend": [
+        0.08333333333333333,
+        0.08333333333333333
+      ],
+      "semantic_namespace_only": [
+        0.25,
+        0.25
+      ]
+    },
+    "confusion_identical": {
+      "full_field_legend": false,
+      "opaque_schema_only": true,
+      "semantic_namespace_group_legend": true,
+      "semantic_namespace_only": true
+    },
+    "prompt_tokens_identical": {
+      "full_field_legend": true,
+      "opaque_schema_only": true,
+      "semantic_namespace_group_legend": true,
+      "semantic_namespace_only": true
+    },
+    "run_count": 2
+  },
+  "results": {
+    "full_field_legend": {
+      "accuracy": 0.5833333333333334,
+      "confusion": {
+        "acquire": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "construct": {
+          "acquire": 0,
+          "construct": 2,
+          "explore": 0,
+          "recover": 1
+        },
+        "explore": {
+          "acquire": 0,
+          "construct": 0,
+          "explore": 0,
+          "recover": 3
+        },
+        "recover": {
+          "acquire": 1,
+          "construct": 0,
+          "explore": 0,
+          "recover": 2
+        }
+      },
+      "correct": 7,
+      "legend": "full",
+      "prompt_tokens": {
+        "maximum": 587,
+        "mean": 579.667,
+        "median": 582.5,
+        "minimum": 568,
+        "total": 6956
+      },
+      "semantic_namespace": false,
+      "total_duration_ms": {
+        "maximum": 468,
+        "mean": 420.0,
+        "median": 420.5,
+        "minimum": 367,
+        "total": 5040
+      }
+    },
+    "opaque_schema_only": {
+      "accuracy": 0.25,
+      "confusion": {
+        "acquire": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "construct": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "explore": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "recover": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        }
+      },
+      "correct": 3,
+      "legend": "none",
+      "prompt_tokens": {
+        "maximum": 374,
+        "mean": 366.667,
+        "median": 369.5,
+        "minimum": 355,
+        "total": 4400
+      },
+      "semantic_namespace": false,
+      "total_duration_ms": {
+        "maximum": 436,
+        "mean": 406.917,
+        "median": 406.0,
+        "minimum": 393,
+        "total": 4883
+      }
+    },
+    "semantic_namespace_group_legend": {
+      "accuracy": 0.08333333333333333,
+      "confusion": {
+        "acquire": {
+          "acquire": 0,
+          "construct": 3,
+          "explore": 0,
+          "recover": 0
+        },
+        "construct": {
+          "acquire": 2,
+          "construct": 1,
+          "explore": 0,
+          "recover": 0
+        },
+        "explore": {
+          "acquire": 0,
+          "construct": 3,
+          "explore": 0,
+          "recover": 0
+        },
+        "recover": {
+          "acquire": 0,
+          "construct": 3,
+          "explore": 0,
+          "recover": 0
+        }
+      },
+      "correct": 1,
+      "legend": "group",
+      "prompt_tokens": {
+        "maximum": 440,
+        "mean": 432.667,
+        "median": 435.5,
+        "minimum": 421,
+        "total": 5192
+      },
+      "semantic_namespace": true,
+      "total_duration_ms": {
+        "maximum": 506,
+        "mean": 458.417,
+        "median": 453.5,
+        "minimum": 430,
+        "total": 5501
+      }
+    },
+    "semantic_namespace_only": {
+      "accuracy": 0.25,
+      "confusion": {
+        "acquire": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "construct": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "explore": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "recover": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        }
+      },
+      "correct": 3,
+      "legend": "none",
+      "prompt_tokens": {
+        "maximum": 386,
+        "mean": 378.667,
+        "median": 381.5,
+        "minimum": 367,
+        "total": 4544
+      },
+      "semantic_namespace": true,
+      "total_duration_ms": {
+        "maximum": 439,
+        "mean": 406.917,
+        "median": 402.5,
+        "minimum": 391,
+        "total": 4883
+      }
+    }
+  },
+  "schema_digest": "845893ee5fcef0f4",
+  "seed": 1701,
+  "semantic_namespace": "voxel-guidance.behavior-window.v1",
+  "session_count": 12,
+  "temperature": 0,
+  "thinking": false,
+  "version": 1
+}

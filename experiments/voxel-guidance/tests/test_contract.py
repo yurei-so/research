@@ -6,6 +6,11 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from voxel_guidance import (ContractError, compile_pilot, compile_session_features,
+                            evaluate_feature_ablation, evaluate_task_inference,
+                            evaluate_model_encodings, evaluate_namespace_variants,
+                            evaluate_state_encodings,
+                            extract_prefix_features, fit_guidance_model,
+                            guidance_text, predict_guidance,
                             validate_protocol, validate_session, validate_session_set)
 
 
@@ -207,6 +212,83 @@ class PilotTests(unittest.TestCase):
         next(mod for mod in manifest["mods"] if mod["file"] == bridge_file)["sha256"] = "0" * 64
         with self.assertRaisesRegex(ContractError, "bridge digest mismatch"):
             validate_protocol(self.protocol, manifest)
+
+    def test_task_inference_uses_grouped_deterministic_evaluation(self) -> None:
+        sessions = self.sessions()
+        first = evaluate_task_inference(sessions, horizons=(120,), permutation_samples=20, seed=7)
+        self.assertEqual(first, evaluate_task_inference(
+            sessions, horizons=(120,), permutation_samples=20, seed=7))
+        self.assertEqual(first["validation"], "leave-one-seed-block-out")
+        self.assertEqual(first["session_count"], 12)
+        self.assertEqual(first["multiple_testing"]["per_horizon_alpha"], 0.05)
+        result = first["results"]["120"]
+        self.assertEqual(sum(sum(row.values()) for row in result["confusion"].values()), 12)
+        self.assertLessEqual(result["permutation_p_value"], 1.0)
+
+    def test_task_inference_features_exclude_markers_and_forced_death_churn(self) -> None:
+        recover = pilot_session("vg-block-a-recover", "recover")
+        features = extract_prefix_features(recover, 240)
+        self.assertTrue(all("marker" not in name and "death" not in name for name in features))
+        # The synthetic recovery fixture gains no inventory outside its death/recovery window.
+        self.assertEqual(sum(value for name, value in features.items()
+                             if name.startswith("inventory_gained_")), 0.0)
+
+    def test_task_inference_rejects_incomplete_matrix(self) -> None:
+        with self.assertRaisesRegex(ContractError, "complete 12-session matrix"):
+            evaluate_task_inference(self.sessions()[:-1], permutation_samples=0)
+
+    def test_feature_ablation_is_grouped_and_reports_all_variants(self) -> None:
+        result = evaluate_feature_ablation(
+            self.sessions(), horizon_seconds=120, permutation_samples=10, seed=7)
+        self.assertEqual(result["validation"], "leave-one-seed-block-out")
+        self.assertEqual(set(result["results"]), {
+            "all", "movement_only", "inventory_only", "block_actions_only",
+            "without_movement", "without_inventory", "without_block_actions",
+        })
+        self.assertGreater(result["results"]["all"]["feature_count"],
+                           result["results"]["movement_only"]["feature_count"])
+
+    def test_state_encoding_baseline_is_lossless_and_bounded(self) -> None:
+        result = evaluate_state_encodings(self.sessions(), permutation_samples=10)
+        self.assertEqual(result["lossless_round_trip"], {"json": True, "compact": True})
+        self.assertEqual(result["schema"]["field_count"], 25)
+        self.assertLess(result["representations"]["compact"]["total"],
+                        result["representations"]["json"]["total"])
+        self.assertIn("does not test", result["interpretation_boundary"])
+
+    def test_model_encoding_comparison_aggregates_without_session_predictions(self) -> None:
+        def generate(_prompt):
+            return {"task": "explore", "prompt_eval_count": 100, "total_duration_ns": 2_000_000}
+        result = evaluate_model_encodings(
+            self.sessions(), generate, model="fixture", model_digest="a" * 64)
+        self.assertEqual(set(result["results"]), {"prose", "json", "compact"})
+        self.assertNotIn("predictions", result)
+        self.assertEqual(result["results"]["prose"]["prompt_tokens"]["total"], 1200)
+
+    def test_namespace_ablation_includes_opaque_and_semantic_controls(self) -> None:
+        def generate(_prompt):
+            return {"task": "explore", "prompt_eval_count": 80, "total_duration_ns": 2_000_000}
+        result = evaluate_namespace_variants(
+            self.sessions(), generate, model="fixture", model_digest="a" * 64)
+        self.assertEqual(set(result["results"]), {
+            "full_field_legend", "semantic_namespace_only",
+            "semantic_namespace_group_legend", "opaque_schema_only",
+        })
+        self.assertEqual(result["semantic_namespace"], "voxel-guidance.behavior-window.v1")
+        self.assertNotIn("predictions", result)
+
+    def test_guidance_model_predicts_from_partial_events_without_task_feature(self) -> None:
+        model = fit_guidance_model(self.sessions())
+        partial = pilot_session("vg-block-c-explore", "explore")[:-1]
+        prediction = predict_guidance(model, partial)
+        self.assertIn(prediction["task"], {"acquire", "construct", "explore", "recover"})
+        self.assertNotIn("task_id", model["features"])
+        self.assertIn("confidence_ratio", prediction)
+        self.assertTrue(guidance_text(prediction))
+
+    def test_guidance_abstains_on_low_confidence(self) -> None:
+        text = guidance_text({"task": "recover", "sufficient_evidence": False})
+        self.assertIn("no guidance issued", text)
 
 
 if __name__ == "__main__":

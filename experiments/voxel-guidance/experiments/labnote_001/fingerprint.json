@@ -1,0 +1,99 @@
+{
+  "block_count": 3,
+  "claim_boundary": "protocol-bound behavioral description; not identity or personality inference",
+  "coordinates": {
+    "construction_allocation": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        0.21764705882352942,
+        0.26515151515151514
+      ],
+      "leave_one_block_out_range": [
+        0.22218868454302962,
+        0.24594091270702248
+      ],
+      "mean": 0.2365096280791915
+    },
+    "deliberation_latency": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        0.04016427675754925,
+        0.07031921973543867
+      ],
+      "leave_one_block_out_range": [
+        0.050342298680454936,
+        0.06541977016939965
+      ],
+      "mean": 0.05700127236544952
+    },
+    "exploration_breadth": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        9.249884376445294,
+        11.499377117072825
+      ],
+      "leave_one_block_out_range": [
+        9.999863803949085,
+        11.12461017426285
+      ],
+      "mean": 10.49970157499033
+    },
+    "plan_revision_rate": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        0.0,
+        0.0
+      ],
+      "leave_one_block_out_range": [
+        0.0,
+        0.0
+      ],
+      "mean": 0.0
+    },
+    "recovery_efficiency": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        0.9230600974508215,
+        0.9658921640726073
+      ],
+      "leave_one_block_out_range": [
+        0.9400789485675014,
+        0.9614949818783942
+      ],
+      "mean": 0.94868335373587
+    },
+    "resource_selectivity": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        0.022026431718061675,
+        0.04888888888888889
+      ],
+      "leave_one_block_out_range": [
+        0.03366693754187874,
+        0.04709816612729234
+      ],
+      "mean": 0.03874092132421545
+    },
+    "route_closure": {
+      "block_count": 3,
+      "bootstrap_interval_95": [
+        0.7343080349086245,
+        0.9909946743694115
+      ],
+      "leave_one_block_out_range": [
+        0.8407197985611897,
+        0.9690631182915832
+      ],
+      "mean": 0.890811423830597
+    }
+  },
+  "experiment_id": "voxel-guidance-001",
+  "format": "voxel-guidance.fingerprint",
+  "manifest_digest": "c5be3fe98032610011ad423023eee3a9f39c4684875d8b29dbef6861a2aa6d05",
+  "protocol_digest": "887129a667f75e2f8eec7e84461b957b5118561055c966d01e9ce10ea99664da",
+  "quality": {
+    "inventory_events_excluded_during_recovery": 28
+  },
+  "session_count": 12,
+  "version": 1
+}

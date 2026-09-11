@@ -48,3 +48,23 @@ private session stream.
 The frozen pilot schedule, world setup, modpack manifest, and aggregate-only
 compiler are under `experiments/labnote_001/`. The pilot is 12 eight-minute
 sessions; do not reuse the five rehearsal streams as evidence.
+
+Labnote 004 applies the shared `apparatus/state-encoding` serializers to the
+frozen 120-second feature windows. It establishes lossless JSON and compact
+typed-token transport plus UTF-8 size baselines. Its exploratory `qwen3:8b`
+probe found compact 5/12 versus prose 3/12 and JSON 2/12, explicitly too small
+and post hoc to establish a reasoning advantage.
+
+Labnote 005 tests whether a semantic namespace can replace the full field
+dictionary. It cannot in this zero-shot probe: namespace-only matched the opaque
+control exactly, while the full dictionary retained the strongest score.
+
+## Local live-guidance prototype
+
+Bridge 0.3.0 can display a session-bound hint written by the local shadow
+sidecar. The sidecar remains silent until 120 seconds, emits at most one hint
+for a neutral `live-guidance` session, and never controls Minecraft. Train its
+local four-task prototype with `compile_guidance_model.py`, then run
+`run_shadow_guidance.py` against the owned instance's private session folder
+and guidance mailbox. The model is protocol-bound and cannot infer arbitrary
+intent.

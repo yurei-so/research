@@ -214,6 +214,77 @@
       "automatic_explicit_stop": false,
       "required_markers_exactly_once": true,
       "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-b-construct",
+      "attempt": 2,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.013,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-c-construct",
+      "attempt": 1,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.046,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-c-explore",
+      "attempt": 1,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.007,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-c-recover",
+      "attempt": 1,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.037,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "recovery_event_order_valid": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
+    },
+    {
+      "task_id": "vg-block-c-acquire",
+      "attempt": 1,
+      "collection_epoch": 2,
+      "analysis_included": true,
+      "status": "accepted",
+      "duration_seconds": 480.011,
+      "contract_valid": true,
+      "automatic_explicit_stop": true,
+      "required_markers_exactly_once": true,
+      "world_settings_valid": true,
+      "apparatus_manifest_valid": true,
+      "private_file_mode_valid": true
     }
   ]
 }

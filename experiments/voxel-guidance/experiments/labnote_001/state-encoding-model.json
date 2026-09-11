@@ -1,0 +1,181 @@
+{
+  "format": "voxel-guidance.state-encoding-model-comparison",
+  "horizon_seconds": 120,
+  "interpretation_boundary": "Exploratory single-model deterministic run. Prompt-token counts are model-specific; accuracy differences are not validated general effects.",
+  "model": "qwen3:8b",
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "output_contract": "one enum task in structured JSON",
+  "pairwise_prediction_agreement": {
+    "json_vs_compact": 6,
+    "prose_vs_compact": 4,
+    "prose_vs_json": 7
+  },
+  "repeat_check": {
+    "accuracy_by_representation": {
+      "compact": [
+        0.4166666666666667,
+        0.4166666666666667
+      ],
+      "json": [
+        0.16666666666666666,
+        0.16666666666666666
+      ],
+      "prose": [
+        0.25,
+        0.25
+      ]
+    },
+    "confusion_identical": {
+      "compact": true,
+      "json": true,
+      "prose": true
+    },
+    "note": "Temperature zero and a fixed seed do not guarantee backend-level determinism.",
+    "prompt_tokens_identical": {
+      "compact": true,
+      "json": true,
+      "prose": true
+    },
+    "run_count": 2
+  },
+  "results": {
+    "compact": {
+      "accuracy": 0.4166666666666667,
+      "confusion": {
+        "acquire": {
+          "acquire": 2,
+          "construct": 0,
+          "explore": 0,
+          "recover": 1
+        },
+        "construct": {
+          "acquire": 1,
+          "construct": 1,
+          "explore": 0,
+          "recover": 1
+        },
+        "explore": {
+          "acquire": 0,
+          "construct": 0,
+          "explore": 0,
+          "recover": 3
+        },
+        "recover": {
+          "acquire": 1,
+          "construct": 0,
+          "explore": 0,
+          "recover": 2
+        }
+      },
+      "correct": 5,
+      "prompt_tokens": {
+        "maximum": 589,
+        "mean": 581.667,
+        "median": 584.5,
+        "minimum": 570,
+        "total": 6980
+      },
+      "total_duration_ms": {
+        "maximum": 475,
+        "mean": 409.833,
+        "median": 405.0,
+        "minimum": 368,
+        "total": 4918
+      }
+    },
+    "json": {
+      "accuracy": 0.16666666666666666,
+      "confusion": {
+        "acquire": {
+          "acquire": 1,
+          "construct": 1,
+          "explore": 0,
+          "recover": 1
+        },
+        "construct": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "explore": {
+          "acquire": 0,
+          "construct": 0,
+          "explore": 1,
+          "recover": 2
+        },
+        "recover": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        }
+      },
+      "correct": 2,
+      "prompt_tokens": {
+        "maximum": 592,
+        "mean": 584.667,
+        "median": 587.5,
+        "minimum": 573,
+        "total": 7016
+      },
+      "total_duration_ms": {
+        "maximum": 460,
+        "mean": 402.667,
+        "median": 396.5,
+        "minimum": 356,
+        "total": 4832
+      }
+    },
+    "prose": {
+      "accuracy": 0.25,
+      "confusion": {
+        "acquire": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "construct": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "explore": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        },
+        "recover": {
+          "acquire": 3,
+          "construct": 0,
+          "explore": 0,
+          "recover": 0
+        }
+      },
+      "correct": 3,
+      "prompt_tokens": {
+        "maximum": 664,
+        "mean": 656.667,
+        "median": 659.5,
+        "minimum": 645,
+        "total": 7880
+      },
+      "total_duration_ms": {
+        "maximum": 491,
+        "mean": 396.667,
+        "median": 370.5,
+        "minimum": 356,
+        "total": 4760
+      }
+    }
+  },
+  "schema_digest": "845893ee5fcef0f4",
+  "seed": 1701,
+  "session_count": 12,
+  "temperature": 0,
+  "thinking": false,
+  "version": 1
+}

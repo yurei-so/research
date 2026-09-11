@@ -1,0 +1,79 @@
+{
+  "block_count": 3,
+  "classifier": "z-scored nearest task centroid",
+  "feature_boundary": "causal behavior only; task, schedule, markers, forced death, and recovery inventory churn excluded",
+  "format": "voxel-guidance.task-inference",
+  "horizons_seconds": [30, 60, 120, 240, 480],
+  "multiple_testing": {
+    "family_alpha": 0.05,
+    "family_size": 5,
+    "method": "Bonferroni",
+    "per_horizon_alpha": 0.01
+  },
+  "permutation_samples": 10000,
+  "results": {
+    "120": {
+      "accuracy": 0.8333333333333334,
+      "chance_accuracy": 0.25,
+      "confusion": {
+        "acquire": {"acquire": 3, "construct": 0, "explore": 0, "recover": 0},
+        "construct": {"acquire": 0, "construct": 2, "explore": 0, "recover": 1},
+        "explore": {"acquire": 0, "construct": 0, "explore": 3, "recover": 0},
+        "recover": {"acquire": 0, "construct": 1, "explore": 0, "recover": 2}
+      },
+      "macro_f1": 0.8333333333333333,
+      "permutation_p_value": 0.0021997800219978004
+    },
+    "240": {
+      "accuracy": 0.8333333333333334,
+      "chance_accuracy": 0.25,
+      "confusion": {
+        "acquire": {"acquire": 3, "construct": 0, "explore": 0, "recover": 0},
+        "construct": {"acquire": 1, "construct": 1, "explore": 0, "recover": 1},
+        "explore": {"acquire": 0, "construct": 0, "explore": 3, "recover": 0},
+        "recover": {"acquire": 0, "construct": 0, "explore": 0, "recover": 3}
+      },
+      "macro_f1": 0.8035714285714286,
+      "permutation_p_value": 0.0018998100189981002
+    },
+    "30": {
+      "accuracy": 0.4166666666666667,
+      "chance_accuracy": 0.25,
+      "confusion": {
+        "acquire": {"acquire": 3, "construct": 0, "explore": 0, "recover": 0},
+        "construct": {"acquire": 1, "construct": 0, "explore": 1, "recover": 1},
+        "explore": {"acquire": 1, "construct": 0, "explore": 1, "recover": 1},
+        "recover": {"acquire": 1, "construct": 0, "explore": 1, "recover": 1}
+      },
+      "macro_f1": 0.3333333333333333,
+      "permutation_p_value": 0.1902809719028097
+    },
+    "480": {
+      "accuracy": 0.6666666666666666,
+      "chance_accuracy": 0.25,
+      "confusion": {
+        "acquire": {"acquire": 2, "construct": 1, "explore": 0, "recover": 0},
+        "construct": {"acquire": 1, "construct": 1, "explore": 0, "recover": 1},
+        "explore": {"acquire": 0, "construct": 0, "explore": 3, "recover": 0},
+        "recover": {"acquire": 0, "construct": 1, "explore": 0, "recover": 2}
+      },
+      "macro_f1": 0.6666666666666666,
+      "permutation_p_value": 0.012898710128987101
+    },
+    "60": {
+      "accuracy": 0.75,
+      "chance_accuracy": 0.25,
+      "confusion": {
+        "acquire": {"acquire": 2, "construct": 1, "explore": 0, "recover": 0},
+        "construct": {"acquire": 0, "construct": 2, "explore": 0, "recover": 1},
+        "explore": {"acquire": 0, "construct": 0, "explore": 3, "recover": 0},
+        "recover": {"acquire": 0, "construct": 1, "explore": 0, "recover": 2}
+      },
+      "macro_f1": 0.7595238095238095,
+      "permutation_p_value": 0.0046995300469953
+    }
+  },
+  "session_count": 12,
+  "validation": "leave-one-seed-block-out",
+  "version": 1
+}

@@ -3,10 +3,13 @@ name = "voxel-guidance"
 version = "0.1.0"
 description = "Bounded Minecraft behavioral telemetry research"
 requires-python = ">=3.11"
+dependencies = ["yurei-state-encoding"]
+
+[tool.uv.sources]
+yurei-state-encoding = { path = "../../apparatus/state-encoding", editable = true }
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-

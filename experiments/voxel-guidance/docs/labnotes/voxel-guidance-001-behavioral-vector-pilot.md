@@ -3,8 +3,8 @@ schema_version: 1
 id: voxel-guidance-001
 title: "Minecraft behavioral-vector pilot"
 date: 2026-09-07
-status: planned
-outcome: pending
+status: complete
+outcome: mixed
 question: "Can repeated, task-balanced Minecraft sessions produce an interpretable behavioral vector whose within-condition variation is smaller than its uncertainty?"
 tags: ["behavioral-telemetry","human-in-the-loop","minecraft","planned-experiment","provenance","repeated-measures"]
 lineage: []
@@ -233,3 +233,17 @@ claim boundary.
 
 The event sources, task battery, and analysis plan are frozen. Pilot collection
 may begin in protocol order. None of the rehearsal streams may enter evidence.
+
+## Pilot completion
+
+Collection finished on 2026-09-10 with 12 accepted sessions across all four
+tasks and three seed blocks. Interrupted and superseded attempts remain visible
+in the owner-safe collection ledger and were excluded before compilation. The
+deterministic aggregate contains all seven frozen coordinates, block-bootstrap
+intervals, and leave-one-block-out ranges without a single combined score.
+
+This is a mixed result: the protocol produced an interpretable aggregate and
+earned exploratory follow-up, but three blocks from one participant cannot
+establish a stable fingerprint beyond this task battery. Labnotes 002 and 003
+therefore test protocol-bound task recognition and feature-family contribution
+without making identity, personality, or population claims.

@@ -2,6 +2,7 @@ package so.yurei.voxelguidance;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -45,6 +46,7 @@ final class SessionRecorder {
     private int respawnCount;
     private final Map<String, Integer> blockActionCounts = new HashMap<>();
     private final Map<BlockPos, PendingBlock> pendingBlocks = new HashMap<>();
+    private long guidanceRevision;
 
     synchronized void start(Minecraft client, String task, String protocol) throws IOException {
         if (writer != null) throw new IOException("a recording is already active");
@@ -69,6 +71,7 @@ final class SessionRecorder {
         respawnCount = 0;
         blockActionCounts.clear();
         pendingBlocks.clear();
+        guidanceRevision = 0;
         Path output = directory.resolve(sessionId + ".ndjson");
         writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
@@ -123,6 +126,7 @@ final class SessionRecorder {
             payload.addProperty("dimension", dimension);
             write("position_sample", payload);
             sampleInventory(client.player);
+            checkGuidance(client);
             long elapsed = Duration.between(startedAt, Instant.now()).toSeconds();
             notify(client, "RECORDING " + taskId + " " + (elapsed / 60) + ":" + String.format("%02d", elapsed % 60));
         } catch (IOException error) {
@@ -248,6 +252,26 @@ final class SessionRecorder {
 
     private static String dimension(Level world) {
         return world.dimension().location().toString();
+    }
+
+    private void checkGuidance(Minecraft client) {
+        try {
+            Path path = OwnershipGate.requireOwnedGameDirectory().resolve(".voxel-guidance/private/guidance/current.json");
+            if (!Files.isRegularFile(path) || Files.isSymbolicLink(path)) return;
+            try {
+                if (!Files.getPosixFilePermissions(path).equals(PosixFilePermissions.fromString("rw-------"))) return;
+            } catch (UnsupportedOperationException ignored) {}
+            JsonObject value;
+            try (var reader = Files.newBufferedReader(path)) { value = JsonParser.parseReader(reader).getAsJsonObject(); }
+            if (!"voxel-guidance.guidance".equals(value.get("format").getAsString())
+                    || value.get("version").getAsInt() != 1
+                    || !sessionId.equals(value.get("session_id").getAsString())) return;
+            long revision = value.get("revision").getAsLong();
+            String message = value.get("message").getAsString();
+            if (revision <= guidanceRevision || message.isBlank() || message.length() > 200) return;
+            guidanceRevision = revision;
+            client.player.displayClientMessage(Component.literal("[Voxel Guidance] " + message), false);
+        } catch (Exception ignored) {}
     }
 
     private void write(String kind, JsonObject payload) throws IOException {

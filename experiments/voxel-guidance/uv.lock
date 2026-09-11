@@ -1,0 +1,19 @@
+version = 1
+revision = 3
+requires-python = ">=3.11"
+
+[[package]]
+name = "voxel-guidance"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "yurei-state-encoding" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "yurei-state-encoding", editable = "../../apparatus/state-encoding" }]
+
+[[package]]
+name = "yurei-state-encoding"
+version = "0.1.0"
+source = { editable = "../../apparatus/state-encoding" }

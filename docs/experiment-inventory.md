@@ -68,7 +68,11 @@ launcher-control dependency; experimental protocols and evidence remain here.
 
 | ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
 | --- | --- | --- | --- | --- | --- |
-| `voxel-guidance-001` | Minecraft behavioral-vector pilot | Planned | Pending | `minecraft`, `behavioral-telemetry`, `repeated-measures`, `human-in-the-loop` | Begin with a narrow telemetry/marker contract and instrumentation rehearsal. Only the toolkit-owned lab instance is in collection scope. |
+| `voxel-guidance-001` | Minecraft behavioral-vector pilot | Complete | Mixed | `minecraft`, `behavioral-telemetry`, `repeated-measures`, `human-in-the-loop` | Twelve accepted sessions produced the frozen aggregate fingerprint; interpretation remains protocol-bound and single-participant. |
+| `voxel-guidance-002` | Blinded current-task inference | Complete | Positive | `minecraft`, `behavioral-telemetry`, `classification`, `grouped-validation` | Held-seed accuracy peaked at 10/12 after 120–240 seconds; 60–240 second results survived correction across five horizons. |
+| `voxel-guidance-003` | Current-task feature-family ablation | Complete | Mixed | `minecraft`, `behavioral-telemetry`, `classification`, `ablation` | Block actions alone matched the full 10/12 result; movement retained signal while inventory alone did not reliably beat chance. |
+| `voxel-guidance-004` | Machine-native state serialization baseline | Complete | Mixed | `behavioral-telemetry`, `machine-native-state`, `serialization`, `apparatus` | Compact state was lossless and smaller; one exploratory local-model probe favored compact 5/12 over prose 3/12 and JSON 2/12, but is too small and post hoc to establish a reasoning advantage. |
+| `voxel-guidance-005` | Semantic namespace token ablation | Complete | Negative | `machine-native-state`, `namespace`, `ablation`, `local-model` | Namespace-only exactly matched the opaque control at 3/12; the full field dictionary reached 7/12, so a readable namespace did not replace explicit field semantics. |
 
 ## Migration checks
 

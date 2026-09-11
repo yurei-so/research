@@ -1,0 +1,47 @@
+{
+  "compact_reduction_vs_json": 0.172249,
+  "compact_reduction_vs_prose": 0.642667,
+  "format": "voxel-guidance.state-encoding-baseline",
+  "horizon_seconds": 120,
+  "interpretation_boundary": "This measures deterministic transport fidelity and UTF-8 representation size. It does not test or imply improved language-model reasoning.",
+  "lossless_round_trip": {
+    "compact": true,
+    "json": true
+  },
+  "reference_task_inference": {
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8333333333333333,
+    "permutation_p_value": 0.0021997800219978004
+  },
+  "representations": {
+    "compact": {
+      "maximum": 411,
+      "mean": 403.667,
+      "median": 406.5,
+      "minimum": 392,
+      "total": 4844
+    },
+    "json": {
+      "maximum": 495,
+      "mean": 487.667,
+      "median": 490.5,
+      "minimum": 476,
+      "total": 5852
+    },
+    "prose": {
+      "maximum": 1137,
+      "mean": 1129.667,
+      "median": 1132.5,
+      "minimum": 1118,
+      "total": 13556
+    }
+  },
+  "schema": {
+    "digest": "845893ee5fcef0f4",
+    "field_count": 25,
+    "name": "voxel-guidance.behavior-window",
+    "version": 1
+  },
+  "session_count": 12,
+  "version": 1
+}

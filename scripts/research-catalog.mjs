@@ -55,7 +55,7 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const question = escapeHtml(record.metadata.question);
   const canonicalUrl = `${siteUrl}${note.href}`;
   const socialImageUrl = `${siteUrl}assets/social/${note.id}.png`;
-  const socialDescription = `${note.id.toUpperCase()} · ${note.family.toUpperCase()} · ${note.outcome.toUpperCase()} · ${note.status.toUpperCase()} — ${note.result_summary}`;
+  const socialDescription = `${note.id.toUpperCase()} · ${note.family.toUpperCase()} · ${note.outcome.toUpperCase()} · ${note.status.toUpperCase()}`;
   socialCards.push(writeSocialCard(note, path.join(output, "assets", "social", `${note.id}.png`)));
   const sourceUrl = `${repositoryUrl}/blob/main/${record.relative.split("/").map(encodeURIComponent).join("/")}`;
   const relationCard = (id, current = false) => {

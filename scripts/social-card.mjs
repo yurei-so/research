@@ -14,13 +14,26 @@ function xml(value) {
     .replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
-function wrap(value, width, limit) {
+function glyphWidth(value, fontSize) {
+  let units = 0;
+  for (const character of String(value)) {
+    if (/[MW@%&]/.test(character)) units += 0.9;
+    else if (/[ilI1'.,:;!|]/.test(character)) units += 0.3;
+    else if (/[A-Z0-9]/.test(character)) units += 0.66;
+    else if (character === " ") units += 0.3;
+    else units += 0.56;
+  }
+  return units * fontSize;
+}
+
+function wrap(value, width, limit, fontSize = null) {
   const words = String(value).trim().split(/\s+/);
   const lines = [];
   let current = "";
   for (const word of words) {
     const candidate = current ? `${current} ${word}` : word;
-    if (candidate.length <= width || !current) current = candidate;
+    const fits = fontSize ? glyphWidth(candidate, fontSize) <= width : candidate.length <= width;
+    if (fits || !current) current = candidate;
     else { lines.push(current); current = word; }
   }
   if (current) lines.push(current);
@@ -32,8 +45,12 @@ function wrap(value, width, limit) {
 }
 
 export function socialCardSvg(note) {
-  const titleLines = wrap(note.title, 32, 3);
-  const titleSize = titleLines.length === 1 ? 78 : titleLines.length === 2 ? 68 : 58;
+  let titleSize = 72;
+  let titleLines = wrap(note.title, 1020, 3, titleSize);
+  if (titleLines.length > 1) {
+    titleSize = titleLines.length === 2 ? 64 : 54;
+    titleLines = wrap(note.title, 1020, 3, titleSize);
+  }
   const titleStart = 174;
   const titleStep = titleSize * 1.06;
   const summaryLines = wrap(note.result_summary || note.question, 76, 2);

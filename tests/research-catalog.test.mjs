@@ -83,3 +83,11 @@ test("social card SVG contains research identity and escaped canonical metadata"
   assert.ok(svg.includes("A &lt;negative&gt; result"));
   assert.ok(!svg.includes("It did not work & that matters."));
 });
+
+test("social card wraps visually wide titles before the safe right edge", () => {
+  const svg = socialCardSvg({ id: "test-002", family: "test", title: "Blinded current-task inference",
+    date: "2026-09-10", status: "complete", outcome: "positive",
+    question: "Did it work?", result_summary: "A compact result." });
+  assert.ok(svg.includes("Blinded current-task"));
+  assert.ok(svg.includes("inference</text>"));
+});

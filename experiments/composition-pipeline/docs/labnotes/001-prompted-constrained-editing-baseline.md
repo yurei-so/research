@@ -23,7 +23,7 @@ justified.
 ## Frozen protocol
 
 - Experiment: `labnote_001`
-- Agent Runtime run: `475d0615-ba0f-4b12-aa31-24a9dd3bcba1`
+- Internal execution record retained; identifier withheld.
 - Model: `qwen3:8b`
 - Seed: `20260822`
 - Temperature: `0`

@@ -25,7 +25,7 @@ fingerprint is a seven-coordinate descriptive vector. It is not an emotion
 classifier, quality score, personality diagnosis, or claim that a model has a
 single context-independent policy.
 
-The cone visualization proposed in Whiteboard #2281 is explicitly deferred.
+An earlier speculative cone visualization is explicitly deferred.
 
 ## Vector
 

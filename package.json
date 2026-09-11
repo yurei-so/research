@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "catalog:check": "node scripts/research-catalog.mjs check",
+    "privacy:check": "node scripts/public-surface-audit.mjs",
     "build": "node scripts/research-catalog.mjs build",
     "test": "node --test tests/*.test.mjs"
   },

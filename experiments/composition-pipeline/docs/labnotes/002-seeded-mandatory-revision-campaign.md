@@ -23,7 +23,7 @@ with direct rewriting.
 ## Frozen protocol
 
 - Experiment: `labnote_002`
-- Agent Runtime run: `a7561073-8304-40d7-930b-33b1cd8b551e`
+- Internal execution record retained; identifier withheld.
 - Campaign digest: `e1dd20cac2d419017ebea302e47f4ea9ef06ac672c802f075bfa613183efd490`
 - Repository revision: `152f4a3`
 - Model: `qwen3:8b`

@@ -23,7 +23,7 @@ initial candidate unchanged is a first-class treatment outcome.
 ## Frozen protocol
 
 - Experiment: `labnote_003`
-- Agent Runtime run: `9e55ef72-4817-4b2a-b07f-b51102e425aa`
+- Internal execution record retained; identifier withheld.
 - Campaign digest: `6728008926b7d896ced277199b03748c3beda1400a0ea1a152a6dd8f879fadd3`
 - Repository revisions: `9a57f28`, corrected by `fd4c02f`
 - Model: `qwen3:8b`

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-root=/home/alu52/github/conversation-prosody-pipeline
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 run_dir="$root/artifacts/labnote-011/reproducible-rerun"
 args=(
   --source-snapshot "$root/artifacts/labnote-011/source-rows.json"

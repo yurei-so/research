@@ -70,7 +70,7 @@ def run(endpoint: str, bundle_path: Path, output: Path, timeout: int) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--endpoint", default="http://10.0.0.182:11434")
+    parser.add_argument("--endpoint", default=os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434"))
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--timeout", type=int, default=300)

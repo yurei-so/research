@@ -16,7 +16,7 @@ publish: true
 
 **Status:** Complete; plan speculation did not earn draft or real-audio escalation
 
-**Execution host:** `mpaiServer-8kl`
+**Execution environment:** local GPU workstation
 
 ## Question
 

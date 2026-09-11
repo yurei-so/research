@@ -39,3 +39,7 @@ The research library site is a generated public projection, not a repository
 mirror. Labnotes opt in with `publish: true`; the build validates their
 metadata and emits only the allowlisted catalog and rendered eligible notes.
 See the [publication boundary and local build](docs/publication.md).
+
+The Pages build also rejects internal note coordinates, private actor names,
+deployed RFC1918 addresses, owner-specific home paths, private workstation
+hostnames, and internal Runtime run identifiers before publication.

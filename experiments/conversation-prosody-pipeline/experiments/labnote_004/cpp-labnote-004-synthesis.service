@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/alu52/github/conversation-prosody-pipeline
-ExecStart=/home/alu52/github/conversation-prosody-pipeline/.venv-kokoro/bin/python /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_004/run_synthesis.py --run-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-004/oracle-synthesis
+WorkingDirectory=%h/github/research/experiments/conversation-prosody-pipeline
+ExecStart=%h/github/research/experiments/conversation-prosody-pipeline/.venv-kokoro/bin/python %h/github/research/experiments/conversation-prosody-pipeline/experiments/labnote_004/run_synthesis.py --run-dir %h/github/research/experiments/conversation-prosody-pipeline/artifacts/labnote-004/oracle-synthesis
 Restart=on-abnormal
 RestartSec=10
 Nice=10

@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/alu52/github/conversation-prosody-pipeline
-ExecStart=/usr/bin/python3 /home/alu52/github/conversation-prosody-pipeline/experiments/labnote_005/run_predictions.py --run-dir /home/alu52/github/conversation-prosody-pipeline/artifacts/labnote-005/predictions
+WorkingDirectory=%h/github/research/experiments/conversation-prosody-pipeline
+ExecStart=/usr/bin/python3 %h/github/research/experiments/conversation-prosody-pipeline/experiments/labnote_005/run_predictions.py --run-dir %h/github/research/experiments/conversation-prosody-pipeline/artifacts/labnote-005/predictions
 Restart=on-abnormal
 RestartSec=10
 Nice=10

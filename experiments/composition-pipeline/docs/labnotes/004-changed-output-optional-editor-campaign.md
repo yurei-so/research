@@ -25,7 +25,7 @@ identical texts.
 ## Frozen protocol
 
 - Experiment: `labnote_004`
-- Authoritative Agent Runtime run: `022e7150-5919-4b04-b487-3788d147383f`
+- Authoritative internal execution record retained; identifier withheld.
 - Campaign digest: `5830372282046620e565625852690e99d5af0c9495c6a09163cff19fbcf9f9e0`
 - Repository revision: `5dd2b97`
 - Model: `qwen3:8b`

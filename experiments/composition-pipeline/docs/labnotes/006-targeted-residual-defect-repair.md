@@ -71,7 +71,7 @@ fresh state path and digest; v1-v3 remain preserved as invalid engineering runs.
 
 ## Valid v4 result
 
-- Agent Runtime run: `f0b19d63-c1e3-4495-a09c-b27bee488b6f`
+- Internal execution record retained; identifier withheld.
 - Repository revision: `c99911c`
 - Campaign digest: `3eab95852212330f60f5179c2978d982de5f844549a3dd10f4bedad95e1df98d`
 - Completed: 120/120 with zero failed trials, empty stderr, and clean lease release.

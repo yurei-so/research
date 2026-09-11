@@ -24,7 +24,7 @@ multiplicity telemetry rather than independent samples.
 ## Frozen protocol
 
 - Experiment: `labnote_005`
-- Agent Runtime run: `c7537f90-1641-45fc-b198-fae9d87132e0`
+- Internal execution record retained; identifier withheld.
 - Campaign digest: `0927d8781e5e5bc262a72bf52e8d4840c5196f02389f50969608b9269825f002`
 - Repository revision: `73c9f2e`
 - Model: `qwen3:8b`

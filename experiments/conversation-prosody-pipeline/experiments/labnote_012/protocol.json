@@ -1,0 +1,28 @@
+{
+  "format": "conversation-prosody.reference-focus-transfer",
+  "version": 1,
+  "backend": "F5TTS_v1_Base",
+  "backend_code": "SWivid/F5-TTS",
+  "model_license": "CC-BY-NC",
+  "seeds": [1201, 2203],
+  "references_are_private": true,
+  "post_processing": "none",
+  "pairs": [
+    {
+      "pair_id": "location-day",
+      "target": "We meet at the library on Friday.",
+      "conditions": [
+        {"condition_id": "location", "context": "Correct the meeting location.", "focus": "library", "reference_file": "location-day__location.wav"},
+        {"condition_id": "day", "context": "Correct the meeting day.", "focus": "Friday", "reference_file": "location-day__day.wav"}
+      ]
+    },
+    {
+      "pair_id": "person-object",
+      "target": "Jordan borrowed my bicycle again.",
+      "conditions": [
+        {"condition_id": "person", "context": "Correct who borrowed it.", "focus": "Jordan", "reference_file": "person-object__person.wav"},
+        {"condition_id": "object", "context": "Correct what was borrowed.", "focus": "bicycle", "reference_file": "person-object__object.wav"}
+      ]
+    }
+  ]
+}

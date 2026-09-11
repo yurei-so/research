@@ -3,10 +3,10 @@ schema_version: 1
 id: prosody-004
 title: "Context-conditioned prosody IR inference and synthesis"
 date: 2026-08-13
-status: awaiting-review
-outcome: pending
+status: complete
+outcome: inconclusive
 question: "Can a language model infer an intended, backend-independent prosodic structure from discourse context when the literal target utterance is held fixed? Separately, can a Kokoro compiler render that structure so a listener can recover the intended reading?"
-tags: ["blinded-review","conversational-prosody","synthetic-audio"]
+tags: ["blinded-review","conversational-prosody","inconclusive-result","synthetic-audio"]
 lineage: ["prosody-003"]
 publish: true
 ---
@@ -16,7 +16,7 @@ publish: true
 
 **Package:** `conversation-prosody-pipeline` 0.3.1
 
-**Status:** Completed inference and oracle-synthesis run; listener evaluation pending
+**Status:** Complete; listener evaluation was inconclusive
 
 **Execution environment:** local GPU workstation
 
@@ -220,6 +220,22 @@ integrity-checked interventions. They do **not** establish that those interventi
 communicate the intended meaning. Gold-versus-swapped listener identification remains
 the required realization test.
 
+### Blinded listener evaluation
+
+The preserved owner-local review session was completed on 2026-09-11. All 11 judgments
+were durably locked before the intended-versus-swapped mapping was revealed.
+
+| Preference | Count |
+|---|---:|
+| Intended delivery | 3 |
+| Swapped delivery | 2 |
+| Tie | 6 |
+
+The intended rendering won only three of the five directional choices, while a majority
+of all comparisons were ties. This small single-listener result does not distinguish
+intended from sibling-swapped delivery and supplies no evidence that the intervention
+communicated the authored discourse reading reliably.
+
 ## Interpretation
 
 The Stage A answer is mixed but informative:
@@ -234,6 +250,8 @@ prosodic reasoning. It also provides a reproducible corpus and error decompositi
 improving the representation or prompting without conflating those changes with TTS
 behavior.
 
-Stage B remains open until blinded listeners classify gold, swapped, and neutral audio.
-No claim about successful semantic realization should be made from RMS or duration
-differences alone.
+Stage B is complete and inconclusive. The blinded judgments do not support successful
+semantic realization. The review was also split across two sittings separated by more
+than two weeks, so reviewer drift and the small single-listener sample further limit
+interpretation. Any future attempt should first improve the audible intervention and
+use an independently replicated listener design rather than extending this bundle.

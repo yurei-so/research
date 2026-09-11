@@ -130,6 +130,38 @@ export function escapeHtml(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
+function plainMarkdown(value) {
+  return value
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[`*_~]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function extractResultSummary(markdown, fallback = "") {
+  const heading = markdown.match(/^##\s+(?:results?|findings?)\s*$/im);
+  if (!heading) return plainMarkdown(fallback);
+  const remaining = markdown.slice((heading.index ?? 0) + heading[0].length);
+  const section = remaining.split(/^##\s+/m, 1)[0];
+  const lines = section.replace(/\r/g, "").split("\n");
+  let paragraph = [];
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (paragraph.length) break;
+      continue;
+    }
+    if (trimmed.startsWith("|") || /^#{1,6}\s/.test(trimmed) || /^[-*]\s/.test(trimmed)) {
+      if (paragraph.length) break;
+      continue;
+    }
+    paragraph.push(trimmed);
+  }
+  const summary = plainMarkdown(paragraph.join(" ")) || plainMarkdown(fallback);
+  return summary.length <= 280 ? summary : `${summary.slice(0, 277).trimEnd()}…`;
+}
+
 function inline(text) {
   let value = escapeHtml(text);
   value = value.replace(/`([^`]+)`/g, "<code>$1</code>");

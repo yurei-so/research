@@ -3,7 +3,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import { collectCatalog, escapeHtml, renderMarkdown } from "./research-catalog-lib.mjs";
+import { collectCatalog, escapeHtml, extractResultSummary, renderMarkdown } from "./research-catalog-lib.mjs";
+import { writeSocialCard } from "./social-card.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const siteUrl = "https://yurei-so.github.io/research/";
@@ -20,6 +21,7 @@ if (mode === "check") {
 const output = path.join(root, "dist");
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(path.join(output, "assets"), { recursive: true });
+fs.mkdirSync(path.join(output, "assets", "social"), { recursive: true });
 for (const name of ["styles.css", "app.js", "favicon.png"]) {
   const source = path.join(root, "site", name);
   const destination = name === "favicon.png" ? path.join(output, name) : path.join(output, "assets", name);
@@ -42,14 +44,19 @@ fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /resear
 const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];
 fs.writeFileSync(path.join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(({ loc, lastmod }) => `  <url><loc>${escapeHtml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>\n`);
 
+const socialCards = [];
 for (const record of records.filter((entry) => entry.metadata.publish)) {
   const note = manifest.labnotes.find((entry) => entry.id === record.metadata.id);
+  note.result_summary = extractResultSummary(record.body, note.question);
   const directory = path.join(output, "labnotes", note.id);
   fs.mkdirSync(directory, { recursive: true });
   const tags = note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const title = escapeHtml(record.metadata.title);
   const question = escapeHtml(record.metadata.question);
   const canonicalUrl = `${siteUrl}${note.href}`;
+  const socialImageUrl = `${siteUrl}assets/social/${note.id}.png`;
+  const socialDescription = `${note.id.toUpperCase()} · ${note.family.toUpperCase()} · ${note.outcome.toUpperCase()} · ${note.status.toUpperCase()} — ${note.result_summary}`;
+  socialCards.push(writeSocialCard(note, path.join(output, "assets", "social", `${note.id}.png`)));
   const sourceUrl = `${repositoryUrl}/blob/main/${record.relative.split("/").map(encodeURIComponent).join("/")}`;
   const relationCard = (id, current = false) => {
     const related = manifest.labnotes.find((entry) => entry.id === id);
@@ -71,8 +78,10 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const page = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
-<meta name="description" content="${question}">
-<meta property="og:type" content="article"><meta property="og:title" content="${title}"><meta property="og:description" content="${question}"><meta property="og:url" content="${canonicalUrl}">
+<meta name="description" content="${escapeHtml(socialDescription)}">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="${title}"><meta property="og:description" content="${escapeHtml(socialDescription)}"><meta property="og:url" content="${canonicalUrl}">
+<meta property="og:image" content="${socialImageUrl}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for ${escapeHtml(note.id)}: ${title}, outcome ${escapeHtml(note.outcome)}">
+<meta property="article:published_time" content="${escapeHtml(note.date)}T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${escapeHtml(socialDescription)}"><meta name="twitter:image" content="${socialImageUrl}">
 <title>${title} — ${escapeHtml(record.metadata.id)} | Yurei Research</title><link rel="canonical" href="${canonicalUrl}"><link rel="icon" href="../../favicon.png" type="image/png">
 <link rel="stylesheet" href="../../assets/styles.css"></head><body>
 <header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
@@ -85,4 +94,5 @@ ${lineage}
 <footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);
 }
+await Promise.all(socialCards);
 console.log(`Built public research library with ${manifest.labnotes.length} labnotes in dist/.`);

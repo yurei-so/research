@@ -3,7 +3,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { collectCatalog, escapeHtml, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
+import { collectCatalog, escapeHtml, extractResultSummary, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
+import { socialCardSvg } from "../scripts/social-card.mjs";
 
 const metadata = { schema_version: 1, id: "test-001", title: "Test", date: "2026-09-08", status: "complete", outcome: "negative", question: "Did it work?", tags: ["negative-result"], lineage: [], publish: true };
 
@@ -65,4 +66,20 @@ test("markdown renderer preserves readable tables without trusting HTML", () => 
   assert.ok(rendered.includes("<table>"));
   assert.ok(rendered.includes("<th>Result</th>"));
   assert.ok(rendered.includes("&lt;unsafe&gt;"));
+});
+
+test("result summaries derive from canonical markdown and skip result tables", () => {
+  const body = "## Results\n\n| A | B |\n| --- | --- |\n| 1 | 2 |\n\nThe **namespace** supplied no [benefit](https://example.com).\n\n## Limits\nNope";
+  assert.equal(extractResultSummary(body, "fallback"), "The namespace supplied no benefit.");
+  assert.equal(extractResultSummary("## Method\nNothing", "Did it work?"), "Did it work?");
+});
+
+test("social card SVG contains research identity and escaped canonical metadata", () => {
+  const svg = socialCardSvg({ id: "test-001", family: "test", title: "A <negative> result",
+    date: "2026-09-10", status: "complete", outcome: "negative",
+    question: "Did it work?", result_summary: "It did not work & that matters." });
+  assert.ok(svg.includes("YUREI RESEARCH"));
+  assert.ok(svg.includes("NEGATIVE"));
+  assert.ok(svg.includes("A &lt;negative&gt; result"));
+  assert.ok(!svg.includes("It did not work & that matters."));
 });

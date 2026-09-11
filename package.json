@@ -14,6 +14,7 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@yurei-so/research-tools": "https://github.com/yurei-so/research-tools/archive/713fadf74133f2b811d2c9e84e89c3f221efec5b.tar.gz",
     "sharp": "0.35.4"
   }
 }

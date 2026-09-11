@@ -40,6 +40,12 @@ The public manifest drives the research-area index, labnote list, filters,
 outcome counts, labnote routes, and future feeds. Those views must not grow
 independent hand-maintained indexes.
 
+The build also emits `research-corpus-v1.json`, the provider-neutral interchange
+consumed by `research-tools`. It includes only the public family and labnote
+fields needed for reusable provenance and attention instruments. No tool is
+granted access to canonical private working state; publication/export is the
+only bridge between the two security domains.
+
 The build renders the complete public catalog into static HTML before the
 optional filtering script runs. It also emits canonical URLs, descriptive
 per-note metadata, valid `TechArticle` microdata, `robots.txt`, and a generated

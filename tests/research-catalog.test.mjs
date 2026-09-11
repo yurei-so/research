@@ -5,9 +5,9 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { buildAttentionModel, toInterchange, validateCorpus } from "@yurei-so/research-tools";
 import { collectCatalog, escapeHtml, extractResultSummary, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
 import { socialCardSvg } from "../scripts/social-card.mjs";
-import { buildAttentionModel } from "../scripts/attention-map.mjs";
 
 const metadata = { schema_version: 1, id: "test-001", title: "Test", date: "2026-09-08", status: "complete", outcome: "negative", question: "Did it work?", tags: ["negative-result"], lineage: [], publish: true };
 
@@ -125,6 +125,14 @@ test("attention projection does not invent a degenerate second axis", () => {
   const model = buildAttentionModel(notes, notes);
   assert.equal(model.projection.normalized_stress, 0);
   assert.deepEqual(Object.values(model.projection.points).map((point) => point[1]), [0, 0]);
+});
+
+test("public catalog exports the research-tools interchange boundary", () => {
+  const { manifest } = collectCatalog(path.resolve(import.meta.dirname, ".."));
+  const interchange = toInterchange(manifest);
+  assert.equal(validateCorpus(interchange), interchange);
+  assert.equal(interchange.schema, "research-corpus/v1");
+  assert.equal(interchange.labnotes.length, manifest.labnotes.length);
 });
 
 test("licensing policy keeps software and research content separate", () => {

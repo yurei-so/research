@@ -4,9 +4,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { buildAttentionModel, toInterchange } from "@yurei-so/research-tools";
 import { collectCatalog, escapeHtml, extractResultSummary, renderMarkdown } from "./research-catalog-lib.mjs";
 import { writeSocialCard } from "./social-card.mjs";
-import { buildAttentionModel } from "./attention-map.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const siteUrl = "https://yurei-so.github.io/research/";
@@ -49,6 +49,7 @@ const indexPage = indexTemplate
   .replace("{{LABNOTE_CARDS}}", manifest.labnotes.map(noteCard).join(""));
 fs.writeFileSync(path.join(output, "index.html"), indexPage);
 fs.writeFileSync(path.join(output, "research-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+fs.writeFileSync(path.join(output, "research-corpus-v1.json"), `${JSON.stringify(toInterchange(manifest), null, 2)}\n`);
 fs.writeFileSync(path.join(output, ".nojekyll"), "");
 fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /research/\n\nSitemap: ${siteUrl}sitemap.xml\n`);
 const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];

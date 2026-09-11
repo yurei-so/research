@@ -1,9 +1,10 @@
 # Yurei Research
 
-This repository is the canonical lab bench for Yurei's legitimate AI research.
-It keeps experimental implementations, frozen protocols, evaluation fixtures,
-human-review apparatus, results, and the provenance needed to reproduce or
-interpret them in one place.
+This repository is the public corpus and publication surface for Yurei's
+legitimate AI research. It keeps published experimental implementations, frozen
+protocols, evaluation fixtures, results, and the provenance needed to reproduce
+or interpret them. Private working research state is not canonicalized here;
+records cross this boundary only through deliberate publication.
 
 ## Repository shape
 
@@ -39,6 +40,11 @@ The research library site is a generated public projection, not a repository
 mirror. Labnotes opt in with `publish: true`; the build validates their
 metadata and emits only the allowlisted catalog and rendered eligible notes.
 See the [publication boundary and local build](docs/publication.md).
+
+Reusable corpus inspection machinery lives in
+[`yurei-so/research-tools`](https://github.com/yurei-so/research-tools). The
+site exports sanitized records as `research-corpus-v1.json`; the tools consume
+that documented interchange and never require private working-storage access.
 
 The Pages build also rejects internal note coordinates, private actor names,
 deployed RFC1918 addresses, owner-specific home paths, private workstation

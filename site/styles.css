@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-only */
+
 :root {
   color-scheme: dark;
   --ink: #d8dce5;
@@ -179,3 +181,4 @@ th:last-child, td:last-child { border-right: 0; }
   .graph-stage { height: 60vh; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* SPDX-License-Identifier: AGPL-3.0-only */

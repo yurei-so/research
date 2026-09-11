@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
 import sharp from "sharp";
 
 // Canonical pixel ghost from yurei-so/assets/img/yurei-labs.png. Embedded so
@@ -81,3 +83,4 @@ export async function writeSocialCard(note, destination) {
     .composite([{ input: ghost, left: 42, top: 34 }])
     .png({ compressionLevel: 9 }).toFile(destination);
 }
+// SPDX-License-Identifier: AGPL-3.0-only

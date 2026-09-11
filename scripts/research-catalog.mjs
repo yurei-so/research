@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: AGPL-3.0-only
 
 import fs from "node:fs";
 import path from "node:path";
@@ -184,3 +185,4 @@ for (const family of manifest.families.filter((entry) => entry.has_graph)) {
 }
 await Promise.all(socialCards);
 console.log(`Built public research library with ${manifest.labnotes.length} labnotes in dist/.`);
+// SPDX-License-Identifier: AGPL-3.0-only

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
 const $ = (selector) => document.querySelector(selector);
 
 async function boot() {
@@ -147,3 +149,4 @@ async function boot() {
 }
 
 boot().catch((error) => { $("#edge-note").textContent = error.message; });
+// SPDX-License-Identifier: AGPL-3.0-only

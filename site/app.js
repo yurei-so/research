@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
 const $ = (selector) => document.querySelector(selector);
 const outcomeOrder = ["positive", "negative", "mixed", "inconclusive", "pending", "not-applicable"];
 const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
@@ -49,3 +51,4 @@ async function boot() {
 boot().catch((error) => {
   $("#feed").innerHTML = `<p class="empty">Observation catalog unavailable. ${error.message}</p>`;
 });
+// SPDX-License-Identifier: AGPL-3.0-only

@@ -4,6 +4,8 @@ Shared deterministic physics apparatus for research families that need a small,
 inspectable 3D world. It is not a standalone research project and makes no
 scientific claim by itself.
 
+This reusable apparatus is available under the [MIT License](LICENSE).
+
 The first arena contains a planar two-axis agent, four landmarks, three
 resource objects, a goal zone, and fixed obstacles. Scripted `explore`,
 `acquire`, `construct`, and `recover` policies generate deterministic apparatus

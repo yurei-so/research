@@ -2,6 +2,7 @@
 name = "voxel-guidance"
 version = "0.1.0"
 description = "Bounded Minecraft behavioral telemetry research"
+license = "AGPL-3.0-only"
 requires-python = ">=3.11"
 dependencies = ["yurei-state-encoding"]
 

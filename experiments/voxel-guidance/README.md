@@ -5,6 +5,11 @@ repeatable, interpretable behavioral vector. The goal is to measure patterns
 within a deliberately designed task battery—not to infer identity,
 personality, diagnosis, intent, or behavior outside the experiment.
 
+Executable software in this experiment family is AGPL-3.0-only. Labnotes,
+datasets, frozen inputs, and generated artifacts are separate research content;
+see [the directory license](LICENSE) and the
+[repository licensing policy](../../LICENSE.md).
+
 ## System boundary
 
 - [`yurei-so/prism-toolkit`](https://github.com/yurei-so/prism-toolkit) owns

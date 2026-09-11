@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
@@ -124,3 +126,13 @@ test("attention projection does not invent a degenerate second axis", () => {
   assert.equal(model.projection.normalized_stress, 0);
   assert.deepEqual(Object.values(model.projection.points).map((point) => point[1]), [0, 0]);
 });
+
+test("licensing policy keeps software and research content separate", () => {
+  const policy = fs.readFileSync(path.resolve("LICENSE.md"), "utf8");
+  assert.match(policy, /AGPL-3\.0-only — research software/);
+  assert.match(policy, /MIT — general apparatus and reusable infrastructure/);
+  assert.match(policy, /Research content is separate/);
+  assert.match(policy, /does not automatically license files\s+under `docs\/` or `artifacts\/`/);
+  assert.match(fs.readFileSync(path.resolve("LICENSES/AGPL-3.0-only.txt"), "utf8"), /GNU AFFERO GENERAL PUBLIC LICENSE/);
+});
+// SPDX-License-Identifier: AGPL-3.0-only

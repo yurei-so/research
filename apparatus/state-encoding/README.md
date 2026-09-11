@@ -4,6 +4,8 @@ Reusable, deterministic serializers for bounded machine observations. This is
 research apparatus rather than an experiment family or a claim that compact
 syntax improves model reasoning.
 
+This reusable apparatus is available under the [MIT License](LICENSE).
+
 Version 1 separates three things:
 
 - a schema assigns stable short IDs to typed, human-described fields;

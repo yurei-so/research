@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: AGPL-3.0-only
 
 import fs from "node:fs";
 import path from "node:path";
@@ -193,3 +194,4 @@ for (const [familyName, family] of Object.entries(families)) {
 
 if (count !== 36) throw new Error(`expected 36 labnotes, found ${count}`);
 console.log(`${mode === "apply" ? "Applied" : "Validated"} metadata for ${count} labnotes.`);
+// SPDX-License-Identifier: AGPL-3.0-only

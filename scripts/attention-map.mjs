@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
 const stopwords = new Set("a an and are as at be by can did do does for from had has have how if in into is it its may not of on or our that the their this to was were what when where whether which while who why with without".split(" "));
 
 function terms(note) {

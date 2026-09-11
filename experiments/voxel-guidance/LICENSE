@@ -1,0 +1,6 @@
+The executable software, tests, and build/configuration files in this
+directory are licensed under AGPL-3.0-only. See
+`../../LICENSES/AGPL-3.0-only.txt` for the complete license text.
+
+Research writing, labnotes, datasets, frozen experimental inputs, and generated
+artifacts are not included in that software license unless explicitly marked.

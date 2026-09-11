@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -234,3 +236,4 @@ export function renderMarkdown(markdown) {
   if (code !== null) html.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
   return html.join("\n");
 }
+// SPDX-License-Identifier: AGPL-3.0-only

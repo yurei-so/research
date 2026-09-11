@@ -69,4 +69,4 @@ record_one \
 
 echo
 echo "All four takes are present. Validate them with:"
-echo "  python3 validate_references.py --reference-dir '$reference_dir'"
+echo "  python3 validate_references.py --reference-dir '$reference_dir' --output '${reference_dir%/references}/reference-manifest.json'"

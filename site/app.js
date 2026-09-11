@@ -4,7 +4,7 @@ const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll(
 
 function familyCard(family) {
   const outcomes = Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("");
-  const graph = family.has_graph ? `<a class="graph-link" href="projects/${family.id}/">VIEW PROJECT MAP ↗</a>` : "";
+  const graph = family.has_graph ? `<a class="graph-link" href="projects/${family.id}/">DETAILED VIEW ↗</a>` : "";
   return `<article class="family-card" data-family="${family.id}"><button class="family-filter" data-family="${family.id}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">VIEW LABNOTES →</span></button>${graph}</article>`;
 }
 

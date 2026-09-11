@@ -6,18 +6,21 @@ async function boot() {
   const graph = await response.json();
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
   const stage = $(".graph-stage");
-  const map = $(".project-map");
-  const naturalWidth = Number(map.dataset.naturalWidth);
-  const naturalHeight = Number(map.dataset.naturalHeight);
+  const maps = [...document.querySelectorAll(".project-map, .attention-map")];
+  let activeView = "provenance";
+  const activeMap = () => maps.find((entry) => entry.dataset.mapView === activeView);
+  const naturalWidth = Number(maps[0].dataset.naturalWidth);
+  const naturalHeight = Number(maps[0].dataset.naturalHeight);
   let zoom = .82;
   let selected = graph.notes.at(-1)?.id;
   let tracing = false;
 
   const setZoom = (next) => {
+    const map = activeMap();
     const oldWidth = map.getBoundingClientRect().width || naturalWidth * zoom;
     const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / (oldWidth * naturalHeight / naturalWidth) };
     zoom = Math.max(.45, Math.min(1.4, next));
-    map.style.width = `${Math.round(naturalWidth * zoom)}px`;
+    maps.forEach((entry) => { entry.style.width = `${Math.round(naturalWidth * zoom)}px`; });
     $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
     requestAnimationFrame(() => {
       stage.scrollLeft = focus.x * map.clientWidth - stage.clientWidth / 2;
@@ -57,7 +60,9 @@ async function boot() {
     $("#inspect-summary").textContent = note.result_summary;
     $("#open-note").href = `../../${note.href}`;
     $("#view-source").href = note.source_url;
-    const related = graph.relations.filter((relation) => relation.source === note.id || relation.target === note.id);
+    const related = activeView === "provenance"
+      ? graph.relations.filter((relation) => relation.source === note.id || relation.target === note.id)
+      : [];
     $("#relation-list").replaceChildren(...related.map((relation) => {
       const item = document.createElement("div");
       item.className = "relation-item";
@@ -72,7 +77,7 @@ async function boot() {
       item.append(label, title, rationale);
       return item;
     }));
-    document.querySelectorAll(".graph-node").forEach((node) => node.classList.toggle("selected", node.dataset.note === selected));
+    document.querySelectorAll(".graph-node, .attention-node").forEach((node) => node.classList.toggle("selected", node.dataset.note === selected));
     const visible = tracing ? neighborhood(selected) : new Set(graph.notes.map((entry) => entry.id));
     document.querySelectorAll(".graph-node").forEach((node) => node.classList.toggle("unrelated", !visible.has(node.dataset.note)));
     document.querySelectorAll(".graph-edge").forEach((edge) => {
@@ -81,7 +86,7 @@ async function boot() {
     });
   };
 
-  document.querySelectorAll(".graph-node").forEach((node) => {
+  document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
     node.addEventListener("click", (event) => { event.preventDefault(); selected = node.dataset.note; renderInspector(); });
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
     node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selected = node.dataset.note; renderInspector(); } });
@@ -89,13 +94,34 @@ async function boot() {
   document.querySelectorAll(".graph-edge").forEach((edge) => edge.addEventListener("click", () => {
     $("#edge-note").textContent = edge.dataset.rationale;
   }));
+  document.querySelectorAll(".map-modes button[data-map-view]").forEach((button) => button.addEventListener("click", () => {
+    activeView = button.dataset.mapView;
+    maps.forEach((entry) => {
+      entry.hidden = entry.dataset.mapView !== activeView;
+      entry.style.display = entry.hidden ? "none" : "block";
+    });
+    document.querySelectorAll(".map-modes button[data-map-view]").forEach((entry) => entry.setAttribute("aria-pressed", String(entry === button)));
+    tracing = false;
+    $("#trace-lineage").setAttribute("aria-pressed", "false");
+    $("#trace-lineage").disabled = activeView !== "provenance";
+    if (activeView === "attention") {
+      const stress = graph.attention.projection.normalized_stress.toFixed(3);
+      $("#view-disclosure").textContent = `${graph.attention.representation.method} vectors projected with classical MDS · ${graph.notes.length} records · stress ${stress}. Heat and fog describe only this published Yurei corpus; geometry is approximate.`;
+      $("#edge-note").textContent = "Conceptual proximity is not provenance and creates no relationship edges.";
+    } else {
+      $("#view-disclosure").textContent = "Human-authored relationships only. Proximity is not used to create edges.";
+      $("#edge-note").textContent = "Select an edge to read its authored rationale.";
+    }
+    renderInspector();
+    requestAnimationFrame(() => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
+  }));
   $("#trace-lineage").addEventListener("click", () => { tracing = !tracing; $("#trace-lineage").setAttribute("aria-pressed", String(tracing)); renderInspector(); });
   $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
   $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
   $("#zoom-fit").addEventListener("click", () => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
   let pan = null;
   stage.addEventListener("pointerdown", (event) => {
-    if (event.target.closest(".graph-node, .graph-edge")) return;
+    if (event.target.closest(".graph-node, .attention-node, .graph-edge")) return;
     pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop };
     stage.setPointerCapture(event.pointerId);
     stage.classList.add("panning");

@@ -5,6 +5,7 @@ import path from "node:path";
 import test from "node:test";
 import { collectCatalog, escapeHtml, extractResultSummary, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
 import { socialCardSvg } from "../scripts/social-card.mjs";
+import { buildAttentionModel } from "../scripts/attention-map.mjs";
 
 const metadata = { schema_version: 1, id: "test-001", title: "Test", date: "2026-09-08", status: "complete", outcome: "negative", question: "Did it work?", tags: ["negative-result"], lineage: [], publish: true };
 
@@ -98,4 +99,28 @@ test("social card wraps visually wide titles before the safe right edge", () => 
     question: "Did it work?", result_summary: "A compact result." });
   assert.ok(svg.includes("Blinded current-task"));
   assert.ok(svg.includes("inference</text>"));
+});
+
+test("attention model preserves vectors and distances separately from its 2D projection", () => {
+  const notes = [
+    { id: "map-001", title: "Audio timing", question: "Can speech timing improve conversational response?", tags: ["audio", "timing"] },
+    { id: "map-002", title: "Audio stress", question: "Can speech stress improve conversational response?", tags: ["audio", "stress"] },
+    { id: "map-003", title: "Visual panel", question: "Can vision recognize a game panel?", tags: ["vision", "panel"] },
+  ];
+  const model = buildAttentionModel(notes, notes);
+  assert.equal(model.representation.method, "tf-idf");
+  assert.equal(model.pairwise_distances.length, 3);
+  assert.ok(model.pairwise_distances[0][1] < model.pairwise_distances[0][2]);
+  assert.equal(Object.keys(model.projection.points).length, 3);
+  assert.match(model.warning, /not evidence of causality/);
+});
+
+test("attention projection does not invent a degenerate second axis", () => {
+  const notes = [
+    { id: "map-001", title: "First", question: "Does alpha work?", tags: ["alpha"] },
+    { id: "map-002", title: "Second", question: "Does beta work?", tags: ["beta"] },
+  ];
+  const model = buildAttentionModel(notes, notes);
+  assert.equal(model.projection.normalized_stress, 0);
+  assert.deepEqual(Object.values(model.projection.points).map((point) => point[1]), [0, 0]);
 });

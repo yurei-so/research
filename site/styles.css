@@ -104,6 +104,11 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .project-header { padding: 3rem 0 2.5rem; }
 .project-header h1 { margin: .7rem 0; font-size: clamp(2.35rem, 5vw, 4.25rem); font-weight: 520; letter-spacing: -.045em; }
 .project-header p { max-width: 720px; color: #a9afbc; }
+.map-modes { display: flex; align-items: center; gap: .55rem; margin: 0 0 1rem; }
+.map-modes button { padding: .55rem .75rem; border: 1px solid var(--line); color: var(--muted); background: transparent; font: .63rem var(--mono); letter-spacing: .07em; cursor: pointer; }
+.map-modes button:hover { color: var(--ink); border-color: var(--muted); }
+.map-modes button[aria-pressed="true"] { color: var(--signal); border-color: var(--signal); background: #171421; }
+.map-modes p { margin: 0 0 0 .55rem; color: var(--muted); font-size: .78rem; line-height: 1.45; }
 .graph-layout { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 1.25rem; align-items: start; }
 .graph-panel { min-width: 0; border: 1px solid var(--line); background: var(--surface); }
 .graph-toolbar { display: flex; min-height: 2.7rem; padding: .4rem .6rem; border-bottom: 1px solid var(--line); align-items: center; gap: .45rem; color: var(--muted); font: .58rem var(--mono); letter-spacing: .07em; }
@@ -113,7 +118,16 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .graph-stage { min-width: 0; height: min(62vh, 640px); overflow: auto; overscroll-behavior: contain; background-image: radial-gradient(circle, #282e3c 1px, transparent 1px); background-size: 28px 28px; scrollbar-color: #596278 #11151e; touch-action: pan-x pan-y; }
 .graph-stage:not(.panning) { cursor: grab; }
 .graph-stage.panning { cursor: grabbing; user-select: none; }
-.project-map { display: block; max-width: none; height: auto; }
+.project-map, .attention-map { display: block; max-width: none; height: auto; }
+.project-map[hidden], .attention-map[hidden] { display: none; }
+.attention-heat { mix-blend-mode: screen; }
+.attention-fog { opacity: .92; pointer-events: none; }
+.attention-node { color: inherit; cursor: pointer; outline: none; }
+.attention-node text { fill: #b9c0cf; font: 11px var(--mono); letter-spacing: .055em; }
+.attention-node .attention-hit { fill: transparent; }
+.attention-node .attention-point { stroke: #0b0d14; stroke-width: 4; }
+.attention-node:hover .attention-point, .attention-node:focus .attention-point { stroke: var(--signal); }
+.attention-node.selected .attention-point { stroke: #f0eaff; stroke-width: 5; }
 .graph-edge path { fill: none; stroke: #424a5d; stroke-width: 2; marker-end: url(#arrow); }
 .graph-edge text { fill: #8d96a9; font: 12px var(--mono); letter-spacing: .07em; }
 .graph-edge { cursor: help; }
@@ -138,6 +152,7 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .inspector-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; }
 .inspector-actions a, .inspector-actions button { padding: .55rem .7rem; border: 1px solid var(--line); color: var(--ink); background: transparent; font: .62rem var(--mono); text-decoration: none; cursor: pointer; }
 .inspector-actions a:hover, .inspector-actions button:hover, .inspector-actions button[aria-pressed="true"] { border-color: var(--signal); color: var(--signal); }
+.inspector-actions button:disabled { opacity: .3; cursor: not-allowed; }
 .edge-note { min-height: 2.4rem; margin: .8rem 0 0; color: var(--muted); font: .68rem var(--mono); }
 .table-wrap { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--line); }
 table { width: 100%; border-collapse: collapse; font-size: .86rem; }
@@ -147,6 +162,8 @@ td { color: #abb2c0; }
 tr:last-child td { border-bottom: 0; }
 th:last-child, td:last-child { border-right: 0; }
 @media (max-width: 720px) {
+  .map-modes { align-items: stretch; flex-wrap: wrap; }
+  .map-modes p { width: 100%; margin: .25rem 0 0; }
   .terminal-bar { padding: 0 1rem; } .terminal-bar > span:last-child { display: none; }
   .hero { padding-top: 4rem; } .hero h1 { font-size: clamp(2.5rem, 12vw, 3.5rem); } .family-grid { grid-template-columns: minmax(0, 1fr); }
   .section-heading { align-items: start; flex-direction: column; }

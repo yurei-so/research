@@ -36,7 +36,8 @@ main { width: min(1180px, 92vw); margin: auto; }
 .section-heading h2 { margin: 0; font-size: 1.75rem; font-weight: 520; letter-spacing: -.025em; }
 .section-heading p { max-width: 370px; margin: 0; color: var(--muted); font-size: .9rem; }
 .family-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
-.family-card { min-height: 16rem; padding: 1.7rem; border: 0; color: inherit; background: var(--surface); text-align: left; cursor: pointer; transition: background .18s ease; }
+.family-card { position: relative; min-height: 16rem; border: 0; color: inherit; background: var(--surface); text-align: left; transition: background .18s ease; }
+.family-filter { width: 100%; min-height: 16rem; padding: 1.7rem; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; }
 .family-card:hover, .family-card.selected { background: var(--surface-2); }
 .family-card.selected { box-shadow: inset 3px 0 var(--signal); }
 .family-card h3 { margin: .25rem 0; font-size: 1.55rem; font-weight: 500; }
@@ -44,6 +45,8 @@ main { width: min(1180px, 92vw); margin: auto; }
 .outcomes, .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
 .outcomes span, .tags span { padding: .23rem .45rem; border: 1px solid var(--line); color: var(--muted); font: .61rem var(--mono); text-transform: uppercase; }
 .inspect { display: block; margin-top: 2rem; color: var(--signal); font: .65rem var(--mono); letter-spacing: .09em; }
+.graph-link { position: absolute; right: 1.7rem; bottom: 1.7rem; color: var(--cyan); font: .65rem var(--mono); letter-spacing: .09em; text-decoration: none; }
+.graph-link:hover { text-decoration: underline; text-underline-offset: .3rem; }
 .controls { display: grid; grid-template-columns: minmax(16rem, 1fr) 15rem auto; gap: 1rem; align-items: end; margin-bottom: 1rem; }
 .controls label, #result-count { color: var(--muted); font: .62rem var(--mono); letter-spacing: .1em; }
 input, select { display: block; width: 100%; height: 2.8rem; margin-top: .45rem; padding: 0 .8rem; border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: var(--surface); font: .8rem var(--mono); }
@@ -97,6 +100,38 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .note-body pre { overflow: auto; padding: 1.25rem; border: 1px solid var(--line); background: var(--surface); }
 .note-body pre code { padding: 0; background: none; }
 .note-body blockquote { margin-left: 0; padding-left: 1.2rem; border-left: 2px solid var(--signal); color: var(--muted); }
+.project-shell { width: min(1440px, 94vw); padding: 4rem 0 7rem; }
+.project-header { padding: 3rem 0 2.5rem; }
+.project-header h1 { margin: .7rem 0; font-size: clamp(2.35rem, 5vw, 4.25rem); font-weight: 520; letter-spacing: -.045em; }
+.project-header p { max-width: 720px; color: #a9afbc; }
+.graph-layout { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 1.25rem; align-items: start; }
+.graph-stage { min-width: 0; overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+.project-map { display: block; width: max(100%, var(--graph-width)); height: auto; min-height: 24rem; }
+.graph-edge path { fill: none; stroke: #424a5d; stroke-width: 2; marker-end: url(#arrow); }
+.graph-edge text { fill: #8d96a9; font: 12px var(--mono); letter-spacing: .07em; }
+.graph-edge { cursor: help; }
+.graph-edge.related path, .graph-edge:hover path { stroke: var(--signal); stroke-width: 3; }
+.graph-edge.unrelated { opacity: .13; }
+.graph-node { cursor: pointer; outline: none; }
+.graph-node rect { fill: #11151e; stroke: #343b4c; stroke-width: 1.5; }
+.graph-node:hover rect, .graph-node:focus rect { stroke: var(--signal); }
+.graph-node.selected rect { fill: #171421; stroke: var(--signal); stroke-width: 3; }
+.graph-node.unrelated { opacity: .18; }
+.graph-node .node-id, .graph-node .node-date { fill: #8d96a9; font: 12px var(--mono); }
+.graph-node .node-title { fill: #e2e5ed; font: 600 17px var(--sans); }
+.graph-inspector { position: sticky; top: 1rem; min-height: 24rem; padding: 1.4rem; border: 1px solid var(--line); background: var(--surface); }
+.graph-inspector h2 { margin: .5rem 0; font-size: 1.35rem; font-weight: 560; line-height: 1.2; }
+.inspector-vitals { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--muted); font: .62rem var(--mono); text-transform: uppercase; }
+.inspector-summary { color: #b5bbc7; font-size: .9rem; }
+.relation-list { display: grid; gap: .7rem; margin: 1.3rem 0; }
+.relation-item { padding-top: .7rem; border-top: 1px solid var(--line); }
+.relation-item b { display: block; color: var(--signal); font: .62rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.relation-item span { color: var(--ink); font-size: .8rem; }
+.relation-item p { margin: .25rem 0 0; color: var(--muted); font-size: .76rem; }
+.inspector-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; }
+.inspector-actions a, .inspector-actions button { padding: .55rem .7rem; border: 1px solid var(--line); color: var(--ink); background: transparent; font: .62rem var(--mono); text-decoration: none; cursor: pointer; }
+.inspector-actions a:hover, .inspector-actions button:hover, .inspector-actions button[aria-pressed="true"] { border-color: var(--signal); color: var(--signal); }
+.edge-note { min-height: 2.4rem; margin: .8rem 0 0; color: var(--muted); font: .68rem var(--mono); }
 .table-wrap { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--line); }
 table { width: 100%; border-collapse: collapse; font-size: .86rem; }
 th, td { padding: .7rem .8rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -114,5 +149,7 @@ th:last-child, td:last-child { border-right: 0; }
   .lineage-track { grid-template-columns: 1fr; gap: .6rem; }
   .lineage-arrow { margin: 0; text-align: center; transform: rotate(90deg); }
   .lineage-card, .lineage-empty { min-height: 6.5rem; }
+  .graph-layout { grid-template-columns: 1fr; }
+  .graph-inspector { position: static; min-height: 0; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

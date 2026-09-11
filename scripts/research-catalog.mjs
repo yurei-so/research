@@ -27,7 +27,15 @@ for (const name of ["styles.css", "app.js", "favicon.png"]) {
   const destination = name === "favicon.png" ? path.join(output, name) : path.join(output, "assets", name);
   fs.copyFileSync(source, destination);
 }
-const familyCard = (family) => `<button class="family-card" data-family="${escapeHtml(family.id)}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("")}</div><span class="inspect">VIEW LABNOTES →</span></button>`;
+fs.copyFileSync(path.join(root, "site", "project-graph.js"), path.join(output, "assets", "project-graph.js"));
+for (const record of records.filter((entry) => entry.metadata.publish)) {
+  const note = manifest.labnotes.find((entry) => entry.id === record.metadata.id);
+  note.result_summary = extractResultSummary(record.body, note.question);
+}
+const familyCard = (family) => {
+  const graph = family.has_graph ? `<a class="graph-link" href="projects/${escapeHtml(family.id)}/">VIEW PROJECT MAP ↗</a>` : "";
+  return `<article class="family-card" data-family="${escapeHtml(family.id)}"><button class="family-filter" data-family="${escapeHtml(family.id)}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("")}</div><span class="inspect">VIEW LABNOTES →</span></button>${graph}</article>`;
+};
 const noteCard = (note) => `<article class="feed-entry" data-family="${escapeHtml(note.family)}"><div class="entry-index"><time datetime="${note.date}">${note.date}</time><b>${escapeHtml(note.id)}</b></div><div class="entry-main"><div class="entry-state"><span>${escapeHtml(note.status)}</span><span data-outcome="${note.outcome}">${escapeHtml(note.outcome)}</span></div><h3><a href="${escapeHtml(note.href)}">${escapeHtml(note.title)}</a></h3><p>${escapeHtml(note.question)}</p><div class="tags">${note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="${escapeHtml(note.href)}" aria-label="Open ${escapeHtml(note.id)}">↗</a></article>`;
 const indexTemplate = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");
 const indexPage = indexTemplate
@@ -41,13 +49,12 @@ fs.writeFileSync(path.join(output, "index.html"), indexPage);
 fs.writeFileSync(path.join(output, "research-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 fs.writeFileSync(path.join(output, ".nojekyll"), "");
 fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /research/\n\nSitemap: ${siteUrl}sitemap.xml\n`);
-const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];
+const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];
 fs.writeFileSync(path.join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(({ loc, lastmod }) => `  <url><loc>${escapeHtml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>\n`);
 
 const socialCards = [];
 for (const record of records.filter((entry) => entry.metadata.publish)) {
   const note = manifest.labnotes.find((entry) => entry.id === record.metadata.id);
-  note.result_summary = extractResultSummary(record.body, note.question);
   const directory = path.join(output, "labnotes", note.id);
   fs.mkdirSync(directory, { recursive: true });
   const tags = note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
@@ -65,8 +72,8 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
     return current ? `<div class="lineage-card current" aria-current="page">${content}</div>`
       : `<a class="lineage-card" href="../${escapeHtml(related.id)}/">${content}</a>`;
   };
-  const follows = note.relations.follows.map((id) => relationCard(id)).join("");
-  const continuedBy = note.relations.continued_by.map((id) => relationCard(id)).join("");
+  const follows = note.timeline.follows.map((id) => relationCard(id)).join("");
+  const continuedBy = note.timeline.continued_by.map((id) => relationCard(id)).join("");
   const lineage = follows || continuedBy ? `<nav class="lineage" aria-label="Labnote lineage">
 <div class="lineage-heading">Related labnotes</div><div class="lineage-track">
 <div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards">${follows || '<span class="lineage-empty">No earlier note</span>'}</div></div>
@@ -93,6 +100,49 @@ ${lineage}
 <div class="note-body">${renderMarkdown(record.body)}</div></article></main>
 <footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV ${manifest.source_revision}</span></footer></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);
+}
+
+const outcomeColors = { positive: "#84d6a0", negative: "#de8d9a", mixed: "#d9bd78", inconclusive: "#70d7da", pending: "#858d9d", "not-applicable": "#858d9d" };
+// Graph arrows run from earlier evidence to the later note, so labels use the
+// inverse voice of the relation stored on that later note.
+const relationLabels = { "motivated-by": "MOTIVATES", "reuses-data": "DATA REUSED BY", "reuses-apparatus": "APPARATUS REUSED BY", extends: "EXTENDED BY", ablates: "ABLATED BY", replicates: "REPLICATED BY", supports: "SUPPORTED BY", challenges: "CHALLENGED BY", supersedes: "SUPERSEDED BY", follows: "FOLLOWED BY" };
+const wrapNodeTitle = (title) => {
+  const words = title.split(/\s+/);
+  const lines = [""];
+  for (const word of words) {
+    const current = lines.at(-1);
+    if (!current || `${current} ${word}`.length <= 25) lines[lines.length - 1] = current ? `${current} ${word}` : word;
+    else if (lines.length < 3) lines.push(word);
+    else { lines[2] = `${lines[2].slice(0, 21).trimEnd()}…`; break; }
+  }
+  return lines;
+};
+const recordById = new Map(records.map((record) => [record.metadata.id, record]));
+for (const family of manifest.families.filter((entry) => entry.has_graph)) {
+  const notes = manifest.labnotes.filter((note) => note.family === family.id).sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+  const noteIds = new Set(notes.map((note) => note.id));
+  const graphNotes = notes.map((note) => ({ ...note, source_url: `${repositoryUrl}/blob/main/${recordById.get(note.id).relative.split("/").map(encodeURIComponent).join("/")}` }));
+  const relations = notes.flatMap((note) => note.relations.filter((relation) => noteIds.has(relation.target)).map((relation) => ({ source: note.id, ...relation })));
+  const graphWidth = Math.max(1080, 110 + notes.length * 290);
+  const positions = new Map(notes.map((note, index) => [note.id, { x: 70 + index * 290, y: 90 }]));
+  const edges = relations.map((relation) => {
+    const from = positions.get(relation.target);
+    const to = positions.get(relation.source);
+    const startX = from.x + 250;
+    const endX = to.x;
+    const middle = (startX + endX) / 2;
+    return `<g class="graph-edge" data-source="${escapeHtml(relation.source)}" data-target="${escapeHtml(relation.target)}" data-rationale="${escapeHtml(relation.rationale)}" tabindex="0"><title>${escapeHtml(relationLabels[relation.type])}: ${escapeHtml(relation.rationale)}</title><path d="M ${startX} 165 C ${middle} 165, ${middle} 165, ${endX} 165"/><text x="${middle}" y="146" text-anchor="middle">${escapeHtml(relationLabels[relation.type])}</text></g>`;
+  }).join("");
+  const nodes = notes.map((note) => {
+    const position = positions.get(note.id);
+    const titleLines = wrapNodeTitle(note.title);
+    return `<a class="graph-node" data-note="${escapeHtml(note.id)}" href="../../${escapeHtml(note.href)}"><g transform="translate(${position.x} ${position.y})"><rect width="250" height="150"/><text class="node-id" x="18" y="27">${escapeHtml(note.id.toUpperCase())}</text><circle cx="224" cy="23" r="5" fill="${outcomeColors[note.outcome]}"/>${titleLines.map((line, index) => `<text class="node-title" x="18" y="${61 + index * 23}">${escapeHtml(line)}</text>`).join("")}<text class="node-date" x="18" y="132">${escapeHtml(note.date)} · ${escapeHtml(note.outcome.toUpperCase())}</text></g></a>`;
+  }).join("");
+  const graphDirectory = path.join(output, "projects", family.id);
+  fs.mkdirSync(graphDirectory, { recursive: true });
+  fs.writeFileSync(path.join(graphDirectory, "graph.json"), `${JSON.stringify({ family: { id: family.id, title: family.title }, notes: graphNotes, relations }, null, 2)}\n`);
+  const graphPage = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'"><meta name="description" content="Explicit labnote relationships and experimental lineage for ${escapeHtml(family.title)}."><meta property="og:type" content="website"><meta property="og:title" content="${escapeHtml(family.title)} project map"><meta property="og:description" content="Authored labnote relationships and experimental lineage in Yurei Research."><meta property="og:url" content="${siteUrl}projects/${escapeHtml(family.id)}/"><title>${escapeHtml(family.title)} project map | Yurei Research</title><link rel="canonical" href="${siteUrl}projects/${escapeHtml(family.id)}/"><link rel="icon" href="../../favicon.png" type="image/png"><link rel="stylesheet" href="../../assets/styles.css"></head><body><header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>PROJECT MAP</span></header><main class="project-shell"><a class="back" href="../../">← Return to research library</a><header class="project-header"><div class="eyebrow">PROJECT / ${escapeHtml(family.id)}</div><h1>${escapeHtml(family.title)}</h1><p>Authored relationships between published labnotes. Select a note to inspect why it exists and what it informed.</p></header><div class="graph-layout"><div class="graph-stage" aria-label="${escapeHtml(family.title)} labnote relationship graph"><svg class="project-map" style="--graph-width:${graphWidth}px" viewBox="0 0 ${graphWidth} 330" role="group"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#596278"/></marker></defs>${edges}${nodes}</svg></div><aside class="graph-inspector" aria-live="polite"><span class="eyebrow" id="inspect-id">SELECT A LABNOTE</span><h2 id="inspect-title">Project lineage</h2><div class="inspector-vitals"><span id="inspect-date"></span><span id="inspect-status"></span><span id="inspect-outcome"></span></div><p class="inspector-summary" id="inspect-summary">Select once to inspect. Double-click a node to open its full labnote.</p><div class="relation-list" id="relation-list"></div><div class="inspector-actions"><a id="open-note" href="../../">OPEN LABNOTE</a><a id="view-source" href="${repositoryUrl}">VIEW SOURCE</a><button id="trace-lineage" type="button" aria-pressed="false">TRACE LINEAGE</button><button id="copy-link" type="button">COPY LINK</button></div><p class="edge-note" id="edge-note">Select an edge to read its authored rationale.</p></aside></div></main><footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a></span><span>REV ${escapeHtml(manifest.source_revision)}</span></footer><script type="module" src="../../assets/project-graph.js"></script></body></html>`;
+  fs.writeFileSync(path.join(graphDirectory, "index.html"), graphPage);
 }
 await Promise.all(socialCards);
 console.log(`Built public research library with ${manifest.labnotes.length} labnotes in dist/.`);

@@ -8,6 +8,7 @@ outcome: negative
 question: "Can a semantic namespace token replace the full field dictionary when a local model interprets compact behavioral state?"
 tags: ["behavioral-telemetry","machine-native-state","namespace","ablation","local-model","negative-result"]
 lineage: ["voxel-guidance-004"]
+relations: [{"target":"voxel-guidance-004","type":"motivated-by","rationale":"Labnote 004 found that the shared field dictionary dominated compact prompt cost, so this note tested whether one semantic namespace could replace it."}]
 publish: true
 ---
 # Labnote 005: Semantic namespace token ablation

@@ -8,6 +8,7 @@ outcome: mixed
 question: "Which observable behavior families carry the 120-second held-seed task-inference signal?"
 tags: ["ablation","behavioral-telemetry","classification","minecraft","mixed-result"]
 lineage: ["voxel-guidance-002"]
+relations: [{"target":"voxel-guidance-002","type":"ablates","rationale":"Removes behavior feature families from the successful held-seed classifier to locate which observations carry its task signal."}]
 publish: true
 ---
 # Labnote 003: Current-task feature-family ablation

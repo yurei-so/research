@@ -8,6 +8,7 @@ outcome: positive
 question: "Can the current Minecraft task be inferred from causal behavior while holding out an entire seed block?"
 tags: ["behavioral-telemetry","classification","grouped-validation","minecraft","positive-result"]
 lineage: ["voxel-guidance-001"]
+relations: [{"target":"voxel-guidance-001","type":"extends","rationale":"Turns the behavioral-vector pilot into a held-seed test of whether causal play behavior identifies the current task."}]
 publish: true
 ---
 # Labnote 002: Blinded current-task inference

@@ -4,7 +4,8 @@ import { execFileSync } from "node:child_process";
 
 const statuses = new Set(["planned", "running", "awaiting-review", "complete", "aborted"]);
 const outcomes = new Set(["positive", "negative", "mixed", "inconclusive", "pending", "not-applicable"]);
-const allowedKeys = new Set(["schema_version", "id", "title", "date", "status", "outcome", "question", "tags", "lineage", "publish"]);
+const relationTypes = new Set(["motivated-by", "reuses-data", "reuses-apparatus", "extends", "ablates", "replicates", "supports", "challenges", "supersedes"]);
+const allowedKeys = new Set(["schema_version", "id", "title", "date", "status", "outcome", "question", "tags", "lineage", "relations", "publish"]);
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*-\d{3}$/;
 const tagPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -44,7 +45,7 @@ function validateArray(value, field, file) {
 }
 
 export function validateMetadata(metadata, file = "labnote") {
-  for (const key of allowedKeys) if (!Object.hasOwn(metadata, key)) fail(file, `missing ${key}`);
+  for (const key of allowedKeys) if (key !== "relations" && !Object.hasOwn(metadata, key)) fail(file, `missing ${key}`);
   if (metadata.schema_version !== 1) fail(file, "unsupported schema_version");
   if (typeof metadata.id !== "string" || !idPattern.test(metadata.id)) fail(file, "invalid id");
   for (const key of ["title", "question"]) if (typeof metadata[key] !== "string" || !metadata[key].trim()) fail(file, `invalid ${key}`);
@@ -58,6 +59,20 @@ export function validateMetadata(metadata, file = "labnote") {
   if (metadata.tags.length > 24 || new Set(metadata.tags).size !== metadata.tags.length || metadata.tags.some((tag) => !tagPattern.test(tag))) fail(file, "invalid or duplicate tag");
   if (metadata.lineage.length > 24 || new Set(metadata.lineage).size !== metadata.lineage.length || metadata.lineage.some((id) => !idPattern.test(id))) fail(file, "invalid or duplicate lineage id");
   if (metadata.lineage.includes(metadata.id)) fail(file, "self lineage is not allowed");
+  if (metadata.relations !== undefined) {
+    if (!Array.isArray(metadata.relations) || metadata.relations.length > 24) fail(file, "relations must be an array of at most 24 objects");
+    const seen = new Set();
+    for (const relation of metadata.relations) {
+      if (!relation || typeof relation !== "object" || Array.isArray(relation)) fail(file, "each relation must be an object");
+      if (Object.keys(relation).some((key) => !new Set(["target", "type", "rationale"]).has(key))) fail(file, "unknown relation field");
+      if (typeof relation.target !== "string" || !idPattern.test(relation.target) || relation.target === metadata.id) fail(file, "invalid relation target");
+      if (!relationTypes.has(relation.type)) fail(file, `invalid relation type ${relation.type}`);
+      if (typeof relation.rationale !== "string" || !relation.rationale.trim() || relation.rationale.length > 400) fail(file, "invalid relation rationale");
+      const identity = `${relation.type}:${relation.target}`;
+      if (seen.has(identity)) fail(file, `duplicate relation ${identity}`);
+      seen.add(identity);
+    }
+  }
 }
 
 function walk(directory) {
@@ -85,9 +100,9 @@ export function collectCatalog(root) {
     if (byId.has(record.metadata.id)) fail(record.relative, `duplicate id ${record.metadata.id}`);
     byId.set(record.metadata.id, record);
   }
-  for (const record of records) for (const parent of record.metadata.lineage) {
-    if (!byId.has(parent)) fail(record.relative, `unknown lineage target ${parent}`);
-    if (record.metadata.publish && !byId.get(parent).metadata.publish) fail(record.relative, `published note references unpublished lineage target ${parent}`);
+  for (const record of records) for (const parent of [...record.metadata.lineage, ...(record.metadata.relations ?? []).map((relation) => relation.target)]) {
+    if (!byId.has(parent)) fail(record.relative, `unknown relation target ${parent}`);
+    if (record.metadata.publish && !byId.get(parent).metadata.publish) fail(record.relative, `published note references unpublished relation target ${parent}`);
   }
   const published = records.filter((record) => record.metadata.publish);
   const labnotes = published.map(({ metadata }) => ({
@@ -100,10 +115,12 @@ export function collectCatalog(root) {
     question: metadata.question,
     tags: [...metadata.tags],
     lineage: [...metadata.lineage],
+    relations: [...(metadata.relations ?? []), ...metadata.lineage.filter((target) => !(metadata.relations ?? []).some((relation) => relation.target === target))
+      .map((target) => ({ target, type: "follows", rationale: "Recorded as the preceding labnote in the original lineage metadata." }))],
     href: `labnotes/${metadata.id}/`,
   })).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
   for (const note of labnotes) {
-    note.relations = {
+    note.timeline = {
       follows: [...note.lineage],
       continued_by: labnotes.filter((candidate) => candidate.lineage.includes(note.id)).map((candidate) => candidate.id)
         .sort((a, b) => a.localeCompare(b)),
@@ -113,6 +130,7 @@ export function collectCatalog(root) {
     const notes = labnotes.filter((note) => note.family === id);
     const latest = [...notes].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id))[0];
     return { id, title: familyTitle(id), labnote_count: notes.length, latest_labnote_id: latest.id,
+      has_graph: notes.some((note) => note.relations.some((relation) => relation.type !== "follows")),
       outcomes: Object.fromEntries([...outcomes].sort().map((outcome) => [outcome, notes.filter((note) => note.outcome === outcome).length]).filter(([, count]) => count)) };
   });
   let revision = "unknown";

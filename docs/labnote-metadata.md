@@ -20,6 +20,7 @@ tags:
   - negative-result
 lineage:
   - prosody-003
+relations: [{"target":"prosody-003","type":"replicates","rationale":"Repeats the original test with locally generated, fidelity-gated audio."}]
 publish: true
 ---
 ```
@@ -37,6 +38,11 @@ publish: true
 - `question` — one-sentence research question used in indexes and previews.
 - `tags` — controlled discovery terms, not prose or authorization labels.
 - `lineage` — zero or more stable labnote IDs that this note follows.
+- `relations` — optional explicit, typed links to other labnotes. Each relation
+  has a `target`, `type`, and short factual `rationale`. Supported types are
+  `motivated-by`, `reuses-data`, `reuses-apparatus`, `extends`, `ablates`,
+  `replicates`, `supports`, `challenges`, and `supersedes`. These authored
+  relationships—not inferred similarity—drive project graphs.
 - `publish` — whether the note belongs in the public Pages projection.
 
 `status` and `outcome` stay separate. A completed experiment may have a
@@ -61,4 +67,3 @@ artifact locations in tags. Publication remains an explicit projection choice.
 Internal note links should remain ordinary relative Markdown links. The Pages
 renderer may enrich them with hover previews, but the source must stay useful
 without JavaScript or the site build.
-

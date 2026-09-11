@@ -15,12 +15,16 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.ok(manifest.labnotes.some((note) => note.id === "voxel-guidance-001"));
   assert.equal(manifest.families.length, 5);
   assert.ok(manifest.families.every((family) => !Object.hasOwn(family, "status")));
-  assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "title"]);
+  assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "timeline", "title"]);
   assert.ok(manifest.labnotes.every((note) => !JSON.stringify(note).includes("/home/")));
   const finalComposition = manifest.labnotes.find((note) => note.id === "composition-006");
-  assert.deepEqual(finalComposition.relations, { follows: ["composition-005"], continued_by: [] });
+  assert.deepEqual(finalComposition.timeline, { follows: ["composition-005"], continued_by: [] });
   const firstComposition = manifest.labnotes.find((note) => note.id === "composition-001");
-  assert.deepEqual(firstComposition.relations, { follows: [], continued_by: ["composition-002"] });
+  assert.deepEqual(firstComposition.timeline, { follows: [], continued_by: ["composition-002"] });
+  const namespaceAblation = manifest.labnotes.find((note) => note.id === "voxel-guidance-005");
+  assert.equal(namespaceAblation.relations[0].type, "motivated-by");
+  assert.equal(namespaceAblation.relations[0].target, "voxel-guidance-004");
+  assert.ok(manifest.families.find((family) => family.id === "voxel-guidance").has_graph);
 });
 
 test("every published labnote has enough metadata for a standalone discovery page", () => {
@@ -51,6 +55,8 @@ test("unknown metadata fields fail closed", () => {
 test("invalid metadata and unsafe lineage are rejected", () => {
   assert.throws(() => validateMetadata({ ...metadata, tags: ["fine", "Not Fine"] }), /invalid or duplicate tag/);
   assert.throws(() => validateMetadata({ ...metadata, lineage: ["test-001"] }), /self lineage/);
+  assert.throws(() => validateMetadata({ ...metadata, relations: [{ target: "other-001", type: "imagines", rationale: "No." }] }), /invalid relation type/);
+  assert.throws(() => validateMetadata({ ...metadata, relations: [{ target: "other-001", type: "extends", rationale: "" }] }), /invalid relation rationale/);
 });
 
 test("markdown renderer escapes raw HTML and unsafe links", () => {

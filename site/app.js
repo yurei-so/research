@@ -4,7 +4,8 @@ const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll(
 
 function familyCard(family) {
   const outcomes = Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("");
-  return `<button class="family-card" data-family="${family.id}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">VIEW LABNOTES →</span></button>`;
+  const graph = family.has_graph ? `<a class="graph-link" href="projects/${family.id}/">VIEW PROJECT MAP ↗</a>` : "";
+  return `<article class="family-card" data-family="${family.id}"><button class="family-filter" data-family="${family.id}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">VIEW LABNOTES →</span></button>${graph}</article>`;
 }
 
 function noteCard(note) {
@@ -36,7 +37,7 @@ async function boot() {
   $("#search").addEventListener("input", render);
   $("#outcome").addEventListener("change", render);
   $("#families").addEventListener("click", (event) => {
-    const card = event.target.closest(".family-card");
+    const card = event.target.closest(".family-filter");
     if (!card) return;
     family = family === card.dataset.family ? "" : card.dataset.family;
     render();

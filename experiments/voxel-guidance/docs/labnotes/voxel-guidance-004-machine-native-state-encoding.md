@@ -8,6 +8,7 @@ outcome: mixed
 question: "Can two-minute behavior windows be represented compactly without loss, and does one local model preserve task recognition across prose, JSON, and typed tokens?"
 tags: ["behavioral-telemetry","machine-native-state","serialization","apparatus","minecraft","local-model","mixed-result"]
 lineage: ["voxel-guidance-003"]
+relations: [{"target":"voxel-guidance-003","type":"motivated-by","rationale":"The feature-family ablation made the surviving behavior fields concrete enough to test compact machine-native serialization."}]
 publish: true
 ---
 # Labnote 004: Machine-native state serialization baseline

@@ -11,6 +11,7 @@
     "word_timestamps": true
   },
   "frames": {"window_ms": 25, "hop_ms": 10, "pitch_min_hz": 70, "pitch_max_hz": 400},
+  "contour_span": "first voiced frame through last voiced frame, divided into equal thirds",
   "fingerprint": [
     "duration_seconds", "voiced_fraction", "internal_pause_count",
     "energy_variability", "f0_median_hz", "f0_std_hz", "f0_range_hz", "f0_slope_hz_per_second",

@@ -73,12 +73,17 @@ def clip_features(audio: np.ndarray, rate: int, protocol: dict[str, Any]) -> tup
                 pauses.append(duration)
             start = None
     duration = len(audio) / rate
-    thirds = [(duration * i / 3, duration * (i + 1) / 3) for i in range(3)]
-    energy_thirds = [20 * math.log10(max(1e-9, mean([r["rms"] for r in voiced if a <= r["time"] < b])
-                                                   if any(a <= r["time"] < b for r in voiced) else 1e-9))
+    contour_start = voiced[0]["time"] if voiced else 0.0
+    contour_end = voiced[-1]["time"] if voiced else duration
+    contour_duration = max(1e-9, contour_end - contour_start)
+    thirds = [(contour_start + contour_duration * i / 3,
+               contour_start + contour_duration * (i + 1) / 3) for i in range(3)]
+    energy_thirds = [20 * math.log10(max(1e-9, mean([r["rms"] for r in rows if a <= r["time"] < b])
+                                                   if any(a <= r["time"] < b for r in rows) else 1e-9))
                      for a, b in thirds]
+    pitch_fallback = median(pitches) if pitches else 0.0
     f0_thirds = [median([r["f0"] for r in voiced if r["f0"] is not None and a <= r["time"] < b])
-                 if any(r["f0"] is not None and a <= r["time"] < b for r in voiced) else 0.0
+                 if any(r["f0"] is not None and a <= r["time"] < b for r in voiced) else pitch_fallback
                  for a, b in thirds]
     slope = float(np.polyfit([r["time"] for r in voiced if r["f0"] is not None], pitches, 1)[0]) if len(pitches) >= 2 else 0.0
     features = {"duration_seconds": duration, "voiced_fraction": len(voiced) / max(1, len(rows)),

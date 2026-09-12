@@ -3,8 +3,8 @@ schema_version: 1
 id: prosody-016
 title: "acoustic fingerprint pilot"
 date: 2026-09-11
-status: running
-outcome: pending
+status: complete
+outcome: positive
 question: "Do lightweight acoustic fingerprints recover perceived emphasis and expressive delivery in the Prosody 015 corpus?"
 tags: ["acoustic-analysis","conversational-prosody","prosody-fingerprint","representation"]
 lineage: ["prosody-015"]
@@ -37,3 +37,27 @@ in the Prosody 015 corpus?
 The tiny corpus cannot train a classifier or validate affect recognition. This pilot asks
 only whether the representation contains enough of the listener-observed structure to
 justify collecting more candidates.
+
+## Result
+
+All eight clips aligned to the expected transcript exactly. The untrained, equal-weight
+word-prominence score recovered one of the annotator's perceived-focus phrases in five
+of eight clips.
+
+Three clips carried at least one non-neutral speech-act label and five were neutral-only.
+The preregistered standardized fingerprint distance placed expressive readings farther
+from neutral readings than same-label readings by 2.328 distance units. That separation
+was the strongest of all 56 assignments preserving the observed 3/5 class split, giving
+an exact one-sided permutation value of `1/56 = 0.0179` and passing the directional gate.
+
+An implementation audit before interpretation found that a missing voiced contour bin
+could be encoded as an extreme sentinel. Amendment 001 defined contours over the active
+voiced span and replaced missing pitch with the within-clip median; the initial output
+was discarded, while the frozen labels, feature families, statistic, and threshold were
+unchanged.
+
+This is positive evidence for the representation, not for a deployable recognizer. The
+same listener labeled all eight clips, only two transcripts and one synthetic speaker are
+represented, and the expressive class contains three examples. The next justified step
+is to generate and label a larger candidate pool across more utterances, then freeze a
+held-out retrieval test before fitting or selecting feature weights.

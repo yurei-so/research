@@ -1,6 +1,11 @@
 import importlib.util
+import json
 from pathlib import Path
+import tempfile
 import unittest
+import wave
+
+import numpy as np
 
 
 ROOT = Path(__file__).parents[1]
@@ -23,6 +28,14 @@ class AcousticFingerprintTest(unittest.TestCase):
 
     def test_normalize_removes_punctuation(self):
         self.assertEqual(MODULE.normalize("Again!"), "again")
+
+    def test_empty_voiced_contour_bin_does_not_create_sentinel_extreme(self):
+        protocol = json.loads((PATH.parent / "protocol.json").read_text())
+        audio = np.concatenate([np.sin(np.arange(8000) * 2 * np.pi * 150 / 16000) * 0.2,
+                                np.zeros(8000)])
+        features, _ = MODULE.clip_features(audio, 16000, protocol)
+        self.assertGreater(min(features["energy_thirds_db"]), -100)
+        self.assertTrue(all(value > 0 for value in features["f0_thirds_hz"]))
 
 
 if __name__ == "__main__":

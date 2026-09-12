@@ -1,0 +1,22 @@
+{
+  "format": "conversation-prosody.candidate-pool",
+  "version": 1,
+  "backend": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "backend_license": "Apache-2.0",
+  "speaker": "Aiden",
+  "language": "English",
+  "seed": 1701,
+  "generation": {"do_sample": true, "temperature": 0.9, "top_p": 0.95},
+  "post_processing": "none",
+  "reading_recipes": [
+    {"id": "matter-of-fact", "instruction": "Speak naturally in a calm, matter-of-fact conversational tone."},
+    {"id": "weary-exasperation", "instruction": "Speak naturally with weary exasperation, as if this frustrating situation has happened before."},
+    {"id": "amused-disbelief", "instruction": "Speak naturally with amused disbelief, as though the situation is surprising and a little ridiculous."}
+  ],
+  "utterances": [
+    {"id": "package", "text": "The package arrived before noon."},
+    {"id": "window", "text": "You left the window open again."},
+    {"id": "tuesday", "text": "I thought you said Tuesday."},
+    {"id": "idea", "text": "That was your idea, actually."}
+  ]
+}

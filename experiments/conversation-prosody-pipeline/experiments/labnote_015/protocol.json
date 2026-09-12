@@ -1,0 +1,13 @@
+{
+  "format": "conversation-prosody.emergent-reading-annotation",
+  "version": 1,
+  "source_format": "conversation-prosody.instruction-focus-ablation-run",
+  "source_labnote": "prosody-014",
+  "expected_items": 8,
+  "blind_fields": ["trial_id", "pair_id", "condition_id", "arm", "context", "focus", "instruction_sha256"],
+  "speech_acts": ["neutral-statement", "correction", "sarcasm", "exasperation", "disbelief", "insistence", "resignation", "other"],
+  "affects": ["neutral", "amused", "annoyed", "frustrated", "surprised", "weary", "other"],
+  "score_range": [1, 5],
+  "required_fields": ["perceived_focus", "speech_acts", "affects", "intensity", "naturalness", "confidence"],
+  "audio_publication": "private"
+}

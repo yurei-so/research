@@ -23,12 +23,13 @@ def generate(
     seed: int = 20260822,
     num_predict: int = 768,
     timeout_seconds: int = 180,
+    think: bool = False,
 ) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "model": model,
         "prompt": prompt,
         "stream": False,
-        "think": False,
+        "think": think,
         "options": {
             "temperature": temperature,
             "seed": seed,
@@ -58,8 +59,12 @@ def generate(
     text = value.get("response")
     if not isinstance(text, str):
         raise OllamaError("ollama_missing_response")
+    thinking = value.get("thinking", "")
+    if not isinstance(thinking, str):
+        raise OllamaError("ollama_invalid_thinking")
     return {
         "text": text,
+        "thinking": thinking,
         "eval_count": value.get("eval_count"),
         "prompt_eval_count": value.get("prompt_eval_count"),
         "elapsed_seconds": round(monotonic() - started, 6),

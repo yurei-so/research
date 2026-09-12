@@ -21,7 +21,7 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "timeline", "title"]);
   assert.ok(manifest.labnotes.every((note) => !JSON.stringify(note).includes("/home/")));
   const finalComposition = manifest.labnotes.find((note) => note.id === "composition-006");
-  assert.deepEqual(finalComposition.timeline, { follows: ["composition-005"], continued_by: [] });
+  assert.deepEqual(finalComposition.timeline, { follows: ["composition-005"], continued_by: ["composition-007"] });
   const firstComposition = manifest.labnotes.find((note) => note.id === "composition-001");
   assert.deepEqual(firstComposition.timeline, { follows: [], continued_by: ["composition-002"] });
   const namespaceAblation = manifest.labnotes.find((note) => note.id === "voxel-guidance-005");

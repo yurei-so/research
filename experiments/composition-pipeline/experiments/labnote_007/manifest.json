@@ -1,0 +1,31 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "labnote_007",
+  "axes": {
+    "arm": ["thinking-disabled", "thinking-enabled"],
+    "case_id": [
+      "lease-priority",
+      "checkpoint-cache",
+      "safe-rejection",
+      "three-safeguards",
+      "uncertain-status",
+      "exact-replacement",
+      "privacy-console",
+      "nonpreemptive-experiment",
+      "stale-data",
+      "approval-boundary",
+      "actor-role",
+      "review-blinding"
+    ],
+    "protocol_revision": ["matched-thinking-v1"]
+  },
+  "repetitions": 1,
+  "limits": {
+    "max_trials": 24,
+    "retry_count": 1,
+    "max_failures": 4,
+    "failure_rate": {"maximum": 0.25, "min_completed": 8}
+  }
+}
+

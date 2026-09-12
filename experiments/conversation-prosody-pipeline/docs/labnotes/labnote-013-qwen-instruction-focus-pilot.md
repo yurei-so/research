@@ -3,8 +3,8 @@ schema_version: 1
 id: prosody-013
 title: "instruction-conditioned contrastive focus"
 date: 2026-09-11
-status: planned
-outcome: pending
+status: complete
+outcome: negative
 question: "Can reference-free natural-language instructions produce natural, directionally correct contrastive focus?"
 tags: ["blinded-review","conversational-prosody","instruction-control","prosody-control","synthetic-audio"]
 lineage: ["prosody-012"]
@@ -40,6 +40,23 @@ outside the frozen 0.8–8.0 second integrity range. Mechanical passage does not
 blinded review. Every output must first sound natural and place contrastive emphasis on
 the instructed word. Only a fully passing set may become a blinded context-matching
 comparison.
+
+## Result
+
+The isolated Qwen3-TTS run generated all eight frozen outputs on an RTX 4070.
+Every waveform was distinct and passed the mechanical duration gate. In owner-local
+admission review, the outputs sounded substantially more natural than Prosody 012's
+reference-conditioned audio, clearing the qualitative naturalness floor.
+
+The set nevertheless failed directional admission. The operator reported that emphasis
+appeared to fall on the wrong word, so the experiment stopped without a blinded review.
+Generated audio, the run report, and admission state remain private.
+
+This separates synthesis quality from focus control: reference-free instruction control
+repaired the audible-quality failure but did not validate the frozen paired instruction
+template. Both instructions explicitly named the intended word and its competitor. A
+future experiment may test whether mentioning the competitor—especially inside a
+negative instruction—made that word salient, but that explanation was not isolated here.
 
 ## Interpretation boundary
 

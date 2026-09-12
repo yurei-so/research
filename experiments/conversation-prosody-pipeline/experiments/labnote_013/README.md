@@ -1,5 +1,9 @@
 # Labnote 013 Qwen instruction-conditioned focus pilot
 
+**Status:** Complete negative result. All eight outputs passed mechanical integrity and
+the owner-local naturalness floor, but the set failed directional-focus admission. No
+blinded review was performed.
+
 This bounded pilot tests whether Qwen3-TTS natural-language instructions can move
 contrastive focus while preserving natural whole-utterance speech. It reuses the two
 sentence pairs from Prosody 012, one frozen English preset voice, and two seeds per

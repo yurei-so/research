@@ -36,7 +36,10 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
 }
 const familyCard = (family) => {
   const graph = family.has_graph ? `<a class="graph-link" href="projects/${escapeHtml(family.id)}/">DETAILED VIEW ↗</a>` : "";
-  return `<article class="family-card" data-family="${escapeHtml(family.id)}"><button class="family-filter" data-family="${escapeHtml(family.id)}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("")}</div><span class="inspect">VIEW LABNOTES →</span></button>${graph}</article>`;
+  const successRate = family.labnote_count
+    ? Math.round(((family.outcomes.positive ?? 0) / family.labnote_count) * 100)
+    : 0;
+  return `<article class="family-card" data-family="${escapeHtml(family.id)}"><span class="success-rate" title="Positive published labnotes divided by all published labnotes" aria-label="${successRate} percent positive-result rate">${successRate}% SUCCESS</span><button class="family-filter" data-family="${escapeHtml(family.id)}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("")}</div><span class="inspect">VIEW LABNOTES →</span></button>${graph}</article>`;
 };
 const noteCard = (note) => `<article class="feed-entry" data-family="${escapeHtml(note.family)}"><div class="entry-index"><time datetime="${note.date}">${note.date}</time><b>${escapeHtml(note.id)}</b></div><div class="entry-main"><div class="entry-state"><span>${escapeHtml(note.status)}</span><span data-outcome="${note.outcome}">${escapeHtml(note.outcome)}</span></div><h3><a href="${escapeHtml(note.href)}">${escapeHtml(note.title)}</a></h3><p>${escapeHtml(note.question)}</p><div class="tags">${note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="${escapeHtml(note.href)}" aria-label="Open ${escapeHtml(note.id)}">↗</a></article>`;
 const indexTemplate = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");

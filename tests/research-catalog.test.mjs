@@ -133,6 +133,13 @@ test("labnote headers link back to their family detailed view", () => {
   assert.match(catalog, /href="\.\.\/\.\.\/projects\/\$\{escapeHtml\(note\.family\)\}\/"/);
 });
 
+test("family cards derive success readouts from published positive outcomes", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  assert.match(catalog, /family\.outcomes\.positive \?\? 0/);
+  assert.match(catalog, /class="success-rate"/);
+  assert.match(catalog, /Positive published labnotes divided by all published labnotes/);
+});
+
 test("attention model preserves vectors and distances separately from its 2D projection", () => {
   const notes = [
     { id: "map-001", title: "Audio timing", question: "Can speech timing improve conversational response?", tags: ["audio", "timing"] },

@@ -18,6 +18,25 @@ async function boot() {
   let tracing = false;
   let terrain = "cells";
 
+  const attentionMap = $(".attention-map");
+  const attentionNodes = new Map([...attentionMap.querySelectorAll(".attention-node")]
+    .map((node) => [node.dataset.note, node]));
+  const contextLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  contextLayer.classList.add("attention-context");
+  contextLayer.setAttribute("aria-label", "Authored neighbor context");
+  for (const relation of graph.relations) {
+    const source = attentionNodes.get(relation.source);
+    const target = attentionNodes.get(relation.target);
+    if (!source || !target) continue;
+    const edge = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    edge.classList.add("attention-context-edge");
+    edge.dataset.source = relation.source;
+    edge.dataset.target = relation.target;
+    edge.setAttribute("d", `M ${target.dataset.centerX} ${target.dataset.centerY} L ${source.dataset.centerX} ${source.dataset.centerY}`);
+    contextLayer.append(edge);
+  }
+  attentionMap.insertBefore(contextLayer, attentionMap.querySelector(".attention-node"));
+
   const renderAttentionDisclosure = () => {
     const stress = graph.attention.projection.normalized_stress.toFixed(3);
     const rendering = terrain === "cells"
@@ -95,6 +114,9 @@ async function boot() {
       edge.classList.toggle("unrelated", !visible.has(edge.dataset.source) || !visible.has(edge.dataset.target));
       edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
     });
+    document.querySelectorAll(".attention-context-edge").forEach((edge) => {
+      edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
+    });
   };
 
   document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
@@ -123,7 +145,7 @@ async function boot() {
     $("#terrain-style").disabled = activeView !== "attention";
     if (activeView === "attention") {
       renderAttentionDisclosure();
-      $("#edge-note").textContent = "Conceptual proximity is not provenance and creates no relationship edges.";
+      $("#edge-note").textContent = "Faint connectors show authored immediate neighbors for orientation. Semantic proximity creates no relationship edges.";
     } else {
       $("#view-disclosure").textContent = "Human-authored relationships only. Proximity is not used to create edges.";
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";

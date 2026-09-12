@@ -122,6 +122,8 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(catalog, /class=\"attention-cells\"/);
   assert.match(catalog, /class=\"attention-smooth\"/);
   assert.match(client, /terrain === \"cells\" \? \"smooth\" : \"cells\"/);
+  assert.match(client, /attention-context-edge/);
+  assert.match(client, /Authored neighbor context/);
   assert.match(client, /back-to-map/);
   assert.match(styles, /height: min\(58svh, 520px\)/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);

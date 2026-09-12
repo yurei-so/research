@@ -140,6 +140,8 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .attention-node .attention-point { stroke: #0b0d14; stroke-width: 4; }
 .attention-node:hover .attention-point, .attention-node:focus .attention-point { stroke: var(--signal); }
 .attention-node.selected .attention-point { stroke: #f0eaff; stroke-width: 5; }
+.attention-context-edge { fill: none; stroke: #b29aff; stroke-width: 1.25; stroke-dasharray: 3 9; opacity: .2; vector-effect: non-scaling-stroke; pointer-events: none; }
+.attention-context-edge.related { opacity: .56; stroke-width: 1.75; }
 .graph-edge path { fill: none; stroke: #424a5d; stroke-width: 2; marker-end: url(#arrow); }
 .graph-edge text { fill: #8d96a9; font: 12px var(--mono); letter-spacing: .07em; }
 .graph-edge { cursor: help; }

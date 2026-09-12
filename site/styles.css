@@ -105,8 +105,8 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .note-body pre { overflow: auto; padding: 1.25rem; border: 1px solid var(--line); background: var(--surface); }
 .note-body pre code { padding: 0; background: none; }
 .note-body blockquote { margin-left: 0; padding-left: 1.2rem; border-left: 2px solid var(--signal); color: var(--muted); }
-.project-shell { width: min(1440px, 94vw); padding: 4rem 0 7rem; }
-.project-header { padding: 3rem 0 2.5rem; }
+.project-shell { width: min(1440px, 94vw); padding: 2rem 0 7rem; }
+.project-header { padding: 1.75rem 0 2rem; }
 .project-header h1 { margin: .7rem 0; font-size: clamp(2.35rem, 5vw, 4.25rem); font-weight: 520; letter-spacing: -.045em; }
 .project-header p { max-width: 720px; color: #a9afbc; }
 .map-modes { display: flex; align-items: center; gap: .55rem; margin: 0 0 1rem; }
@@ -174,9 +174,9 @@ td { color: #abb2c0; }
 tr:last-child td { border-bottom: 0; }
 th:last-child, td:last-child { border-right: 0; }
 @media (max-width: 720px) {
-  .project-shell { width: 100%; padding: 1.5rem 0 5rem; }
+  .project-shell { width: 100%; padding: 1rem 0 5rem; }
   .project-shell > .back, .project-header, .map-modes { margin-right: 1rem; margin-left: 1rem; }
-  .project-header { padding: 2rem 0 1.5rem; }
+  .project-header { padding: 1.25rem 0 1.5rem; }
   .project-header h1 { font-size: clamp(2.2rem, 12vw, 3.15rem); }
   .project-header p { font-size: .92rem; }
   .map-modes { align-items: stretch; flex-wrap: wrap; }

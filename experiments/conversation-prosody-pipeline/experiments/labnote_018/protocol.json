@@ -1,0 +1,65 @@
+{
+  "format": "conversation-prosody.two-speaker-context-ab",
+  "version": 1,
+  "backend": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "backend_license": "Apache-2.0",
+  "language": "English",
+  "seed": 1818,
+  "generation": {"do_sample": true, "temperature": 0.9, "top_p": 0.95},
+  "post_processing": "silence-only assembly",
+  "arms": ["isolated", "conversation-aware"],
+  "isolated_instruction": "Speak this line naturally in a casual conversational tone.",
+  "speakers": {
+    "rowan": "Aiden",
+    "mira": "Vivian"
+  },
+  "scene": {
+    "id": "empty-carton",
+    "setting": "Two housemates discover that an empty milk carton was returned to the refrigerator. The disagreement is familiar, low-stakes, and gradually turns playful.",
+    "turns": [
+      {
+        "id": "turn-01",
+        "speaker": "rowan",
+        "text": "You put the empty carton back in the fridge.",
+        "context_instruction": "Say this to a familiar housemate with dry, restrained annoyance after discovering the empty carton. This is an observation, not an angry confrontation.",
+        "gap_after_ms": 260
+      },
+      {
+        "id": "turn-02",
+        "speaker": "mira",
+        "text": "I was going to replace it.",
+        "context_instruction": "Reply quickly with a slightly defensive excuse. You know the other speaker is right, but you are not ready to concede yet.",
+        "gap_after_ms": 190
+      },
+      {
+        "id": "turn-03",
+        "speaker": "rowan",
+        "text": "You said that yesterday.",
+        "context_instruction": "Respond with weary familiarity, as if this exact excuse has already been heard. Keep the delivery quiet and conversational rather than theatrical.",
+        "gap_after_ms": 280
+      },
+      {
+        "id": "turn-04",
+        "speaker": "mira",
+        "text": "Yesterday, it still had milk in it.",
+        "context_instruction": "Offer a calmly pedantic technicality while beginning to find the disagreement amusing. Sound pleased with the loophole but not triumphant.",
+        "gap_after_ms": 220
+      },
+      {
+        "id": "turn-05",
+        "speaker": "rowan",
+        "text": "One teaspoon is not milk.",
+        "context_instruction": "Answer with flat disbelief and reluctant amusement. The friendship is intact; the absurd measurement is the joke.",
+        "gap_after_ms": 300
+      },
+      {
+        "id": "turn-06",
+        "speaker": "mira",
+        "text": "It was enough for optimism.",
+        "context_instruction": "Deliver a light, self-satisfied punchline after realizing the argument is funny. Keep it warm, understated, and natural.",
+        "gap_after_ms": 0
+      }
+    ]
+  }
+}
+

@@ -16,6 +16,15 @@ async function boot() {
   let zoom = .82;
   let selected = graph.notes.at(-1)?.id;
   let tracing = false;
+  let terrain = "cells";
+
+  const renderAttentionDisclosure = () => {
+    const stress = graph.attention.projection.normalized_stress.toFixed(3);
+    const rendering = terrain === "cells"
+      ? "Quantized cell density describes only this published Yurei corpus"
+      : "Smooth heat and fog describe only this published Yurei corpus";
+    $("#view-disclosure").textContent = `${graph.attention.representation.method} vectors projected with classical MDS · ${graph.notes.length} records · stress ${stress}. ${rendering}; geometry is approximate.`;
+  };
 
   const setZoom = (next) => {
     const map = activeMap();
@@ -89,7 +98,12 @@ async function boot() {
   };
 
   document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
-    node.addEventListener("click", (event) => { event.preventDefault(); selected = node.dataset.note; renderInspector(); });
+    node.addEventListener("click", (event) => {
+      event.preventDefault(); selected = node.dataset.note; renderInspector();
+      if (matchMedia("(max-width: 720px)").matches) {
+        requestAnimationFrame(() => $(".graph-inspector").scrollIntoView({ behavior: "smooth", block: "start" }));
+      }
+    });
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
     node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selected = node.dataset.note; renderInspector(); } });
   });
@@ -106,9 +120,9 @@ async function boot() {
     tracing = false;
     $("#trace-lineage").setAttribute("aria-pressed", "false");
     $("#trace-lineage").disabled = activeView !== "provenance";
+    $("#terrain-style").disabled = activeView !== "attention";
     if (activeView === "attention") {
-      const stress = graph.attention.projection.normalized_stress.toFixed(3);
-      $("#view-disclosure").textContent = `${graph.attention.representation.method} vectors projected with classical MDS · ${graph.notes.length} records · stress ${stress}. Heat and fog describe only this published Yurei corpus; geometry is approximate.`;
+      renderAttentionDisclosure();
       $("#edge-note").textContent = "Conceptual proximity is not provenance and creates no relationship edges.";
     } else {
       $("#view-disclosure").textContent = "Human-authored relationships only. Proximity is not used to create edges.";
@@ -121,6 +135,15 @@ async function boot() {
   $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
   $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
   $("#zoom-fit").addEventListener("click", () => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
+  $("#terrain-style").addEventListener("click", () => {
+    terrain = terrain === "cells" ? "smooth" : "cells";
+    const attentionMap = $(".attention-map");
+    attentionMap.dataset.terrain = terrain;
+    $("#terrain-style").textContent = terrain === "cells" ? "CELLS" : "SMOOTH";
+    $("#terrain-style").setAttribute("aria-label", `Attention terrain: ${terrain}`);
+    renderAttentionDisclosure();
+  });
+  $("#back-to-map").addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
   let pan = null;
   stage.addEventListener("pointerdown", (event) => {
     if (event.target.closest(".graph-node, .attention-node, .graph-edge")) return;

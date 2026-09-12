@@ -115,6 +115,18 @@ test("family social card renders a pixel preview from real attention geometry", 
   assert.ok(svg.includes("2 published labnotes"));
 });
 
+test("detailed map retains both terrains and dedicated mobile navigation", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
+  const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
+  assert.match(catalog, /class=\"attention-cells\"/);
+  assert.match(catalog, /class=\"attention-smooth\"/);
+  assert.match(client, /terrain === \"cells\" \? \"smooth\" : \"cells\"/);
+  assert.match(client, /back-to-map/);
+  assert.match(styles, /height: min\(58svh, 520px\)/);
+  assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
+});
+
 test("attention model preserves vectors and distances separately from its 2D projection", () => {
   const notes = [
     { id: "map-001", title: "Audio timing", question: "Can speech timing improve conversational response?", tags: ["audio", "timing"] },

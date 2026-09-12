@@ -127,6 +127,12 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
+test("labnote headers link back to their family detailed view", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  assert.match(catalog, /class="family-backlink"/);
+  assert.match(catalog, /href="\.\.\/\.\.\/projects\/\$\{escapeHtml\(note\.family\)\}\/"/);
+});
+
 test("attention model preserves vectors and distances separately from its 2D projection", () => {
   const notes = [
     { id: "map-001", title: "Audio timing", question: "Can speech timing improve conversational response?", tags: ["audio", "timing"] },

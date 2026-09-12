@@ -96,7 +96,7 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
 <link rel="stylesheet" href="../../assets/styles.css"></head><body>
 <header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
 <main class="note-shell"><a class="back" href="../../">← Return to research library</a>
-<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="${canonicalUrl}"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow">LABNOTE / ${escapeHtml(note.family)}</div><h1 itemprop="headline">${title}</h1>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="${canonicalUrl}"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/${escapeHtml(note.family)}/" aria-label="Open the ${escapeHtml(note.family)} family detailed view">LABNOTE / ${escapeHtml(note.family)} <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">${title}</h1>
 <div class="note-vitals"><span>${note.id}</span><time itemprop="datePublished" datetime="${note.date}">${note.date}</time><span data-outcome="${note.outcome}">${note.outcome}</span><span>${note.status}</span></div>
 <p class="question" itemprop="description">${question}</p><div class="tags">${tags}</div><p class="source-link"><a href="${sourceUrl}">View source record on GitHub ↗</a></p></header>
 ${lineage}

@@ -3,8 +3,8 @@ schema_version: 1
 id: prosody-017
 title: "multi-utterance prosody candidate pool"
 date: 2026-09-11
-status: running
-outcome: pending
+status: complete
+outcome: mixed
 question: "Can a small multi-utterance candidate pool supply natural repeated readings for a held-out fingerprint-retrieval test?"
 tags: ["candidate-generation","conversational-prosody","dataset","prosody-fingerprint"]
 lineage: ["prosody-016"]
@@ -32,3 +32,16 @@ held-out fingerprint-retrieval test?
 This is corpus construction, not a test of instruction following. Retrieval evaluation
 will be frozen only after annotation establishes which labels the candidate pool really
 contains; no held-out claim is made here.
+
+## Result
+
+All twelve outputs passed mechanical integrity and were blindly annotated. Six met the
+4/5 naturalness floor, spanning all four new utterances. Every natural clip carried a
+disbelief label; none was neutral-only. The nominally matter-of-fact recipe produced two
+natural clips, but both were heard as expressive. Weary exasperation produced three
+natural clips, and amused disbelief produced one.
+
+The pool successfully expanded the natural expressive gallery across new lexical
+content, but it cannot support a balanced held-out neutral-versus-expressive retrieval
+test. A minimal follow-up should generate one uninstructed control per utterance and stop
+after four clips rather than repeating the full pool.

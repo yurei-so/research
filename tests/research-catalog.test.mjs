@@ -7,7 +7,7 @@ import path from "node:path";
 import test from "node:test";
 import { buildAttentionModel, toInterchange, validateCorpus } from "@yurei-so/research-tools";
 import { collectCatalog, escapeHtml, extractResultSummary, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
-import { socialCardSvg } from "../scripts/social-card.mjs";
+import { familySocialCardSvg, socialCardSvg } from "../scripts/social-card.mjs";
 
 const metadata = { schema_version: 1, id: "test-001", title: "Test", date: "2026-09-08", status: "complete", outcome: "negative", question: "Did it work?", tags: ["negative-result"], lineage: [], publish: true };
 
@@ -101,6 +101,18 @@ test("social card wraps visually wide titles before the safe right edge", () => 
     question: "Did it work?", result_summary: "A compact result." });
   assert.ok(svg.includes("Blinded current-task"));
   assert.ok(svg.includes("inference</text>"));
+});
+
+test("family social card renders a pixel preview from real attention geometry", () => {
+  const svg = familySocialCardSvg(
+    { id: "test-family", title: "Test Family", outcomes: { positive: 2 }, labnote_count: 2 },
+    [{ id: "test-001" }, { id: "test-002" }],
+    { projection: { points: { "test-001": [0, 0], "test-002": [1, 1] } } },
+  );
+  assert.ok(svg.includes("RESEARCH FAMILY"));
+  assert.ok(svg.includes("PIXEL PREVIEW"));
+  assert.ok(svg.includes('width="13" height="13"'));
+  assert.ok(svg.includes("2 published labnotes"));
 });
 
 test("attention model preserves vectors and distances separately from its 2D projection", () => {

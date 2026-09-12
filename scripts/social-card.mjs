@@ -75,11 +75,75 @@ ${titleLines.map((line, index) => `<text x="58" y="${titleStart + index * titleS
 </svg>`;
 }
 
+function projectedPoints(attention) {
+  const raw = Object.values(attention?.projection?.points ?? {});
+  if (!raw.length) return [];
+  const xs = raw.map((point) => point[0]);
+  const ys = raw.map((point) => point[1]);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  return raw.map(([x, y]) => ({
+    x: maxX === minX ? .5 : (x - minX) / (maxX - minX),
+    y: maxY === minY ? .5 : (y - minY) / (maxY - minY),
+  }));
+}
+
+function pixelHeatmap(attention) {
+  const points = projectedPoints(attention);
+  const columns = 30, rows = 18, size = 15, left = 684, top = 181;
+  const pixels = [];
+  for (let row = 0; row < rows; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      const x = column / (columns - 1), y = row / (rows - 1);
+      const heat = Math.min(1, points.reduce((sum, point) => {
+        const distance = (x - point.x) ** 2 + (y - point.y) ** 2;
+        return sum + Math.exp(-distance / .028);
+      }, 0));
+      const level = Math.floor(heat * 5);
+      if (!level) continue;
+      const opacity = [.12, .2, .32, .48, .72][level - 1];
+      pixels.push(`<rect x="${left + column * size}" y="${top + row * size}" width="13" height="13" fill="#9a73f2" opacity="${opacity}"/>`);
+    }
+  }
+  const nodes = points.map((point) => `<rect x="${Math.round(left + point.x * (columns - 1) * size - 4)}" y="${Math.round(top + point.y * (rows - 1) * size - 4)}" width="9" height="9" fill="#d9c8ff"/>`).join("");
+  return `${pixels.join("")}\n${nodes}`;
+}
+
+export function familySocialCardSvg(family, notes, attention) {
+  const titleLines = wrap(family.title, 550, 2, 68);
+  const outcomes = Object.entries(family.outcomes).map(([name, count]) => `${count} ${name}`).join("  ·  ");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#080a10"/><rect width="12" height="630" fill="#8b5cf6"/>
+<text x="104" y="76" fill="#e8e9f0" font-family="Inter,system-ui,sans-serif" font-size="25" font-weight="700" letter-spacing="4">YUREI RESEARCH</text>
+<text x="1138" y="76" text-anchor="end" fill="#7f8798" font-family="ui-monospace,monospace" font-size="19">RESEARCH FAMILY</text>
+<line x1="46" y1="112" x2="1140" y2="112" stroke="#252a37" stroke-width="2"/>
+<text x="62" y="164" fill="#ad8bff" font-family="ui-monospace,monospace" font-size="18" letter-spacing="3">PROJECT / ${xml(family.id.toUpperCase())}</text>
+${titleLines.map((line, index) => `<text x="58" y="${205 + index * 74}" dominant-baseline="hanging" fill="#e5e7ef" font-family="Inter,system-ui,sans-serif" font-size="68" font-weight="650">${xml(line)}</text>`).join("\n")}
+<text x="62" y="426" fill="#b6bbc8" font-family="Inter,system-ui,sans-serif" font-size="27">${notes.length} published labnotes</text>
+<text x="62" y="472" fill="#8d94a5" font-family="ui-monospace,monospace" font-size="18">${xml(outcomes.toUpperCase())}</text>
+<rect x="660" y="151" width="498" height="330" fill="#0b0d14" stroke="#252a37" stroke-width="2"/>
+${pixelHeatmap(attention)}
+<text x="1138" y="514" text-anchor="end" fill="#737b8e" font-family="ui-monospace,monospace" font-size="16">CORPUS-RELATIVE ATTENTION · PIXEL PREVIEW</text>
+<line x1="46" y1="551" x2="1140" y2="551" stroke="#252a37" stroke-width="2"/>
+<text x="62" y="595" fill="#ad8bff" font-family="ui-monospace,monospace" font-size="20">DETAILED VIEW</text>
+<text x="1138" y="595" text-anchor="end" fill="#8d94a5" font-family="ui-monospace,monospace" font-size="18">yurei-so.github.io/research</text>
+</svg>`;
+}
+
 export async function writeSocialCard(note, destination) {
   const ghost = await sharp(Buffer.from(ghostPng, "base64"))
     .resize({ width: 42, height: 52, fit: "contain", kernel: sharp.kernel.nearest })
     .png().toBuffer();
   await sharp(Buffer.from(socialCardSvg(note)))
+    .composite([{ input: ghost, left: 42, top: 34 }])
+    .png({ compressionLevel: 9 }).toFile(destination);
+}
+
+export async function writeFamilySocialCard(family, notes, attention, destination) {
+  const ghost = await sharp(Buffer.from(ghostPng, "base64"))
+    .resize({ width: 42, height: 52, fit: "contain", kernel: sharp.kernel.nearest })
+    .png().toBuffer();
+  await sharp(Buffer.from(familySocialCardSvg(family, notes, attention)))
     .composite([{ input: ghost, left: 42, top: 34 }])
     .png({ compressionLevel: 9 }).toFile(destination);
 }

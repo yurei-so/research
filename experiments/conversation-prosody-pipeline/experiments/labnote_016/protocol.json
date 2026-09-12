@@ -1,0 +1,32 @@
+{
+  "format": "conversation-prosody.acoustic-fingerprint-protocol",
+  "version": 1,
+  "source_labnote": "prosody-015",
+  "expected_items": 8,
+  "alignment": {
+    "engine": "faster-whisper",
+    "model": "small.en",
+    "beam_size": 5,
+    "compute_type": "int8",
+    "word_timestamps": true
+  },
+  "frames": {"window_ms": 25, "hop_ms": 10, "pitch_min_hz": 70, "pitch_max_hz": 400},
+  "fingerprint": [
+    "duration_seconds", "voiced_fraction", "internal_pause_count",
+    "energy_variability", "f0_median_hz", "f0_std_hz", "f0_range_hz", "f0_slope_hz_per_second",
+    "energy_thirds_db", "f0_thirds_hz"
+  ],
+  "word_prominence": {
+    "dimensions": ["energy_db", "duration_seconds", "f0_median_hz", "preceding_pause_seconds"],
+    "combination": "mean within-utterance z score over available dimensions"
+  },
+  "evaluation": {
+    "focus_recovery": "top-prominence aligned word appears in any comma-separated perceived-focus phrase",
+    "expressive_label": "any speech-act label other than neutral-statement",
+    "cluster_statistic": "mean expressive-neutral distance minus pooled same-label distance",
+    "permutation_test": "exact over every label assignment preserving observed class counts",
+    "directional_success": "positive cluster statistic and exact p <= 0.10"
+  },
+  "interpretation": "descriptive pilot only; no classifier, affect detector, or production selector claim",
+  "publication": "derived aggregate only; audio, alignments, labels, and item-level fingerprints stay private"
+}

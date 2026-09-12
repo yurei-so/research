@@ -135,9 +135,12 @@ test("labnote headers link back to their family detailed view", () => {
 
 test("family cards derive success readouts from published positive outcomes", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const client = fs.readFileSync(path.resolve("site/app.js"), "utf8");
   assert.match(catalog, /family\.outcomes\.positive \?\? 0/);
   assert.match(catalog, /class="success-rate"/);
   assert.match(catalog, /Positive published labnotes divided by all published labnotes/);
+  assert.match(client, /family\.outcomes\.positive \?\? 0/);
+  assert.match(client, /class="success-rate"/);
 });
 
 test("attention model preserves vectors and distances separately from its 2D projection", () => {

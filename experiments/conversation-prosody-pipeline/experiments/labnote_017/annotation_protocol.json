@@ -1,0 +1,14 @@
+{
+  "format": "conversation-prosody.emergent-reading-annotation",
+  "version": 1,
+  "title": "What reading actually emerged?",
+  "source_format": "conversation-prosody.candidate-pool-run",
+  "source_labnote": "prosody-017",
+  "expected_items": 12,
+  "blind_fields": ["trial_id", "utterance_id", "recipe_id", "seed", "instruction_sha256"],
+  "speech_acts": ["neutral-statement", "correction", "sarcasm", "exasperation", "disbelief", "insistence", "resignation", "other"],
+  "affects": ["neutral", "amused", "annoyed", "frustrated", "surprised", "weary", "other"],
+  "score_range": [1, 5],
+  "required_fields": ["perceived_focus", "speech_acts", "affects", "intensity", "naturalness", "confidence"],
+  "audio_publication": "private"
+}

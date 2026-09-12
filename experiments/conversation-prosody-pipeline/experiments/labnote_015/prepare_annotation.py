@@ -58,12 +58,13 @@ def prepare(protocol_path: Path, source_dir: Path, output_dir: Path) -> dict[str
         items.append({"item_id": item_id, "ordinal": index + 1,
                       "transcript": trial["target"], "file_name": file_name,
                       "sha256": trial["audio_sha256"]})
+        reveal_fields = protocol.get("reveal_fields", protocol["blind_fields"])
         reveal.append({"item_id": item_id, **{
-            key: trial[key] for key in ("trial_id", "pair_id", "condition_id", "arm",
-                                        "context", "focus", "instruction_sha256")}})
+            key: trial[key] for key in reveal_fields}})
     bundle = {"format": protocol["format"], "version": 1,
               "source_report_sha256": source_digest,
               "protocol_sha256": digest(canonical(protocol)),
+              "title": protocol.get("title", "What did the voice actually do?"),
               "speech_acts": protocol["speech_acts"], "affects": protocol["affects"],
               "score_range": protocol["score_range"], "items": items}
     key = {"format": "conversation-prosody.emergent-reading-annotation-key",

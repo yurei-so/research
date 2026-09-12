@@ -41,6 +41,7 @@ class EmergentAnnotationPreparationTest(unittest.TestCase):
             bundle = json.loads((output / "annotation-bundle.json").read_text())
             self.assertEqual(result["items"], 8); self.assertEqual(len(bundle["items"]), 8)
             self.assertNotIn("focus", bundle["items"][0])
+            self.assertEqual(bundle["title"], "What did the voice actually do?")
             self.assertEqual((output / "annotation-key.json").stat().st_mode & 0o777, 0o600)
 
     def test_rejects_incomplete_source_run(self):

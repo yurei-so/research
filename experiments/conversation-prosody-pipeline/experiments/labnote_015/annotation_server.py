@@ -41,6 +41,7 @@ class Store:
             return {"complete": True, "progress": {"completed": len(rows), "total": len(self.items)}}
         item = self.items[len(rows)]
         return {"complete": False, "progress": {"completed": len(rows), "total": len(self.items)},
+                "title": self.bundle.get("title", "What did the voice actually do?"),
                 "item": {"item_id": item["item_id"], "ordinal": item["ordinal"],
                          "transcript": item["transcript"],
                          "audio": f"/assets/{item['item_id']}"},

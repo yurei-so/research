@@ -24,6 +24,11 @@ class CandidatePoolTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "three recipes across four utterances"):
             MODULE.validate_protocol(protocol)
 
+    def test_annotation_protocol_blinds_recipe_identity(self):
+        protocol = json.loads((EXPERIMENT / "annotation_protocol.json").read_text())
+        self.assertEqual(protocol["expected_items"], 12)
+        self.assertIn("recipe_id", protocol["blind_fields"])
+
 
 if __name__ == "__main__":
     unittest.main()

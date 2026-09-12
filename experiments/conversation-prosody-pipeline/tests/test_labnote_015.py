@@ -10,6 +10,8 @@ ROOT = Path(__file__).parents[1]
 EXPERIMENT = ROOT / "experiments" / "labnote_015"
 SPEC = importlib.util.spec_from_file_location("prepare_annotation", EXPERIMENT / "prepare_annotation.py")
 MODULE = importlib.util.module_from_spec(SPEC); assert SPEC.loader; SPEC.loader.exec_module(MODULE)
+ANALYZE_SPEC = importlib.util.spec_from_file_location("analyze_annotations", EXPERIMENT / "analyze_annotations.py")
+ANALYZE = importlib.util.module_from_spec(ANALYZE_SPEC); assert ANALYZE_SPEC.loader; ANALYZE_SPEC.loader.exec_module(ANALYZE)
 
 
 def wav(path: Path) -> str:
@@ -48,6 +50,10 @@ class EmergentAnnotationPreparationTest(unittest.TestCase):
                 "integrity_gate_passed": False, "trials": []}))
             with self.assertRaisesRegex(ValueError, "complete passing"):
                 MODULE.prepare(EXPERIMENT / "protocol.json", root, root / "out")
+
+    def test_focus_matching_uses_complete_perceived_phrases(self):
+        self.assertEqual(ANALYZE.normalized_phrases("borrowed, again"), {"borrowed", "again"})
+        self.assertNotIn("borrow", ANALYZE.normalized_phrases("borrowed, again"))
 
 
 if __name__ == "__main__":

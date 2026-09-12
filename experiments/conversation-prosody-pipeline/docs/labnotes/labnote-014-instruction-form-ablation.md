@@ -3,8 +3,8 @@ schema_version: 1
 id: prosody-014
 title: "contrastive-focus instruction-form ablation"
 date: 2026-09-11
-status: planned
-outcome: pending
+status: complete
+outcome: negative
 question: "Does removing the competing focus word from Qwen's instruction restore directional contrastive emphasis?"
 tags: ["ablation","conversational-prosody","instruction-control","prosody-control","synthetic-audio"]
 lineage: ["prosody-013"]
@@ -38,3 +38,26 @@ Mechanical integrity requires eight distinct complete utterances between 0.8 and
 seconds. Admission records naturalness and directional correctness separately for each
 arm. This is a mechanism-selection ablation, not evidence of general instruction
 following; any winning arm requires replication before expansion.
+
+## Result
+
+All eight frozen outputs were distinct, complete, and mechanically valid. The owner-local
+admission review found natural-sounding examples in the set, but no output could honestly
+be judged both natural and directionally correct. Neither positive-only nor context-only
+instruction therefore won the mechanism-selection gate, and no blinded follow-up was
+prepared.
+
+The review still exposed useful emergent behavior. The context-only `Jordan` rendering
+placed very natural-sounding sarcasm on “again,” while the positive-only `bicycle`
+rendering sounded strongly and effectively exasperated. Those readings were not the
+requested lexical-focus controls, but they suggest that Qwen can generate coherent
+expressive variation more reliably than it can obey this word-level control scheme.
+
+The admission interface combined naturalness and directional correctness in one checkbox,
+while the operator ultimately used selections for naturalness alone and revised them.
+Checkbox counts are therefore not interpreted as directional evidence; the decisive
+record is the explicit report that none passed both criteria simultaneously.
+
+This motivates a reversed architecture for later study: generate candidate readings,
+characterize the prosody that actually emerged, and select against conversational intent.
+That hypothesis is not tested by this labnote.

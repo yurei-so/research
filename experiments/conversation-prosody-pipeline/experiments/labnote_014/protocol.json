@@ -1,0 +1,58 @@
+{
+  "format": "conversation-prosody.instruction-focus-ablation",
+  "version": 1,
+  "backend": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "backend_license": "Apache-2.0",
+  "speaker": "Aiden",
+  "language": "English",
+  "seed": 1401,
+  "generation": {"do_sample": true, "temperature": 0.9, "top_p": 0.95},
+  "post_processing": "none",
+  "arms": ["positive-only", "context-only"],
+  "pairs": [
+    {
+      "pair_id": "location-day",
+      "target": "We meet at the library on Friday.",
+      "conditions": [
+        {
+          "condition_id": "location", "focus": "library",
+          "context": "Correct the meeting location.",
+          "instructions": {
+            "positive-only": "Read the sentence naturally and neutrally, with contrastive emphasis on the word 'library'.",
+            "context-only": "Say this naturally as a correction to someone who got the meeting location wrong."
+          }
+        },
+        {
+          "condition_id": "day", "focus": "Friday",
+          "context": "Correct the meeting day.",
+          "instructions": {
+            "positive-only": "Read the sentence naturally and neutrally, with contrastive emphasis on the word 'Friday'.",
+            "context-only": "Say this naturally as a correction to someone who got the meeting day wrong."
+          }
+        }
+      ]
+    },
+    {
+      "pair_id": "person-object",
+      "target": "Jordan borrowed my bicycle again.",
+      "conditions": [
+        {
+          "condition_id": "person", "focus": "Jordan",
+          "context": "Correct who borrowed it.",
+          "instructions": {
+            "positive-only": "Read the sentence naturally and neutrally, with contrastive emphasis on the word 'Jordan'.",
+            "context-only": "Say this naturally as a correction to someone who got the borrower's identity wrong."
+          }
+        },
+        {
+          "condition_id": "object", "focus": "bicycle",
+          "context": "Correct what was borrowed.",
+          "instructions": {
+            "positive-only": "Read the sentence naturally and neutrally, with contrastive emphasis on the word 'bicycle'.",
+            "context-only": "Say this naturally as a correction to someone who got the borrowed object wrong."
+          }
+        }
+      ]
+    }
+  ]
+}

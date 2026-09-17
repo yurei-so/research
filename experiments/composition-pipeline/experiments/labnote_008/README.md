@@ -15,3 +15,10 @@ The unrestricted two-pass arm controls for the extra model call. Human review co
 the deferred result independently against both direct and full-revision candidates. This
 pilot tests whether the mechanism helps composition; it does not claim access to internal
 uncertainty or validate an adaptive uncertainty trigger.
+
+The completed campaign produced 23/24 successful trials and seven complete matched
+triplets. Blind review preferred direct composition over deferred infill 6–1 and full
+revision over deferred infill 7–0, with no ties. Post-reveal inspection showed that the
+forced hole frequently froze an incorrect global structure and then appended a local
+correction, leaving contradictory or malformed final text. The pilot is closed as a
+bounded negative result.

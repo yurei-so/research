@@ -10,3 +10,4 @@ inputs, measurements, results, limitations, and disposition here.
 - [Labnote 005: Stochastic deduplicated optional editor campaign](005-stochastic-deduplicated-editor-campaign.md)
 - [Labnote 006: Targeted residual-defect repair](006-targeted-residual-defect-repair.md)
 - [Labnote 007: Matched deep-thinking composition campaign](007-matched-deep-thinking-composition.md)
+- [Labnote 008: Forced deferred-hole composition pilot](008-forced-deferred-hole-composition.md)

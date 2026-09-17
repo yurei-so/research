@@ -27,8 +27,10 @@ class ReadinessSpanCompositionTest(unittest.TestCase):
 
     def test_readiness_contract_requires_ordered_bounded_span_and_suffix_evidence(self):
         value = {
-            "draft_with_span": "[[DEFER_1:CLAIM]]The cache is lost.[[/DEFER_1]] The checkpoint remains valid and rebuilds the cache. [[READY_1]] Service is healthy.",
+            "prefix": "", "provisional_span": "The cache is lost.",
             "span_type": "CLAIM", "ready_when": ["checkpoint validity is established"],
+            "right_context_through_readiness": "The checkpoint remains valid and rebuilds the cache.",
+            "ready_signal": "READY_1", "suffix": "Service is healthy.",
         }
         draft, span, ready_when, visible = LABNOTE.validate_readiness(value)
         self.assertIn("The cache is lost.", span)
@@ -36,8 +38,7 @@ class ReadinessSpanCompositionTest(unittest.TestCase):
         self.assertEqual(ready_when, ["checkpoint validity is established"])
         self.assertIn(LABNOTE.READY, draft)
         with self.assertRaises(ValueError):
-            LABNOTE.validate_readiness({**value,
-                "draft_with_span": "[[READY_1]] [[DEFER_1:CLAIM]]x[[/DEFER_1]] enough right context follows here"})
+            LABNOTE.validate_readiness({**value, "ready_signal": "NOT_READY"})
 
     def test_readiness_span_replaces_whole_span_and_removes_protocol_markers(self):
         calls = []
@@ -45,8 +46,10 @@ class ReadinessSpanCompositionTest(unittest.TestCase):
             calls.append(kwargs)
             if len(calls) == 1:
                 text = json.dumps({
-                    "draft_with_span": "[[DEFER_1:CLAIM]]The cache and checkpoint were lost.[[/DEFER_1]] The durable checkpoint remained valid and rebuilt only the cache. [[READY_1]] The service recovered.",
+                    "prefix": "", "provisional_span": "The cache and checkpoint were lost.",
                     "span_type": "CLAIM", "ready_when": ["checkpoint validity is known"],
+                    "right_context_through_readiness": "The durable checkpoint remained valid and rebuilt only the cache.",
+                    "ready_signal": "READY_1", "suffix": "The service recovered.",
                 })
             else:
                 text = json.dumps({"replacement": "Only the disposable cache was discarded."})
@@ -60,6 +63,19 @@ class ReadinessSpanCompositionTest(unittest.TestCase):
         self.assertIn("Only the disposable cache was discarded.", result["final_text"])
         self.assertNotIn("DEFER", result["final_text"])
         self.assertNotIn("READY", result["final_text"])
+
+    def test_readiness_contract_canonicalizes_redundant_model_markers(self):
+        value = {
+            "prefix": "[[DEFER_1:CLAIM]]Before", "provisional_span": "Claim[[/DEFER_1]]",
+            "span_type": "CLAIM", "ready_when": ["later evidence exists"],
+            "right_context_through_readiness": "Enough later evidence exists here. [[READY_1]]",
+            "ready_signal": "READY_1", "suffix": "After",
+        }
+        draft, span, _, _ = LABNOTE.validate_readiness(value)
+        self.assertEqual(draft.count("[[DEFER_1:CLAIM]]"), 1)
+        self.assertEqual(draft.count(LABNOTE.CLOSE), 1)
+        self.assertEqual(draft.count(LABNOTE.READY), 1)
+        self.assertIn("Claim", span)
 
     def test_review_keeps_known_negative_and_strong_control_separate(self):
         spec = load_campaign(EXPERIMENT / "manifest.json"); records = {}

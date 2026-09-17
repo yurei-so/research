@@ -11,12 +11,13 @@
     "full-revision": "direct rewrite followed by unrestricted revision"
   },
   "readiness_contract": {
+    "wire_format": "typed-json-segments-v2",
     "span_open": "[[DEFER_1:TYPE]]",
     "span_close": "[[/DEFER_1]]",
     "ready_marker": "[[READY_1]]",
     "minimum_right_context_before_ready": 24,
     "maximum_replacement_characters": 1000,
-    "rule": "ready marker must occur after the bounded span and after text satisfying the declared ready_when condition"
+    "rule": "the model must emit READY_1 after the bounded span and after a dedicated right-context field satisfying the declared ready_when condition; the runtime assembles protocol markers deterministically"
   },
   "review": {
     "comparisons_per_case": ["hole_only_vs_readiness_span", "full_revision_vs_readiness_span"],

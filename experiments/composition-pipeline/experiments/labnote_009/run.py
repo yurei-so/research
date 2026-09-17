@@ -36,12 +36,17 @@ MAXIMUM_REPLACEMENT_CHARACTERS = 1000
 
 READINESS_SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["draft_with_span", "span_type", "ready_when"],
+    "required": ["prefix", "provisional_span", "span_type", "ready_when",
+                 "right_context_through_readiness", "ready_signal", "suffix"],
     "properties": {
-        "draft_with_span": {"type": "string"},
+        "prefix": {"type": "string"},
+        "provisional_span": {"type": "string"},
         "span_type": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"},
         "ready_when": {"type": "array", "minItems": 1, "maxItems": 3,
                        "items": {"type": "string"}},
+        "right_context_through_readiness": {"type": "string"},
+        "ready_signal": {"type": "string", "enum": ["READY_1"]},
+        "suffix": {"type": "string"},
     },
 }
 REPAIR_SCHEMA = {
@@ -67,10 +72,13 @@ context. Emit exactly one [[READY_1]] marker immediately after the generated con
 satisfies your declared ready_when conditions, then finish any remaining text. Do not
 leave an incorrect claim outside the marked span merely to correct it later.
 
-Return JSON matching the supplied schema. span_type is TYPE without brackets. ready_when
-contains one to three short descriptions of evidence that later generated text must
-provide before the provisional span can be resolved. draft_with_span contains the full
-marked draft. The markers are runtime protocol and not user-visible prose.
+Return JSON matching the supplied schema. Do not write protocol markers inside prose.
+prefix is final text before the provisional span. provisional_span is the complete text
+that may need repair. span_type names that span. ready_when contains one to three short
+descriptions of evidence later text must provide. right_context_through_readiness begins
+immediately after the provisional span and ends exactly when those conditions are first
+satisfied. Set ready_signal to READY_1 at that boundary. suffix contains any remaining
+text. These fields are runtime protocol and are assembled into user-visible prose later.
 
 Task:
 {case['task']}
@@ -80,21 +88,21 @@ Draft:
 
 
 def validate_readiness(value: dict[str, Any]) -> tuple[str, str, list[str], str]:
-    draft = normalize(str(value.get("draft_with_span", "")))
+    def prose(name: str) -> str:
+        # The typed fields define the boundaries. Discard redundant model-echoed
+        # wire tokens so marker syntax remains runtime-owned and deterministic.
+        return normalize(ANY_MARKER.sub("", str(value.get(name, ""))))
+
+    prefix = prose("prefix")
+    provisional = prose("provisional_span")
     span_type = str(value.get("span_type", ""))
     ready_when = value.get("ready_when")
-    openings = list(OPEN_PATTERN.finditer(draft))
-    if len(openings) != 1 or draft.count(CLOSE) != 1 or draft.count(READY) != 1:
-        raise ValueError("readiness draft must contain one complete span and one ready marker")
-    opening = openings[0]
-    if opening.group(1) != span_type:
-        raise ValueError("declared span type does not match opening marker")
-    close_at = draft.index(CLOSE)
-    ready_at = draft.index(READY)
-    if not (opening.end() < close_at < ready_at):
-        raise ValueError("readiness markers are out of order")
-    provisional = draft[opening.end():close_at].strip()
-    right_context = draft[close_at + len(CLOSE):ready_at].strip()
+    right_context = prose("right_context_through_readiness")
+    suffix = prose("suffix")
+    if value.get("ready_signal") != "READY_1":
+        raise ValueError("readiness signal is missing")
+    if not re.fullmatch(r"[A-Z][A-Z0-9_]*", span_type):
+        raise ValueError("declared span type is invalid")
     if not provisional:
         raise ValueError("bounded provisional span is empty")
     if len(right_context) < MINIMUM_RIGHT_CONTEXT_CHARACTERS:
@@ -103,8 +111,10 @@ def validate_readiness(value: dict[str, Any]) -> tuple[str, str, list[str], str]
             or any(not isinstance(item, str) or not item.strip() or len(item) > 240
                    for item in ready_when)):
         raise ValueError("ready_when is outside its bounds")
-    span_token = draft[opening.start():close_at + len(CLOSE)]
-    visible_through_ready = draft[:ready_at]
+    span_token = f"[[DEFER_1:{span_type}]]{provisional}{CLOSE}"
+    draft = " ".join(part for part in (prefix, span_token, right_context, READY, suffix) if part)
+    ready_at = draft.index(READY)
+    visible_through_ready = draft[:ready_at].strip()
     return draft, span_token, [item.strip() for item in ready_when], visible_through_ready
 
 

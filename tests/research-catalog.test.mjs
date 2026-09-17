@@ -79,6 +79,12 @@ test("markdown renderer preserves readable tables without trusting HTML", () => 
   assert.ok(rendered.includes("&lt;unsafe&gt;"));
 });
 
+test("markdown headings expose stable copyable section links", () => {
+  const rendered = renderMarkdown("## Result\nOne\n\n## Result\nTwo");
+  assert.match(rendered, /<h3 id="result">Result<a class="heading-anchor" href="#result"/);
+  assert.match(rendered, /<h3 id="result-2">Result<a class="heading-anchor" href="#result-2"/);
+});
+
 test("result summaries derive from canonical markdown and skip result tables", () => {
   const body = "## Results\n\n| A | B |\n| --- | --- |\n| 1 | 2 |\n\nThe **namespace** supplied no [benefit](https://example.com).\n\n## Limits\nNope";
   assert.equal(extractResultSummary(body, "fallback"), "The namespace supplied no benefit.");
@@ -125,6 +131,12 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(client, /attention-context-edge/);
   assert.match(client, /Authored neighbor context/);
   assert.match(client, /back-to-map/);
+  assert.match(client, /Highlighted \$\{count\} authored ancestor\/current\/descendant notes/);
+  assert.match(client, /family-note-filter/);
+  assert.match(catalog, /class="family-note-list"/);
+  assert.match(catalog, /ID, title, question, or tag/);
+  assert.match(styles, /\.graph-edge\.traced path/);
+  assert.match(styles, /\.family-note-list/);
   assert.match(styles, /height: min\(58svh, 520px\)/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });

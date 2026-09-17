@@ -199,6 +199,15 @@ export function renderMarkdown(markdown) {
   let paragraph = [];
   let list = null;
   let code = null;
+  const headingIds = new Map();
+  const headingId = (text) => {
+    const base = plainMarkdown(text).toLowerCase().normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") || "section";
+    const count = (headingIds.get(base) ?? 0) + 1;
+    headingIds.set(base, count);
+    return count === 1 ? base : `${base}-${count}`;
+  };
   const flushParagraph = () => { if (paragraph.length) { html.push(`<p>${inline(paragraph.join(" "))}</p>`); paragraph = []; } };
   const flushList = () => { if (list) { html.push(`</${list}>`); list = null; } };
   for (let index = 0; index < lines.length; index += 1) {
@@ -224,7 +233,13 @@ export function renderMarkdown(markdown) {
       continue;
     }
     const heading = line.match(/^(#{1,4})\s+(.+)$/);
-    if (heading) { flushParagraph(); flushList(); const level = Math.min(heading[1].length + 1, 5); html.push(`<h${level}>${inline(heading[2])}</h${level}>`); continue; }
+    if (heading) {
+      flushParagraph(); flushList();
+      const level = Math.min(heading[1].length + 1, 5);
+      const id = headingId(heading[2]);
+      html.push(`<h${level} id="${id}">${inline(heading[2])}<a class="heading-anchor" href="#${id}" aria-label="Copy link to ${escapeHtml(plainMarkdown(heading[2]))}" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h${level}>`);
+      continue;
+    }
     const item = line.match(/^\s*([-*]|\d+\.)\s+(.+)$/);
     if (item) { flushParagraph(); const type = item[1].endsWith(".") ? "ol" : "ul"; if (list !== type) { flushList(); list = type; html.push(`<${type}>`); } html.push(`<li>${inline(item[2])}</li>`); continue; }
     if (line.startsWith("> ")) { flushParagraph(); flushList(); html.push(`<blockquote>${inline(line.slice(2))}</blockquote>`); continue; }

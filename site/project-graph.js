@@ -109,10 +109,14 @@ async function boot() {
     }));
     document.querySelectorAll(".graph-node, .attention-node").forEach((node) => node.classList.toggle("selected", node.dataset.note === selected));
     const visible = tracing ? neighborhood(selected) : new Set(graph.notes.map((entry) => entry.id));
-    document.querySelectorAll(".graph-node").forEach((node) => node.classList.toggle("unrelated", !visible.has(node.dataset.note)));
+    document.querySelectorAll(".graph-node").forEach((node) => {
+      node.classList.toggle("unrelated", !visible.has(node.dataset.note));
+      node.classList.toggle("traced", tracing && visible.has(node.dataset.note));
+    });
     document.querySelectorAll(".graph-edge").forEach((edge) => {
       edge.classList.toggle("unrelated", !visible.has(edge.dataset.source) || !visible.has(edge.dataset.target));
       edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
+      edge.classList.toggle("traced", tracing && visible.has(edge.dataset.source) && visible.has(edge.dataset.target));
     });
     document.querySelectorAll(".attention-context-edge").forEach((edge) => {
       edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
@@ -141,6 +145,7 @@ async function boot() {
     document.querySelectorAll(".map-modes button[data-map-view]").forEach((entry) => entry.setAttribute("aria-pressed", String(entry === button)));
     tracing = false;
     $("#trace-lineage").setAttribute("aria-pressed", "false");
+    $("#trace-lineage").textContent = "TRACE LINEAGE";
     $("#trace-lineage").disabled = activeView !== "provenance";
     $("#terrain-style").disabled = activeView !== "attention";
     if (activeView === "attention") {
@@ -153,7 +158,19 @@ async function boot() {
     renderInspector();
     requestAnimationFrame(() => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
   }));
-  $("#trace-lineage").addEventListener("click", () => { tracing = !tracing; $("#trace-lineage").setAttribute("aria-pressed", String(tracing)); renderInspector(); });
+  $("#trace-lineage").addEventListener("click", () => {
+    tracing = !tracing;
+    const button = $("#trace-lineage");
+    button.setAttribute("aria-pressed", String(tracing));
+    button.textContent = tracing ? "SHOW ALL" : "TRACE LINEAGE";
+    renderInspector();
+    if (tracing) {
+      const count = neighborhood(selected).size;
+      $("#edge-note").textContent = `Highlighted ${count} authored ancestor/current/descendant notes. Only explicit provenance edges are traced.`;
+    } else {
+      $("#edge-note").textContent = "Select an edge to read its authored rationale.";
+    }
+  });
   $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
   $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
   $("#zoom-fit").addEventListener("click", () => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
@@ -186,6 +203,23 @@ async function boot() {
     await navigator.clipboard.writeText(url);
     $("#copy-link").textContent = "COPIED";
   });
+  const noteFilter = $("#family-note-filter");
+  const noteOutcome = $("#family-note-outcome");
+  const filterFamilyNotes = () => {
+    const query = noteFilter.value.trim().toLowerCase();
+    const outcome = noteOutcome.value;
+    let visibleCount = 0;
+    document.querySelectorAll(".family-note").forEach((item) => {
+      const shown = (!query || item.dataset.search.includes(query))
+        && (!outcome || item.dataset.outcome === outcome);
+      item.hidden = !shown;
+      if (shown) visibleCount += 1;
+    });
+    $("#family-note-count").textContent = `${visibleCount} ${visibleCount === 1 ? "NOTE" : "NOTES"}`;
+    $("#family-note-empty").hidden = visibleCount !== 0;
+  };
+  noteFilter.addEventListener("input", filterFamilyNotes);
+  noteOutcome.addEventListener("change", filterFamilyNotes);
   renderInspector();
   requestAnimationFrame(() => {
     stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;

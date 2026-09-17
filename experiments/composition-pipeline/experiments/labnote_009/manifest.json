@@ -1,0 +1,20 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "labnote_009",
+  "axes": {
+    "arm": ["hole-only", "readiness-span", "full-revision"],
+    "case_id": [
+      "cache-recovery", "rollout-fallback", "retention-delete", "priority-lease",
+      "confidence-report", "schema-compatibility", "incident-causality", "accessible-motion"
+    ],
+    "protocol_revision": ["readiness-bounded-span-v1"]
+  },
+  "repetitions": 1,
+  "limits": {
+    "max_trials": 24,
+    "retry_count": 1,
+    "max_failures": 4,
+    "failure_rate": {"maximum": 0.25, "min_completed": 8}
+  }
+}

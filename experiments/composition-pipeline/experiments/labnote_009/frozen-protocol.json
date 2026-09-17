@@ -1,0 +1,27 @@
+{
+  "format": "composition-pipeline.frozen-protocol",
+  "version": 1,
+  "experiment": "labnote_009",
+  "question": "Can suffix-triggered readiness plus bounded-span repair recover the deferred-composition idea without freezing incorrect surrounding structure?",
+  "model": "qwen3:8b",
+  "temperature": 0,
+  "arms": {
+    "hole-only": "forced single textual hole followed by hole-only infill",
+    "readiness-span": "one marked provisional span, model-declared readiness condition, suffix-emitted readiness marker, then bounded whole-span repair",
+    "full-revision": "direct rewrite followed by unrestricted revision"
+  },
+  "readiness_contract": {
+    "span_open": "[[DEFER_1:TYPE]]",
+    "span_close": "[[/DEFER_1]]",
+    "ready_marker": "[[READY_1]]",
+    "minimum_right_context_before_ready": 24,
+    "maximum_replacement_characters": 1000,
+    "rule": "ready marker must occur after the bounded span and after text satisfying the declared ready_when condition"
+  },
+  "review": {
+    "comparisons_per_case": ["hole_only_vs_readiness_span", "full_revision_vs_readiness_span"],
+    "minimum_complete_case_triplets": 6,
+    "blinded": true
+  },
+  "interpretation_boundary": "The emitted readiness marker is an observable protocol signal, not a measurement of hidden model confidence."
+}

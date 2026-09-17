@@ -1,0 +1,28 @@
+{
+  "format": "composition-pipeline.frozen-protocol",
+  "version": 1,
+  "experiment": "labnote_008",
+  "question": "Does a forced single deferred hole followed by constrained infill improve bounded composition over one-pass generation or an equally two-pass unrestricted revision?",
+  "model": "qwen3:8b",
+  "temperature": 0,
+  "seed_policy": "one deterministic seed per authored case, shared across arms and both calls",
+  "arms": {
+    "direct": "one preservation-first rewrite call",
+    "full-revision": "the same direct call followed by one unrestricted bounded revision call",
+    "deferred-infill": "one forced-single-hole draft call followed by one hole-only infill call; runtime performs literal replacement"
+  },
+  "deferred_contract": {
+    "token": "[[DEFER_1:TYPE]]",
+    "exact_hole_count": 1,
+    "minimum_non_whitespace_characters_after_hole": 24,
+    "maximum_replacement_characters": 600,
+    "unresolved_or_nested_holes": "protocol failure"
+  },
+  "review": {
+    "comparisons_per_case": ["direct_vs_deferred", "full_revision_vs_deferred"],
+    "minimum_complete_case_triplets": 6,
+    "blinded": true,
+    "criteria": ["instruction_fidelity", "clarity", "concision", "naturalness"]
+  },
+  "interpretation_boundary": "This tests an explicit deferred-commitment protocol. It does not measure or prove internal model uncertainty."
+}

@@ -1,0 +1,46 @@
+{
+  "format": "composition-pipeline.deferred-infill-corpus",
+  "version": 1,
+  "cases": [
+    {
+      "id": "approval-scope",
+      "task": "Write exactly two concise operator-facing sentences. Explain that approval covers only the reviewed immutable experiment definition and fixed budget; configuration outside that envelope requires new approval. End with what the operator should do if the definition changes.",
+      "draft": "The experiment is approved, so it can use whatever configuration it needs. Changes are probably fine unless they are very large."
+    },
+    {
+      "id": "stale-dashboard",
+      "task": "Write exactly two calm status sentences. State that the dashboard is showing the last verified snapshot because the newest refresh failed; do not call the service unhealthy. End by directing the reader to authoritative service state.",
+      "draft": "The dashboard is stale and the service is down. Refresh everything or restart it."
+    },
+    {
+      "id": "lease-release",
+      "task": "Write one concise paragraph explaining that a cancelled queued workload releases no accelerator because it never held one, while cancellation of a running workload must complete cleanup before the lease becomes available. Do not imply preemption.",
+      "draft": "Canceling any job immediately frees its GPU. Running work can be preempted and the next job starts at once."
+    },
+    {
+      "id": "private-provenance",
+      "task": "Write exactly two sentences for public documentation. State that an internal execution record is retained for provenance without exposing its identifier, host, prompts, or private artifacts; end by naming the public evidence readers can inspect instead.",
+      "draft": "The private run ID and server prove this result. Readers can ask for the hidden prompts if they need evidence."
+    },
+    {
+      "id": "failed-refresh",
+      "task": "Write a friendly two-sentence developer message. Explain that a failed refresh preserves the last successful data and isolates the error to the affected feature; end by clarifying that unrelated views remain usable.",
+      "draft": "Refresh failed, so the app cleared all data and disabled every tab to avoid inconsistency."
+    },
+    {
+      "id": "review-reveal",
+      "task": "Write exactly two concise sentences explaining why treatment identities remain hidden until all judgments are durably committed. End with the specific bias this prevents across later comparisons.",
+      "draft": "Reveal each answer immediately so the reviewer learns what good output looks like for the remaining pairs."
+    },
+    {
+      "id": "role-authority",
+      "task": "Write one concise paragraph explaining why workspace authority attaches to a reviewed role rather than a familiar named agent. Preserve continuity as useful context, but end by stating what actually determines access.",
+      "draft": "A familiar agent should keep access because we know it. Roles are mostly labels for the same trust."
+    },
+    {
+      "id": "archive-relevance",
+      "task": "Write exactly two sentences explaining that age alone must not trigger automatic archival. Mention both a reason an old note may remain valuable and a reason a newer note may become safely archival; end with the decision principle.",
+      "draft": "Archive old notes after thirty days and keep new notes because recency equals relevance."
+    }
+  ]
+}

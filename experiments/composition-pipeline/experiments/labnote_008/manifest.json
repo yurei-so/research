@@ -1,0 +1,26 @@
+{
+  "format": "composition-pipeline.campaign",
+  "version": 1,
+  "campaign_id": "labnote_008",
+  "axes": {
+    "arm": ["direct", "full-revision", "deferred-infill"],
+    "case_id": [
+      "approval-scope",
+      "stale-dashboard",
+      "lease-release",
+      "private-provenance",
+      "failed-refresh",
+      "review-reveal",
+      "role-authority",
+      "archive-relevance"
+    ],
+    "protocol_revision": ["forced-single-hole-v1"]
+  },
+  "repetitions": 1,
+  "limits": {
+    "max_trials": 24,
+    "retry_count": 1,
+    "max_failures": 4,
+    "failure_rate": {"maximum": 0.25, "min_completed": 8}
+  }
+}

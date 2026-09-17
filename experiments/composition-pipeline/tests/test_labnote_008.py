@@ -103,12 +103,18 @@ class DeferredInfillCompositionTest(unittest.TestCase):
                 cases=self.cases, records=records, trials=spec.trials)
             self.assertTrue(intake["gate_passed"])
             self.assertEqual(intake["human_review_pair_count"], 16)
-            bundle = json.loads((Path(temporary) / "review-bundle.json").read_text())
-            self.assertEqual(len(bundle["pairs"]), 16)
-            key = json.loads((Path(temporary) / "review-key.json").read_text())
-            self.assertEqual({row["comparison"] for row in key["pairs"]},
-                             {"direct_vs_deferred", "full-revision_vs_deferred"})
-            self.assertNotIn("deferred_telemetry", json.dumps(bundle))
+            self.assertEqual(set(intake["sessions"]),
+                             {"direct-vs-deferred", "full-revision-vs-deferred"})
+            for session_name, expected_baseline in (
+                    ("direct-vs-deferred", "direct"),
+                    ("full-revision-vs-deferred", "full_revision")):
+                bundle = json.loads((Path(temporary) / f"review-{session_name}-bundle.json").read_text())
+                key = json.loads((Path(temporary) / f"review-{session_name}-key.json").read_text())
+                self.assertEqual(bundle["version"], 3)
+                self.assertEqual(len(bundle["pairs"]), 8)
+                self.assertEqual(key["baseline_arm"], expected_baseline)
+                self.assertEqual(key["treatment_arm"], "deferred_infill")
+                self.assertNotIn("deferred_telemetry", json.dumps(bundle))
 
 
 if __name__ == "__main__":

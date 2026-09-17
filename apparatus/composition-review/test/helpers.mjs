@@ -50,6 +50,29 @@ export async function writeFixture(directory, treatmentArm) {
   return { bundlePath, keyPath, bundle, key };
 }
 
+export async function writeNamedTextFixture(directory) {
+  const { bundle: original, key: originalKey } = fixture("deferred_infill");
+  const bundle = { ...original, version: 3 };
+  const key = {
+    ...originalKey,
+    version: 3,
+    review_bundle_digest: createHash("sha256").update(canonical(bundle)).digest("hex"),
+    baseline_arm: "full_revision",
+    treatment_arm: "deferred_infill",
+  };
+  key.pairs = key.pairs.map((pair) => ({
+    ...pair,
+    candidate_a_arm: pair.candidate_a_arm === "direct_rewrite" ? "full_revision" : pair.candidate_a_arm,
+    candidate_b_arm: pair.candidate_b_arm === "direct_rewrite" ? "full_revision" : pair.candidate_b_arm,
+  }));
+  const bundlePath = `${directory}/named-text-bundle.json`;
+  const keyPath = `${directory}/named-text-key.json`;
+  await Promise.all([
+    writeFile(bundlePath, JSON.stringify(bundle)), writeFile(keyPath, JSON.stringify(key)),
+  ]);
+  return { bundlePath, keyPath, bundle, key };
+}
+
 export async function writeAudioFixture(directory) {
   const first = Buffer.from("RIFFaudio-one"); const second = Buffer.from("RIFFaudio-two");
   const assets = [

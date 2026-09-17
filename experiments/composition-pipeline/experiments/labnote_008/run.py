@@ -240,20 +240,22 @@ def write_review(*, state_directory: Path, campaign_digest: str,
     complete = {case_id: outputs for case_id, outputs in grouped.items()
                 if set(outputs) == set(ARMS)}
     gate_passed = len(complete) >= MINIMUM_COMPLETE_TRIPLETS
-    pairs: list[dict[str, Any]] = []
-    reveal: list[dict[str, str]] = []
     automatic_ties = 0
-    comparisons = (("direct", "deferred-infill"),
-                   ("full-revision", "deferred-infill"))
-    if gate_passed:
-        for case_id, outputs in sorted(complete.items()):
-            for control, treatment in comparisons:
+    session_specs = {
+        "direct-vs-deferred": ("direct", "deferred-infill"),
+        "full-revision-vs-deferred": ("full-revision", "deferred-infill"),
+    }
+    sessions: dict[str, dict[str, Any]] = {}
+    for session_name, (control, treatment) in session_specs.items():
+        pairs: list[dict[str, Any]] = []
+        reveal: list[dict[str, str]] = []
+        if gate_passed:
+            for case_id, outputs in sorted(complete.items()):
                 if normalize(outputs[control]) == normalize(outputs[treatment]):
                     automatic_ties += 1
                     continue
-                comparison = f"{control}_vs_deferred"
                 pair_id = hashlib.sha256(
-                    f"{campaign_digest}:{case_id}:{comparison}".encode()).hexdigest()[:24]
+                    f"{campaign_digest}:{case_id}:{session_name}".encode()).hexdigest()[:24]
                 control_first = int(pair_id[-1], 16) % 2 == 0
                 labels = {"A": control if control_first else treatment,
                           "B": treatment if control_first else control}
@@ -268,27 +270,33 @@ def write_review(*, state_directory: Path, campaign_digest: str,
                     "candidate_b": outputs[labels["B"]],
                     "criteria": ["instruction fidelity", "clarity", "concision", "naturalness"],
                 })
-                reveal.append({"pair_id": pair_id, "comparison": comparison,
-                               "candidate_a_arm": labels["A"], "candidate_b_arm": labels["B"]})
-
-    bundle = {"format": "composition-pipeline.blinded-review", "version": 1,
-              "campaign_digest": campaign_digest, "pairs": pairs}
-    bundle_digest = hashlib.sha256(
-        json.dumps(bundle, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-    write_private_json(state_directory / "review-bundle.json", bundle)
-    write_private_json(state_directory / "review-key.json", {
-        "format": "composition-pipeline.blinded-review-key", "version": 1,
-        "campaign_digest": campaign_digest, "review_bundle_digest": bundle_digest,
-        "pairs": reveal,
-    })
+                reveal.append({"pair_id": pair_id, "candidate_a_arm": labels["A"],
+                               "candidate_b_arm": labels["B"]})
+        bundle = {"format": "composition-pipeline.blinded-review", "version": 3,
+                  "campaign_digest": campaign_digest, "pairs": pairs}
+        bundle_digest = hashlib.sha256(
+            json.dumps(bundle, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        write_private_json(state_directory / f"review-{session_name}-bundle.json", bundle)
+        write_private_json(state_directory / f"review-{session_name}-key.json", {
+            "format": "composition-pipeline.blinded-review-key", "version": 3,
+            "campaign_digest": campaign_digest, "review_bundle_digest": bundle_digest,
+            "baseline_arm": control.replace("-", "_"),
+            "treatment_arm": treatment.replace("-", "_"),
+            "pairs": [{**row,
+                       "candidate_a_arm": row["candidate_a_arm"].replace("-", "_"),
+                       "candidate_b_arm": row["candidate_b_arm"].replace("-", "_")}
+                      for row in reveal],
+        })
+        sessions[session_name] = {"pair_count": len(pairs), "bundle_digest": bundle_digest,
+                                  "baseline_arm": control, "treatment_arm": treatment}
     intake = {
         "format": "composition-pipeline.deferred-review-intake", "version": 1,
         "complete_case_triplets": len(complete),
         "minimum_complete_case_triplets": MINIMUM_COMPLETE_TRIPLETS,
         "gate_passed": gate_passed,
         "automatic_tie_count": automatic_ties,
-        "human_review_pair_count": len(pairs),
-        "bundle_digest": bundle_digest,
+        "human_review_pair_count": sum(session["pair_count"] for session in sessions.values()),
+        "sessions": sessions,
     }
     write_private_json(state_directory / "review-intake-telemetry.json", intake)
     return intake

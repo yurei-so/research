@@ -5,7 +5,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { ReviewError, ReviewStore } from "../src/storage.mjs";
-import { writeAudioFixture, writeFixture, writeScalarFixture } from "./helpers.mjs";
+import { writeAudioFixture, writeFixture, writeNamedTextFixture, writeScalarFixture } from "./helpers.mjs";
 
 test("review stays blinded, locks judgments, resumes, then reveals", async () => {
   const directory = await mkdtemp(join(tmpdir(), "composition-review-"));
@@ -73,6 +73,22 @@ test("review supports a bounded alternate treatment arm without pre-reveal discl
   const results = store.results();
   assert.equal(results.treatment_arm, "optional_editor");
   assert.equal(results.preference.direct_rewrite + results.preference.optional_editor, 2);
+});
+
+test("version 3 text review names both experiment arms without exposing them before reveal", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "composition-review-named-text-"));
+  const { bundlePath, keyPath } = await writeNamedTextFixture(directory);
+  const store = await ReviewStore.open({
+    bundlePath, keyPath, statePath: join(directory, "judgments.json"),
+  });
+  assert.equal(JSON.stringify(store.session()).includes("full_revision"), false);
+  assert.equal(JSON.stringify(store.session()).includes("deferred_infill"), false);
+  await store.commit({ pair_id: "pair-one", choice: "a" });
+  await store.commit({ pair_id: "pair-two", choice: "b" });
+  const results = store.results();
+  assert.equal(results.baseline_arm, "full_revision");
+  assert.equal(results.treatment_arm, "deferred_infill");
+  assert.equal(results.preference.full_revision + results.preference.deferred_infill, 2);
 });
 
 test("audio review verifies assets, stays blinded, and reveals generic arms", async () => {

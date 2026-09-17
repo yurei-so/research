@@ -85,7 +85,8 @@ function validateBundle(bundle, key) {
       baselineArm: null, treatmentArm: null, mode: "scalar", assets: new Map() };
   }
   const textMode = exactKeys(bundle, ["format", "version", "campaign_digest", "pairs"])
-    && bundle.format === "composition-pipeline.blinded-review" && bundle.version === 1;
+    && bundle.format === "composition-pipeline.blinded-review"
+    && [1, 3].includes(bundle.version);
   const audioMode = exactKeys(bundle, ["format", "version", "campaign_digest", "mode", "calibration_asset", "assets", "pairs"])
     && bundle.format === "composition-pipeline.blinded-review" && bundle.version === 2
     && bundle.mode === "audio" && Array.isArray(bundle.assets);
@@ -93,12 +94,12 @@ function validateBundle(bundle, key) {
       || bundle.pairs.length < 1 || bundle.pairs.length > 500) {
     throw new ReviewError("invalid_review_bundle");
   }
-  const keyFields = key?.version === 2
+  const keyFields = [2, 3].includes(key?.version)
     ? ["format", "version", "campaign_digest", "review_bundle_digest", "baseline_arm", "treatment_arm", "pairs"]
     : ["format", "version", "campaign_digest", "review_bundle_digest", "pairs"];
   if (!exactKeys(key, keyFields)
       || key.format !== "composition-pipeline.blinded-review-key"
-      || ![1, 2].includes(key.version) || key.version !== bundle.version
+      || ![1, 2, 3].includes(key.version) || key.version !== bundle.version
       || key.campaign_digest !== bundle.campaign_digest || key.review_bundle_digest !== digest(bundle)
       || !Array.isArray(key.pairs) || key.pairs.length !== bundle.pairs.length) {
     throw new ReviewError("invalid_review_key");
@@ -150,8 +151,8 @@ function validateBundle(bundle, key) {
     reveal.set(item.pair_id, item);
   }
   if (reveal.size !== pairIds.size) throw new ReviewError("incomplete_review_reveal");
-  const baselineArm = key.version === 2 ? key.baseline_arm : "direct_rewrite";
-  const treatmentArm = key.version === 2 ? key.treatment_arm : [...arms].find((arm) => arm !== baselineArm);
+  const baselineArm = [2, 3].includes(key.version) ? key.baseline_arm : "direct_rewrite";
+  const treatmentArm = [2, 3].includes(key.version) ? key.treatment_arm : [...arms].find((arm) => arm !== baselineArm);
   if (arms.size !== 2 || !arms.has(baselineArm) || !arms.has(treatmentArm)
       || baselineArm === treatmentArm) throw new ReviewError("invalid_review_arms");
   if ([...reveal.values()].some((item) =>

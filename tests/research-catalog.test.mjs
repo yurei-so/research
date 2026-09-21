@@ -141,10 +141,41 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
+test("family view defaults to the attention map with a synchronized note rail", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
+  const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
+  assert.match(catalog, /data-map-view="attention" aria-pressed="true"/);
+  assert.match(catalog, /class="project-map"[^>]+hidden/);
+  assert.match(catalog, /class="family-note-select"/);
+  assert.match(catalog, /replace\('<div class="graph-layout">'/);
+  assert.match(client, /let activeView = "attention"/);
+  assert.match(client, /focusSelected/);
+  assert.match(client, /revealListSelection/);
+  assert.match(client, /selectNote\(node\.dataset\.note, \{ reveal: true \}\)/);
+  assert.match(client, /item\.addEventListener\("click", \(\) => selectNote\(other\.id, \{ focus: true, reveal: true \}\)\)/);
+  assert.match(client, /Math\.max\(matchMedia\("\(max-width: 720px\)"\)\.matches \? \.58 : \.68, fitZoom\(\)\)/);
+  assert.match(client, /selectNote\(button\.closest\("\.family-note"\)\.dataset\.note, \{ focus: true \}\)/);
+  assert.match(styles, /grid-template-columns: 19rem minmax\(0, 1fr\) 21rem/);
+  assert.match(styles, /\.attention-context-edge \{[^}]+opacity: 0/s);
+  assert.match(styles, /\.attention-context-edge\.related \{ opacity: \.72/);
+  assert.match(styles, /\.relation-item:hover/);
+});
+
 test("labnote headers link back to their family detailed view", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   assert.match(catalog, /class="family-backlink"/);
   assert.match(catalog, /href="\.\.\/\.\.\/projects\/\$\{escapeHtml\(note\.family\)\}\/"/);
+});
+
+test("generated pages revision their styles and scripts to avoid mixed deployments", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const index = fs.readFileSync(path.resolve("site/index.html"), "utf8");
+  assert.match(index, /styles\.css\?v=\{\{REVISION\}\}/);
+  assert.match(index, /app\.js\?v=\{\{REVISION\}\}/);
+  assert.match(catalog, /styles\.css\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
+  assert.match(catalog, /project-graph\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
+  assert.match(catalog, /labnote\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
 });
 
 test("family cards derive success readouts from published positive outcomes", () => {
@@ -155,6 +186,8 @@ test("family cards derive success readouts from published positive outcomes", ()
   assert.match(catalog, /Positive published labnotes divided by all published labnotes/);
   assert.match(client, /family\.outcomes\.positive \?\? 0/);
   assert.match(client, /class="success-rate"/);
+  assert.match(catalog, /class="family-primary" href="projects\//);
+  assert.match(client, /OPEN RESEARCH MAP/);
 });
 
 test("attention model preserves vectors and distances separately from its 2D projection", () => {

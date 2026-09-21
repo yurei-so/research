@@ -6,11 +6,14 @@ const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll(
 
 function familyCard(family) {
   const outcomes = Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("");
-  const graph = family.has_graph ? `<a class="graph-link" href="projects/${family.id}/">DETAILED VIEW ↗</a>` : "";
   const successRate = family.labnote_count
     ? Math.round(((family.outcomes.positive ?? 0) / family.labnote_count) * 100)
     : 0;
-  return `<article class="family-card" data-family="${family.id}"><span class="success-rate" title="Positive published labnotes divided by all published labnotes" aria-label="${successRate} percent positive-result rate">${successRate}% SUCCESS</span><button class="family-filter" data-family="${family.id}" type="button"><h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">VIEW LABNOTES →</span></button>${graph}</article>`;
+  const content = `<h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">OPEN RESEARCH MAP →</span>`;
+  const primary = family.has_graph
+    ? `<a class="family-primary" href="projects/${family.id}/">${content}</a>`
+    : `<button class="family-filter family-primary" data-family="${family.id}" type="button">${content}</button>`;
+  return `<article class="family-card" data-family="${family.id}"><span class="success-rate" title="Positive published labnotes divided by all published labnotes" aria-label="${successRate} percent positive-result rate">${successRate}% SUCCESS</span>${primary}</article>`;
 }
 
 function noteCard(note) {

@@ -39,7 +39,8 @@ main { width: min(1180px, 92vw); margin: auto; }
 .section-heading p { max-width: 370px; margin: 0; color: var(--muted); font-size: .9rem; }
 .family-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
 .family-card { position: relative; min-height: 16rem; border: 0; color: inherit; background: var(--surface); text-align: left; transition: background .18s ease; }
-.family-filter { width: 100%; min-height: 16rem; padding: 1.7rem; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; }
+.family-filter, .family-primary { width: 100%; min-height: 16rem; padding: 1.7rem; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; }
+.family-primary { display: block; text-decoration: none; }
 .family-card:hover, .family-card.selected { background: var(--surface-2); }
 .family-card.selected { box-shadow: inset 3px 0 var(--signal); }
 .success-rate { position: absolute; top: 1.7rem; right: 1.7rem; z-index: 1; color: var(--green); font: .61rem var(--mono); letter-spacing: .08em; pointer-events: none; }
@@ -120,7 +121,7 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .map-modes button:hover { color: var(--ink); border-color: var(--muted); }
 .map-modes button[aria-pressed="true"] { color: var(--signal); border-color: var(--signal); background: #171421; }
 .map-modes p { margin: 0 0 0 .55rem; color: var(--muted); font-size: .78rem; line-height: 1.45; }
-.graph-layout { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 1.25rem; align-items: start; }
+.graph-layout { display: grid; grid-template-columns: 19rem minmax(0, 1fr) 21rem; gap: 1rem; align-items: start; }
 .graph-panel { min-width: 0; border: 1px solid var(--line); background: var(--surface); }
 .graph-toolbar { display: flex; min-height: 2.7rem; padding: .4rem .6rem; border-bottom: 1px solid var(--line); align-items: center; gap: .45rem; color: var(--muted); font: .58rem var(--mono); letter-spacing: .07em; }
 .graph-toolbar button { min-width: 2rem; height: 1.85rem; border: 1px solid var(--line); color: var(--ink); background: #11151e; font: .7rem var(--mono); cursor: pointer; }
@@ -145,8 +146,8 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .attention-node .attention-point { stroke: #0b0d14; stroke-width: 4; }
 .attention-node:hover .attention-point, .attention-node:focus .attention-point { stroke: var(--signal); }
 .attention-node.selected .attention-point { stroke: #f0eaff; stroke-width: 5; }
-.attention-context-edge { fill: none; stroke: #b29aff; stroke-width: 1.25; stroke-dasharray: 3 9; opacity: .2; vector-effect: non-scaling-stroke; pointer-events: none; }
-.attention-context-edge.related { opacity: .56; stroke-width: 1.75; }
+.attention-context-edge { fill: none; stroke: #b29aff; stroke-width: 1.25; stroke-dasharray: 3 9; opacity: 0; vector-effect: non-scaling-stroke; pointer-events: none; transition: opacity .18s ease; }
+.attention-context-edge.related { opacity: .72; stroke-width: 1.75; }
 .graph-edge path { fill: none; stroke: #424a5d; stroke-width: 2; marker-end: url(#arrow); }
 .graph-edge text { fill: #8d96a9; font: 12px var(--mono); letter-spacing: .07em; }
 .graph-edge { cursor: help; }
@@ -167,7 +168,9 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .inspector-vitals { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--muted); font: .62rem var(--mono); text-transform: uppercase; }
 .inspector-summary { color: #b5bbc7; font-size: .9rem; }
 .relation-list { display: grid; gap: .7rem; margin: 1.3rem 0; }
-.relation-item { padding-top: .7rem; border-top: 1px solid var(--line); }
+.relation-item { width: 100%; padding: .7rem 0 0; border: 0; border-top: 1px solid var(--line); color: inherit; background: transparent; text-align: left; cursor: pointer; }
+.relation-item:hover, .relation-item:focus-visible { border-color: var(--signal); outline: none; }
+.relation-item:hover span, .relation-item:focus-visible span { color: var(--signal); }
 .relation-item b { display: block; color: var(--signal); font: .62rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .relation-item span { color: var(--ink); font-size: .8rem; }
 .relation-item p { margin: .25rem 0 0; color: var(--muted); font-size: .76rem; }
@@ -177,20 +180,23 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .inspector-actions button:disabled { opacity: .3; cursor: not-allowed; }
 #back-to-map { display: none; }
 .edge-note { min-height: 2.4rem; margin: .8rem 0 0; color: var(--muted); font: .68rem var(--mono); }
-.family-notes { margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--line); }
+.family-notes { min-width: 0; max-height: min(70vh, 720px); overflow: auto; border: 1px solid var(--line); background: var(--surface); scrollbar-color: #596278 #11151e; }
 .family-notes-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
-.family-notes-heading h2 { margin: .35rem 0 0; font-size: 1.75rem; font-weight: 520; }
+.family-notes-heading { padding: 1rem 1rem 0; }
+.family-notes-heading h2 { margin: .25rem 0 0; font-size: 1.2rem; font-weight: 520; }
 #family-note-count { color: var(--muted); font: .62rem var(--mono); letter-spacing: .08em; }
-.family-note-controls { display: grid; grid-template-columns: minmax(16rem, 1fr) 15rem; gap: 1rem; margin: 1.5rem 0 1rem; color: var(--muted); font: .62rem var(--mono); letter-spacing: .08em; }
-.family-note-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 1px; background: var(--line); list-style: none; }
+.family-note-controls { display: grid; gap: .65rem; margin: 1rem; color: var(--muted); font: .62rem var(--mono); letter-spacing: .08em; }
+.family-note-list { display: grid; gap: 1px; margin: 0; padding: 1px; background: var(--line); list-style: none; }
 .family-note { min-width: 0; background: var(--surface); }
+.family-note.selected { box-shadow: inset 3px 0 var(--signal); background: var(--surface-2); }
 .family-note[hidden] { display: none; }
-.family-note a { display: grid; min-height: 12rem; padding: 1.25rem; grid-template-columns: 1fr auto; gap: .65rem 1rem; color: inherit; text-decoration: none; }
-.family-note a:hover, .family-note a:focus-visible { background: var(--surface-2); outline: 1px solid var(--signal); outline-offset: -1px; }
+.family-note-select { display: grid; width: 100%; padding: 1rem; border: 0; grid-template-columns: 1fr auto; gap: .5rem .75rem; color: inherit; background: transparent; text-align: left; cursor: pointer; }
+.family-note-select:hover, .family-note-select:focus-visible { background: var(--surface-2); outline: 1px solid var(--signal); outline-offset: -1px; }
 .family-note-id, .family-note-meta { color: var(--muted); font: .61rem var(--mono); text-transform: uppercase; }
 .family-note-meta { text-align: right; }
 .family-note strong { grid-column: 1 / -1; font-size: 1rem; font-weight: 560; }
 .family-note-question { grid-column: 1 / -1; color: #a9afbc; font-size: .82rem; }
+.family-note-open { display: inline-block; margin: 0 1rem 1rem; color: var(--cyan); font: .6rem var(--mono); letter-spacing: .07em; text-decoration: none; }
 .table-wrap { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--line); }
 table { width: 100%; border-collapse: collapse; font-size: .86rem; }
 th, td { padding: .7rem .8rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -219,9 +225,9 @@ th:last-child, td:last-child { border-right: 0; }
   .graph-layout { display: flex; gap: 1rem; flex-direction: column; }
   .graph-panel { width: 100%; border-right: 0; border-left: 0; }
   .graph-inspector { position: static; min-height: 0; margin: 0 1rem; scroll-margin-top: 1rem; }
-  .family-notes { margin: 3rem 1rem 0; padding-top: 2rem; }
-  .family-note-controls, .family-note-list { grid-template-columns: 1fr; }
-  .family-note a { min-height: 0; }
+  .family-notes { width: calc(100% - 2rem); max-height: 44svh; margin: 0 1rem; order: 2; }
+  .graph-panel { order: 1; }
+  .graph-inspector { order: 3; }
   .graph-toolbar { min-height: 3.4rem; padding: .45rem .7rem; }
   .graph-toolbar button { min-width: 2.75rem; height: 2.75rem; }
   .graph-toolbar span:last-child { display: none; }

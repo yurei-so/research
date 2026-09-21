@@ -9,7 +9,7 @@ async function boot() {
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
   const stage = $(".graph-stage");
   const maps = [...document.querySelectorAll(".project-map, .attention-map")];
-  let activeView = "provenance";
+  let activeView = "attention";
   const activeMap = () => maps.find((entry) => entry.dataset.mapView === activeView);
   const naturalWidth = Number(maps[0].dataset.naturalWidth);
   const naturalHeight = Number(maps[0].dataset.naturalHeight);
@@ -58,6 +58,31 @@ async function boot() {
     });
   };
 
+  const focusSelected = ({ smooth = true } = {}) => {
+    const node = activeMap()?.querySelector(`[data-note="${CSS.escape(selected)}"]`);
+    if (!node) return;
+    const scale = activeMap().clientWidth / naturalWidth;
+    const x = Number(node.dataset.centerX) * scale;
+    const y = Number(node.dataset.centerY) * scale;
+    stage.scrollTo({ left: x - stage.clientWidth / 2, top: y - stage.clientHeight / 2, behavior: smooth ? "smooth" : "auto" });
+  };
+
+  const revealListSelection = () => {
+    const rail = $(".family-notes");
+    const item = rail?.querySelector(`.family-note[data-note="${CSS.escape(selected)}"]`);
+    if (!rail || !item) return;
+    const railBox = rail.getBoundingClientRect();
+    const itemBox = item.getBoundingClientRect();
+    if (itemBox.top >= railBox.top && itemBox.bottom <= railBox.bottom) return;
+    rail.scrollTo({
+      top: rail.scrollTop + itemBox.top - railBox.top - (rail.clientHeight - item.clientHeight) / 2,
+      behavior: "smooth",
+    });
+  };
+
+  const fitZoom = () => Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight);
+  const readableZoom = () => Math.max(matchMedia("(max-width: 720px)").matches ? .58 : .68, fitZoom());
+
   const neighborhood = (root) => {
     const seen = new Set([root]);
     const walk = (direction) => {
@@ -90,12 +115,11 @@ async function boot() {
     $("#inspect-summary").textContent = note.result_summary;
     $("#open-note").href = `../../${note.href}`;
     $("#view-source").href = note.source_url;
-    const related = activeView === "provenance"
-      ? graph.relations.filter((relation) => relation.source === note.id || relation.target === note.id)
-      : [];
+    const related = graph.relations.filter((relation) => relation.source === note.id || relation.target === note.id);
     $("#relation-list").replaceChildren(...related.map((relation) => {
-      const item = document.createElement("div");
+      const item = document.createElement("button");
       item.className = "relation-item";
+      item.type = "button";
       const direction = relation.source === note.id ? "BUILDS ON" : "INFORMS";
       const other = byId.get(relation.source === note.id ? relation.target : relation.source);
       const label = document.createElement("b");
@@ -105,9 +129,15 @@ async function boot() {
       const rationale = document.createElement("p");
       rationale.textContent = relation.rationale;
       item.append(label, title, rationale);
+      item.addEventListener("click", () => selectNote(other.id, { focus: true, reveal: true }));
       return item;
     }));
     document.querySelectorAll(".graph-node, .attention-node").forEach((node) => node.classList.toggle("selected", node.dataset.note === selected));
+    document.querySelectorAll(".family-note").forEach((item) => {
+      const isSelected = item.dataset.note === selected;
+      item.classList.toggle("selected", isSelected);
+      item.querySelector(".family-note-select")?.setAttribute("aria-pressed", String(isSelected));
+    });
     const visible = tracing ? neighborhood(selected) : new Set(graph.notes.map((entry) => entry.id));
     document.querySelectorAll(".graph-node").forEach((node) => {
       node.classList.toggle("unrelated", !visible.has(node.dataset.note));
@@ -123,15 +153,23 @@ async function boot() {
     });
   };
 
+  const selectNote = (id, { focus = false, reveal = false } = {}) => {
+    if (!byId.has(id)) return;
+    selected = id;
+    renderInspector();
+    if (focus) requestAnimationFrame(() => focusSelected());
+    if (reveal) requestAnimationFrame(revealListSelection);
+  };
+
   document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
     node.addEventListener("click", (event) => {
-      event.preventDefault(); selected = node.dataset.note; renderInspector();
+      event.preventDefault(); selectNote(node.dataset.note, { reveal: true });
       if (matchMedia("(max-width: 720px)").matches) {
         requestAnimationFrame(() => $(".graph-inspector").scrollIntoView({ behavior: "smooth", block: "start" }));
       }
     });
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
-    node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selected = node.dataset.note; renderInspector(); } });
+    node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNote(node.dataset.note, { reveal: true }); } });
   });
   document.querySelectorAll(".graph-edge").forEach((edge) => edge.addEventListener("click", () => {
     $("#edge-note").textContent = edge.dataset.rationale;
@@ -150,13 +188,16 @@ async function boot() {
     $("#terrain-style").disabled = activeView !== "attention";
     if (activeView === "attention") {
       renderAttentionDisclosure();
-      $("#edge-note").textContent = "Faint connectors show authored immediate neighbors for orientation. Semantic proximity creates no relationship edges.";
+      $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
     } else {
       $("#view-disclosure").textContent = "Human-authored relationships only. Proximity is not used to create edges.";
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";
     }
     renderInspector();
-    requestAnimationFrame(() => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
+    requestAnimationFrame(() => {
+      setZoom(activeView === "attention" ? readableZoom() : fitZoom());
+      requestAnimationFrame(() => focusSelected({ smooth: false }));
+    });
   }));
   $("#trace-lineage").addEventListener("click", () => {
     tracing = !tracing;
@@ -173,7 +214,7 @@ async function boot() {
   });
   $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
   $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
-  $("#zoom-fit").addEventListener("click", () => setZoom(Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight)));
+  $("#zoom-fit").addEventListener("click", () => setZoom(fitZoom()));
   $("#terrain-style").addEventListener("click", () => {
     terrain = terrain === "cells" ? "smooth" : "cells";
     const attentionMap = $(".attention-map");
@@ -220,10 +261,15 @@ async function boot() {
   };
   noteFilter.addEventListener("input", filterFamilyNotes);
   noteOutcome.addEventListener("change", filterFamilyNotes);
+  document.querySelectorAll(".family-note-select").forEach((button) => button.addEventListener("click", () => {
+    selectNote(button.closest(".family-note").dataset.note, { focus: true });
+  }));
   renderInspector();
+  renderAttentionDisclosure();
+  $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
   requestAnimationFrame(() => {
-    stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
-    stage.scrollTop = (stage.scrollHeight - stage.clientHeight) / 2;
+    setZoom(readableZoom());
+    requestAnimationFrame(() => focusSelected({ smooth: false }));
   });
 }
 

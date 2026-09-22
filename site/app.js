@@ -23,9 +23,13 @@ function noteCard(note) {
 }
 
 async function boot() {
-  const response = await fetch("research-manifest.json");
-  if (!response.ok) throw new Error(`catalog unavailable (${response.status})`);
-  const catalog = await response.json();
+  const embedded = $("#research-manifest-data")?.textContent;
+  const catalog = embedded
+    ? JSON.parse(embedded)
+    : await fetch("research-manifest.json").then((response) => {
+      if (!response.ok) throw new Error(`catalog unavailable (${response.status})`);
+      return response.json();
+    });
   $("#note-count").textContent = catalog.labnotes.length;
   $("#family-count").textContent = catalog.families.length;
   $("#revision").textContent = catalog.source_revision;

@@ -15,6 +15,7 @@ const mode = process.argv[2] ?? "check";
 if (!new Set(["check", "build"]).has(mode)) throw new Error("usage: node scripts/research-catalog.mjs [check|build]");
 
 const { records, manifest } = collectCatalog(root);
+const inlineJson = (value) => JSON.stringify(value).replaceAll("<", "\\u003c");
 if (mode === "check") {
   console.log(`Validated ${records.length} labnotes; ${manifest.labnotes.length} eligible for publication.`);
   process.exit(0);
@@ -51,6 +52,7 @@ const indexPage = indexTemplate
   .replaceAll("{{FAMILY_COUNT}}", String(manifest.families.length))
   .replaceAll("{{REVISION}}", escapeHtml(manifest.source_revision))
   .replaceAll("{{GENERATED_AT}}", escapeHtml(manifest.generated_at.slice(0, 10)))
+  .replace("{{RESEARCH_MANIFEST_JSON}}", inlineJson(manifest))
   .replace("{{FAMILY_CARDS}}", manifest.families.map(familyCard).join(""))
   .replace("{{LABNOTE_CARDS}}", manifest.labnotes.map(noteCard).join(""));
 fs.writeFileSync(path.join(output, "index.html"), indexPage);
@@ -276,7 +278,8 @@ for (const family of manifest.families) {
   const familySocialImageUrl = `${siteUrl}assets/social/family-${family.id}.png`;
   socialCards.push(writeFamilySocialCard(family, notes, attention,
     path.join(output, "assets", "social", `family-${family.id}.png`)));
-  fs.writeFileSync(path.join(graphDirectory, "graph.json"), `${JSON.stringify({ family: { id: family.id, title: family.title }, notes: graphNotes, relations, attention }, null, 2)}\n`);
+  const graphData = { family: { id: family.id, title: family.title }, notes: graphNotes, relations, attention };
+  fs.writeFileSync(path.join(graphDirectory, "graph.json"), `${JSON.stringify(graphData, null, 2)}\n`);
   const familyNoteList = [...notes].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)).map((note) =>
     `<li class="family-note" data-note="${escapeHtml(note.id)}" data-search="${escapeHtml(`${note.id} ${note.title} ${note.question} ${note.tags.join(" ")}`.toLowerCase())}" data-outcome="${escapeHtml(note.outcome)}"><button class="family-note-select" type="button" aria-pressed="false"><span class="family-note-id">${escapeHtml(note.id)}</span><span class="family-note-meta"><time datetime="${escapeHtml(note.date)}">${escapeHtml(note.date)}</time> · <span data-outcome="${escapeHtml(note.outcome)}">${escapeHtml(note.outcome)}</span></span><strong>${escapeHtml(note.title)}</strong><span class="family-note-question">${escapeHtml(note.question)}</span></button><a class="family-note-open" href="../../${escapeHtml(note.href)}">OPEN LABNOTE ↗</a></li>`).join("");
   const familyOutcomes = [...new Set(notes.map((note) => note.outcome))].sort().map((outcome) =>
@@ -286,6 +289,7 @@ for (const family of manifest.families) {
   fs.writeFileSync(path.join(graphDirectory, "index.html"), graphPage
     .replace('<div class="graph-layout">', `<div class="graph-layout">${familyNoteSection}`)
     .replace("</head>", `<link rel="alternate" type="application/json" href="index.json" title="Compact agent overview"></head>`)
+    .replace('<script type="module" src="../../assets/project-graph.js">', `<script id="project-graph-data" type="application/json">${inlineJson(graphData)}</script><script type="module" src="../../assets/project-graph.js">`)
     .replace("../../assets/styles.css", `../../assets/styles.css?v=${escapeHtml(manifest.source_revision)}`)
     .replace("../../assets/project-graph.js", `../../assets/project-graph.js?v=${escapeHtml(manifest.source_revision)}`));
 }

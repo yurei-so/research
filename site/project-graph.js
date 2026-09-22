@@ -9,9 +9,13 @@ const initialPageView = storedPageView() === "beta-fit" ? "beta-fit" : "standard
 document.body.dataset.pageView = initialPageView;
 
 async function boot() {
-  const response = await fetch("graph.json");
-  if (!response.ok) throw new Error(`project graph unavailable (${response.status})`);
-  const graph = await response.json();
+  const embedded = $("#project-graph-data")?.textContent;
+  const graph = embedded
+    ? JSON.parse(embedded)
+    : await fetch("graph.json").then((response) => {
+      if (!response.ok) throw new Error(`project graph unavailable (${response.status})`);
+      return response.json();
+    });
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
   const stage = $(".graph-stage");
   const maps = [...document.querySelectorAll(".project-map, .attention-map")];

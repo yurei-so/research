@@ -155,6 +155,8 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(client, /naturalHeight \* zoom/);
   assert.match(client, /if \(manual\) userAdjustedZoom = true/);
   assert.match(client, /if \(userAdjustedZoom\) return/);
+  assert.match(client, /\.graph-toolbar/);
+  assert.match(client, /control\.id === "zoom-in"/);
   assert.match(client, /revealListSelection/);
   assert.match(client, /selectNote\(node\.dataset\.note, \{ reveal: true \}\)/);
   assert.match(client, /item\.addEventListener\("click", \(\) => selectNote\(other\.id, \{ focus: true, reveal: true \}\)\)/);

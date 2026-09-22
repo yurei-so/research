@@ -36,6 +36,8 @@ test("assembles allowlisted stable and non-canonical beta publication trees", ()
   assert.match(betaHtml, /Beta changes presentation only/);
   assert.match(betaHtml, /REV def456/);
   assert.doesNotMatch(betaHtml, /REV abc123/);
+  assert.match(betaHtml, /href="\.\.\/publication-switch\.css"/);
+  assert.doesNotMatch(betaHtml, /https:\/\/yurei-so\.github\.io\/research\/publication-switch\.css/);
   assert.doesNotMatch(betaHtml, /rel="alternate"/);
   assert.equal(fs.readFileSync(path.join(output, "beta", "robots.txt"), "utf8"), "User-agent: *\nDisallow: /\n");
   for (const relative of ["research-manifest.json", "research-corpus-v1.json", "agent-overview-v1.json", "llms.txt", "sitemap.xml", "projects/demo/index.json", "projects/demo/graph.json"]) {

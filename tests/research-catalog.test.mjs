@@ -179,14 +179,15 @@ test("generated pages revision their styles and scripts to avoid mixed deploymen
   assert.match(catalog, /labnote\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
 });
 
-test("detailed family pages expose a persistent beta-fit view without nested map scrolling", () => {
+test("detailed family pages expose a persistent fit-to-screen view with working zoom", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
   assert.match(catalog, /data-page-view="standard"/);
   assert.match(catalog, /data-page-view="beta-fit"/);
   assert.match(client, /yurei-family-page-view/);
-  assert.match(client, /fitLocked \? fitZoom\(\) : readableZoom\(\)/);
+  assert.doesNotMatch(client, /fitLocked/);
+  assert.match(client, /setZoom\(zoom\)/);
   assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.family-notes \{[^}]*overflow-y: auto/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.graph-stage \{[^}]*overflow: hidden/s);

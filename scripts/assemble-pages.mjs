@@ -95,11 +95,12 @@ function addRevisionControls(output, channel, revision) {
       betaUrl: fs.existsSync(betaFile) ? `${betaBase}${route}` : null };
     const control = revisionControl(options);
     const heroControl = revisionControl({ ...options, summaryHtml: `<b id="revision">${escapeHtml(revision.slice(0, 12))}</b> REVISION` });
+    const switchStyles = path.relative(path.dirname(file), path.join(output, "publication-switch.css")).split(path.sep).join("/");
     let content = fs.readFileSync(file, "utf8");
     content = content.replace(/<b id="revision">[^<]+<\/b> REVISION/, heroControl);
     content = content.replace(/<span id="generated">(CATALOG [^<]+?) \/ REV [0-9a-f]+<\/span>/i, `<span>$1 / ${control}</span><span id="generated" hidden></span>`);
     content = content.replace(/<span>REV [0-9a-f]+<\/span>/gi, `<span>${control}</span>`);
-    content = content.replace(/<head>/i, `<head><link rel="stylesheet" href="${stableBase}publication-switch.css">`);
+    content = content.replace(/<head>/i, `<head><link rel="stylesheet" href="${escapeHtml(switchStyles)}">`);
     fs.writeFileSync(file, content);
   }
 }

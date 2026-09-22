@@ -256,7 +256,7 @@ th:last-child, td:last-child { border-right: 0; }
   .project-header { padding: 1.25rem 0 1.5rem; }
   .project-header h1 { font-size: clamp(2.2rem, 12vw, 3.15rem); }
   .project-header p { font-size: .92rem; }
-  .map-modes { align-items: stretch; flex-wrap: wrap; }
+  .map-modes { align-items: stretch; flex-wrap: wrap; margin-bottom: .75rem; }
   .map-modes button { flex: 1; min-width: 8.5rem; min-height: 2.75rem; }
   .map-modes p { width: 100%; margin: .25rem 0 0; }
   .terminal-bar { padding: 0 1rem; } .terminal-bar > span:last-child { display: none; }
@@ -270,14 +270,19 @@ th:last-child, td:last-child { border-right: 0; }
   .lineage-arrow { margin: 0; text-align: center; transform: rotate(90deg); }
   .lineage-card, .lineage-empty { min-height: 6.5rem; }
   .graph-layout { display: flex; gap: 1rem; flex-direction: column; }
-  .graph-panel { width: 100%; border-right: 0; border-left: 0; }
+  .graph-panel { width: 100%; border-right: 0; border-left: 0; background: var(--surface); }
   .graph-inspector { position: static; min-height: 0; margin: 0 1rem; scroll-margin-top: 1rem; order: 2; }
   .family-notes { width: calc(100% - 2rem); max-height: none; margin: 0 1rem; overflow: visible; order: 3; }
   .graph-panel { order: 1; }
-  .graph-toolbar { position: sticky; z-index: 3; top: 0; min-height: 3.4rem; padding: .45rem .7rem; flex-wrap: wrap; background: var(--surface); }
+  .graph-toolbar { position: sticky; z-index: 3; top: 0; min-height: 3.4rem; padding: .4rem .65rem; flex-wrap: nowrap; overflow-x: auto; background: var(--surface); scrollbar-width: none; }
+  .graph-toolbar::-webkit-scrollbar { display: none; }
   .graph-toolbar button { min-width: 2.75rem; height: 2.75rem; }
-  .graph-toolbar span:last-child { display: none; }
-  .graph-stage { width: 100vw; height: min(52svh, 500px); }
+  .map-layout-switch { display: none; }
+  .graph-toolbar .map-pan-hint { display: block; min-width: 7.5rem; margin-left: auto; font-size: .52rem; line-height: 1.25; text-align: right; }
+  .graph-stage { width: 100vw; height: clamp(25rem, 62svh, 38rem); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); scroll-behavior: auto; -webkit-overflow-scrolling: touch; }
+  .attention-node text { font-size: 14px; letter-spacing: .035em; paint-order: stroke; stroke: #0b0d14; stroke-width: 3px; stroke-linejoin: round; }
+  .attention-node .attention-hit { r: 30px; }
+  .attention-node .attention-point { r: 10px; }
   .inspector-reading { grid-template-columns: 4.5rem minmax(0, 1fr); gap: .55rem .8rem; }
   .inspector-label { padding-top: .15rem; }
   .inspector-question, .inspector-summary { margin-bottom: .5rem; }

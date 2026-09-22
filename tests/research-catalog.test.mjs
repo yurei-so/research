@@ -138,7 +138,7 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(catalog, /ID, title, question, or tag/);
   assert.match(styles, /\.graph-edge\.traced path/);
   assert.match(styles, /\.family-note-list/);
-  assert.match(styles, /height: min\(52svh, 500px\)/);
+  assert.match(styles, /height: clamp\(25rem, 62svh, 38rem\)/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
@@ -166,7 +166,12 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(client, /revealListSelection/);
   assert.match(client, /selectNote\(node\.dataset\.note, \{ reveal: true \}\)/);
   assert.match(client, /item\.addEventListener\("click", \(\) => selectNote\(other\.id, \{ focus: true, reveal: true \}\)\)/);
-  assert.match(client, /Math\.max\(matchMedia\("\(max-width: 720px\)"\)\.matches \? \.58 : \.68, fitZoom\(\)\)/);
+  assert.match(client, /Math\.max\(\.68, fitZoom\(\)\)/);
+  assert.match(client, /suppressMapClick/);
+  assert.match(client, /Math\.hypot\(event\.clientX - pan\.x, event\.clientY - pan\.y\) < 5/);
+  assert.doesNotMatch(client, /graph-inspector.*scrollIntoView/);
+  assert.match(styles, /\.attention-node text \{ font-size: 14px/);
+  assert.match(styles, /\.map-layout-switch \{ display: none; \}/);
   assert.match(client, /selectNote\(button\.closest\("\.family-note"\)\.dataset\.note, \{ focus: true \}\)/);
   assert.match(styles, /grid-template-columns: 19rem minmax\(0, 1fr\) 21rem/);
   assert.match(styles, /\.attention-context-edge \{[^}]+opacity: 0/s);

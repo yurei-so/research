@@ -143,7 +143,7 @@ async function boot() {
   };
 
   const fitZoom = () => Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight);
-  const readableZoom = () => Math.max(matchMedia("(max-width: 720px)").matches ? .58 : .68, fitZoom());
+  const readableZoom = () => Math.max(.68, fitZoom());
   const applyPageView = (view, { persist = true } = {}) => {
     const next = view === "beta-fit" ? "beta-fit" : "standard";
     document.body.dataset.pageView = next;
@@ -243,9 +243,6 @@ async function boot() {
   document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
     node.addEventListener("click", (event) => {
       event.preventDefault(); selectNote(node.dataset.note, { reveal: true });
-      if (matchMedia("(max-width: 720px)").matches) {
-        requestAnimationFrame(() => $(".graph-inspector").scrollIntoView({ behavior: "smooth", block: "start" }));
-      }
     });
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
     node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNote(node.dataset.note, { reveal: true }); } });
@@ -309,14 +306,26 @@ async function boot() {
   });
   $("#back-to-map").addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
   let pan = null;
+  let suppressMapClick = false;
+  stage.addEventListener("click", (event) => {
+    if (!suppressMapClick) return;
+    suppressMapClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
   stage.addEventListener("pointerdown", (event) => {
-    if (event.target.closest(".graph-node, .attention-node, .graph-edge")) return;
-    pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop };
+    if (event.pointerType === "touch" || event.button !== 0) return;
+    suppressMapClick = false;
+    stage.scrollTo({ left: stage.scrollLeft, top: stage.scrollTop, behavior: "auto" });
+    pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop, moved: false };
     stage.setPointerCapture(event.pointerId);
-    stage.classList.add("panning");
   });
   stage.addEventListener("pointermove", (event) => {
     if (!pan) return;
+    if (!pan.moved && Math.hypot(event.clientX - pan.x, event.clientY - pan.y) < 5) return;
+    pan.moved = true;
+    suppressMapClick = true;
+    stage.classList.add("panning");
     stage.scrollLeft = pan.left - (event.clientX - pan.x);
     stage.scrollTop = pan.top - (event.clientY - pan.y);
   });

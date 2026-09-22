@@ -1,2 +1,2 @@
-Yurei Research beta publication
-Not canonical. Not production.
+Yurei Research visual beta
+Not canonical. Not production. Labnote content, research tools, and machine-readable research interfaces remain stable-only.

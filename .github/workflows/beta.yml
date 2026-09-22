@@ -1,0 +1,85 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+
+name: Assemble publication branch
+
+on:
+  push:
+    branches: [main, beta]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: research-publication-branch
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate and assemble gh-pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out stable source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: stable-source
+      - name: Check out beta source
+        uses: actions/checkout@v4
+        with:
+          ref: beta
+          path: beta-source
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build stable from its pinned source
+        working-directory: stable-source
+        run: |
+          npm ci
+          npm test
+          npm run catalog:check
+          npm run build
+          npm run privacy:check
+      - name: Build beta from its pinned source
+        working-directory: beta-source
+        run: |
+          npm ci
+          npm test
+          npm run catalog:check
+          npm run build
+          npm run privacy:check
+          npm test --prefix experiments/meta-research/apparatus/tldr-generator
+      - name: Assemble allowlisted publication output
+        run: |
+          node beta-source/scripts/assemble-pages.mjs \
+            --stable stable-source/dist \
+            --beta beta-source/dist \
+            --output publication \
+            --stable-sha "$(git -C stable-source rev-parse HEAD)" \
+            --beta-sha "$(git -C beta-source rev-parse HEAD)"
+          cd publication
+          node ../beta-source/scripts/public-surface-audit.mjs
+      - name: Upload inspectable publication artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-publication-${{ github.sha }}
+          path: publication
+          if-no-files-found: error
+          retention-days: 14
+      - name: Update generated gh-pages branch
+        run: |
+          if git -C beta-source fetch origin gh-pages; then
+            git -C beta-source worktree add ../publication-branch origin/gh-pages
+            git -C publication-branch switch -c gh-pages
+          else
+            git -C beta-source worktree add --detach ../publication-branch
+            git -C publication-branch switch --orphan gh-pages
+          fi
+          git -C publication-branch config user.name "github-actions[bot]"
+          git -C publication-branch config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C publication-branch rm -r --ignore-unmatch .
+          cp -a publication/. publication-branch/
+          git -C publication-branch add -A
+          git -C publication-branch commit -m "Publish stable and beta builds from $GITHUB_SHA"
+          git -C publication-branch push origin HEAD:gh-pages

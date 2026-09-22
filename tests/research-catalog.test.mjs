@@ -16,7 +16,8 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.ok(records.length >= 37);
   assert.ok(manifest.labnotes.some((note) => note.id === "prosody-001"));
   assert.ok(manifest.labnotes.some((note) => note.id === "voxel-guidance-001"));
-  assert.equal(manifest.families.length, 5);
+  assert.equal(manifest.families.length, 6);
+  assert.equal(manifest.families.find((family) => family.id === "meta-research")?.title, "Meta Research");
   assert.ok(manifest.families.every((family) => !Object.hasOwn(family, "status")));
   assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "timeline", "title"]);
   assert.ok(manifest.labnotes.every((note) => !JSON.stringify(note).includes("/home/")));
@@ -137,7 +138,7 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(catalog, /ID, title, question, or tag/);
   assert.match(styles, /\.graph-edge\.traced path/);
   assert.match(styles, /\.family-note-list/);
-  assert.match(styles, /height: min\(58svh, 520px\)/);
+  assert.match(styles, /\.graph-stage \{ width: 100vw; height: 100%/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
@@ -151,15 +152,49 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(catalog, /replace\('<div class="graph-layout">'/);
   assert.match(client, /let activeView = "attention"/);
   assert.match(client, /focusSelected/);
+  assert.match(client, /naturalHeight \* zoom/);
+  assert.match(client, /const oldOffset = mapOffset\(map\)/);
+  assert.match(client, /stage\.scrollLeft = newOffset\.left \+ focus\.x \* newWidth/);
+  assert.doesNotMatch(client, /panCameraTo/);
+  assert.match(client, /behavior: "auto"/);
+  assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(document\.body\.dataset\.pageView/);
+  assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(restoredZoom/);
+  assert.match(client, /if \(manual\) userAdjustedZoom = true/);
+  assert.match(client, /yurei-family-map-zoom/);
+  assert.match(client, /saveZoom\(document\.body\.dataset\.pageView, zoom\)/);
+  assert.match(client, /restoredZoom \?\?/);
+  assert.match(client, /if \(userAdjustedZoom\) return/);
+  assert.match(client, /bindZoom\("#zoom-in"/);
+  assert.match(client, /addEventListener\("pointerup"/);
+  assert.match(client, /ZOOM ERROR/);
   assert.match(client, /revealListSelection/);
   assert.match(client, /selectNote\(node\.dataset\.note, \{ reveal: true \}\)/);
   assert.match(client, /item\.addEventListener\("click", \(\) => selectNote\(other\.id, \{ focus: true, reveal: true \}\)\)/);
-  assert.match(client, /Math\.max\(matchMedia\("\(max-width: 720px\)"\)\.matches \? \.58 : \.68, fitZoom\(\)\)/);
+  assert.match(client, /Math\.max\(\.68, fitZoom\(\)\)/);
+  assert.match(client, /suppressMapClick/);
+  assert.match(client, /Math\.hypot\(event\.clientX - pan\.x, event\.clientY - pan\.y\) < 5/);
+  assert.doesNotMatch(client, /graph-inspector.*scrollIntoView/);
+  assert.match(styles, /\.attention-node text \{ font-size: 14px/);
+  assert.match(styles, /\.map-layout-switch \{ display: none; \}/);
+  assert.match(catalog, /class="mobile-map-instrument"/);
+  assert.match(catalog, /class="map-world"/);
+  assert.match(catalog, /id="mobile-sheet-toggle"/);
+  assert.match(client, /lineageCandidates/);
+  assert.match(client, /moveInCatalog/);
+  assert.match(styles, /\.graph-inspector\.mobile-expanded/);
+  assert.match(styles, /\.family-notes \{ display: none; \}/);
+  assert.match(styles, /@media \(max-width: 720px\).*?\.map-world \{ padding: 50svh 50vw; \}/s);
+  assert.match(styles, /\.map-world \{[^}]+padding: 50vh 50vw/s);
+  assert.match(styles, /data-page-view="beta-fit"\] \.map-world \{ padding: 0; \}/);
+  assert.match(styles, /outline: 1px solid #343b4c/);
+  assert.match(client, /left: offset\.left \+ x/);
   assert.match(client, /selectNote\(button\.closest\("\.family-note"\)\.dataset\.note, \{ focus: true \}\)/);
   assert.match(styles, /grid-template-columns: 19rem minmax\(0, 1fr\) 21rem/);
   assert.match(styles, /\.attention-context-edge \{[^}]+opacity: 0/s);
   assert.match(styles, /\.attention-context-edge\.related \{ opacity: \.72/);
   assert.match(styles, /\.relation-item:hover/);
+  assert.match(catalog, /id="inspect-question"/);
+  assert.match(client, /\$\("#inspect-question"\)\.textContent = note\.question/);
 });
 
 test("labnote headers link back to their family detailed view", () => {
@@ -178,6 +213,39 @@ test("generated pages revision their styles and scripts to avoid mixed deploymen
   assert.match(catalog, /labnote\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
 });
 
+test("strict CSP pages avoid inline scripts and runtime style attributes", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const projectClient = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
+  const libraryClient = fs.readFileSync(path.resolve("site/app.js"), "utf8");
+  const index = fs.readFileSync(path.resolve("site/index.html"), "utf8");
+  assert.doesNotMatch(catalog, /style="width:/);
+  assert.match(catalog, /<template id="project-graph-data">/);
+  assert.doesNotMatch(index, /<script[^>]+type="application\/json"/);
+  assert.match(index, /<template id="research-manifest-data">/);
+  assert.match(projectClient, /\.content\.textContent/);
+  assert.match(libraryClient, /\.content\.textContent/);
+  assert.doesNotMatch(projectClient, /\.style\.(?:width|height|display)/);
+  assert.match(projectClient, /setAttribute\("width", String\(newWidth\)\)/);
+});
+
+test("detailed family pages expose a persistent fit-to-screen view with working zoom", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
+  const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
+  assert.match(catalog, /data-page-view="standard"/);
+  assert.match(catalog, /data-page-view="beta-fit"/);
+  assert.match(catalog, /class="map-layout-switch"/);
+  assert.match(catalog, />FIT SCREEN<\/button>/);
+  assert.match(client, /yurei-family-page-view/);
+  assert.doesNotMatch(client, /fitLocked/);
+  assert.match(client, /setZoom\(zoom\)/);
+  assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
+  assert.match(styles, /data-page-view="beta-fit".*?\.family-notes \{[^}]*overflow-y: auto/s);
+  assert.match(styles, /data-page-view="beta-fit".*?\.graph-stage \{[^}]*overflow: hidden/s);
+  assert.match(styles, /\.family-notes \{ display: none; \}/);
+  assert.match(styles, /\.graph-inspector \{ position: fixed;[^}]*top: auto;[^}]*bottom: 3\.65rem/s);
+});
+
 test("family cards derive success readouts from published positive outcomes", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/app.js"), "utf8");
@@ -188,6 +256,10 @@ test("family cards derive success readouts from published positive outcomes", ()
   assert.match(client, /class="success-rate"/);
   assert.match(catalog, /class="family-primary" href="projects\//);
   assert.match(client, /OPEN RESEARCH MAP/);
+  assert.match(client, /FILTER TO THIS FAMILY/);
+  assert.match(catalog, /FILTER TO THIS FAMILY/);
+  assert.match(client, /family\.labnote_count === 1 \? "labnote" : "labnotes"/);
+  assert.match(catalog, /family\.labnote_count === 1 \? "labnote" : "labnotes"/);
 });
 
 test("attention model preserves vectors and distances separately from its 2D projection", () => {

@@ -1,0 +1,8 @@
+{
+  "name": "@yurei-so/experimental-labnote-tldr",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": { "labnote-tldr": "src/cli.mjs" },
+  "scripts": { "test": "node --test test/*.test.mjs" }
+}

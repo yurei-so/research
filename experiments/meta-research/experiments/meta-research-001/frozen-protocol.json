@@ -1,0 +1,54 @@
+{
+  "schema": "meta-research-001/protocol/v1",
+  "frozen_at": "2026-09-21T00:00:00Z",
+  "apparatus_version": "0.1.0",
+  "mode": "shadow",
+  "public_write_allowed": false,
+  "candidate_schema": "labnote-tldr/v1",
+  "maximum_orientation_characters": 420,
+  "required_outcomes": ["positive", "negative", "mixed", "inconclusive"],
+  "frozen_corpus": [
+    { "id": "composition-001", "outcome": "positive" },
+    { "id": "prosody-018", "outcome": "positive" },
+    { "id": "composition-009", "outcome": "negative" },
+    { "id": "prosody-014", "outcome": "negative" },
+    { "id": "prosody-017", "outcome": "mixed" },
+    { "id": "voxel-guidance-004", "outcome": "mixed" },
+    { "id": "composition-004", "outcome": "inconclusive" },
+    { "id": "prosody-011", "outcome": "inconclusive" }
+  ],
+  "review": {
+    "minimum_human_reviewers_per_candidate": 1,
+    "score_scale": {
+      "0": "fails",
+      "1": "partially preserves",
+      "2": "fully preserves"
+    },
+    "decisions": ["accept", "edit", "reject"],
+    "artifact_requirements": [
+      "candidate",
+      "validator_result",
+      "human_scores",
+      "human_decision",
+      "reviewer_notes"
+    ]
+  },
+  "review_dimensions": [
+    "claim_support",
+    "finding_preservation",
+    "limitation_retention",
+    "negative_result_retention",
+    "relevance_utility"
+  ],
+  "promotion_gate": {
+    "unsupported_claims_allowed": 0,
+    "minimum_acceptable_candidates": 7,
+    "minimum_claim_support_score": 2,
+    "minimum_median_relevance_utility": 2,
+    "negative_or_mixed_evidence_omissions_allowed": 0,
+    "requires_all_frozen_corpus_artifacts": true,
+    "requires_human_review": true,
+    "requires_separate_toolkit_change": true,
+    "requires_separate_public_activation": true
+  }
+}

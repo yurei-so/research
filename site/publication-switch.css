@@ -1,0 +1,22 @@
+/* SPDX-License-Identifier: AGPL-3.0-only */
+.publication-channel-switch { display: inline-flex; padding: .18rem; border: 1px solid var(--line, #292e3a); gap: .18rem; letter-spacing: .08em; }
+.publication-channel-switch a, .publication-channel-switch span { padding: .36rem .58rem; color: var(--muted, #858d9d); font: .58rem var(--mono, monospace); text-decoration: none; white-space: nowrap; }
+.publication-channel-switch a:hover, .publication-channel-switch a:focus-visible { color: var(--ink, #e2e5ed); outline: 1px solid var(--dim, #596278); }
+.publication-channel-switch [aria-current="page"] { color: var(--signal, #ad91ff); background: #171421; }
+.publication-channel-switch .unavailable { opacity: .45; }
+.publication-revision { position: relative; display: inline-block; color: var(--muted, #858d9d); font: .62rem var(--mono, monospace); letter-spacing: .06em; text-align: left; vertical-align: middle; }
+.publication-revision > summary { padding: .3rem .45rem; border: 1px solid var(--line, #292e3a); color: var(--ink, #e2e5ed); background: var(--surface, #10131b); cursor: pointer; list-style: none; white-space: nowrap; }
+.publication-revision > summary::-webkit-details-marker { display: none; }
+.publication-revision > summary::after { content: " ▾"; color: var(--signal, #ad91ff); }
+.publication-revision[open] > summary { border-color: var(--signal, #ad91ff); }
+.publication-revision-menu { position: absolute; z-index: 40; right: 0; bottom: calc(100% + .45rem); display: grid; width: min(22rem, 84vw); padding: .8rem; border: 1px solid var(--signal, #ad91ff); gap: .45rem; background: var(--surface, #10131b); box-shadow: 0 1rem 2.5rem #000a; }
+.hero-readout .publication-revision-menu { right: auto; bottom: auto; left: 0; top: calc(100% + .45rem); }
+.publication-revision-menu strong { color: var(--signal, #ad91ff); font-size: .58rem; }
+.publication-revision-menu a, .publication-revision-menu span { padding: .45rem; border: 1px solid var(--line, #292e3a); color: var(--ink, #e2e5ed); text-decoration: none; }
+.publication-revision-menu [aria-current="page"] { border-color: var(--signal, #ad91ff); color: var(--signal, #ad91ff); }
+.publication-revision-menu .unavailable { color: var(--muted, #858d9d); border-style: dashed; }
+.publication-revision-menu p { margin: .3rem 0; color: var(--muted, #858d9d); font: .72rem/1.45 system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+@media (max-width: 720px) {
+  .publication-channel-switch a, .publication-channel-switch span { padding: .34rem .42rem; font-size: .54rem; }
+  .publication-revision-menu { position: fixed; right: 1rem; bottom: 1rem; left: 1rem; width: auto; }
+}

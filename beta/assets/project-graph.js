@@ -27,6 +27,7 @@ async function boot() {
   let selected = graph.notes.at(-1)?.id;
   let tracing = false;
   let terrain = "cells";
+  let userAdjustedZoom = false;
 
   const attentionMap = $(".attention-map");
   const attentionNodes = new Map([...attentionMap.querySelectorAll(".attention-node")]
@@ -55,13 +56,17 @@ async function boot() {
     $("#view-disclosure").textContent = `${graph.attention.representation.method} vectors projected with classical MDS · ${graph.notes.length} records · stress ${stress}. ${rendering}; geometry is approximate.`;
   };
 
-  const setZoom = (next) => {
+  const setZoom = (next, { manual = false } = {}) => {
+    if (manual) userAdjustedZoom = true;
     const map = activeMap();
     const oldWidth = map.getBoundingClientRect().width || naturalWidth * zoom;
     const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / (oldWidth * naturalHeight / naturalWidth) };
     const minimumZoom = document.body.dataset.pageView === "beta-fit" ? .25 : .45;
     zoom = Math.max(minimumZoom, Math.min(1.4, next));
-    maps.forEach((entry) => { entry.style.width = `${Math.round(naturalWidth * zoom)}px`; });
+    maps.forEach((entry) => {
+      entry.style.width = `${Math.round(naturalWidth * zoom)}px`;
+      entry.style.height = `${Math.round(naturalHeight * zoom)}px`;
+    });
     $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
     requestAnimationFrame(() => {
       stage.scrollLeft = focus.x * map.clientWidth - stage.clientWidth / 2;
@@ -99,6 +104,7 @@ async function boot() {
     document.querySelectorAll("[data-page-view]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.pageView === next));
     });
+    userAdjustedZoom = false;
     if (persist) {
       try { localStorage.setItem("yurei-family-page-view", next); } catch {}
     }
@@ -137,6 +143,7 @@ async function boot() {
     $("#inspect-status").textContent = note.status;
     $("#inspect-outcome").textContent = note.outcome;
     $("#inspect-outcome").dataset.outcome = note.outcome;
+    $("#inspect-question").textContent = note.question;
     $("#inspect-summary").textContent = note.result_summary;
     $("#open-note").href = `../../${note.href}`;
     $("#view-source").href = note.source_url;
@@ -228,7 +235,9 @@ async function boot() {
     applyPageView(button.dataset.pageView);
   }));
   addEventListener("resize", () => {
-    if (document.body.dataset.pageView === "beta-fit") applyPageView("beta-fit", { persist: false });
+    if (userAdjustedZoom) return;
+    requestAnimationFrame(() => setZoom(document.body.dataset.pageView === "beta-fit"
+      && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
   });
   $("#trace-lineage").addEventListener("click", () => {
     tracing = !tracing;
@@ -243,9 +252,9 @@ async function boot() {
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";
     }
   });
-  $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
-  $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
-  $("#zoom-fit").addEventListener("click", () => setZoom(fitZoom()));
+  $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12, { manual: true }));
+  $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12, { manual: true }));
+  $("#zoom-fit").addEventListener("click", () => { userAdjustedZoom = false; setZoom(fitZoom()); });
   $("#terrain-style").addEventListener("click", () => {
     terrain = terrain === "cells" ? "smooth" : "cells";
     const attentionMap = $(".attention-map");

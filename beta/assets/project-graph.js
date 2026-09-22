@@ -29,7 +29,7 @@ const initialPageView = storedPageView() === "beta-fit" ? "beta-fit" : "standard
 document.body.dataset.pageView = initialPageView;
 
 async function boot() {
-  const embedded = $("#project-graph-data")?.textContent;
+  const embedded = $("#project-graph-data")?.content.textContent;
   const graph = embedded
     ? JSON.parse(embedded)
     : await fetch("graph.json").then((response) => {
@@ -130,8 +130,8 @@ async function boot() {
     const newWidth = Math.round(naturalWidth * zoom);
     const newHeight = Math.round(naturalHeight * zoom);
     maps.forEach((entry) => {
-      entry.style.width = `${newWidth}px`;
-      entry.style.height = `${newHeight}px`;
+      entry.setAttribute("width", String(newWidth));
+      entry.setAttribute("height", String(newHeight));
     });
     $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
     const newOffset = mapOffset();
@@ -202,10 +202,8 @@ async function boot() {
     if (persist) {
       try { localStorage.setItem("yurei-family-page-view", next); } catch {}
     }
-    requestAnimationFrame(() => {
-      setZoom(restoredZoom ?? (next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
-      focusSelected({ animate: false });
-    });
+    setZoom(restoredZoom ?? (next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
+    focusSelected({ animate: false });
   };
 
   const neighborhood = (root) => {
@@ -322,7 +320,6 @@ async function boot() {
     activeView = button.dataset.mapView;
     maps.forEach((entry) => {
       entry.hidden = entry.dataset.mapView !== activeView;
-      entry.style.display = entry.hidden ? "none" : "block";
     });
     document.querySelectorAll(".map-modes button[data-map-view]").forEach((entry) => entry.setAttribute("aria-pressed", String(entry === button)));
     tracing = false;
@@ -338,10 +335,8 @@ async function boot() {
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";
     }
     renderInspector();
-    requestAnimationFrame(() => {
-      setZoom(zoom);
-      focusSelected();
-    });
+    setZoom(zoom);
+    focusSelected();
   }));
   document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
     applyPageView(button.dataset.pageView);

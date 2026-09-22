@@ -83,7 +83,9 @@ function revisionControl({ channel, revision, stableUrl, betaUrl, summaryHtml })
 
 function addRevisionControls(output, channel, revision) {
   const root = channel === "stable" ? output : path.join(output, "beta");
-  for (const file of filesUnder(root).filter((entry) => path.extname(entry).toLowerCase() === ".html")) {
+  const betaRoot = path.join(output, "beta") + path.sep;
+  for (const file of filesUnder(root).filter((entry) => path.extname(entry).toLowerCase() === ".html"
+    && (channel !== "stable" || !entry.startsWith(betaRoot)))) {
     const relative = path.relative(root, file);
     const route = publicationRoute(relative);
     const stableFile = path.join(output, relative);

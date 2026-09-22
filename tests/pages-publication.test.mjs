@@ -34,6 +34,8 @@ test("assembles allowlisted stable and non-canonical beta publication trees", ()
   assert.match(betaHtml, /noindex,nofollow/);
   assert.match(betaHtml, /https:\/\/yurei-so\.github\.io\/research\/beta\//);
   assert.match(betaHtml, /Beta changes presentation only/);
+  assert.match(betaHtml, /REV def456/);
+  assert.doesNotMatch(betaHtml, /REV abc123/);
   assert.doesNotMatch(betaHtml, /rel="alternate"/);
   assert.equal(fs.readFileSync(path.join(output, "beta", "robots.txt"), "utf8"), "User-agent: *\nDisallow: /\n");
   for (const relative of ["research-manifest.json", "research-corpus-v1.json", "agent-overview-v1.json", "llms.txt", "sitemap.xml", "projects/demo/index.json", "projects/demo/graph.json"]) {

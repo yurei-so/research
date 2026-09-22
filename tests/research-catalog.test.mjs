@@ -159,6 +159,7 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(client, /prefers-reduced-motion: reduce/);
   assert.match(client, /stage\.addEventListener\("wheel", stopCameraPan/);
   assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(document\.body\.dataset\.pageView/);
+  assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(restoredZoom/);
   assert.match(client, /if \(manual\) userAdjustedZoom = true/);
   assert.match(client, /yurei-family-map-zoom/);
   assert.match(client, /saveZoom\(document\.body\.dataset\.pageView, zoom\)/);
@@ -211,6 +212,21 @@ test("generated pages revision their styles and scripts to avoid mixed deploymen
   assert.match(catalog, /styles\.css\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
   assert.match(catalog, /project-graph\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
   assert.match(catalog, /labnote\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
+});
+
+test("strict CSP pages avoid inline scripts and runtime style attributes", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const projectClient = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
+  const libraryClient = fs.readFileSync(path.resolve("site/app.js"), "utf8");
+  const index = fs.readFileSync(path.resolve("site/index.html"), "utf8");
+  assert.doesNotMatch(catalog, /style="width:/);
+  assert.match(catalog, /<template id="project-graph-data">/);
+  assert.doesNotMatch(index, /<script[^>]+type="application\/json"/);
+  assert.match(index, /<template id="research-manifest-data">/);
+  assert.match(projectClient, /\.content\.textContent/);
+  assert.match(libraryClient, /\.content\.textContent/);
+  assert.doesNotMatch(projectClient, /\.style\.(?:width|height|display)/);
+  assert.match(projectClient, /setAttribute\("width", String\(newWidth\)\)/);
 });
 
 test("detailed family pages expose a persistent fit-to-screen view with working zoom", () => {

@@ -23,7 +23,7 @@ function noteCard(note) {
 }
 
 async function boot() {
-  const embedded = $("#research-manifest-data")?.textContent;
+  const embedded = $("#research-manifest-data")?.content.textContent;
   const catalog = embedded
     ? JSON.parse(embedded)
     : await fetch("research-manifest.json").then((response) => {

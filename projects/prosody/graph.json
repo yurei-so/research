@@ -1,0 +1,1635 @@
+{
+  "family": {
+    "id": "prosody",
+    "title": "Prosody"
+  },
+  "notes": [
+    {
+      "id": "prosody-001",
+      "family": "prosody",
+      "title": "Selected Poems real-media ingest (v0.1.0)",
+      "date": "2026-06-27",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the packaged file and simulated-stream ingestion paths produce consistent prosodic metadata from real spoken audio when transcription remains an external step?",
+      "tags": [
+        "conversational-prosody",
+        "positive-result",
+        "real-audio"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/prosody-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "prosody-002"
+        ]
+      },
+      "result_summary": "Four of seven recordings (57.1%) were processed, totaling 571.931 seconds (9m 31.9s) and 1,065 transcribed words.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-001-selected-poems-real-media.md"
+    },
+    {
+      "id": "prosody-002",
+      "family": "prosody",
+      "title": "Shakespeare monologue downstream-response pilot (v0.3.1)",
+      "date": "2026-07-01",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does adding delivery/prosody information to a transcript improve or meaningfully change an LLM's conversational response?",
+      "tags": [
+        "conversational-prosody",
+        "negative-result"
+      ],
+      "lineage": [
+        "prosody-001"
+      ],
+      "relations": [
+        {
+          "target": "prosody-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-002/",
+      "timeline": {
+        "follows": [
+          "prosody-001"
+        ],
+        "continued_by": [
+          "prosody-003"
+        ]
+      },
+      "result_summary": "All 15 recordings completed with zero reported processing failures. They total 1,640.668 seconds (27m 20.7s), and the saved STT timing output contains 3,228 words.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-002-shakespeare-monologue-downstream-response.md"
+    },
+    {
+      "id": "prosody-003",
+      "family": "prosody",
+      "title": "Amy-LM synthetic prosody downstream-response pilot (v0.3.1)",
+      "date": "2026-07-01",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Does adding delivery cues derived from the correct audio improve an LLM's response to flattened conversational text relative to text-only and shuffled-cue controls?",
+      "tags": [
+        "conversational-prosody",
+        "holdout",
+        "inconclusive-result",
+        "provenance",
+        "revision",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-002"
+      ],
+      "relations": [
+        {
+          "target": "prosody-002",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-003/",
+      "timeline": {
+        "follows": [
+          "prosody-002"
+        ],
+        "continued_by": [
+          "prosody-004",
+          "prosody-011"
+        ]
+      },
+      "result_summary": "All 20 selected rows completed with no reported processing failures. The run produced 100 prompts, 100 responses, 100 master evaluation rows, 100 randomly ordered blinded rows, and a separate 100-row answer key.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-003-amy-lm-synthetic-prosody-downstream-response.md"
+    },
+    {
+      "id": "prosody-004",
+      "family": "prosody",
+      "title": "Context-conditioned prosody IR inference and synthesis",
+      "date": "2026-08-13",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Can a language model infer an intended, backend-independent prosodic structure from discourse context when the literal target utterance is held fixed? Separately, can a Kokoro compiler render that structure so a listener can recover the intended reading?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "inconclusive-result",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-003"
+      ],
+      "relations": [
+        {
+          "target": "prosody-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-004/",
+      "timeline": {
+        "follows": [
+          "prosody-003"
+        ],
+        "continued_by": [
+          "prosody-005",
+          "prosody-008"
+        ]
+      },
+      "result_summary": "Both detached phases completed without failed tasks or service restarts:",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-004-context-conditioned-prosody-ir.md"
+    },
+    {
+      "id": "prosody-005",
+      "family": "prosody",
+      "title": "Speculative semantic branch and turn-state prediction",
+      "date": "2026-08-13",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can semantic branch prediction during an unfinished human turn safely hide language model latency, while a turn-state estimator reduces premature interruption and supports optional collaborative completion?",
+      "tags": [
+        "conversational-prosody",
+        "negative-result",
+        "speculative-execution",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-004"
+      ],
+      "relations": [
+        {
+          "target": "prosody-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-005/",
+      "timeline": {
+        "follows": [
+          "prosody-004"
+        ],
+        "continued_by": [
+          "prosody-006"
+        ]
+      },
+      "result_summary": "Can semantic branch prediction during an unfinished human turn safely hide language model latency, while a turn-state estimator reduces premature interruption and supports optional collaborative completion?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-005-speculative-turn-prediction.md"
+    },
+    {
+      "id": "prosody-006",
+      "family": "prosody",
+      "title": "Familiarity-gated speculative cognition",
+      "date": "2026-08-15",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can a runtime use a sub-millisecond readiness policy to select the minority of unfinished conversational turns where private speculative response work has positive net value, while abstaining everywhere else?",
+      "tags": [
+        "conversational-prosody",
+        "negative-result",
+        "speculative-execution"
+      ],
+      "lineage": [
+        "prosody-005"
+      ],
+      "relations": [
+        {
+          "target": "prosody-005",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-006/",
+      "timeline": {
+        "follows": [
+          "prosody-005"
+        ],
+        "continued_by": [
+          "prosody-007"
+        ]
+      },
+      "result_summary": "The detached run completed 2,000/2,000 counterfactual rows with zero failures and zero service restarts. Thresholds were selected on 1,500 rows from the 30 development sessions and applied once to 500 rows from ten held-out sessions. The held-out endpoint accuracy was 57.40%;…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-006-familiarity-readiness-gate.md"
+    },
+    {
+      "id": "prosody-007",
+      "family": "prosody",
+      "title": "LLM-directed bounded speculation subscriptions",
+      "date": "2026-08-15",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Can a conversational model recognize a predictable semantic trajectory once per completed turn and request a bounded runtime-owned subscription that selects future speculative work more effectively than a stateless numeric readiness gate?",
+      "tags": [
+        "conversational-prosody",
+        "inconclusive-result",
+        "speculative-execution"
+      ],
+      "lineage": [
+        "prosody-006"
+      ],
+      "relations": [
+        {
+          "target": "prosody-006",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-007/",
+      "timeline": {
+        "follows": [
+          "prosody-006"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "Both detached selector runs completed every task with zero failures and zero service restarts.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-007-bounded-speculation-subscriptions.md"
+    },
+    {
+      "id": "prosody-008",
+      "family": "prosody",
+      "title": "audible focus-control gate",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can post-hoc focus control create audible, natural emphasis before spending human-review labor?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "negative-result",
+        "prosody-control"
+      ],
+      "lineage": [
+        "prosody-004"
+      ],
+      "relations": [
+        {
+          "target": "prosody-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-008/",
+      "timeline": {
+        "follows": [
+          "prosody-004"
+        ],
+        "continued_by": [
+          "prosody-009"
+        ]
+      },
+      "result_summary": "The v3 four-question bundle passed every numerical acoustic intake gate. On the pre-judgment listening check, however, the operator immediately recognized the same unnatural voice effect that motivated the later native-synthesis experiments. Smooth transient handling and prese…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-008-audible-focus-control-gate.md"
+    },
+    {
+      "id": "prosody-009",
+      "family": "prosody",
+      "title": "native Kokoro stress pilot",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can native Kokoro lexical stress produce natural audio and validate the intended focus mapping?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "mixed-result",
+        "prosody-control",
+        "revision",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-008"
+      ],
+      "relations": [
+        {
+          "target": "prosody-008",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-009/",
+      "timeline": {
+        "follows": [
+          "prosody-008"
+        ],
+        "continued_by": [
+          "prosody-010",
+          "prosody-012"
+        ]
+      },
+      "result_summary": "The approval-gated scheduled run completed all four trials. Every condition changed exactly one competing token from primary to secondary stress; all intended and non-focus phonemes remained unchanged. Audio pairs were distinct and duration drift was 0.9–3.7 percent.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-009-native-kokoro-stress-pilot.md"
+    },
+    {
+      "id": "prosody-010",
+      "family": "prosody",
+      "title": "native stress prominence gate",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does native lexical stress create reliable directional discourse prominence?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "negative-result",
+        "prosody-control",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-009"
+      ],
+      "relations": [
+        {
+          "target": "prosody-009",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-010/",
+      "timeline": {
+        "follows": [
+          "prosody-009"
+        ],
+        "continued_by": [
+          "prosody-012"
+        ]
+      },
+      "result_summary": "The approval-gated scheduled run completed synthesis and analysis, then exited with the intentional failed-gate status. Zero of six pair/voice trials passed; only two of twelve individual focus words cleared the two-dimension rule. Some words changed duration or energy, but ef…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-010-native-stress-prominence-gate.md"
+    },
+    {
+      "id": "prosody-011",
+      "family": "prosody",
+      "title": "Reproducible synthetic conversational-audio rerun",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Does the negative Labnote 003 matched-versus-shuffled result persist when every audio clip is generated locally by a known, fingerprinted synthesizer and exact transcript fidelity is verified before downstream generation?",
+      "tags": [
+        "conversational-prosody",
+        "holdout",
+        "inconclusive-result",
+        "provenance",
+        "revision",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-003"
+      ],
+      "relations": [
+        {
+          "target": "prosody-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/prosody-011/",
+      "timeline": {
+        "follows": [
+          "prosody-003"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The provenance repair succeeded: this run has exact text/audio fidelity, immutable audio hashes, a known synthesizer, and genuinely distinct matched/shuffled cue blocks. The automatic downstream result nevertheless remains negative/inconclusive. Nothing in these proxies demons…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-011-reproducible-synthetic-rerun.md"
+    },
+    {
+      "id": "prosody-012",
+      "family": "prosody",
+      "title": "reference-conditioned contrastive-focus transfer",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can whole-utterance reference conditioning reproduce an explicitly demonstrated contrastive focus without the artifacts of post-hoc DSP?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "prosody-control",
+        "reference-conditioning",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-009",
+        "prosody-010"
+      ],
+      "relations": [
+        {
+          "target": "prosody-009",
+          "type": "extends",
+          "rationale": "Retains artifact-free whole-utterance generation while replacing unreliable lexical-stress mapping with an explicit spoken reference."
+        },
+        {
+          "target": "prosody-010",
+          "type": "motivated-by",
+          "rationale": "Prosody 010 showed that native primary-versus-secondary stress did not reliably create directional discourse prominence."
+        }
+      ],
+      "href": "labnotes/prosody-012/",
+      "timeline": {
+        "follows": [
+          "prosody-009",
+          "prosody-010"
+        ],
+        "continued_by": [
+          "prosody-013"
+        ]
+      },
+      "result_summary": "The isolated F5-TTS run generated all eight frozen outputs on an RTX 4070. All files were distinct and passed the corrected mechanical integrity gate. The duration check was amended before listening because interactive reference recordings included the time spent waiting for t…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-012-reference-conditioned-focus-transfer.md"
+    },
+    {
+      "id": "prosody-013",
+      "family": "prosody",
+      "title": "instruction-conditioned contrastive focus",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can reference-free natural-language instructions produce natural, directionally correct contrastive focus?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "instruction-control",
+        "prosody-control",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-012"
+      ],
+      "relations": [
+        {
+          "target": "prosody-012",
+          "type": "extends",
+          "rationale": "Replaces failed recorded-reference conditioning with reference-free natural-language prosody instructions."
+        }
+      ],
+      "href": "labnotes/prosody-013/",
+      "timeline": {
+        "follows": [
+          "prosody-012"
+        ],
+        "continued_by": [
+          "prosody-014"
+        ]
+      },
+      "result_summary": "The isolated Qwen3-TTS run generated all eight frozen outputs on an RTX 4070. Every waveform was distinct and passed the mechanical duration gate. In owner-local admission review, the outputs sounded substantially more natural than Prosody 012's reference-conditioned audio, cl…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-013-qwen-instruction-focus-pilot.md"
+    },
+    {
+      "id": "prosody-014",
+      "family": "prosody",
+      "title": "contrastive-focus instruction-form ablation",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does removing the competing focus word from Qwen's instruction restore directional contrastive emphasis?",
+      "tags": [
+        "ablation",
+        "conversational-prosody",
+        "instruction-control",
+        "prosody-control",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-013"
+      ],
+      "relations": [
+        {
+          "target": "prosody-013",
+          "type": "extends",
+          "rationale": "Tests whether the failed paired instruction made the explicitly prohibited competitor salient."
+        }
+      ],
+      "href": "labnotes/prosody-014/",
+      "timeline": {
+        "follows": [
+          "prosody-013"
+        ],
+        "continued_by": [
+          "prosody-015"
+        ]
+      },
+      "result_summary": "All eight frozen outputs were distinct, complete, and mechanically valid. The owner-local admission review found natural-sounding examples in the set, but no output could honestly be judged both natural and directionally correct. Neither positive-only nor context-only instruct…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-014-instruction-form-ablation.md"
+    },
+    {
+      "id": "prosody-015",
+      "family": "prosody",
+      "title": "emergent prosody annotation",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "What coherent readings actually emerge when direct lexical-focus control fails?",
+      "tags": [
+        "annotation",
+        "conversational-prosody",
+        "discovery",
+        "prosody-fingerprint",
+        "synthetic-audio"
+      ],
+      "lineage": [
+        "prosody-014"
+      ],
+      "relations": [
+        {
+          "target": "prosody-014",
+          "type": "extends",
+          "rationale": "Reframes its natural but misdirected outputs as specimens to characterize rather than failed commands to discard."
+        }
+      ],
+      "href": "labnotes/prosody-015/",
+      "timeline": {
+        "follows": [
+          "prosody-014"
+        ],
+        "continued_by": [
+          "prosody-016"
+        ]
+      },
+      "result_summary": "The owner completed all eight blind annotations. Seven clips scored at least 4/5 for naturalness, and three scored 5/5, confirming that useful performances survived the failed direct-control experiment. Only two of eight perceived-focus labels named the requested word, however…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-015-emergent-reading-annotation.md"
+    },
+    {
+      "id": "prosody-016",
+      "family": "prosody",
+      "title": "acoustic fingerprint pilot",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Do lightweight acoustic fingerprints recover perceived emphasis and expressive delivery in the Prosody 015 corpus?",
+      "tags": [
+        "acoustic-analysis",
+        "conversational-prosody",
+        "prosody-fingerprint",
+        "representation"
+      ],
+      "lineage": [
+        "prosody-015"
+      ],
+      "relations": [
+        {
+          "target": "prosody-015",
+          "type": "extends",
+          "rationale": "Measures whether deterministic acoustic descriptors recover the owner-labeled readings discovered in that corpus."
+        }
+      ],
+      "href": "labnotes/prosody-016/",
+      "timeline": {
+        "follows": [
+          "prosody-015"
+        ],
+        "continued_by": [
+          "prosody-017"
+        ]
+      },
+      "result_summary": "All eight clips aligned to the expected transcript exactly. The untrained, equal-weight word-prominence score recovered one of the annotator's perceived-focus phrases in five of eight clips.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-016-acoustic-fingerprint-pilot.md"
+    },
+    {
+      "id": "prosody-017",
+      "family": "prosody",
+      "title": "multi-utterance prosody candidate pool",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can a small multi-utterance candidate pool supply natural repeated readings for a held-out fingerprint-retrieval test?",
+      "tags": [
+        "candidate-generation",
+        "conversational-prosody",
+        "dataset",
+        "prosody-fingerprint"
+      ],
+      "lineage": [
+        "prosody-016"
+      ],
+      "relations": [
+        {
+          "target": "prosody-016",
+          "type": "extends",
+          "rationale": "Expands the positive eight-clip representation pilot across unseen lexical content before freezing retrieval."
+        }
+      ],
+      "href": "labnotes/prosody-017/",
+      "timeline": {
+        "follows": [
+          "prosody-016"
+        ],
+        "continued_by": [
+          "prosody-018"
+        ]
+      },
+      "result_summary": "All twelve outputs passed mechanical integrity and were blindly annotated. Six met the 4/5 naturalness floor, spanning all four new utterances. Every natural clip carried a disbelief label; none was neutral-only. The nominally matter-of-fact recipe produced two natural clips,…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-017-multi-utterance-candidate-pool.md"
+    },
+    {
+      "id": "prosody-018",
+      "family": "prosody",
+      "title": "conversation-conditioned two-speaker pilot",
+      "date": "2026-09-12",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can conversation-aware turn direction produce a convincing two-speaker exchange where isolated line direction does not?",
+      "tags": [
+        "conversational-prosody",
+        "multi-speaker",
+        "synthetic-audio",
+        "turn-taking"
+      ],
+      "lineage": [
+        "prosody-017"
+      ],
+      "relations": [
+        {
+          "target": "prosody-017",
+          "type": "reuses-apparatus",
+          "rationale": "Reuses its validated Qwen3-TTS CustomVoice synthesis path while moving evaluation from isolated utterances to a complete two-speaker scene."
+        }
+      ],
+      "href": "labnotes/prosody-018/",
+      "timeline": {
+        "follows": [
+          "prosody-017"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "All twelve turn files were unique and passed the frozen mechanical duration checks. The isolated and conversation-aware assemblies were 12.61 and 13.25 seconds respectively.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-018-conversation-conditioned-two-speaker-pilot.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "prosody-002",
+      "target": "prosody-001",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-003",
+      "target": "prosody-002",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-004",
+      "target": "prosody-003",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-005",
+      "target": "prosody-004",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-006",
+      "target": "prosody-005",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-007",
+      "target": "prosody-006",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-008",
+      "target": "prosody-004",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-009",
+      "target": "prosody-008",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-010",
+      "target": "prosody-009",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-011",
+      "target": "prosody-003",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "prosody-012",
+      "target": "prosody-009",
+      "type": "extends",
+      "rationale": "Retains artifact-free whole-utterance generation while replacing unreliable lexical-stress mapping with an explicit spoken reference."
+    },
+    {
+      "source": "prosody-012",
+      "target": "prosody-010",
+      "type": "motivated-by",
+      "rationale": "Prosody 010 showed that native primary-versus-secondary stress did not reliably create directional discourse prominence."
+    },
+    {
+      "source": "prosody-013",
+      "target": "prosody-012",
+      "type": "extends",
+      "rationale": "Replaces failed recorded-reference conditioning with reference-free natural-language prosody instructions."
+    },
+    {
+      "source": "prosody-014",
+      "target": "prosody-013",
+      "type": "extends",
+      "rationale": "Tests whether the failed paired instruction made the explicitly prohibited competitor salient."
+    },
+    {
+      "source": "prosody-015",
+      "target": "prosody-014",
+      "type": "extends",
+      "rationale": "Reframes its natural but misdirected outputs as specimens to characterize rather than failed commands to discard."
+    },
+    {
+      "source": "prosody-016",
+      "target": "prosody-015",
+      "type": "extends",
+      "rationale": "Measures whether deterministic acoustic descriptors recover the owner-labeled readings discovered in that corpus."
+    },
+    {
+      "source": "prosody-017",
+      "target": "prosody-016",
+      "type": "extends",
+      "rationale": "Expands the positive eight-clip representation pilot across unseen lexical content before freezing retrieval."
+    },
+    {
+      "source": "prosody-018",
+      "target": "prosody-017",
+      "type": "reuses-apparatus",
+      "rationale": "Reuses its validated Qwen3-TTS CustomVoice synthesis path while moving evaluation from isolated utterances to a complete two-speaker scene."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 626,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "prosody-001": {
+        "packaged": 0.197292,
+        "file": 0.197292,
+        "simulated-stream": 0.197292,
+        "ingestion": 0.197292,
+        "paths": 0.197292,
+        "produce": 0.127603,
+        "consistent": 0.197292,
+        "prosodic": 0.178506,
+        "metadata": 0.197292,
+        "real": 0.165177,
+        "spoken": 0.197292,
+        "audio": 0.154838,
+        "transcription": 0.197292,
+        "remains": 0.197292,
+        "external": 0.197292,
+        "step": 0.197292,
+        "selected": 0.197292,
+        "poems": 0.197292,
+        "real-media": 0.197292,
+        "ingest": 0.197292,
+        "v0": 0.165177,
+        "conversational-prosody": 0.185965,
+        "positive-result": 0.245443,
+        "real-audio": 0.394585
+      },
+      "prosody-002": {
+        "adding": 0.190971,
+        "delivery": 0.226531,
+        "prosody": 0.190971,
+        "information": 0.270576,
+        "transcript": 0.244811,
+        "improve": 0.200766,
+        "meaningfully": 0.270576,
+        "change": 0.244811,
+        "llm": 0.244811,
+        "conversational": 0.212351,
+        "response": 0.226531,
+        "shakespeare": 0.270576,
+        "monologue": 0.270576,
+        "downstream-response": 0.244811,
+        "pilot": 0.168306,
+        "v0": 0.226531,
+        "conversational-prosody": 0.25504,
+        "negative-result": 0.248522
+      },
+      "prosody-003": {
+        "adding": 0.136895,
+        "delivery": 0.162386,
+        "cues": 0.193959,
+        "derived": 0.193959,
+        "correct": 0.17549,
+        "audio": 0.152222,
+        "improve": 0.143917,
+        "llm": 0.17549,
+        "response": 0.162386,
+        "flattened": 0.193959,
+        "conversational": 0.152222,
+        "text": 0.17549,
+        "relative": 0.193959,
+        "text-only": 0.193959,
+        "shuffled-cue": 0.193959,
+        "controls": 0.193959,
+        "amy-lm": 0.193959,
+        "synthetic": 0.17549,
+        "prosody": 0.136895,
+        "downstream-response": 0.17549,
+        "pilot": 0.120648,
+        "v0": 0.162386,
+        "conversational-prosody": 0.182823,
+        "holdout": 0.187748,
+        "inconclusive-result": 0.27379,
+        "provenance": 0.324772,
+        "revision": 0.217395,
+        "synthetic-audio": 0.224687
+      },
+      "prosody-004": {
+        "language": 0.157316,
+        "model": 0.100709,
+        "infer": 0.173872,
+        "intended": 0.314632,
+        "backend-independent": 0.173872,
+        "prosodic": 0.157316,
+        "structure": 0.291138,
+        "discourse": 0.157316,
+        "context": 0.157316,
+        "literal": 0.173872,
+        "target": 0.173872,
+        "utterance": 0.173872,
+        "held": 0.173872,
+        "fixed": 0.173872,
+        "separately": 0.157316,
+        "kokoro": 0.157316,
+        "compiler": 0.157316,
+        "render": 0.173872,
+        "so": 0.173872,
+        "listener": 0.173872,
+        "recover": 0.129012,
+        "reading": 0.173872,
+        "context-conditioned": 0.173872,
+        "prosody": 0.122718,
+        "ir": 0.173872,
+        "inference": 0.157316,
+        "synthesis": 0.173872,
+        "blinded-review": 0.1597,
+        "conversational-prosody": 0.163889,
+        "inconclusive-result": 0.245436,
+        "synthetic-audio": 0.201418
+      },
+      "prosody-005": {
+        "semantic": 0.27995,
+        "branch": 0.334381,
+        "prediction": 0.334381,
+        "during": 0.139975,
+        "unfinished": 0.15127,
+        "human": 0.139975,
+        "turn": 0.139975,
+        "safely": 0.167191,
+        "hide": 0.167191,
+        "language": 0.15127,
+        "model": 0.096839,
+        "latency": 0.15127,
+        "turn-state": 0.334381,
+        "estimator": 0.167191,
+        "reduces": 0.167191,
+        "premature": 0.167191,
+        "interruption": 0.167191,
+        "supports": 0.167191,
+        "optional": 0.118002,
+        "collaborative": 0.167191,
+        "completion": 0.167191,
+        "speculative": 0.139975,
+        "conversational-prosody": 0.157591,
+        "negative-result": 0.153563,
+        "speculative-execution": 0.27995,
+        "synthetic-audio": 0.193677
+      },
+      "prosody-006": {
+        "runtime": 0.193119,
+        "use": 0.193119,
+        "sub-millisecond": 0.193119,
+        "readiness": 0.161683,
+        "policy": 0.193119,
+        "select": 0.193119,
+        "minority": 0.193119,
+        "unfinished": 0.17473,
+        "conversational": 0.151562,
+        "turns": 0.193119,
+        "private": 0.17473,
+        "speculative": 0.323365,
+        "response": 0.161683,
+        "work": 0.17473,
+        "positive": 0.193119,
+        "net": 0.193119,
+        "value": 0.193119,
+        "abstaining": 0.193119,
+        "everywhere": 0.193119,
+        "else": 0.193119,
+        "familiarity-gated": 0.193119,
+        "cognition": 0.193119,
+        "conversational-prosody": 0.182031,
+        "negative-result": 0.177378,
+        "speculative-execution": 0.323365
+      },
+      "prosody-007": {
+        "conversational": 0.139167,
+        "model": 0.102709,
+        "recognize": 0.14846,
+        "predictable": 0.177325,
+        "semantic": 0.14846,
+        "trajectory": 0.177325,
+        "once": 0.16044,
+        "per": 0.177325,
+        "completed": 0.177325,
+        "turn": 0.14846,
+        "request": 0.177325,
+        "bounded": 0.296919,
+        "runtime-owned": 0.177325,
+        "subscription": 0.177325,
+        "selects": 0.177325,
+        "future": 0.16044,
+        "speculative": 0.14846,
+        "work": 0.16044,
+        "more": 0.177325,
+        "effectively": 0.177325,
+        "than": 0.14846,
+        "stateless": 0.177325,
+        "numeric": 0.177325,
+        "readiness": 0.14846,
+        "gate": 0.14846,
+        "llm-directed": 0.177325,
+        "speculation": 0.177325,
+        "subscriptions": 0.177325,
+        "conversational-prosody": 0.167144,
+        "inconclusive-result": 0.25031,
+        "speculative-execution": 0.296919
+      },
+      "prosody-008": {
+        "post-hoc": 0.21811,
+        "focus": 0.178868,
+        "control": 0.21811,
+        "create": 0.21811,
+        "audible": 0.482129,
+        "natural": 0.18919,
+        "emphasis": 0.201823,
+        "before": 0.201823,
+        "spending": 0.201823,
+        "human-review": 0.149949,
+        "labor": 0.241064,
+        "focus-control": 0.241064,
+        "gate": 0.201823,
+        "blinded-review": 0.221415,
+        "conversational-prosody": 0.227223,
+        "negative-result": 0.221415,
+        "prosody-control": 0.325164
+      },
+      "prosody-009": {
+        "native": 0.371346,
+        "kokoro": 0.371346,
+        "lexical": 0.185673,
+        "stress": 0.371346,
+        "produce": 0.132727,
+        "natural": 0.161054,
+        "audio": 0.161054,
+        "validate": 0.205214,
+        "intended": 0.185673,
+        "focus": 0.152268,
+        "mapping": 0.205214,
+        "pilot": 0.127649,
+        "blinded-review": 0.188487,
+        "conversational-prosody": 0.193431,
+        "mixed-result": 0.255298,
+        "prosody-control": 0.276806,
+        "revision": 0.230009,
+        "synthetic-audio": 0.237724
+      },
+      "prosody-010": {
+        "native": 0.393532,
+        "lexical": 0.196766,
+        "stress": 0.393532,
+        "create": 0.196766,
+        "reliable": 0.217475,
+        "directional": 0.182073,
+        "discourse": 0.196766,
+        "prominence": 0.434949,
+        "gate": 0.182073,
+        "blinded-review": 0.199748,
+        "conversational-prosody": 0.204988,
+        "negative-result": 0.199748,
+        "prosody-control": 0.293344,
+        "synthetic-audio": 0.251927
+      },
+      "prosody-011": {
+        "negative": 0.176191,
+        "labnote": 0.14751,
+        "003": 0.176191,
+        "matched-versus-shuffled": 0.176191,
+        "result": 0.176191,
+        "persist": 0.176191,
+        "every": 0.176191,
+        "audio": 0.138277,
+        "clip": 0.176191,
+        "generated": 0.176191,
+        "locally": 0.159414,
+        "known": 0.176191,
+        "fingerprinted": 0.176191,
+        "synthesizer": 0.176191,
+        "exact": 0.159414,
+        "transcript": 0.159414,
+        "fidelity": 0.176191,
+        "verified": 0.176191,
+        "before": 0.14751,
+        "downstream": 0.176191,
+        "generation": 0.14751,
+        "reproducible": 0.176191,
+        "synthetic": 0.159414,
+        "conversational-audio": 0.176191,
+        "rerun": 0.176191,
+        "conversational-prosody": 0.166075,
+        "holdout": 0.170549,
+        "inconclusive-result": 0.248708,
+        "provenance": 0.29502,
+        "revision": 0.197479,
+        "synthetic-audio": 0.204103
+      },
+      "prosody-012": {
+        "whole-utterance": 0.217705,
+        "reference": 0.217705,
+        "conditioning": 0.217705,
+        "reproduce": 0.196975,
+        "explicitly": 0.217705,
+        "demonstrated": 0.217705,
+        "contrastive": 0.182267,
+        "focus": 0.161536,
+        "artifacts": 0.217705,
+        "post-hoc": 0.196975,
+        "dsp": 0.217705,
+        "reference-conditioned": 0.217705,
+        "contrastive-focus": 0.196975,
+        "transfer": 0.153655,
+        "blinded-review": 0.19996,
+        "conversational-prosody": 0.205205,
+        "prosody-control": 0.293656,
+        "reference-conditioning": 0.435411,
+        "synthetic-audio": 0.252195
+      },
+      "prosody-013": {
+        "reference-free": 0.223457,
+        "natural-language": 0.223457,
+        "instructions": 0.223457,
+        "produce": 0.144526,
+        "natural": 0.175372,
+        "directionally": 0.223457,
+        "correct": 0.202179,
+        "contrastive": 0.374164,
+        "focus": 0.331608,
+        "instruction-conditioned": 0.223457,
+        "blinded-review": 0.205243,
+        "conversational-prosody": 0.210627,
+        "instruction-control": 0.404358,
+        "prosody-control": 0.301414,
+        "synthetic-audio": 0.258858
+      },
+      "prosody-014": {
+        "removing": 0.20368,
+        "competing": 0.20368,
+        "focus": 0.15113,
+        "word": 0.20368,
+        "qwen": 0.20368,
+        "instruction": 0.20368,
+        "restore": 0.20368,
+        "directional": 0.170525,
+        "contrastive": 0.170525,
+        "emphasis": 0.170525,
+        "contrastive-focus": 0.184285,
+        "instruction-form": 0.20368,
+        "ablation": 0.511574,
+        "conversational-prosody": 0.191986,
+        "instruction-control": 0.368571,
+        "prosody-control": 0.274738,
+        "synthetic-audio": 0.235948
+      },
+      "prosody-015": {
+        "coherent": 0.193646,
+        "readings": 0.175206,
+        "actually": 0.193646,
+        "emerge": 0.193646,
+        "direct": 0.136674,
+        "lexical-focus": 0.193646,
+        "control": 0.175206,
+        "fails": 0.193646,
+        "emergent": 0.193646,
+        "prosody": 0.136674,
+        "annotation": 0.580937,
+        "conversational-prosody": 0.182527,
+        "discovery": 0.387291,
+        "prosody-fingerprint": 0.324247,
+        "synthetic-audio": 0.224323
+      },
+      "prosody-016": {
+        "lightweight": 0.199336,
+        "acoustic": 0.398671,
+        "fingerprints": 0.199336,
+        "recover": 0.147906,
+        "perceived": 0.199336,
+        "emphasis": 0.166887,
+        "expressive": 0.199336,
+        "delivery": 0.166887,
+        "prosody": 0.14069,
+        "015": 0.180354,
+        "corpus": 0.199336,
+        "fingerprint": 0.180354,
+        "pilot": 0.123993,
+        "acoustic-analysis": 0.398671,
+        "conversational-prosody": 0.18789,
+        "prosody-fingerprint": 0.333774,
+        "representation": 0.398671
+      },
+      "prosody-017": {
+        "small": 0.145605,
+        "multi-utterance": 0.371058,
+        "candidate": 0.26189,
+        "pool": 0.371058,
+        "supply": 0.185529,
+        "natural": 0.145605,
+        "repeated": 0.167863,
+        "readings": 0.167863,
+        "held-out": 0.185529,
+        "fingerprint-retrieval": 0.185529,
+        "test": 0.185529,
+        "prosody": 0.130945,
+        "candidate-generation": 0.371058,
+        "conversational-prosody": 0.174877,
+        "dataset": 0.371058,
+        "prosody-fingerprint": 0.310656
+      },
+      "prosody-018": {
+        "conversation-aware": 0.197117,
+        "turn": 0.16503,
+        "direction": 0.394235,
+        "produce": 0.12749,
+        "convincing": 0.197117,
+        "two-speaker": 0.394235,
+        "exchange": 0.197117,
+        "isolated": 0.197117,
+        "line": 0.197117,
+        "conversation-conditioned": 0.197117,
+        "pilot": 0.122613,
+        "conversational-prosody": 0.185799,
+        "multi-speaker": 0.394235,
+        "synthetic-audio": 0.228345,
+        "turn-taking": 0.394235
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.915154,
+        0.915609,
+        0.941441,
+        0.970694,
+        0.966149,
+        0.968917,
+        0.957745,
+        0.922155,
+        0.96188,
+        0.947706,
+        0.961839,
+        0.942389,
+        0.964297,
+        0.966056,
+        0.965059,
+        0.967479,
+        0.94918
+      ],
+      [
+        0.915154,
+        0,
+        0.623283,
+        0.934766,
+        0.921644,
+        0.840682,
+        0.927819,
+        0.887022,
+        0.929183,
+        0.898078,
+        0.918618,
+        0.947664,
+        0.946282,
+        0.951036,
+        0.927348,
+        0.866539,
+        0.930393,
+        0.931977
+      ],
+      [
+        0.915609,
+        0.623283,
+        0,
+        0.840784,
+        0.927672,
+        0.917395,
+        0.879726,
+        0.958458,
+        0.821304,
+        0.905919,
+        0.635895,
+        0.905819,
+        0.86785,
+        0.911886,
+        0.897518,
+        0.90433,
+        0.950103,
+        0.899933
+      ],
+      [
+        0.941441,
+        0.934766,
+        0.840784,
+        0,
+        0.901613,
+        0.970167,
+        0.900828,
+        0.927401,
+        0.773478,
+        0.852808,
+        0.87063,
+        0.883639,
+        0.880565,
+        0.921012,
+        0.908131,
+        0.93286,
+        0.95527,
+        0.923557
+      ],
+      [
+        0.970694,
+        0.921644,
+        0.927672,
+        0.901613,
+        0,
+        0.781854,
+        0.797469,
+        0.93019,
+        0.923475,
+        0.888229,
+        0.934298,
+        0.918817,
+        0.916672,
+        0.924047,
+        0.927789,
+        0.97039,
+        0.972441,
+        0.903394
+      ],
+      [
+        0.966149,
+        0.840682,
+        0.917395,
+        0.970167,
+        0.781854,
+        0,
+        0.752425,
+        0.919364,
+        0.96479,
+        0.927255,
+        0.969769,
+        0.962646,
+        0.961659,
+        0.965053,
+        0.966774,
+        0.965798,
+        0.968167,
+        0.966179
+      ],
+      [
+        0.968917,
+        0.927819,
+        0.879726,
+        0.900828,
+        0.797469,
+        0.752425,
+        0,
+        0.932058,
+        0.967669,
+        0.938707,
+        0.909987,
+        0.965701,
+        0.964795,
+        0.967911,
+        0.969492,
+        0.968595,
+        0.97077,
+        0.944444
+      ],
+      [
+        0.957745,
+        0.887022,
+        0.958458,
+        0.927401,
+        0.93019,
+        0.919364,
+        0.932058,
+        0,
+        0.766601,
+        0.689919,
+        0.932493,
+        0.741756,
+        0.716195,
+        0.805594,
+        0.920311,
+        0.923625,
+        0.932717,
+        0.957782
+      ],
+      [
+        0.922155,
+        0.929183,
+        0.821304,
+        0.773478,
+        0.923475,
+        0.96479,
+        0.967669,
+        0.766601,
+        0,
+        0.452803,
+        0.851663,
+        0.756782,
+        0.677682,
+        0.807712,
+        0.911366,
+        0.947829,
+        0.942723,
+        0.877205
+      ],
+      [
+        0.96188,
+        0.898078,
+        0.905919,
+        0.852808,
+        0.888229,
+        0.927255,
+        0.938707,
+        0.689919,
+        0.452803,
+        0,
+        0.914538,
+        0.768317,
+        0.762196,
+        0.789563,
+        0.906071,
+        0.961485,
+        0.964152,
+        0.904387
+      ],
+      [
+        0.947706,
+        0.918618,
+        0.635895,
+        0.87063,
+        0.934298,
+        0.969769,
+        0.909987,
+        0.932493,
+        0.851663,
+        0.914538,
+        0,
+        0.914447,
+        0.912186,
+        0.919958,
+        0.923902,
+        0.968796,
+        0.970957,
+        0.922537
+      ],
+      [
+        0.961839,
+        0.947664,
+        0.905819,
+        0.883639,
+        0.918817,
+        0.962646,
+        0.965701,
+        0.741756,
+        0.756782,
+        0.768317,
+        0.914447,
+        0,
+        0.640179,
+        0.728627,
+        0.905971,
+        0.961444,
+        0.964114,
+        0.904285
+      ],
+      [
+        0.942389,
+        0.946282,
+        0.86785,
+        0.880565,
+        0.916672,
+        0.961659,
+        0.964795,
+        0.716195,
+        0.677682,
+        0.762196,
+        0.912186,
+        0.640179,
+        0,
+        0.552721,
+        0.903487,
+        0.960425,
+        0.937631,
+        0.883331
+      ],
+      [
+        0.964297,
+        0.951036,
+        0.911886,
+        0.921012,
+        0.924047,
+        0.965053,
+        0.967911,
+        0.805594,
+        0.807712,
+        0.789563,
+        0.919958,
+        0.728627,
+        0.552721,
+        0,
+        0.912029,
+        0.935469,
+        0.966426,
+        0.910452
+      ],
+      [
+        0.966056,
+        0.927348,
+        0.897518,
+        0.908131,
+        0.927789,
+        0.966774,
+        0.969492,
+        0.920311,
+        0.911366,
+        0.906071,
+        0.923902,
+        0.905971,
+        0.903487,
+        0.912029,
+        0,
+        0.838251,
+        0.820044,
+        0.914863
+      ],
+      [
+        0.965059,
+        0.866539,
+        0.90433,
+        0.93286,
+        0.97039,
+        0.965798,
+        0.968595,
+        0.923625,
+        0.947829,
+        0.961485,
+        0.968796,
+        0.961444,
+        0.960425,
+        0.935469,
+        0.838251,
+        0,
+        0.845031,
+        0.949887
+      ],
+      [
+        0.967479,
+        0.930393,
+        0.950103,
+        0.95527,
+        0.972441,
+        0.968167,
+        0.97077,
+        0.932717,
+        0.942723,
+        0.964152,
+        0.970957,
+        0.964114,
+        0.937631,
+        0.966426,
+        0.820044,
+        0.845031,
+        0,
+        0.967508
+      ],
+      [
+        0.94918,
+        0.931977,
+        0.899933,
+        0.923557,
+        0.903394,
+        0.966179,
+        0.944444,
+        0.957782,
+        0.877205,
+        0.904387,
+        0.922537,
+        0.904285,
+        0.883331,
+        0.910452,
+        0.914863,
+        0.949887,
+        0.967508,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0.575858,
+      "points": {
+        "prosody-001": [
+          -0.132399,
+          -0.080356
+        ],
+        "prosody-002": [
+          -0.264778,
+          -0.060162
+        ],
+        "prosody-003": [
+          -0.206158,
+          -0.087264
+        ],
+        "prosody-004": [
+          -0.005391,
+          -0.012423
+        ],
+        "prosody-005": [
+          -0.179281,
+          0.341008
+        ],
+        "prosody-006": [
+          -0.292564,
+          0.371089
+        ],
+        "prosody-007": [
+          -0.293817,
+          0.358849
+        ],
+        "prosody-008": [
+          0.271167,
+          0.0591
+        ],
+        "prosody-009": [
+          0.328393,
+          0.011858
+        ],
+        "prosody-010": [
+          0.322633,
+          0.101621
+        ],
+        "prosody-011": [
+          -0.113804,
+          -0.048665
+        ],
+        "prosody-012": [
+          0.338688,
+          0.033675
+        ],
+        "prosody-013": [
+          0.391053,
+          0.0151
+        ],
+        "prosody-014": [
+          0.326628,
+          0.008963
+        ],
+        "prosody-015": [
+          -0.095822,
+          -0.306515
+        ],
+        "prosody-016": [
+          -0.193067,
+          -0.342834
+        ],
+        "prosody-017": [
+          -0.16284,
+          -0.34173
+        ],
+        "prosody-018": [
+          -0.038641,
+          -0.021316
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

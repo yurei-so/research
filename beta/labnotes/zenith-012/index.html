@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-012 · ZENITH · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="localized panel frozen holdout"><meta property="og:description" content="ZENITH-012 · ZENITH · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-012/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-012.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-012: localized panel frozen holdout, outcome negative">
+<meta property="article:published_time" content="2026-08-25T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="localized panel frozen holdout"><meta name="twitter:description" content="ZENITH-012 · ZENITH · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-012.png">
+<title>localized panel frozen holdout — zenith-012 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/zenith-012/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-012/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">localized panel frozen holdout</h1>
+<div class="note-vitals"><span>zenith-012</span><time itemprop="datePublished" datetime="2026-08-25">2026-08-25</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Does the localized panel candidate that passed development cross-validation generalize to a separately frozen, balanced live Small-UI holdout?</p><div class="tags"><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>negative-result</span><span>panel-recognition</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/012-localized-panel-frozen-holdout.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-011/"><span class="lineage-id">zenith-011</span><strong>localized panel transfer</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-012</span><strong>localized panel frozen holdout</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-25</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-013/"><span class="lineage-id">zenith-013</span><strong>varied Inventory position transfer</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-25</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-012-localized-panel-frozen-holdout">Labnote 012: localized panel frozen holdout<a class="heading-anchor" href="#labnote-012-localized-panel-frozen-holdout" aria-label="Copy link to Labnote 012: localized panel frozen holdout" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does the localized panel candidate that passed development cross-validation generalize to a separately frozen, balanced live Small-UI holdout?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Candidate: content-addressed localized model</li>
+<p><code>256bc9c9d71497b174ba57210b2e8fc76443f6981223136f2d6a81daec3f1926</code>.</p>
+<li>Holdout: 16 newly captured, structurally masked observations balanced across</li>
+<p>Inventory-only, Hero-plus-Inventory, Hero-only, and closed-panel states.</p>
+<li>Labels: bound from operator-staged states before transfer; recognition did</li>
+<p>not run during capture.</p>
+<li>Holdout digest:</li>
+<p><code>76a5cf1552eb06a2265b16e10ea1f039bb80b30cc2a7ea760291b3ad41419363</code>.</p>
+<li>Threshold: candidate's frozen 0.65 threshold.</li>
+<li>Training and calibration: disabled.</li>
+<li>Promotion gate, fixed before evaluation: at least 87.5% aggregate exact</li>
+<p>accuracy, at least 75% exact accuracy in every state, and no class above a 12.5% aggregate false-call-plus-miss rate.</p>
+<li>Accelerator: RTX 4070 through a non-preemptive accelerator lease.</li>
+<li>Internal execution record retained; identifier withheld.</li>
+</ul>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>State</th><th>Exact accuracy</th></tr></thead><tbody><tr><td>Inventory only</td><td>0/4 (0%)</td></tr><tr><td>Hero + Inventory</td><td>4/4 (100%)</td></tr><tr><td>Hero only</td><td>4/4 (100%)</td></tr><tr><td>Closed</td><td>4/4 (100%)</td></tr></tbody></table></div>
+<p>Aggregate exact accuracy was 12/16 (75%). Hero was perfect with 8 true positives, 8 true negatives, no false positives, and no misses. Inventory had 4 true positives, 8 true negatives, no false positives, and 4 misses. Its 25% aggregate error rate exceeded the frozen 12.5% ceiling. The promotion gate failed.</p>
+<p>The evaluator performed no training or calibration, emitted no sample-level predictions, completed on CUDA in 3.6 seconds with exit code 0 and no stderr, and released the accelerator lease normally.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Reject the candidate for live use. The holdout is spent and must not be used for threshold selection, region changes, training, or repeat evaluation.</p>
+<p>The aggregate pattern suggests that Inventory evidence remains coupled to the panel arrangement seen when Hero is also open. Treat that as a direction for new development data, not as permission to inspect or fit this holdout. Collect new development-only Inventory observations with independently varied panel positions, environments, and combat conditions. Any successor architecture must pass a newly frozen development gate and a different fresh holdout.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

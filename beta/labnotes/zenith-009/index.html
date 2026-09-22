@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-009 · ZENITH · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="panel transfer baseline"><meta property="og:description" content="ZENITH-009 · ZENITH · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-009/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-009.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-009: panel transfer baseline, outcome negative">
+<meta property="article:published_time" content="2026-08-24T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="panel transfer baseline"><meta name="twitter:description" content="ZENITH-009 · ZENITH · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-009.png">
+<title>panel transfer baseline — zenith-009 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/zenith-009/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-009/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">panel transfer baseline</h1>
+<div class="note-vitals"><span>zenith-009</span><time itemprop="datePublished" datetime="2026-08-24">2026-08-24</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Does a frozen ImageNet-pretrained MobileNet V3 Small backbone provide enough visual structure to recognize Hero and Inventory across development batches without spending another holdout?</p><div class="tags"><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>negative-result</span><span>panel-recognition</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/009-panel-transfer-baseline.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-008/"><span class="lineage-id">zenith-008</span><strong>first visual panel baseline</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-009</span><strong>panel transfer baseline</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-010/"><span class="lineage-id">zenith-010</span><strong>corrective panel transfer</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-009-panel-transfer-baseline">Labnote 009: panel transfer baseline<a class="heading-anchor" href="#labnote-009-panel-transfer-baseline" aria-label="Copy link to Labnote 009: panel transfer baseline" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does a frozen ImageNet-pretrained MobileNet V3 Small backbone provide enough visual structure to recognize Hero and Inventory across development batches without spending another holdout?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Private input: three approved, structurally masked development batches only.</li>
+<li>Spent holdout: not transferred to the execution environment and not read by the experiment.</li>
+<li>Model: pretrained MobileNet V3 Small with frozen backbone; classifier head only.</li>
+<li>Augmentation: bounded translation, scale, brightness, contrast, and saturation.</li>
+<li>Evaluation: three leave-one-batch-out folds.</li>
+<li>Accelerator: RTX 4070 through a non-preemptive accelerator lease.</li>
+<li>Internal execution record retained; identifier withheld.</li>
+</ul>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>Held batch</th><th>Exact accuracy</th><th>Hero TP/FP/FN</th><th>Inventory TP/FP/FN</th></tr></thead><tbody><tr><td>001</td><td>7/9 (77.8%)</td><td>7/0/0</td><td>2/2/0</td></tr><tr><td>002</td><td>6/9 (66.7%)</td><td>7/1/0</td><td>1/0/2</td></tr><tr><td>003</td><td>8/12 (66.7%)</td><td>8/4/0</td><td>7/0/0</td></tr></tbody></table></div>
+<p>The job completed on CUDA with exit code 0 and no stderr. The accelerator lease was released normally.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Do not freeze a new holdout or promote the model. Transfer learning materially improved over the rejected 33.3% global-feature holdout result, but generalization remains insufficient. Hero recall is complete while false positives increase in the bright third environment; Inventory performance varies by placement and batch.</p>
+<p>Collect corrective development data emphasizing diverse no-Hero scenes, Inventory-only positions, and closed-panel negatives. Re-run development-only cross-batch evaluation before spending a new holdout.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

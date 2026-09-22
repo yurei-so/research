@@ -1,0 +1,66 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-09-22T00:36:46.000Z",
+  "source_revision": "cf9df288b22d",
+  "family": {
+    "id": "zenith",
+    "title": "Zenith",
+    "labnote_count": 17,
+    "outcomes": {
+      "mixed": 4,
+      "negative": 8,
+      "positive": 5
+    },
+    "latest_labnote_id": "zenith-017"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Zenith record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "zenith-017",
+        "title": "swamp localized panel holdout",
+        "date": "2026-08-25",
+        "status": "complete",
+        "outcome": "negative",
+        "question": "Does snowy-Hero successor candidate `3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8` generalize to a fresh balanced swamp holdout?",
+        "finding": "Aggregate exact accuracy was 11/16 (68.8%). Hero had 3 true positives, 8 true negatives, 5 misses, and no false positives. Inventory had 8 true positives, 6 true negatives, 2 false positives, and no misses. The promotion gate failed.",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/zenith-017/"
+      },
+      {
+        "id": "zenith-001",
+        "title": "default-layout geometry on a real holdout",
+        "date": "2026-08-24",
+        "status": "complete",
+        "outcome": "negative",
+        "question": "Can the deterministic default-layout proposal serve as a UI-region detector, or is it only suitable for conservative crop routing?",
+        "finding": "The default geometry matched zero of three verified regions at the preexisting 0.50 threshold.",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/zenith-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [
+    {
+      "from": "zenith-017",
+      "to": "zenith-016",
+      "type": "follows"
+    },
+    {
+      "from": "zenith-002",
+      "to": "zenith-001",
+      "type": "follows"
+    }
+  ],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/projects/zenith/",
+    "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
+    "heavy_geometry": "https://yurei-so.github.io/research/projects/zenith/graph.json",
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

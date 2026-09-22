@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="COMPOSITION-003 · COMPOSITION · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Optional editor-access campaign"><meta property="og:description" content="COMPOSITION-003 · COMPOSITION · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/composition-003/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/composition-003.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for composition-003: Optional editor-access campaign, outcome negative">
+<meta property="article:published_time" content="2026-08-23T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Optional editor-access campaign"><meta name="twitter:description" content="COMPOSITION-003 · COMPOSITION · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/composition-003.png">
+<title>Optional editor-access campaign — composition-003 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/composition-003/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/composition-003/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/composition/" aria-label="Open the composition family detailed view">LABNOTE / composition <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Optional editor-access campaign</h1>
+<div class="note-vitals"><span>composition-003</span><time itemprop="datePublished" datetime="2026-08-23">2026-08-23</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Giving a model optional access to constrained revision after a matched direct rewrite may improve judged output without forcing a mutation. Finalizing the initial candidate unchanged is a first-class treatment outcome.</p><div class="tags"><span>blinded-review</span><span>composition</span><span>human-review</span><span>negative-result</span><span>revision</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/003-optional-editor-access-campaign.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../composition-002/"><span class="lineage-id">composition-002</span><strong>Seeded mandatory-revision campaign</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-22</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">composition-003</span><strong>Optional editor-access campaign</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-23</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../composition-004/"><span class="lineage-id">composition-004</span><strong>Changed-output optional editor campaign</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-23</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-003-optional-editor-access-campaign">Labnote 003: Optional editor-access campaign<a class="heading-anchor" href="#labnote-003-optional-editor-access-campaign" aria-label="Copy link to Labnote 003: Optional editor-access campaign" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p>Date: 2026-08-23</p>
+<h3 id="hypothesis">Hypothesis<a class="heading-anchor" href="#hypothesis" aria-label="Copy link to Hypothesis" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Giving a model optional access to constrained revision after a matched direct rewrite may improve judged output without forcing a mutation. Finalizing the initial candidate unchanged is a first-class treatment outcome.</p>
+<h3 id="frozen-protocol">Frozen protocol<a class="heading-anchor" href="#frozen-protocol" aria-label="Copy link to Frozen protocol" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Experiment: <code>labnote_003</code></li>
+<li>Internal execution record retained; identifier withheld.</li>
+<li>Campaign digest: <code>6728008926b7d896ced277199b03748c3beda1400a0ea1a152a6dd8f879fadd3</code></li>
+<li>Repository revisions: <code>9a57f28</code>, corrected by <code>fd4c02f</code></li>
+<li>Model: <code>qwen3:8b</code></li>
+<li>Arms: matched direct rewrite and optional editor access</li>
+<li>Planned trials: 48</li>
+<li>Blinded pairs: 24</li>
+<li>Accelerator ownership: one non-preemptive accelerator lease</li>
+</ul>
+<p>The optional arm receives the same deterministic initial rewrite as its matched direct arm, followed by one editor decision. It may finalize unchanged or apply bounded revision operations. Invalid editor output is recorded as a protocol failure and transactionally falls back to the unchanged initial candidate, so failure cannot selectively remove a difficult case from human review.</p>
+<p>Raw prompts, drafts, generated texts, editor operations, telemetry, review pairs, and the arm-reveal key remain in owner-only private state.</p>
+<h3 id="runtime-result">Runtime result<a class="heading-anchor" href="#runtime-result" aria-label="Copy link to Runtime result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The authoritative campaign completed all 48 trials successfully at the execution layer and released its accelerator lease normally.</p>
+<div class="table-wrap"><table><thead><tr><th>Arm</th><th>Completed</th><th>Protocol success</th><th>Transactional fallback</th></tr></thead><tbody><tr><td>Direct rewrite</td><td>24</td><td>24/24</td><td>0</td></tr><tr><td>Optional editor access</td><td>24</td><td>12/24</td><td>12</td></tr></tbody></table></div>
+<p>All 24 matched comparisons remain in the blinded review set. The public review bundle digest is <code>534755a72c09fcc375f580bb0afbb36bd6801b8db35a575ea1371c999fdd6f8e</code>.</p>
+<p>The original pilot retained only valid optional-editor trials and would have created survivor bias. It is preserved as diagnostic evidence but is not an inferential campaign. The authoritative rerun uses the frozen <code>transactional-fallback-v1</code> protocol revision.</p>
+<h3 id="blinded-human-review-result">Blinded human review result<a class="heading-anchor" href="#blinded-human-review-result" aria-label="Copy link to Blinded human review result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The owner completed all 24 locked judgments on 2026-08-23. The reveal gate opened only after the final judgment was durably committed against the original bundle digest.</p>
+<div class="table-wrap"><table><thead><tr><th>Preferred arm</th><th>Pairs</th><th>Share of all pairs</th></tr></thead><tbody><tr><td>Direct rewrite</td><td>0</td><td>0%</td></tr><tr><td>Optional editor access</td><td>2</td><td>8.3%</td></tr><tr><td>Tie</td><td>22</td><td>91.7%</td></tr></tbody></table></div>
+<p>Both non-ties preferred optional editor access, but an exact two-sided binomial test on only two non-ties gives <code>p = 0.5</code>. This is not evidence of an arm-level quality advantage. Both preferences occurred among the four voluntarily edited cases; the other two edited cases tied. All eight valid unchanged decisions and all twelve transactional fallbacks tied. No secondary-dimension scores were recorded.</p>
+<p>The treatment voluntarily edited 4/12 protocol-valid cases (33.3%), or 4/24 of all treatment assignments (16.7%). Eight valid cases finalized unchanged and twelve invalid editor responses used the frozen unchanged fallback. The valid edits contained six replacements and two deletions in aggregate.</p>
+<div class="table-wrap"><table><thead><tr><th>Arm</th><th>Mean generated tokens</th><th>Mean prompt tokens</th><th>Mean latency</th><th>Generations</th></tr></thead><tbody><tr><td>Direct rewrite</td><td>33.75</td><td>91.00</td><td>0.593 s</td><td>1</td></tr><tr><td>Optional editor access</td><td>98.75</td><td>319.75</td><td>1.584 s</td><td>2</td></tr></tbody></table></div>
+<p>Optional access therefore used about 2.9 times the generated tokens, 3.5 times the prompt tokens, and 2.7 times the latency of direct rewrite in this campaign. Candidate text, operations, pair-level judgments, and treatment assignments remain in owner-only private state and are not reproduced here.</p>
+<h3 id="disposition">Disposition<a class="heading-anchor" href="#disposition" aria-label="Copy link to Disposition" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Do not fine-tune or promote optional editor access from this result.</li>
+<li>Treat the overwhelming tie rate as the primary finding: matched deterministic</li>
+<p>outputs were usually unchanged or judged equivalent.</p>
+<li>The two optional-editor preferences are localized to one case/style cell and</li>
+<p>are too few for a general conclusion.</p>
+<li>Repair the 50% editor-protocol failure rate before another quality campaign.</li>
+<li>If optional editing is revisited, target tasks with a measurable residual</li>
+<p>defect after direct rewrite and require the planned secondary scores.</p>
+<li>Preserve zero edits and transactional fallback as first-class outcomes; do</li>
+<p>not filter either from future review.</p>
+</ul></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

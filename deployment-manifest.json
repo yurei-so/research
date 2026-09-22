@@ -1,0 +1,17 @@
+{
+  "schema": "yurei-pages-publication/v1",
+  "stable": {
+    "source_branch": "main",
+    "source_revision": "cf9df288b22d6f67cc8d28f0fd371f3c15eb2832",
+    "path": "/"
+  },
+  "previews": [
+    {
+      "channel": "beta",
+      "source_branch": "beta",
+      "source_revision": "1832268046f646385c81f804dd3b3accec609302",
+      "path": "/beta/",
+      "canonical": false
+    }
+  ]
+}

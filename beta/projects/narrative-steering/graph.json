@@ -1,0 +1,180 @@
+{
+  "family": {
+    "id": "narrative-steering",
+    "title": "Narrative Steering"
+  },
+  "notes": [
+    {
+      "id": "narrative-steering-001",
+      "family": "narrative-steering",
+      "title": "Matched-state narrative steering vector pilot",
+      "date": "2026-09-05",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can blinded ratings of continuations from matched narrative states recover a repeatable directional steering vector for each model, distinct from story and prompt effects?",
+      "tags": [
+        "human-review",
+        "model-comparison",
+        "narrative-steering",
+        "panel-recognition",
+        "positive-result",
+        "prosody-control",
+        "story-engine"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/narrative-steering-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "narrative-steering-002"
+        ]
+      },
+      "result_summary": "One reviewer completed and locked all 48 blinded judgments before model identity was revealed. Mean confidence was modest (1.69–1.88 of 3), so the estimates remain pilot evidence rather than calibrated ground truth.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/narrative-steering/docs/labnotes/narrative-steering-001-vector-fingerprint-pilot.md"
+    },
+    {
+      "id": "narrative-steering-002",
+      "family": "narrative-steering",
+      "title": "Fingerprint compiler and blinded scorer calibration",
+      "date": "2026-09-05",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Which pilot steering coordinates are stable across story states, and can a blinded local model scorer reproduce the human measurements well enough to reduce future review burden?",
+      "tags": [
+        "blinded-review",
+        "human-review",
+        "mixed-result",
+        "model-comparison",
+        "narrative-steering",
+        "story-engine"
+      ],
+      "lineage": [
+        "narrative-steering-001"
+      ],
+      "relations": [
+        {
+          "target": "narrative-steering-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/narrative-steering-002/",
+      "timeline": {
+        "follows": [
+          "narrative-steering-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "Which pilot steering coordinates are stable across story states, and can a blinded local model scorer reproduce the human measurements well enough to reduce future review burden?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/narrative-steering/docs/labnotes/narrative-steering-002-fingerprint-compiler-and-scorer-calibration.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "narrative-steering-002",
+      "target": "narrative-steering-001",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 640,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "narrative-steering-001": {
+        "blinded": 0.125436,
+        "ratings": 0.159634,
+        "continuations": 0.159634,
+        "matched": 0.133764,
+        "narrative": 0.319268,
+        "states": 0.144501,
+        "recover": 0.118631,
+        "repeatable": 0.159634,
+        "directional": 0.133764,
+        "steering": 0.289002,
+        "vector": 0.289002,
+        "each": 0.159634,
+        "model": 0.092761,
+        "distinct": 0.144501,
+        "story": 0.144501,
+        "prompt": 0.159634,
+        "effects": 0.159634,
+        "matched-state": 0.159634,
+        "pilot": 0.099566,
+        "human-review": 0.192017,
+        "model-comparison": 0.289002,
+        "narrative-steering": 0.289002,
+        "panel-recognition": 0.179547,
+        "positive-result": 0.199131,
+        "prosody-control": 0.215788,
+        "story-engine": 0.289002
+      },
+      "narrative-steering-002": {
+        "pilot": 0.102845,
+        "steering": 0.149261,
+        "coordinates": 0.164892,
+        "stable": 0.164892,
+        "across": 0.116596,
+        "story": 0.149261,
+        "states": 0.149261,
+        "blinded": 0.259135,
+        "local": 0.13817,
+        "model": 0.095816,
+        "scorer": 0.329785,
+        "reproduce": 0.149261,
+        "human": 0.13817,
+        "measurements": 0.164892,
+        "well": 0.164892,
+        "enough": 0.122539,
+        "reduce": 0.164892,
+        "future": 0.149261,
+        "review": 0.13817,
+        "burden": 0.164892,
+        "fingerprint": 0.149261,
+        "compiler": 0.149261,
+        "calibration": 0.164892,
+        "blinded-review": 0.152246,
+        "human-review": 0.198342,
+        "mixed-result": 0.205691,
+        "model-comparison": 0.298522,
+        "narrative-steering": 0.298522,
+        "story-engine": 0.298522
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.565189
+      ],
+      [
+        0.565189,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0,
+      "points": {
+        "narrative-steering-001": [
+          0.282595,
+          0
+        ],
+        "narrative-steering-002": [
+          -0.282595,
+          0
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

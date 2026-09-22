@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-004 · ZENITH · MIXED · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="frozen Normal profile seeded validation"><meta property="og:description" content="ZENITH-004 · ZENITH · MIXED · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/zenith-004/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/zenith-004.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-004: frozen Normal profile seeded validation, outcome mixed">
+<meta property="article:published_time" content="2026-08-24T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="frozen Normal profile seeded validation"><meta name="twitter:description" content="ZENITH-004 · ZENITH · MIXED · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/zenith-004.png">
+<title>frozen Normal profile seeded validation — zenith-004 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/zenith-004/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/zenith-004/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">frozen Normal profile seeded validation</h1>
+<div class="note-vitals"><span>zenith-004</span><time itemprop="datePublished" datetime="2026-08-24">2026-08-24</time><span data-outcome="mixed">mixed</span><span>complete</span></div>
+<p class="question" itemprop="description">Does the frozen Normal UI crop profile remain visually acceptable across a fresh, independently collected gameplay batch?</p><div class="tags"><span>blinded-review</span><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>mixed-result</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/004-normal-profile-seeded-validation.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-003/"><span class="lineage-id">zenith-003</span><strong>UI-scale stratification</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-004</span><strong>frozen Normal profile seeded validation</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-24</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-005/"><span class="lineage-id">zenith-005</span><strong>Normal profile blind human validation</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-08-24</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-004-frozen-normal-profile-seeded-validation">Labnote 004: frozen Normal profile seeded validation<a class="heading-anchor" href="#labnote-004-frozen-normal-profile-seeded-validation" aria-label="Copy link to Labnote 004: frozen Normal profile seeded validation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does the frozen Normal UI crop profile remain visually acceptable across a fresh, independently collected gameplay batch?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Profile was frozen before validation collection.</li>
+<li>Dataset: <code>operator-normal-validation-v1</code></li>
+<li>12 distinct, private, test-only 1920x1080 gameplay frames</li>
+<li>36 reviewed regions: objectives, skill bar, and minimap</li>
+<li>Exact game-window selection and the Normal structural privacy mask were</li>
+<p>revalidated during collection.</p>
+<li>The operator separately approved the privacy sheet and frozen-profile overlay.</li>
+<li>Private images and text are not reproduced here.</li>
+</ul>
+<p>The review was seeded with the frozen profile boxes. The operator could reject the overlay, but did not draw independent boxes. This limits what the result can claim.</p>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>Metric</th><th>Result</th></tr></thead><tbody><tr><td>Frames</td><td>12</td></tr><tr><td>Reviewed labels</td><td>36</td></tr><tr><td>Mean IoU</td><td>1.000000</td></tr><tr><td>Recall at IoU 0.50</td><td>36/36 (1.000000)</td></tr></tbody></table></div>
+<p>Every objectives, skill-bar, and minimap proposal was accepted unchanged.</p>
+<h3 id="interpretation">Interpretation<a class="heading-anchor" href="#interpretation" aria-label="Copy link to Interpretation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The frozen Normal crop profile is stable across the newly collected scenes and the full capture, privacy review, admission, annotation review, and evaluation chain works end to end. The perfect score is expected because accepted seeded boxes become the reviewed labels. It is not independent localization evidence and must not be reported as detector accuracy.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Retain the frozen Normal profile as an operator-reviewed crop heuristic.</li>
+<li>Do not promote it to semantic detector status.</li>
+<li>Do not spend more operator time on repeated seeded validation batches.</li>
+<li>Build a private freehand or blind annotation mode before claiming independent</li>
+<p>geometric accuracy or deciding whether learned localization is warranted.</p>
+<li>Small and Large remain frozen but unvalidated by an independent annotation</li>
+<p>process. Larger/XL remains unsupported.</p>
+</ul></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

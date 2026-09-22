@@ -1,0 +1,85 @@
+{
+  "schema": "research-agent-overview/v1",
+  "generated_at": "2026-09-22T00:36:46.000Z",
+  "source_revision": "cf9df288b22d",
+  "purpose": "Token-bounded orientation and routing for the public Yurei Research record.",
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "families": [
+    {
+      "id": "composition",
+      "title": "Composition",
+      "labnote_count": 9,
+      "outcomes": {
+        "inconclusive": 2,
+        "mixed": 1,
+        "negative": 5,
+        "positive": 1
+      },
+      "latest_labnote_id": "composition-009",
+      "overview_url": "https://yurei-so.github.io/research/projects/composition/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/composition/"
+    },
+    {
+      "id": "narrative-steering",
+      "title": "Narrative Steering",
+      "labnote_count": 2,
+      "outcomes": {
+        "mixed": 1,
+        "positive": 1
+      },
+      "latest_labnote_id": "narrative-steering-002",
+      "overview_url": "https://yurei-so.github.io/research/projects/narrative-steering/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/narrative-steering/"
+    },
+    {
+      "id": "prosody",
+      "title": "Prosody",
+      "labnote_count": 18,
+      "outcomes": {
+        "inconclusive": 4,
+        "mixed": 3,
+        "negative": 8,
+        "positive": 3
+      },
+      "latest_labnote_id": "prosody-018",
+      "overview_url": "https://yurei-so.github.io/research/projects/prosody/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/prosody/"
+    },
+    {
+      "id": "voxel-guidance",
+      "title": "Voxel Guidance",
+      "labnote_count": 5,
+      "outcomes": {
+        "mixed": 3,
+        "negative": 1,
+        "positive": 1
+      },
+      "latest_labnote_id": "voxel-guidance-005",
+      "overview_url": "https://yurei-so.github.io/research/projects/voxel-guidance/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/voxel-guidance/"
+    },
+    {
+      "id": "zenith",
+      "title": "Zenith",
+      "labnote_count": 17,
+      "outcomes": {
+        "mixed": 4,
+        "negative": 8,
+        "positive": 5
+      },
+      "latest_labnote_id": "zenith-017",
+      "overview_url": "https://yurei-so.github.io/research/projects/zenith/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/zenith/"
+    }
+  ],
+  "links": {
+    "human": "https://yurei-so.github.io/research/",
+    "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
+    "source": "https://github.com/yurei-so/research"
+  }
+}

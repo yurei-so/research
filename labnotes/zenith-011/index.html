@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-011 · ZENITH · POSITIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="localized panel transfer"><meta property="og:description" content="ZENITH-011 · ZENITH · POSITIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/zenith-011/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/zenith-011.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-011: localized panel transfer, outcome positive">
+<meta property="article:published_time" content="2026-08-24T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="localized panel transfer"><meta name="twitter:description" content="ZENITH-011 · ZENITH · POSITIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/zenith-011.png">
+<title>localized panel transfer — zenith-011 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/zenith-011/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/zenith-011/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">localized panel transfer</h1>
+<div class="note-vitals"><span>zenith-011</span><time itemprop="datePublished" datetime="2026-08-24">2026-08-24</time><span data-outcome="positive">positive</span><span>complete</span></div>
+<p class="question" itemprop="description">Can class-specific localized evidence avoid the environmental confounding seen by whole-tile transfer learning while preserving development-only evaluation?</p><div class="tags"><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>panel-recognition</span><span>positive-result</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/011-localized-panel-transfer.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-010/"><span class="lineage-id">zenith-010</span><strong>corrective panel transfer</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-011</span><strong>localized panel transfer</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-08-24</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-012/"><span class="lineage-id">zenith-012</span><strong>localized panel frozen holdout</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-25</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-011-localized-panel-transfer">Labnote 011: localized panel transfer<a class="heading-anchor" href="#labnote-011-localized-panel-transfer" aria-label="Copy link to Labnote 011: localized panel transfer" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Can class-specific localized evidence avoid the environmental confounding seen by whole-tile transfer learning while preserving development-only evaluation?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Private input: four approved, structurally masked development batches only.</li>
+<li>Spent and future holdouts: not transferred to the execution environment and not read.</li>
+<li>Evidence plan: ten Hero header/icon-rail proposals and eight Inventory-grid</li>
+<p>proposals across the overlapping left and center tiles.</p>
+<li>Backbone: ImageNet-pretrained MobileNet V3 Small, frozen.</li>
+<li>Heads: independent multiple-instance linear classifiers trained from</li>
+<p>sample-level labels; one matching localized region is sufficient evidence.</p>
+<li>Threshold: 0.65, fixed before evaluation.</li>
+<li>Evaluation: four leave-one-development-batch-out folds.</li>
+<li>Promotion gate, fixed before evaluation: at least 80% aggregate exact</li>
+<p>accuracy, at least 70% exact accuracy in every fold, and no class above a 20% aggregate false-call-plus-miss rate.</p>
+<li>Accelerator: RTX 4070 through a non-preemptive accelerator lease.</li>
+<li>Internal execution record retained; identifier withheld.</li>
+</ul>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>Held batch</th><th>Exact accuracy</th><th>Hero TP/FP/FN</th><th>Inventory TP/FP/FN</th></tr></thead><tbody><tr><td>001</td><td>9/9 (100%)</td><td>7/0/0</td><td>2/0/0</td></tr><tr><td>002</td><td>8/9 (88.9%)</td><td>7/0/0</td><td>2/0/1</td></tr><tr><td>003</td><td>10/12 (83.3%)</td><td>8/2/0</td><td>7/0/0</td></tr><tr><td>004 corrective</td><td>12/12 (100%)</td><td>0/0/0</td><td>8/0/0</td></tr></tbody></table></div>
+<p>Aggregate exact accuracy was 39/42 (92.9%). Hero's aggregate error rate was 4.8%; Inventory's was 2.4%. The frozen development gate passed. The job completed on CUDA in 35.6 seconds with exit code 0 and no stderr. The scheduler and compute broker remained healthy with zero restarts, and the accelerator lease was released normally.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Accept localized panel evidence as the first candidate architecture to earn a fresh holdout. This does not promote a production model: the same small corpus still supplied both training batches and cross-batch evaluation environments.</p>
+<p>Before reading new holdout pixels, train and durably package one final model from all approved development batches with the region plan, threshold, model metadata, and corpus digests bound together. Then collect a separately frozen, recognition-disabled live set with intentional Hero, Inventory, combined, and closed-panel state variety. Keep the operator's current ordinary gameplay out of the holdout unless it is explicitly admitted through that collection flow.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

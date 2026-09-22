@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="PROSODY-001 · PROSODY · POSITIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Selected Poems real-media ingest (v0.1.0)"><meta property="og:description" content="PROSODY-001 · PROSODY · POSITIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-001/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-001.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for prosody-001: Selected Poems real-media ingest (v0.1.0), outcome positive">
+<meta property="article:published_time" content="2026-06-27T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Selected Poems real-media ingest (v0.1.0)"><meta name="twitter:description" content="PROSODY-001 · PROSODY · POSITIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-001.png">
+<title>Selected Poems real-media ingest (v0.1.0) — prosody-001 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/prosody-001/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-001/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/prosody/" aria-label="Open the prosody family detailed view">LABNOTE / prosody <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Selected Poems real-media ingest (v0.1.0)</h1>
+<div class="note-vitals"><span>prosody-001</span><time itemprop="datePublished" datetime="2026-06-27">2026-06-27</time><span data-outcome="positive">positive</span><span>complete</span></div>
+<p class="question" itemprop="description">Can the packaged file and simulated-stream ingestion paths produce consistent prosodic metadata from real spoken audio when transcription remains an external step?</p><div class="tags"><span>conversational-prosody</span><span>positive-result</span><span>real-audio</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-001-selected-poems-real-media.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><span class="lineage-empty">No earlier note</span></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">prosody-001</span><strong>Selected Poems real-media ingest (v0.1.0)</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-06-27</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-002/"><span class="lineage-id">prosody-002</span><strong>Shakespeare monologue downstream-response pilot (v0.3.1)</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-07-01</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="lab-note-selected-poems-real-media-ingest-v0-1-0">Lab note: Selected Poems real-media ingest (v0.1.0)<a class="heading-anchor" href="#lab-note-selected-poems-real-media-ingest-v0-1-0" aria-label="Copy link to Lab note: Selected Poems real-media ingest (v0.1.0)" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p><strong>Run date:</strong> 2026-06-27 <strong>Package:</strong> <code>conversation-prosody-pipeline</code> 0.1.0 <strong>Metadata schema:</strong> 1.0 <strong>Status:</strong> Successful</p>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Can the packaged file and simulated-stream ingestion paths produce consistent prosodic metadata from real spoken audio when transcription remains an external step?</p>
+<h3 id="setup">Setup<a class="heading-anchor" href="#setup" aria-label="Copy link to Setup" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The experiment ran outside the source tree in the disposable workspace <code>~/Downloads/workspace</code>. It used four of seven recordings from LibriVox's public-domain *Selected Poems of Sidney Lanier* archive:</p>
+<ul>
+<li>Source: &lt;https://archive.org/details/selectedpoems_lulahragsdale_2606_librivox&gt;</li>
+<li>Input archive: <code>selectedpoems_lulahragsdale_2606_librivox.zip</code></li>
+<li>Input archive SHA-256: <code>69a4f10a0f6bef4d1466b5655ccae36f6aba6cf765d2a5afb3eb5b188d086212</code></li>
+<li>Package wheel: <code>conversation_prosody_pipeline-0.1.0-py3-none-any.whl</code></li>
+<li>Wheel SHA-256: <code>86c9387c9a6d55467f62ceeecce051037c6cd0b7effb910077e18f1160c23a60</code></li>
+<li>Python: 3.13.5</li>
+<li>Conversion: FFmpeg 7.1.4, mono 16 kHz 16-bit PCM WAV</li>
+<li>Transcription: <code>faster-whisper</code> 1.2.1, <code>base.en</code>, CPU/int8, beam size 5,</li>
+<p>with voice activity detection enabled</p>
+<li>Stream simulation: 100 ms chunks</li>
+</ul>
+<p>Speech-to-text tooling was installed only in the disposable experiment environment; it was not added to the package dependencies.</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>For each recording, the experiment:</p>
+<ol>
+<li>converted the MP3 to mono 16 kHz 16-bit PCM WAV;</li>
+<li>generated an English transcript using external speech-to-text;</li>
+<li>passed the same WAV and transcript to <code>ingest_wav_file</code> and</li>
+<p><code>ingest_wav_stream</code>;</p>
+<li>built metadata through a fresh <code>ProsodyPipeline</code> for each path; and</li>
+<li>compared duration (tolerance <code>1e-6</code> ms), normalized RMS energy (<code>1e-12</code>), and</li>
+<p>transcript-derived speech rate (<code>1e-9</code> WPM).</p>
+</ol>
+<p>The disposable runner was <code>experiments/live_action_ingest.py</code>. A representative run was:</p>
+<pre><code>.venv/bin/python experiments/live_action_ingest.py \
+  artifacts/source_media/selectedpoems_01_ragsdale_64kb.mp3 \
+  --name selectedpoems_01_galatea_real_stt \
+  --model base.en \
+  --source-url https://archive.org/details/selectedpoems_lulahragsdale_2606_librivox</code></pre>
+<h3 id="results">Results<a class="heading-anchor" href="#results" aria-label="Copy link to Results" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Four of seven recordings (57.1%) were processed, totaling 571.931 seconds (9m 31.9s) and 1,065 transcribed words.</p>
+<div class="table-wrap"><table><thead><tr><th>Track</th><th>Duration (s)</th><th>STT words</th><th>Speech rate (WPM)</th><th>Energy RMS</th><th>File/stream</th></tr></thead><tbody><tr><td>Galatea</td><td>157.083</td><td>273</td><td>104.276</td><td>0.044454524</td><td>match</td></tr><tr><td>Upton Rey</td><td>158.128</td><td>292</td><td>110.796</td><td>0.044062410</td><td>match</td></tr><tr><td>Promise</td><td>117.609</td><td>213</td><td>108.665</td><td>0.045186867</td><td>match</td></tr><tr><td>Outside</td><td>139.111</td><td>287</td><td>123.786</td><td>0.045839201</td><td>match</td></tr></tbody></table></div>
+<p>All three compared features matched for all four recordings. This validates that, for these inputs and chunk settings, package version 0.1.0 computes equivalent aggregate features through its file and simulated-stream adapters.</p>
+<h3 id="interpretation-limits">Interpretation limits<a class="heading-anchor" href="#interpretation-limits" aria-label="Copy link to Interpretation limits" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>The transcripts are uncorrected machine transcriptions, not verified editions.</li>
+<li>Speech rate is the STT word count divided by the complete recording duration, so it</li>
+<p>includes pauses and spoken introductions.</p>
+<li>Energy RMS is normalized PCM amplitude, not calibrated loudness.</li>
+<li>This small consistency check does not establish accuracy across codecs, recording</li>
+<p>conditions, languages, or streaming chunk sizes.</p>
+<li>The pipeline made no emotion, identity, or biometric inference.</li>
+</ul>
+<p>The original detailed JSON, JSONL, CSV, reports, transcripts, and converted WAV files remain in the disposable workspace and are intentionally not copied into the source repository.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

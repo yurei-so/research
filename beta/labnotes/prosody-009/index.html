@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="PROSODY-009 · PROSODY · MIXED · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="native Kokoro stress pilot"><meta property="og:description" content="PROSODY-009 · PROSODY · MIXED · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-009/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-009.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for prosody-009: native Kokoro stress pilot, outcome mixed">
+<meta property="article:published_time" content="2026-08-23T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="native Kokoro stress pilot"><meta name="twitter:description" content="PROSODY-009 · PROSODY · MIXED · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-009.png">
+<title>native Kokoro stress pilot — prosody-009 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/prosody-009/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-009/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/prosody/" aria-label="Open the prosody family detailed view">LABNOTE / prosody <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">native Kokoro stress pilot</h1>
+<div class="note-vitals"><span>prosody-009</span><time itemprop="datePublished" datetime="2026-08-23">2026-08-23</time><span data-outcome="mixed">mixed</span><span>complete</span></div>
+<p class="question" itemprop="description">Can native Kokoro lexical stress produce natural audio and validate the intended focus mapping?</p><div class="tags"><span>blinded-review</span><span>conversational-prosody</span><span>mixed-result</span><span>prosody-control</span><span>revision</span><span>synthetic-audio</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-009-native-kokoro-stress-pilot.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-008/"><span class="lineage-id">prosody-008</span><strong>audible focus-control gate</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-23</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">prosody-009</span><strong>native Kokoro stress pilot</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-23</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-010/"><span class="lineage-id">prosody-010</span><strong>native stress prominence gate</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-23</span></a><a class="lineage-card" href="../prosody-012/"><span class="lineage-id">prosody-012</span><strong>reference-conditioned contrastive-focus transfer</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-09-11</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-009-native-kokoro-stress-pilot">Labnote 009 native Kokoro stress pilot<a class="heading-anchor" href="#labnote-009-native-kokoro-stress-pilot" aria-label="Copy link to Labnote 009 native Kokoro stress pilot" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p><strong>Status:</strong> Complete. Native synthesis passed naturalness, but the four-trial listener pilot did not validate the intended focus mapping.</p>
+<p>Labnote 008 proved that post-hoc token-local pitch editing can be audible while still sounding layered and unnatural. This experiment removes DSP entirely and uses Kokoro's documented Misaki stress representation before whole-utterance synthesis.</p>
+<p>For two deterministically selected eligible contrastive-emphasis pairs and both established voices, each condition keeps ordinary primary stress on the intended focus word and demotes the competing focus word with Misaki's <code>word <code>-1</code></code> annotation. <code>(+2)</code> is not used because installed-version verification showed it is a no-op on content words that already carry primary stress.</p>
+<p>The runner fails before GPU synthesis unless the phoneme manifest proves that:</p>
+<ul>
+<li>both focus words have primary stress in ordinary G2P;</li>
+<li>each annotated condition changes its competing word from primary to secondary;</li>
+<li>the intended word remains byte-identical at the phoneme level; and</li>
+<li>no non-focus token phonemes change.</li>
+</ul>
+<p>Eligibility is evaluated before deterministic hashing. The authored corpus contains three pairs where both competing focus words carry primary stress under the installed Misaki G2P; pairs involving naturally secondary function words such as <code>I</code> or <code>She</code> are excluded rather than coerced.</p>
+<p>Audio is generated as a complete utterance by Kokoro. There is no segmentation, splicing, pitch shifting, gain processing, time stretching, or crossfade stage. <code>prepare_review.py</code> refuses to package a listener bundle unless every native-stress trial passes the phoneme and bounded audio-integrity gates.</p>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The approval-gated scheduled run completed all four trials. Every condition changed exactly one competing token from primary to secondary stress; all intended and non-focus phonemes remained unchanged. Audio pairs were distinct and duration drift was 0.9–3.7 percent.</p>
+<p>The operator reported that native whole-utterance synthesis sounded much better than the rejected DSP pilots, with none of the prior layering complaint. This clears the qualitative naturalness gate for the mechanism. The completed blinded preferences were:</p>
+<ul>
+<li>intended stress: 1;</li>
+<li>alternate stress: 2; and</li>
+<li>tie: 1.</li>
+</ul>
+<p>This corpus is too small for general claims, and the direction does not support the current focus-mapping rule. Native stress is therefore a viable artifact-free synthesis primitive, not a validated context-to-prosody compiler. Do not expand it into the full pipeline without a new hypothesis about how discourse focus should map to Kokoro's phoneme stress representation.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

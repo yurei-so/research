@@ -1,0 +1,399 @@
+{
+  "family": {
+    "id": "voxel-guidance",
+    "title": "Voxel Guidance"
+  },
+  "notes": [
+    {
+      "id": "voxel-guidance-001",
+      "family": "voxel-guidance",
+      "title": "Minecraft behavioral-vector pilot",
+      "date": "2026-09-07",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can repeated, task-balanced Minecraft sessions produce an interpretable behavioral vector whose within-condition variation is smaller than its uncertainty?",
+      "tags": [
+        "behavioral-telemetry",
+        "human-in-the-loop",
+        "minecraft",
+        "planned-experiment",
+        "provenance",
+        "repeated-measures"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/voxel-guidance-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "voxel-guidance-002"
+        ]
+      },
+      "result_summary": "Can repeated, task-balanced Minecraft sessions produce an interpretable behavioral vector whose within-condition variation is smaller than its uncertainty?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-001-behavioral-vector-pilot.md"
+    },
+    {
+      "id": "voxel-guidance-002",
+      "family": "voxel-guidance",
+      "title": "Blinded current-task inference",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the current Minecraft task be inferred from causal behavior while holding out an entire seed block?",
+      "tags": [
+        "behavioral-telemetry",
+        "classification",
+        "grouped-validation",
+        "minecraft",
+        "positive-result"
+      ],
+      "lineage": [
+        "voxel-guidance-001"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-001",
+          "type": "extends",
+          "rationale": "Turns the behavioral-vector pilot into a held-seed test of whether causal play behavior identifies the current task."
+        }
+      ],
+      "href": "labnotes/voxel-guidance-002/",
+      "timeline": {
+        "follows": [
+          "voxel-guidance-001"
+        ],
+        "continued_by": [
+          "voxel-guidance-003"
+        ]
+      },
+      "result_summary": "Thirty seconds did not distinguish tasks reliably. Held-seed performance rose above chance by 60 seconds and peaked at 120–240 seconds. Full-session accuracy fell to 8/12, showing that more elapsed behavior did not monotonically improve separability. Explore was recognized in…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-002-blinded-task-inference.md"
+    },
+    {
+      "id": "voxel-guidance-003",
+      "family": "voxel-guidance",
+      "title": "Current-task feature-family ablation",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Which observable behavior families carry the 120-second held-seed task-inference signal?",
+      "tags": [
+        "ablation",
+        "behavioral-telemetry",
+        "classification",
+        "minecraft",
+        "mixed-result"
+      ],
+      "lineage": [
+        "voxel-guidance-002"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-002",
+          "type": "ablates",
+          "rationale": "Removes behavior feature families from the successful held-seed classifier to locate which observations carry its task signal."
+        }
+      ],
+      "href": "labnotes/voxel-guidance-003/",
+      "timeline": {
+        "follows": [
+          "voxel-guidance-002"
+        ],
+        "continued_by": [
+          "voxel-guidance-004"
+        ]
+      },
+      "result_summary": "Block actions alone reproduced the full model's predictions. Movement alone retained a strong held-seed signal. Coarse inventory flow alone did not reliably beat chance, and removing inventory did not change the full result. Removing either block actions or movement reduced ac…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-003-task-inference-ablation.md"
+    },
+    {
+      "id": "voxel-guidance-004",
+      "family": "voxel-guidance",
+      "title": "Machine-native state serialization baseline",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can two-minute behavior windows be represented compactly without loss, and does one local model preserve task recognition across prose, JSON, and typed tokens?",
+      "tags": [
+        "behavioral-telemetry",
+        "machine-native-state",
+        "serialization",
+        "apparatus",
+        "minecraft",
+        "local-model",
+        "mixed-result"
+      ],
+      "lineage": [
+        "voxel-guidance-003"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-003",
+          "type": "motivated-by",
+          "rationale": "The feature-family ablation made the surviving behavior fields concrete enough to test compact machine-native serialization."
+        }
+      ],
+      "href": "labnotes/voxel-guidance-004/",
+      "timeline": {
+        "follows": [
+          "voxel-guidance-003"
+        ],
+        "continued_by": [
+          "voxel-guidance-005"
+        ]
+      },
+      "result_summary": "The compact representation was 64.27% smaller than deterministic prose and 17.22% smaller than canonical JSON. JSON and compact decoding both retained exact numerical equality across all 12 snapshots. The reference behavioral classifier remained the previously measured 10/12 a…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-004-machine-native-state-encoding.md"
+    },
+    {
+      "id": "voxel-guidance-005",
+      "family": "voxel-guidance",
+      "title": "Semantic namespace token ablation",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can a semantic namespace token replace the full field dictionary when a local model interprets compact behavioral state?",
+      "tags": [
+        "behavioral-telemetry",
+        "machine-native-state",
+        "namespace",
+        "ablation",
+        "local-model",
+        "negative-result"
+      ],
+      "lineage": [
+        "voxel-guidance-004"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-004",
+          "type": "motivated-by",
+          "rationale": "Labnote 004 found that the shared field dictionary dominated compact prompt cost, so this note tested whether one semantic namespace could replace it."
+        }
+      ],
+      "href": "labnotes/voxel-guidance-005/",
+      "timeline": {
+        "follows": [
+          "voxel-guidance-004"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "Namespace-only and opaque-schema control produced exactly the same 12 predictions. The semantic namespace therefore supplied no measurable zero-shot benefit in this run while adding about 12 prompt tokens. The short group grammar did not preserve the full dictionary's semantic…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-005-semantic-namespace-ablation.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "voxel-guidance-002",
+      "target": "voxel-guidance-001",
+      "type": "extends",
+      "rationale": "Turns the behavioral-vector pilot into a held-seed test of whether causal play behavior identifies the current task."
+    },
+    {
+      "source": "voxel-guidance-003",
+      "target": "voxel-guidance-002",
+      "type": "ablates",
+      "rationale": "Removes behavior feature families from the successful held-seed classifier to locate which observations carry its task signal."
+    },
+    {
+      "source": "voxel-guidance-004",
+      "target": "voxel-guidance-003",
+      "type": "motivated-by",
+      "rationale": "The feature-family ablation made the surviving behavior fields concrete enough to test compact machine-native serialization."
+    },
+    {
+      "source": "voxel-guidance-005",
+      "target": "voxel-guidance-004",
+      "type": "motivated-by",
+      "rationale": "Labnote 004 found that the shared field dictionary dominated compact prompt cost, so this note tested whether one semantic namespace could replace it."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 640,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "voxel-guidance-001": {
+        "repeated": 0.144035,
+        "task-balanced": 0.159119,
+        "minecraft": 0.500125,
+        "sessions": 0.159119,
+        "produce": 0.099245,
+        "interpretable": 0.159119,
+        "behavioral": 0.144035,
+        "vector": 0.144035,
+        "whose": 0.159119,
+        "within-condition": 0.159119,
+        "variation": 0.159119,
+        "smaller": 0.159119,
+        "than": 0.133333,
+        "uncertainty": 0.159119,
+        "behavioral-vector": 0.159119,
+        "pilot": 0.099245,
+        "behavioral-telemetry": 0.236497,
+        "human-in-the-loop": 0.318239,
+        "planned-experiment": 0.318239,
+        "provenance": 0.250062,
+        "repeated-measures": 0.318239
+      },
+      "voxel-guidance-002": {
+        "current": 0.188002,
+        "minecraft": 0.44318,
+        "task": 0.17018,
+        "inferred": 0.188002,
+        "causal": 0.188002,
+        "behavior": 0.147727,
+        "holding": 0.188002,
+        "out": 0.188002,
+        "entire": 0.188002,
+        "seed": 0.188002,
+        "block": 0.188002,
+        "blinded": 0.147727,
+        "current-task": 0.17018,
+        "inference": 0.17018,
+        "behavioral-telemetry": 0.279425,
+        "classification": 0.34036,
+        "grouped-validation": 0.376005,
+        "positive-result": 0.234519
+      },
+      "voxel-guidance-003": {
+        "observable": 0.198934,
+        "behavior": 0.156317,
+        "families": 0.198934,
+        "carry": 0.198934,
+        "120-second": 0.198934,
+        "held-seed": 0.198934,
+        "task-inference": 0.198934,
+        "signal": 0.198934,
+        "current-task": 0.180076,
+        "feature-family": 0.198934,
+        "ablation": 0.500086,
+        "behavioral-telemetry": 0.295674,
+        "classification": 0.360151,
+        "minecraft": 0.312633,
+        "mixed-result": 0.248155
+      },
+      "voxel-guidance-004": {
+        "two-minute": 0.154909,
+        "behavior": 0.121723,
+        "windows": 0.154909,
+        "represented": 0.154909,
+        "compactly": 0.154909,
+        "loss": 0.154909,
+        "one": 0.121723,
+        "local": 0.129805,
+        "model": 0.090016,
+        "preserve": 0.140224,
+        "task": 0.140224,
+        "recognition": 0.140224,
+        "across": 0.109537,
+        "prose": 0.154909,
+        "json": 0.154909,
+        "typed": 0.154909,
+        "tokens": 0.154909,
+        "machine-native": 0.154909,
+        "state": 0.140224,
+        "serialization": 0.464728,
+        "baseline": 0.11512,
+        "behavioral-telemetry": 0.23024,
+        "machine-native-state": 0.280448,
+        "apparatus": 0.280448,
+        "minecraft": 0.243446,
+        "local-model": 0.280448,
+        "mixed-result": 0.193238
+      },
+      "voxel-guidance-005": {
+        "semantic": 0.244292,
+        "namespace": 0.583076,
+        "token": 0.291538,
+        "replace": 0.145769,
+        "full": 0.13195,
+        "field": 0.145769,
+        "dictionary": 0.145769,
+        "local": 0.122146,
+        "model": 0.084704,
+        "interprets": 0.145769,
+        "compact": 0.13195,
+        "behavioral": 0.13195,
+        "state": 0.13195,
+        "ablation": 0.366438,
+        "behavioral-telemetry": 0.216655,
+        "machine-native-state": 0.263901,
+        "local-model": 0.263901,
+        "negative-result": 0.13459
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.712271,
+        0.773718,
+        0.823795,
+        0.929756
+      ],
+      [
+        0.712271,
+        0,
+        0.60251,
+        0.785929,
+        0.939461
+      ],
+      [
+        0.773718,
+        0.60251,
+        0,
+        0.788834,
+        0.752691
+      ],
+      [
+        0.823795,
+        0.785929,
+        0.788834,
+        0,
+        0.760114
+      ],
+      [
+        0.929756,
+        0.939461,
+        0.752691,
+        0.760114,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0.23713,
+      "points": {
+        "voxel-guidance-001": [
+          -0.317513,
+          0.271492
+        ],
+        "voxel-guidance-002": [
+          -0.337036,
+          -0.15219
+        ],
+        "voxel-guidance-003": [
+          -0.055682,
+          -0.344839
+        ],
+        "voxel-guidance-004": [
+          0.197621,
+          0.317168
+        ],
+        "voxel-guidance-005": [
+          0.51261,
+          -0.091632
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

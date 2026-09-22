@@ -1,0 +1,1571 @@
+{
+  "family": {
+    "id": "zenith",
+    "title": "Zenith"
+  },
+  "notes": [
+    {
+      "id": "zenith-001",
+      "family": "zenith",
+      "title": "default-layout geometry on a real holdout",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can the deterministic default-layout proposal serve as a UI-region detector, or is it only suitable for conservative crop routing?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/zenith-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "zenith-002"
+        ]
+      },
+      "result_summary": "The default geometry matched zero of three verified regions at the preexisting 0.50 threshold.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/001-real-holdout-baseline.md"
+    },
+    {
+      "id": "zenith-002",
+      "family": "zenith",
+      "title": "batch holdout geometry confirmation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does the default-layout geometry baseline recover operator-reviewed visible HUD regions across a larger private gameplay holdout?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-001"
+      ],
+      "relations": [
+        {
+          "target": "zenith-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-002/",
+      "timeline": {
+        "follows": [
+          "zenith-001"
+        ],
+        "continued_by": [
+          "zenith-003"
+        ]
+      },
+      "result_summary": "Does the default-layout geometry baseline recover operator-reviewed visible HUD regions across a larger private gameplay holdout?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/002-batch-holdout-baseline.md"
+    },
+    {
+      "id": "zenith-003",
+      "family": "zenith",
+      "title": "UI-scale stratification",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does one generic default-layout geometry describe the visible Guild Wars 2 HUD across the Small, Normal, and Large UI profiles?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "deduplication",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-002"
+      ],
+      "relations": [
+        {
+          "target": "zenith-002",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-003/",
+      "timeline": {
+        "follows": [
+          "zenith-002"
+        ],
+        "continued_by": [
+          "zenith-004"
+        ]
+      },
+      "result_summary": "Does one generic default-layout geometry describe the visible Guild Wars 2 HUD across the Small, Normal, and Large UI profiles?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/003-ui-scale-stratification.md"
+    },
+    {
+      "id": "zenith-004",
+      "family": "zenith",
+      "title": "frozen Normal profile seeded validation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Does the frozen Normal UI crop profile remain visually acceptable across a fresh, independently collected gameplay batch?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "mixed-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-003"
+      ],
+      "relations": [
+        {
+          "target": "zenith-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-004/",
+      "timeline": {
+        "follows": [
+          "zenith-003"
+        ],
+        "continued_by": [
+          "zenith-005"
+        ]
+      },
+      "result_summary": "Every objectives, skill-bar, and minimap proposal was accepted unchanged.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/004-normal-profile-seeded-validation.md"
+    },
+    {
+      "id": "zenith-005",
+      "family": "zenith",
+      "title": "Normal profile blind human validation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Does the frozen Normal UI crop profile agree with independently drawn human boxes on fresh gameplay frames?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "positive-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-004"
+      ],
+      "relations": [
+        {
+          "target": "zenith-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-005/",
+      "timeline": {
+        "follows": [
+          "zenith-004"
+        ],
+        "continued_by": [
+          "zenith-006"
+        ]
+      },
+      "result_summary": "Overall recall at IoU 0.50 was 1.000000.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/005-normal-profile-blind-validation.md"
+    },
+    {
+      "id": "zenith-006",
+      "family": "zenith",
+      "title": "live one-shot observation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can Zenith Vision execute its complete live privacy and authority boundary once against Guild Wars 2 without allowing an optional OCR failure to suppress valid MumbleLink telemetry?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "positive-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-005"
+      ],
+      "relations": [
+        {
+          "target": "zenith-005",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-006/",
+      "timeline": {
+        "follows": [
+          "zenith-005"
+        ],
+        "continued_by": [
+          "zenith-007"
+        ]
+      },
+      "result_summary": "The first runner revision aborted when objectives OCR retained too little confident text. The runner was corrected so this optional interpreter contributes zero visual observations while current authoritative telemetry remains usable. The repeated live run then completed succe…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/006-live-one-shot-observation.md"
+    },
+    {
+      "id": "zenith-007",
+      "family": "zenith",
+      "title": "Small-UI panel recognition",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can Zenith Vision recognize a concrete open Guild Wars 2 UI panel in a messy live scene without retaining the full frame or emitting unrelated screen text?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "mixed-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-006"
+      ],
+      "relations": [
+        {
+          "target": "zenith-006",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-007/",
+      "timeline": {
+        "follows": [
+          "zenith-006"
+        ],
+        "continued_by": [
+          "zenith-008"
+        ]
+      },
+      "result_summary": "Can Zenith Vision recognize a concrete open Guild Wars 2 UI panel in a messy live scene without retaining the full frame or emitting unrelated screen text?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/007-small-ui-panel-recognition.md"
+    },
+    {
+      "id": "zenith-008",
+      "family": "zenith",
+      "title": "first visual panel baseline",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can a compact CPU ridge classifier trained on masked Small-UI panel tiles generalize from two development batches to a recognition-disabled frozen holdout captured during a live world boss?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-007"
+      ],
+      "relations": [
+        {
+          "target": "zenith-007",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-008/",
+      "timeline": {
+        "follows": [
+          "zenith-007"
+        ],
+        "continued_by": [
+          "zenith-009"
+        ]
+      },
+      "result_summary": "Can a compact CPU ridge classifier trained on masked Small-UI panel tiles generalize from two development batches to a recognition-disabled frozen holdout captured during a live world boss?",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/008-first-visual-panel-baseline.md"
+    },
+    {
+      "id": "zenith-009",
+      "family": "zenith",
+      "title": "panel transfer baseline",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does a frozen ImageNet-pretrained MobileNet V3 Small backbone provide enough visual structure to recognize Hero and Inventory across development batches without spending another holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-008"
+      ],
+      "relations": [
+        {
+          "target": "zenith-008",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-009/",
+      "timeline": {
+        "follows": [
+          "zenith-008"
+        ],
+        "continued_by": [
+          "zenith-010"
+        ]
+      },
+      "result_summary": "The job completed on CUDA with exit code 0 and no stderr. The accelerator lease was released normally.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/009-panel-transfer-baseline.md"
+    },
+    {
+      "id": "zenith-010",
+      "family": "zenith",
+      "title": "corrective panel transfer",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does adding an approved Inventory-only and closed-panel development batch fix the cross-batch false-positive behavior of the frozen MobileNet V3 Small panel classifier without spending a fresh holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-009"
+      ],
+      "relations": [
+        {
+          "target": "zenith-009",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-010/",
+      "timeline": {
+        "follows": [
+          "zenith-009"
+        ],
+        "continued_by": [
+          "zenith-011"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 29/42 (69.0%). The job completed on CUDA with exit code 0 and no stderr. The scheduler and compute broker remained healthy with zero restarts, and the accelerator lease was released normally.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/010-corrective-panel-transfer.md"
+    },
+    {
+      "id": "zenith-011",
+      "family": "zenith",
+      "title": "localized panel transfer",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can class-specific localized evidence avoid the environmental confounding seen by whole-tile transfer learning while preserving development-only evaluation?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "panel-recognition",
+        "positive-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-010"
+      ],
+      "relations": [
+        {
+          "target": "zenith-010",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-011/",
+      "timeline": {
+        "follows": [
+          "zenith-010"
+        ],
+        "continued_by": [
+          "zenith-012"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 39/42 (92.9%). Hero's aggregate error rate was 4.8%; Inventory's was 2.4%. The frozen development gate passed. The job completed on CUDA in 35.6 seconds with exit code 0 and no stderr. The scheduler and compute broker remained healthy with zero res…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/011-localized-panel-transfer.md"
+    },
+    {
+      "id": "zenith-012",
+      "family": "zenith",
+      "title": "localized panel frozen holdout",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does the localized panel candidate that passed development cross-validation generalize to a separately frozen, balanced live Small-UI holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-011"
+      ],
+      "relations": [
+        {
+          "target": "zenith-011",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-012/",
+      "timeline": {
+        "follows": [
+          "zenith-011"
+        ],
+        "continued_by": [
+          "zenith-013"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 12/16 (75%). Hero was perfect with 8 true positives, 8 true negatives, no false positives, and no misses. Inventory had 4 true positives, 8 true negatives, no false positives, and 4 misses. Its 25% aggregate error rate exceeded the frozen 12.5% cei…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/012-localized-panel-frozen-holdout.md"
+    },
+    {
+      "id": "zenith-013",
+      "family": "zenith",
+      "title": "varied Inventory position transfer",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Does adding new Inventory-only development batches staged at left, right, and center positions repair the localized candidate's position dependence?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "mixed-result",
+        "panel-recognition",
+        "privacy",
+        "revision"
+      ],
+      "lineage": [
+        "zenith-012"
+      ],
+      "relations": [
+        {
+          "target": "zenith-012",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-013/",
+      "timeline": {
+        "follows": [
+          "zenith-012"
+        ],
+        "continued_by": [
+          "zenith-014"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 48/54 (88.9%). Inventory generalized across all three new position folds, but the second original environment collapsed through four missed Hero states. The 44.4% fold violated the frozen 70% floor, so the development gate failed and no candidate w…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/013-varied-inventory-position-transfer.md"
+    },
+    {
+      "id": "zenith-014",
+      "family": "zenith",
+      "title": "deterministic localized transfer",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Does deterministic, class-balanced full-batch multiple-instance training retain Hero generalization after adding varied Inventory-only position data?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "panel-recognition",
+        "positive-result",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-013"
+      ],
+      "relations": [
+        {
+          "target": "zenith-013",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-014/",
+      "timeline": {
+        "follows": [
+          "zenith-013"
+        ],
+        "continued_by": [
+          "zenith-015"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 50/54 (92.6%). Hero's aggregate error rate was 5.6%; Inventory's was 1.9%. The previously collapsing second fold improved from 44.4% to 77.8%, and all three new position folds retained complete Inventory recall. The frozen development gate passed.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/014-deterministic-localized-transfer.md"
+    },
+    {
+      "id": "zenith-015",
+      "family": "zenith",
+      "title": "snowy localized panel holdout",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Does deterministic localized candidate `bc155807a28aee1a2d7d10fb18a96b24d40b9fe300fc3e01650f70e5d61cc649` generalize to a fresh balanced holdout captured during the snowy Claw of Jormag encounter?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "mixed-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-014"
+      ],
+      "relations": [
+        {
+          "target": "zenith-014",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-015/",
+      "timeline": {
+        "follows": [
+          "zenith-014"
+        ],
+        "continued_by": [
+          "zenith-016"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 14/16 (87.5%). Inventory classification was perfect with 8 true positives, 8 true negatives, and no errors. Hero had 6 true positives, 8 true negatives, 2 misses, and no false positives. Its 12.5% class error rate met the ceiling, but the 50% Hero-…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/015-snowy-localized-panel-holdout.md"
+    },
+    {
+      "id": "zenith-016",
+      "family": "zenith",
+      "title": "snowy Hero development fold",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Does adding independently collected Hero-only Hoelbrak development data repair the snowy Hero weakness exposed by Labnote 015 without regressing Inventory?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "positive-result",
+        "privacy",
+        "revision"
+      ],
+      "lineage": [
+        "zenith-015"
+      ],
+      "relations": [
+        {
+          "target": "zenith-015",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-016/",
+      "timeline": {
+        "follows": [
+          "zenith-015"
+        ],
+        "continued_by": [
+          "zenith-017"
+        ]
+      },
+      "result_summary": "Aggregate exact accuracy was 58/62 (93.5%). Hero's aggregate error rate was 4.8%; Inventory's was 1.6%. The new independently held snowy Hero fold was perfect, and the Inventory position folds retained complete recall. The frozen development gate passed.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/016-snowy-hero-development-fold.md"
+    },
+    {
+      "id": "zenith-017",
+      "family": "zenith",
+      "title": "swamp localized panel holdout",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does snowy-Hero successor candidate `3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8` generalize to a fresh balanced swamp holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "lineage": [
+        "zenith-016"
+      ],
+      "relations": [
+        {
+          "target": "zenith-016",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/zenith-017/",
+      "timeline": {
+        "follows": [
+          "zenith-016"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "Aggregate exact accuracy was 11/16 (68.8%). Hero had 3 true positives, 8 true negatives, 5 misses, and no false positives. Inventory had 8 true positives, 6 true negatives, 2 false positives, and no misses. The promotion gate failed.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/017-swamp-localized-panel-holdout.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "zenith-002",
+      "target": "zenith-001",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-003",
+      "target": "zenith-002",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-004",
+      "target": "zenith-003",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-005",
+      "target": "zenith-004",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-006",
+      "target": "zenith-005",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-007",
+      "target": "zenith-006",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-008",
+      "target": "zenith-007",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-009",
+      "target": "zenith-008",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-010",
+      "target": "zenith-009",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-011",
+      "target": "zenith-010",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-012",
+      "target": "zenith-011",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-013",
+      "target": "zenith-012",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-014",
+      "target": "zenith-013",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-015",
+      "target": "zenith-014",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-016",
+      "target": "zenith-015",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "zenith-017",
+      "target": "zenith-016",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 626,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "zenith-001": {
+        "deterministic": 0.185158,
+        "default-layout": 0.370317,
+        "proposal": 0.221159,
+        "serve": 0.221159,
+        "ui-region": 0.221159,
+        "detector": 0.221159,
+        "only": 0.221159,
+        "suitable": 0.2001,
+        "conservative": 0.221159,
+        "crop": 0.185158,
+        "routing": 0.221159,
+        "geometry": 0.185158,
+        "real": 0.185158,
+        "holdout": 0.321116,
+        "computer-vision": 0.214077,
+        "guild-wars-2": 0.214077,
+        "negative-result": 0.203133,
+        "panel-recognition": 0.247881,
+        "privacy": 0.214077
+      },
+      "zenith-002": {
+        "default-layout": 0.183094,
+        "geometry": 0.366188,
+        "baseline": 0.16227,
+        "recover": 0.16227,
+        "operator-reviewed": 0.218694,
+        "visible": 0.183094,
+        "hud": 0.197869,
+        "regions": 0.218694,
+        "across": 0.154353,
+        "larger": 0.197869,
+        "private": 0.197869,
+        "gameplay": 0.183094,
+        "holdout": 0.423382,
+        "batch": 0.183094,
+        "confirmation": 0.218694,
+        "blinded-review": 0.200868,
+        "computer-vision": 0.211691,
+        "guild-wars-2": 0.211691,
+        "negative-result": 0.200868,
+        "privacy": 0.211691
+      },
+      "zenith-003": {
+        "one": 0.16702,
+        "generic": 0.212815,
+        "default-layout": 0.178172,
+        "geometry": 0.178172,
+        "describe": 0.212815,
+        "visible": 0.178172,
+        "guild": 0.178172,
+        "wars": 0.178172,
+        "hud": 0.19255,
+        "across": 0.150203,
+        "small": 0.16702,
+        "normal": 0.178172,
+        "large": 0.212815,
+        "ui": 0.16702,
+        "profiles": 0.212815,
+        "ui-scale": 0.212815,
+        "stratification": 0.212815,
+        "blinded-review": 0.195469,
+        "computer-vision": 0.206,
+        "deduplication": 0.385101,
+        "guild-wars-2": 0.206,
+        "holdout": 0.206,
+        "negative-result": 0.195469,
+        "privacy": 0.206
+      },
+      "zenith-004": {
+        "frozen": 0.289133,
+        "normal": 0.342972,
+        "ui": 0.160752,
+        "crop": 0.171486,
+        "profile": 0.370649,
+        "remain": 0.171486,
+        "visually": 0.204829,
+        "acceptable": 0.204829,
+        "across": 0.144567,
+        "fresh": 0.151982,
+        "independently": 0.171486,
+        "collected": 0.185324,
+        "gameplay": 0.171486,
+        "batch": 0.171486,
+        "seeded": 0.185324,
+        "validation": 0.185324,
+        "blinded-review": 0.188133,
+        "computer-vision": 0.19827,
+        "guild-wars-2": 0.19827,
+        "holdout": 0.19827,
+        "mixed-result": 0.254819,
+        "privacy": 0.19827
+      },
+      "zenith-005": {
+        "frozen": 0.14534,
+        "normal": 0.344807,
+        "ui": 0.161612,
+        "crop": 0.172403,
+        "profile": 0.372632,
+        "agree": 0.205924,
+        "independently": 0.172403,
+        "drawn": 0.205924,
+        "human": 0.344807,
+        "boxes": 0.205924,
+        "fresh": 0.152795,
+        "gameplay": 0.172403,
+        "frames": 0.205924,
+        "blind": 0.186316,
+        "validation": 0.186316,
+        "computer-vision": 0.19933,
+        "guild-wars-2": 0.19933,
+        "holdout": 0.19933,
+        "positive-result": 0.256182,
+        "privacy": 0.19933
+      },
+      "zenith-006": {
+        "zenith": 0.177487,
+        "vision": 0.177487,
+        "execute": 0.196166,
+        "complete": 0.177487,
+        "live": 0.307907,
+        "privacy": 0.284827,
+        "authority": 0.196166,
+        "boundary": 0.196166,
+        "once": 0.177487,
+        "against": 0.196166,
+        "guild": 0.164234,
+        "wars": 0.164234,
+        "allowing": 0.196166,
+        "optional": 0.138453,
+        "ocr": 0.196166,
+        "failure": 0.196166,
+        "suppress": 0.196166,
+        "valid": 0.196166,
+        "mumblelink": 0.196166,
+        "telemetry": 0.177487,
+        "one-shot": 0.196166,
+        "observation": 0.196166,
+        "computer-vision": 0.189885,
+        "guild-wars-2": 0.189885,
+        "positive-result": 0.244042
+      },
+      "zenith-007": {
+        "zenith": 0.183104,
+        "vision": 0.183104,
+        "recognize": 0.169431,
+        "concrete": 0.202374,
+        "open": 0.202374,
+        "guild": 0.169431,
+        "wars": 0.169431,
+        "ui": 0.158826,
+        "panel": 0.26178,
+        "messy": 0.202374,
+        "live": 0.158826,
+        "scene": 0.202374,
+        "retaining": 0.202374,
+        "full": 0.183104,
+        "frame": 0.202374,
+        "emitting": 0.202374,
+        "unrelated": 0.202374,
+        "screen": 0.202374,
+        "text": 0.183104,
+        "small-ui": 0.169431,
+        "recognition": 0.183104,
+        "computer-vision": 0.195894,
+        "guild-wars-2": 0.195894,
+        "mixed-result": 0.251765,
+        "panel-recognition": 0.226827,
+        "privacy": 0.195894
+      },
+      "zenith-008": {
+        "compact": 0.171935,
+        "cpu": 0.190031,
+        "ridge": 0.190031,
+        "classifier": 0.171935,
+        "trained": 0.190031,
+        "masked": 0.190031,
+        "small-ui": 0.159097,
+        "panel": 0.245813,
+        "tiles": 0.190031,
+        "generalize": 0.149138,
+        "two": 0.190031,
+        "development": 0.134122,
+        "batches": 0.159097,
+        "recognition-disabled": 0.190031,
+        "frozen": 0.134122,
+        "holdout": 0.275918,
+        "captured": 0.171935,
+        "during": 0.159097,
+        "live": 0.149138,
+        "world": 0.190031,
+        "boss": 0.190031,
+        "first": 0.190031,
+        "visual": 0.171935,
+        "baseline": 0.141002,
+        "blinded-review": 0.174541,
+        "computer-vision": 0.183945,
+        "guild-wars-2": 0.183945,
+        "negative-result": 0.174541,
+        "panel-recognition": 0.212991,
+        "privacy": 0.183945
+      },
+      "zenith-009": {
+        "frozen": 0.151135,
+        "imagenet-pretrained": 0.214135,
+        "mobilenet": 0.193745,
+        "v3": 0.193745,
+        "small": 0.168056,
+        "backbone": 0.214135,
+        "provide": 0.214135,
+        "enough": 0.158887,
+        "visual": 0.193745,
+        "structure": 0.179277,
+        "recognize": 0.179277,
+        "hero": 0.179277,
+        "inventory": 0.179277,
+        "across": 0.151135,
+        "development": 0.151135,
+        "batches": 0.179277,
+        "spending": 0.179277,
+        "another": 0.214135,
+        "holdout": 0.310917,
+        "panel": 0.138497,
+        "transfer": 0.151135,
+        "baseline": 0.158887,
+        "computer-vision": 0.207278,
+        "guild-wars-2": 0.207278,
+        "negative-result": 0.196681,
+        "panel-recognition": 0.240008,
+        "privacy": 0.207278
+      },
+      "zenith-010": {
+        "adding": 0.147085,
+        "approved": 0.208397,
+        "inventory-only": 0.174473,
+        "closed-panel": 0.208397,
+        "development": 0.147085,
+        "batch": 0.174473,
+        "fix": 0.208397,
+        "cross-batch": 0.208397,
+        "false-positive": 0.208397,
+        "behavior": 0.163552,
+        "frozen": 0.147085,
+        "mobilenet": 0.188553,
+        "v3": 0.188553,
+        "small": 0.163552,
+        "panel": 0.269571,
+        "classifier": 0.188553,
+        "spending": 0.174473,
+        "fresh": 0.154629,
+        "holdout": 0.302585,
+        "corrective": 0.208397,
+        "transfer": 0.147085,
+        "computer-vision": 0.201724,
+        "guild-wars-2": 0.201724,
+        "negative-result": 0.191411,
+        "panel-recognition": 0.233577,
+        "privacy": 0.201724
+      },
+      "zenith-011": {
+        "class-specific": 0.213418,
+        "localized": 0.301257,
+        "evidence": 0.213418,
+        "avoid": 0.213418,
+        "environmental": 0.213418,
+        "confounding": 0.213418,
+        "seen": 0.213418,
+        "whole-tile": 0.213418,
+        "transfer": 0.301257,
+        "learning": 0.213418,
+        "preserving": 0.213418,
+        "development-only": 0.213418,
+        "evaluation": 0.213418,
+        "panel": 0.138033,
+        "computer-vision": 0.206583,
+        "guild-wars-2": 0.206583,
+        "holdout": 0.206583,
+        "panel-recognition": 0.239204,
+        "positive-result": 0.265504,
+        "privacy": 0.206583
+      },
+      "zenith-012": {
+        "localized": 0.309765,
+        "panel": 0.283862,
+        "candidate": 0.154883,
+        "passed": 0.219445,
+        "development": 0.154883,
+        "cross-validation": 0.219445,
+        "generalize": 0.172223,
+        "separately": 0.198549,
+        "frozen": 0.309765,
+        "balanced": 0.183723,
+        "live": 0.172223,
+        "small-ui": 0.183723,
+        "holdout": 0.424836,
+        "computer-vision": 0.212418,
+        "guild-wars-2": 0.212418,
+        "negative-result": 0.201558,
+        "panel-recognition": 0.24596,
+        "privacy": 0.212418
+      },
+      "zenith-013": {
+        "adding": 0.143738,
+        "new": 0.203655,
+        "inventory-only": 0.170503,
+        "development": 0.143738,
+        "batches": 0.170503,
+        "staged": 0.203655,
+        "left": 0.203655,
+        "right": 0.203655,
+        "center": 0.203655,
+        "positions": 0.203655,
+        "repair": 0.159831,
+        "localized": 0.143738,
+        "candidate": 0.143738,
+        "position": 0.368525,
+        "dependence": 0.203655,
+        "varied": 0.184263,
+        "inventory": 0.170503,
+        "transfer": 0.143738,
+        "computer-vision": 0.197134,
+        "guild-wars-2": 0.197134,
+        "holdout": 0.197134,
+        "mixed-result": 0.253359,
+        "panel-recognition": 0.228262,
+        "privacy": 0.197134,
+        "revision": 0.228262
+      },
+      "zenith-014": {
+        "deterministic": 0.360896,
+        "class-balanced": 0.215533,
+        "full-batch": 0.215533,
+        "multiple-instance": 0.215533,
+        "training": 0.215533,
+        "retain": 0.215533,
+        "hero": 0.180448,
+        "generalization": 0.215533,
+        "after": 0.19501,
+        "adding": 0.152122,
+        "varied": 0.19501,
+        "inventory-only": 0.180448,
+        "position": 0.19501,
+        "data": 0.19501,
+        "localized": 0.152122,
+        "transfer": 0.152122,
+        "computer-vision": 0.208632,
+        "guild-wars-2": 0.208632,
+        "holdout": 0.208632,
+        "panel-recognition": 0.241576,
+        "positive-result": 0.268136,
+        "privacy": 0.208632
+      },
+      "zenith-015": {
+        "deterministic": 0.172213,
+        "localized": 0.29036,
+        "candidate": 0.14518,
+        "bc155807a28aee1a2d7d10fb18a96b24d40b9fe300fc3e01650f70e5d61cc649": 0.205698,
+        "generalize": 0.161434,
+        "fresh": 0.152627,
+        "balanced": 0.172213,
+        "holdout": 0.398222,
+        "captured": 0.186111,
+        "during": 0.172213,
+        "snowy": 0.372221,
+        "claw": 0.205698,
+        "jormag": 0.205698,
+        "encounter": 0.205698,
+        "panel": 0.13304,
+        "computer-vision": 0.199111,
+        "guild-wars-2": 0.199111,
+        "mixed-result": 0.2559,
+        "panel-recognition": 0.230551,
+        "privacy": 0.199111
+      },
+      "zenith-016": {
+        "adding": 0.137638,
+        "independently": 0.163267,
+        "collected": 0.176442,
+        "hero-only": 0.195011,
+        "hoelbrak": 0.195011,
+        "development": 0.275275,
+        "data": 0.176442,
+        "repair": 0.153047,
+        "snowy": 0.352884,
+        "hero": 0.326534,
+        "weakness": 0.195011,
+        "exposed": 0.195011,
+        "labnote": 0.163267,
+        "015": 0.176442,
+        "regressing": 0.195011,
+        "inventory": 0.163267,
+        "fold": 0.195011,
+        "computer-vision": 0.188767,
+        "guild-wars-2": 0.188767,
+        "holdout": 0.188767,
+        "positive-result": 0.242606,
+        "privacy": 0.188767,
+        "revision": 0.218574
+      },
+      "zenith-017": {
+        "snowy-hero": 0.229774,
+        "successor": 0.229774,
+        "candidate": 0.162173,
+        "3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8": 0.229774,
+        "generalize": 0.18033,
+        "fresh": 0.170491,
+        "balanced": 0.192371,
+        "swamp": 0.459548,
+        "holdout": 0.444833,
+        "localized": 0.162173,
+        "panel": 0.148612,
+        "computer-vision": 0.222416,
+        "guild-wars-2": 0.222416,
+        "negative-result": 0.211045,
+        "panel-recognition": 0.257537,
+        "privacy": 0.222416
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.551682,
+        0.662874,
+        0.777245,
+        0.776054,
+        0.857725,
+        0.817965,
+        0.705011,
+        0.667593,
+        0.6765,
+        0.741694,
+        0.625245,
+        0.75351,
+        0.67231,
+        0.655213,
+        0.818152,
+        0.607605
+      ],
+      [
+        0.551682,
+        0,
+        0.511658,
+        0.66724,
+        0.757452,
+        0.859311,
+        0.875593,
+        0.673363,
+        0.648109,
+        0.673388,
+        0.781341,
+        0.644745,
+        0.791343,
+        0.779173,
+        0.704951,
+        0.800199,
+        0.628023
+      ],
+      [
+        0.662874,
+        0.511658,
+        0,
+        0.69018,
+        0.747324,
+        0.804569,
+        0.792035,
+        0.761248,
+        0.718638,
+        0.748271,
+        0.829775,
+        0.741811,
+        0.837562,
+        0.828087,
+        0.794916,
+        0.844456,
+        0.729658
+      ],
+      [
+        0.777245,
+        0.66724,
+        0.69018,
+        0,
+        0.371094,
+        0.868231,
+        0.793795,
+        0.764265,
+        0.749516,
+        0.724072,
+        0.836163,
+        0.699856,
+        0.779097,
+        0.834539,
+        0.714207,
+        0.789596,
+        0.753596
+      ],
+      [
+        0.776054,
+        0.757452,
+        0.747324,
+        0.371094,
+        0,
+        0.805007,
+        0.857189,
+        0.81551,
+        0.792109,
+        0.774053,
+        0.767269,
+        0.743272,
+        0.842821,
+        0.764962,
+        0.778235,
+        0.759193,
+        0.752278
+      ],
+      [
+        0.857725,
+        0.859311,
+        0.804569,
+        0.868231,
+        0.805007,
+        0,
+        0.700256,
+        0.83183,
+        0.862244,
+        0.865935,
+        0.797911,
+        0.805799,
+        0.868986,
+        0.795908,
+        0.867672,
+        0.81534,
+        0.852183
+      ],
+      [
+        0.817965,
+        0.875593,
+        0.792035,
+        0.793795,
+        0.857189,
+        0.700256,
+        0,
+        0.728595,
+        0.757115,
+        0.757901,
+        0.788203,
+        0.686584,
+        0.768585,
+        0.822595,
+        0.731437,
+        0.889065,
+        0.77197
+      ],
+      [
+        0.705011,
+        0.673363,
+        0.761248,
+        0.764265,
+        0.81551,
+        0.83183,
+        0.728595,
+        0,
+        0.555557,
+        0.583896,
+        0.744121,
+        0.465296,
+        0.741799,
+        0.775851,
+        0.614965,
+        0.806827,
+        0.599411
+      ],
+      [
+        0.667593,
+        0.648109,
+        0.718638,
+        0.749516,
+        0.792109,
+        0.862244,
+        0.757115,
+        0.555557,
+        0,
+        0.450924,
+        0.68525,
+        0.527609,
+        0.656756,
+        0.692077,
+        0.678612,
+        0.694513,
+        0.599486
+      ],
+      [
+        0.6765,
+        0.673388,
+        0.748271,
+        0.724072,
+        0.774053,
+        0.865935,
+        0.757901,
+        0.583896,
+        0.450924,
+        0,
+        0.67508,
+        0.502007,
+        0.67456,
+        0.677954,
+        0.645692,
+        0.767912,
+        0.563825
+      ],
+      [
+        0.741694,
+        0.781341,
+        0.829775,
+        0.836163,
+        0.767269,
+        0.797911,
+        0.788203,
+        0.744121,
+        0.68525,
+        0.67508,
+        0,
+        0.589254,
+        0.695896,
+        0.606968,
+        0.633349,
+        0.779603,
+        0.639289
+      ],
+      [
+        0.625245,
+        0.644745,
+        0.741811,
+        0.699856,
+        0.743272,
+        0.805799,
+        0.686584,
+        0.465296,
+        0.527609,
+        0.502007,
+        0.589254,
+        0,
+        0.645433,
+        0.671874,
+        0.437594,
+        0.756877,
+        0.379463
+      ],
+      [
+        0.75351,
+        0.791343,
+        0.837562,
+        0.779097,
+        0.842821,
+        0.868986,
+        0.768585,
+        0.741799,
+        0.656756,
+        0.67456,
+        0.695896,
+        0.645433,
+        0,
+        0.576181,
+        0.623678,
+        0.689608,
+        0.675364
+      ],
+      [
+        0.67231,
+        0.779173,
+        0.828087,
+        0.834539,
+        0.764962,
+        0.795908,
+        0.822595,
+        0.775851,
+        0.692077,
+        0.677954,
+        0.606968,
+        0.671874,
+        0.576181,
+        0,
+        0.630279,
+        0.66315,
+        0.6811
+      ],
+      [
+        0.655213,
+        0.704951,
+        0.794916,
+        0.714207,
+        0.778235,
+        0.867672,
+        0.731437,
+        0.614965,
+        0.678612,
+        0.645692,
+        0.633349,
+        0.437594,
+        0.623678,
+        0.630279,
+        0,
+        0.680721,
+        0.45196
+      ],
+      [
+        0.818152,
+        0.800199,
+        0.844456,
+        0.789596,
+        0.759193,
+        0.81534,
+        0.889065,
+        0.806827,
+        0.694513,
+        0.767912,
+        0.779603,
+        0.756877,
+        0.689608,
+        0.66315,
+        0.680721,
+        0,
+        0.790076
+      ],
+      [
+        0.607605,
+        0.628023,
+        0.729658,
+        0.753596,
+        0.752278,
+        0.852183,
+        0.77197,
+        0.599411,
+        0.599486,
+        0.563825,
+        0.639289,
+        0.379463,
+        0.675364,
+        0.6811,
+        0.45196,
+        0.790076,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0.507297,
+      "points": {
+        "zenith-001": [
+          -0.004567,
+          -0.197553
+        ],
+        "zenith-002": [
+          -0.160116,
+          -0.313244
+        ],
+        "zenith-003": [
+          -0.311918,
+          -0.195511
+        ],
+        "zenith-004": [
+          -0.378481,
+          -0.068027
+        ],
+        "zenith-005": [
+          -0.392891,
+          0.061542
+        ],
+        "zenith-006": [
+          -0.230854,
+          0.402382
+        ],
+        "zenith-007": [
+          -0.0436,
+          0.221082
+        ],
+        "zenith-008": [
+          0.126757,
+          -0.151723
+        ],
+        "zenith-009": [
+          0.142591,
+          -0.122945
+        ],
+        "zenith-010": [
+          0.151861,
+          -0.133554
+        ],
+        "zenith-011": [
+          0.168899,
+          0.153131
+        ],
+        "zenith-012": [
+          0.183891,
+          -0.109953
+        ],
+        "zenith-013": [
+          0.208902,
+          0.161515
+        ],
+        "zenith-014": [
+          0.163499,
+          0.221515
+        ],
+        "zenith-015": [
+          0.19792,
+          -0.01471
+        ],
+        "zenith-016": [
+          0.004865,
+          0.247258
+        ],
+        "zenith-017": [
+          0.173243,
+          -0.161205
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

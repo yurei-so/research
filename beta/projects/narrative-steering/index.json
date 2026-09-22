@@ -1,0 +1,60 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-09-22T04:58:06.000Z",
+  "source_revision": "1832268046f6",
+  "family": {
+    "id": "narrative-steering",
+    "title": "Narrative Steering",
+    "labnote_count": 2,
+    "outcomes": {
+      "mixed": 1,
+      "positive": 1
+    },
+    "latest_labnote_id": "narrative-steering-002"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Narrative Steering record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "narrative-steering-002",
+        "title": "Fingerprint compiler and blinded scorer calibration",
+        "date": "2026-09-05",
+        "status": "complete",
+        "outcome": "mixed",
+        "question": "Which pilot steering coordinates are stable across story states, and can a blinded local model scorer reproduce the human measurements well enough to reduce future review burden?",
+        "finding": "Which pilot steering coordinates are stable across story states, and can a blinded local model scorer reproduce the human measurements well enough to reduce future review burden?",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/narrative-steering-002/"
+      },
+      {
+        "id": "narrative-steering-001",
+        "title": "Matched-state narrative steering vector pilot",
+        "date": "2026-09-05",
+        "status": "complete",
+        "outcome": "positive",
+        "question": "Can blinded ratings of continuations from matched narrative states recover a repeatable directional steering vector for each model, distinct from story and prompt effects?",
+        "finding": "One reviewer completed and locked all 48 blinded judgments before model identity was revealed. Mean confidence was modest (1.69–1.88 of 3), so the estimates remain pilot evidence rather than calibrated ground truth.",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/narrative-steering-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [
+    {
+      "from": "narrative-steering-002",
+      "to": "narrative-steering-001",
+      "type": "follows"
+    }
+  ],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/beta/projects/narrative-steering/",
+    "complete_corpus": "https://yurei-so.github.io/research/beta/research-corpus-v1.json",
+    "heavy_geometry": "https://yurei-so.github.io/research/beta/projects/narrative-steering/graph.json",
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

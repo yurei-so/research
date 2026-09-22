@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="COMPOSITION-006 · COMPOSITION · MIXED · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Targeted residual-defect repair"><meta property="og:description" content="COMPOSITION-006 · COMPOSITION · MIXED · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/composition-006/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/composition-006.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for composition-006: Targeted residual-defect repair, outcome mixed">
+<meta property="article:published_time" content="2026-08-23T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Targeted residual-defect repair"><meta name="twitter:description" content="COMPOSITION-006 · COMPOSITION · MIXED · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/composition-006.png">
+<title>Targeted residual-defect repair — composition-006 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/composition-006/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/composition-006/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/composition/" aria-label="Open the composition family detailed view">LABNOTE / composition <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Targeted residual-defect repair</h1>
+<div class="note-vitals"><span>composition-006</span><time itemprop="datePublished" datetime="2026-08-23">2026-08-23</time><span data-outcome="mixed">mixed</span><span>complete</span></div>
+<p class="question" itemprop="description">A second model pass may justify its cost when restricted to repairing one explicit residual defect in an otherwise complete direct rewrite, even though unrestricted optional editing showed no preference advantage in Labnote 005.</p><div class="tags"><span>blinded-review</span><span>composition</span><span>human-review</span><span>mixed-result</span><span>revision</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/006-targeted-residual-defect-repair.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../composition-005/"><span class="lineage-id">composition-005</span><strong>Stochastic deduplicated optional editor campaign</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-23</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">composition-006</span><strong>Targeted residual-defect repair</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-23</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../composition-007/"><span class="lineage-id">composition-007</span><strong>Matched deep-thinking composition campaign</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-09-12</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-006-targeted-residual-defect-repair">Labnote 006: Targeted residual-defect repair<a class="heading-anchor" href="#labnote-006-targeted-residual-defect-repair" aria-label="Copy link to Labnote 006: Targeted residual-defect repair" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p>Date: 2026-08-23</p>
+<h3 id="hypothesis">Hypothesis<a class="heading-anchor" href="#hypothesis" aria-label="Copy link to Hypothesis" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>A second model pass may justify its cost when restricted to repairing one explicit residual defect in an otherwise complete direct rewrite, even though unrestricted optional editing showed no preference advantage in Labnote 005.</p>
+<h3 id="frozen-protocol">Frozen protocol<a class="heading-anchor" href="#frozen-protocol" aria-label="Copy link to Frozen protocol" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Model: <code>qwen3:8b</code>.</li>
+<li>Temperature: 0.35 for baseline diversity; diagnosis, repair, and verification</li>
+<p>are deterministic.</p>
+<li>Corpus: 12 task families, two prompt styles, five repetitions (120 trials).</li>
+<li>Frozen defect taxonomy: omission, unsupported addition, instruction</li>
+<p>violation, awkward structure, tone mismatch, ambiguity, redundancy, or none.</p>
+<li>A diagnosis names one primary defect and anchors non-omission evidence to an</li>
+<p>exact candidate substring.</p>
+<li>Repair returns one bounded complete buffer which the controller applies as an</li>
+<p>exact whole-buffer replacement, and it must make at least one change.</p>
+<li>An independent pass must confirm the defect was fixed without regression.</li>
+<li>Unchanged and duplicate pairs are excluded before review.</li>
+<li>Human review opens only with 12 unique verified pairs across six task families.</li>
+</ul>
+<p>Raw prompts, candidates, evidence, operations, hashes, and mappings remain in owner-only state. Public output contains only aggregate campaign telemetry.</p>
+<h3 id="status">Status<a class="heading-anchor" href="#status" aria-label="Copy link to Status" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Protocol v4 is frozen and awaiting its coordinated approval-gated run.</p>
+<p>The initial v1 execution completed 120/120 trials with no scheduler failures, but is invalid for scientific interpretation. It diagnosed 40 residual defects and then rejected every repair document at the edit-protocol boundary (29 missing finalization operations, 10 invalid delete shapes, and one invalid replace shape). No repair was applied and no review opened. Version 2 replaces the unnecessarily expressive edit document with one bounded complete buffer that the controller applies as an exact whole-buffer replacement. The v1 state remains preserved and v2 uses a fresh state directory and campaign digest.</p>
+<p>The v2 replacement then halted safely after 24 trials because seven transient <code>OllamaError</code> failures exceeded the precommitted 15% failure-rate ceiling. Ollama remained active with zero service restarts and its API stayed healthy. No repair reached verification and no review opened, so v2 is also invalid for scientific interpretation. Version 3 keeps the same trial and review budgets but permits four bounded retries per trial and again uses a fresh state path and campaign digest.</p>
+<p>Version 3 reproduced the same seven deterministic failures after five attempts each. Mapping only public trial parameters showed that every failure occurred on a case that reached the replacement-generation call, while <code>none</code> diagnoses completed. The structured replacement schema itself was therefore the failing boundary. Version 4 removes structured output from only that call: the model returns the repaired buffer directly, and the controller enforces nonempty and 16,000-character bounds before applying one exact replacement. It uses another fresh state path and digest; v1-v3 remain preserved as invalid engineering runs.</p>
+<h3 id="valid-v4-result">Valid v4 result<a class="heading-anchor" href="#valid-v4-result" aria-label="Copy link to Valid v4 result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Internal execution record retained; identifier withheld.</li>
+<li>Repository revision: <code>c99911c</code></li>
+<li>Campaign digest: <code>3eab95852212330f60f5179c2978d982de5f844549a3dd10f4bedad95e1df98d</code></li>
+<li>Completed: 120/120 with zero failed trials, empty stderr, and clean lease release.</li>
+<li>Diagnoses: 80 none, 28 redundancy, 10 tone mismatch, one omission, and</li>
+<p>one instruction violation.</p>
+<li>Repairs attempted: 40.</li>
+<li>Changed and independently verified repairs: 33.</li>
+<li>Unique verified unordered answer pairs: 11.</li>
+<li>Duplicate verified occurrences excluded: 22.</li>
+<li>Eligible task families: five.</li>
+<li>Frozen intake requirement: 12 unique pairs across six task families.</li>
+<li>Gate result: failed; zero pairs were released to human review.</li>
+<li>Private review-bundle digest:</li>
+<p><code>c119293b711dcf5ab99d4ffe9bf3fa34f6555c9982f5dc527120fb736b5fc94a</code>.</p>
+</ul>
+<h3 id="disposition">Disposition<a class="heading-anchor" href="#disposition" aria-label="Copy link to Disposition" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The narrow repair mechanism is operationally viable: 33 repairs survived an independent defect/regression check with no campaign failures. The study did not earn human review, however, because the evidence concentrated in repeated redundancy and tone fixes and collapsed below both precommitted diversity thresholds after exact-pair deduplication. Do not lower the gate after seeing the result. A future campaign must introduce genuinely broader residual-defect opportunities rather than repeat or temperature-scale this corpus. Preserve the direct-buffer repair contract, independent verification, deduplication, and task-family coverage gate as reusable infrastructure.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="PROSODY-002 · PROSODY · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Shakespeare monologue downstream-response pilot (v0.3.1)"><meta property="og:description" content="PROSODY-002 · PROSODY · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-002/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-002.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for prosody-002: Shakespeare monologue downstream-response pilot (v0.3.1), outcome negative">
+<meta property="article:published_time" content="2026-07-01T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Shakespeare monologue downstream-response pilot (v0.3.1)"><meta name="twitter:description" content="PROSODY-002 · PROSODY · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-002.png">
+<title>Shakespeare monologue downstream-response pilot (v0.3.1) — prosody-002 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/prosody-002/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-002/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/prosody/" aria-label="Open the prosody family detailed view">LABNOTE / prosody <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Shakespeare monologue downstream-response pilot (v0.3.1)</h1>
+<div class="note-vitals"><span>prosody-002</span><time itemprop="datePublished" datetime="2026-07-01">2026-07-01</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Does adding delivery/prosody information to a transcript improve or meaningfully change an LLM's conversational response?</p><div class="tags"><span>conversational-prosody</span><span>negative-result</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-002-shakespeare-monologue-downstream-response.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-001/"><span class="lineage-id">prosody-001</span><strong>Selected Poems real-media ingest (v0.1.0)</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-06-27</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">prosody-002</span><strong>Shakespeare monologue downstream-response pilot (v0.3.1)</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-07-01</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-003/"><span class="lineage-id">prosody-003</span><strong>Amy-LM synthetic prosody downstream-response pilot (v0.3.1)</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-07-01</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="lab-note-shakespeare-monologue-downstream-response-pilot-v0-3-1">Lab note: Shakespeare monologue downstream-response pilot (v0.3.1)<a class="heading-anchor" href="#lab-note-shakespeare-monologue-downstream-response-pilot-v0-3-1" aria-label="Copy link to Lab note: Shakespeare monologue downstream-response pilot (v0.3.1)" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p><strong>Run date:</strong> 2026-07-01 <strong>Package:</strong> <code>conversation-prosody-pipeline</code> 0.3.1 <strong>Metadata schema:</strong> 1.0 <strong>Status:</strong> Failure</p>
+<p>The software run completed, but the experiment failed to demonstrate that correctly matched delivery cues improve LLM responses relative to transcript-only or shuffled-cue controls.</p>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does adding delivery/prosody information to a transcript improve or meaningfully change an LLM's conversational response?</p>
+<h3 id="setup">Setup<a class="heading-anchor" href="#setup" aria-label="Copy link to Setup" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The experiment ran outside the package source tree in the disposable workspace <code>~/Downloads/workspace/experiment</code>. It used all 15 recordings from the provided LibriVox *Shakespeare Monologues, Volume 1* archive. These public-domain theatrical readings provide real spoken audio for a smoke test, but they are not conversation.</p>
+<ul>
+<li>Input archive: <code>shakespeare_monologues_vol_1_librivox.zip</code></li>
+<li>Input archive SHA-256: <code>4d053728b26fd5002e01c4c67a3d663657a41b4430b71e8785befffb926b31ed</code></li>
+<li>Source download URL: not recorded in the available artifacts</li>
+<li>Package wheel: <code>conversation_prosody_pipeline-0.3.1-py3-none-any.whl</code></li>
+<li>Wheel SHA-256: <code>3d84b573bad316067f37ce1178885ff1fecdf664b8ddee8fc0fc3d31932ec5b6</code></li>
+<li>Base runner SHA-256: <code>4a4c6879ae948a5cc5038aa7d61a943fb81197ea2b993f082d9857a37eb68b7f</code></li>
+<li>Reduced runner SHA-256: <code>42b9532bf74c302cb2b477913391de154049a751b7d322b90c5ca575eae038c0</code></li>
+<li>Requirements SHA-256: <code>ff36e835f1d684c8d5d4519d8b1d894a85a12d090c99b9c24bab69af10773199</code></li>
+<li>Python: 3.13.5</li>
+<li>Conversion: FFmpeg 7.1.5, mono 16 kHz 16-bit PCM WAV</li>
+<li>Transcription: <code>faster-whisper</code> 1.2.1, <code>small.en</code>, English, CPU/int8,</li>
+<p>beam size 5, word timestamps and voice activity detection enabled</p>
+<li>Python requirements: <code>faster-whisper&gt;=1.1,&lt;2</code>, <code>numpy&gt;=2,&lt;3</code></li>
+<li>LLM runtime: Ollama</li>
+<li>LLM: <code>qwen2.5:3b</code></li>
+<li>Generation: temperature 0.4, seed 42, non-streaming chat completion</li>
+<li>Metadata observations: duration, transcript-derived speech rate, normalized RMS</li>
+<p>energy, internal pauses, pitch variability, energy variability, hesitation count, interruption count, and STT confidence</p>
+</ul>
+<p>The same system prompt was used for every response:</p>
+<blockquote>You are speaking naturally with this person. Respond as a supportive</blockquote>
+<blockquote>conversational companion. Do not summarize what they said. Instead, continue the</blockquote>
+<blockquote>conversation naturally while respecting the speaker's emotional state, confidence,</blockquote>
+<blockquote>uncertainty, pacing, and conversational intent.</blockquote>
+<p>The exact dependency versions used for the completed run are recoverable only where listed above; <code>requirements.txt</code> uses ranges rather than a lock file. Reproduction should retain the hashes and record a fresh environment freeze.</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The base runner was executed first:</p>
+<pre><code>cd ~/Downloads/workspace/experiment
+python run.py</code></pre>
+<p>For each recording, <code>run.py</code>:</p>
+<ol>
+<li>extracted audio from the data archive;</li>
+<li>converted MP3 to mono 16 kHz 16-bit PCM WAV with FFmpeg;</li>
+<li>transcribed English speech with <code>faster-whisper</code>;</li>
+<li>passed the WAV and transcript to <code>ingest_wav_file</code>;</li>
+<li>built schema 1.0 output with a fresh <code>ProsodyPipeline</code>;</li>
+<li>added separately labeled STT timing/confidence and lightweight acoustic</li>
+<p>observations;</p>
+<li>generated transcript-only condition A and structured-data condition B with the</li>
+<p>same LLM settings; and</p>
+<li>saved transcripts, pipeline output, prompts, responses, and a report.</li>
+</ol>
+<p>The confound-reduced runner was then executed:</p>
+<pre><code>cd ~/Downloads/workspace/experiment
+python run_reduced.py</code></pre>
+<p>It reused the saved transcripts and observations and generated three conditions:</p>
+<ul>
+<li><strong>A — transcript only:</strong> the transcript appears once and no delivery cues are</li>
+<p>supplied.</p>
+<li><strong>B — real delivery cues:</strong> the same transcript appears once, followed by a compact</li>
+<p><code>Observed delivery cues</code> block containing mean internal pause, maximum internal pause, speech rate, pitch variability, energy variability, and STT confidence.</p>
+<li><strong>C — shuffled delivery cues:</strong> the transcript appears once, followed by the full</li>
+<p>cue bundle from the next recording in sorted order; the final recording wraps to the first. This deterministic derangement tests whether correct cues help more than the presence of extra structured text.</p>
+</ul>
+<p>The reduced prompts do not expose <code>CPP</code>, <code>metadata</code>, <code>prosody pipeline</code>, raw JSON, or the control assignment to the model. Every condition uses the same model, system prompt, temperature, and seed. Responses already present in <code>responses_reduced/</code> are reused on rerun, so delete or relocate those files only when an intentionally fresh generation is required.</p>
+<p>The current experiment snapshot excludes <code>.venv</code>, <code>.uv-cache</code>, <code>__pycache__</code>, and generated Python cache files. No packaged experiment archive was available to verify archive-specific exclusions.</p>
+<h3 id="results">Results<a class="heading-anchor" href="#results" aria-label="Copy link to Results" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>All 15 recordings completed with zero reported processing failures. They total 1,640.668 seconds (27m 20.7s), and the saved STT timing output contains 3,228 words.</p>
+<div class="table-wrap"><table><thead><tr><th>Run</th><th>Conditions</th><th>Prompt files</th><th>Response files</th><th>Mean A comparison</th><th>Explicit cue language</th></tr></thead><tbody><tr><td>Take 1</td><td>A: transcript; B: transcript plus raw structured output</td><td>30</td><td>30</td><td>A vs B: 0.09</td><td>Not consistently used</td></tr><tr><td>Take 2</td><td>A: transcript; B: real compact cues; C: shuffled compact cues</td><td>45</td><td>45</td><td>A vs B: 0.07; A vs C: 0.09</td><td>B: 3/15; C: 3/15</td></tr></tbody></table></div>
+<p>The Take 1 report found that extra pipeline data changed generated wording but did not show a reliable quality improvement. It also identified transcript duplication in B, implementation-oriented labels, raw data volume, and the lack of a control for merely adding structured text.</p>
+<p>Take 2 removed those prompt confounds and added condition C. Both B and C differed substantially from A. The simple report-level keyword check found delivery-related language in the same number of real-cue and shuffled-cue responses. This does not show that B is more empathetic, natural, or appropriately aligned than A or C.</p>
+<p>The evaluation file <code>reports/evaluation_confound_reduced.jsonl</code> contains 45 rows with responses, randomized display labels, and blank empathy, naturalness, cue-alignment, and overinterpretation fields. No human scores have been entered, so response quality has not been measured.</p>
+<h3 id="comparison-with-the-selected-poems-real-media-note">Comparison with the Selected Poems real-media note<a class="heading-anchor" href="#comparison-with-the-selected-poems-real-media-note" aria-label="Copy link to Comparison with the Selected Poems real-media note" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The earlier *Selected Poems real-media ingest (v0.1.0)* lab note answers a different, lower-level question.</p>
+<div class="table-wrap"><table><thead><tr><th>Aspect</th><th>Selected Poems note</th><th>Shakespeare pilot</th></tr></thead><tbody><tr><td>Package</td><td>0.1.0, schema 1.0</td><td>0.3.1, schema 1.0</td></tr><tr><td>Dataset</td><td>Four LibriVox Sidney Lanier poetry recordings</td><td>Fifteen LibriVox Shakespeare monologues</td></tr><tr><td>Question</td><td>Do file and simulated-stream paths agree?</td><td>Do delivery cues improve downstream responses?</td></tr><tr><td>STT</td><td><code>base.en</code>, CPU/int8</td><td><code>small.en</code>, CPU/int8</td></tr><tr><td>Comparison</td><td>File ingest vs 100 ms simulated stream</td><td>Transcript-only vs real cues vs shuffled cues</td></tr><tr><td>Result</td><td>Duration, RMS energy, and speech rate matched</td><td>Responses changed; real cues did not clearly outperform controls</td></tr></tbody></table></div>
+<p>The Selected Poems result validates adapter consistency for its inputs and chunk settings. It does not establish downstream usefulness. The Shakespeare pilot tests downstream behavior but does not repeat file-versus-stream equivalence, so it is not a streaming regression test. Together, the notes show progression from ingest consistency to a first controlled usefulness test; neither establishes conversational efficacy.</p>
+<h3 id="interpretation-limits">Interpretation limits<a class="heading-anchor" href="#interpretation-limits" aria-label="Copy link to Interpretation limits" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Shakespeare monologues are theatrical performances, not conversation turns.</li>
+<li>The task encourages literary explanation or summary even though the system prompt</li>
+<p>asks the model not to summarize.</p>
+<li>LibriVox titles, reader credits, and end-of-reading boilerplate remain in some</li>
+<p>transcripts and may affect responses.</p>
+<li>Transcripts are uncorrected STT output, not verified Shakespeare editions.</li>
+<li>Speech rate divides STT word count by complete recording duration and therefore</li>
+<p>includes silence, introductions, and outros.</p>
+<li>Normalized RMS and energy variability are not calibrated loudness.</li>
+<li>Raw numeric cues may be hard for the LLM to interpret without qualitative bins or</li>
+<p>within-speaker reference values.</p>
+<li>Every recording starts a fresh pipeline baseline. Conversation-local deltas are</li>
+<p>empty, and multi-turn adaptation is not exercised.</p>
+<li>The saved JSONL is not fully blinded: <code>condition</code> and <code>blinded_label</code> appear in the</li>
+<p>same row, and rows are ordered A/B/C within each filename.</p>
+<li>No human blinded ratings have been completed.</li>
+<li>Text similarity and keyword presence measure change, not conversational quality.</li>
+<li>Only one LLM, one generation per condition, and one fixed seed were tested.</li>
+<li>Shuffled cues are plausible mismatched bundles, not synthetic, contradictory, or</li>
+<p>adversarial cue combinations.</p>
+<li>The pipeline made no emotion, identity, or biometric inference.</li>
+</ul>
+<h3 id="next-steps">Next steps<a class="heading-anchor" href="#next-steps" aria-label="Copy link to Next steps" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ol>
+<li>Export a truly blinded rater sheet and a separate answer key.</li>
+<li>Strip or mark LibriVox title, reader-credit, and outro boilerplate.</li>
+<li>Convert numeric cues into calibrated qualitative descriptions relative to a</li>
+<p>within-speaker baseline while retaining raw values for analysis.</p>
+<li>Collect blinded scores for empathy, naturalness, cue alignment, and</li>
+<p>overinterpretation; compare B against both A and C.</p>
+<li>Test multi-turn conversation datasets with timing and speaker annotations. Candidate</li>
+<p>datasets include HarperValleyBank, HCRC Map Task, AMI Meeting Corpus, and Santa Barbara Corpus, subject to licensing and annotation review.</p>
+<li>Add a same-text/different-delivery experiment using short utterances such as</li>
+<p>&quot;I guess that's fine.&quot; to hold lexical content constant.</p>
+<li>Pin exact Python dependencies and save the Ollama model digest with the next run.</li>
+</ol>
+<h3 id="bottom-line">Bottom line<a class="heading-anchor" href="#bottom-line" aria-label="Copy link to Bottom line" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The run successfully validated the experiment plumbing and showed that adding cue text changes generation. Its research status is <strong>Failure</strong> because correctly matched delivery cues did not demonstrably improve responses over transcript-only or shuffled controls. A conversation-based dataset and completed blinded ratings are required for the next meaningful test.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

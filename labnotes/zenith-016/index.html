@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-016 · ZENITH · POSITIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="snowy Hero development fold"><meta property="og:description" content="ZENITH-016 · ZENITH · POSITIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/zenith-016/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/zenith-016.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-016: snowy Hero development fold, outcome positive">
+<meta property="article:published_time" content="2026-08-25T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="snowy Hero development fold"><meta name="twitter:description" content="ZENITH-016 · ZENITH · POSITIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/zenith-016.png">
+<title>snowy Hero development fold — zenith-016 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/zenith-016/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/zenith-016/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">snowy Hero development fold</h1>
+<div class="note-vitals"><span>zenith-016</span><time itemprop="datePublished" datetime="2026-08-25">2026-08-25</time><span data-outcome="positive">positive</span><span>complete</span></div>
+<p class="question" itemprop="description">Does adding independently collected Hero-only Hoelbrak development data repair the snowy Hero weakness exposed by Labnote 015 without regressing Inventory?</p><div class="tags"><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>positive-result</span><span>privacy</span><span>revision</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/016-snowy-hero-development-fold.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-015/"><span class="lineage-id">zenith-015</span><strong>snowy localized panel holdout</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-25</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-016</span><strong>snowy Hero development fold</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-08-25</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-017/"><span class="lineage-id">zenith-017</span><strong>swamp localized panel holdout</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-25</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-016-snowy-hero-development-fold">Labnote 016: snowy Hero development fold<a class="heading-anchor" href="#labnote-016-snowy-hero-development-fold" aria-label="Copy link to Labnote 016: snowy Hero development fold" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does adding independently collected Hero-only Hoelbrak development data repair the snowy Hero weakness exposed by Labnote 015 without regressing Inventory?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Private input: eight approved, structurally masked development batches.</li>
+<li>New data: eight Hero-only observations collected in snowy Hoelbrak with</li>
+<p>recognition disabled.</p>
+<li>Spent holdouts: excluded and not read.</li>
+<li>Architecture, threshold, deterministic training objective, and development</li>
+<p>gate: unchanged from Labnote 014.</p>
+<li>Evaluation: eight leave-one-development-batch-out folds.</li>
+<li>Accelerator: RTX 4070 through a non-preemptive accelerator lease.</li>
+<li>Internal execution record retained; identifier withheld.</li>
+</ul>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>Held batch</th><th>Exact accuracy</th><th>Hero TP/FP/FN</th><th>Inventory TP/FP/FN</th></tr></thead><tbody><tr><td>001</td><td>9/9 (100%)</td><td>7/0/0</td><td>2/0/0</td></tr><tr><td>002</td><td>7/9 (77.8%)</td><td>6/0/1</td><td>2/0/1</td></tr><tr><td>003</td><td>11/12 (91.7%)</td><td>8/1/0</td><td>7/0/0</td></tr><tr><td>004</td><td>12/12 (100%)</td><td>0/0/0</td><td>8/0/0</td></tr><tr><td>005 left Inventory</td><td>3/4 (75%)</td><td>0/1/0</td><td>4/0/0</td></tr><tr><td>006 right Inventory</td><td>4/4 (100%)</td><td>0/0/0</td><td>4/0/0</td></tr><tr><td>007 center Inventory</td><td>4/4 (100%)</td><td>0/0/0</td><td>4/0/0</td></tr><tr><td>008 snowy Hero</td><td>8/8 (100%)</td><td>8/0/0</td><td>0/0/0</td></tr></tbody></table></div>
+<p>Aggregate exact accuracy was 58/62 (93.5%). Hero's aggregate error rate was 4.8%; Inventory's was 1.6%. The new independently held snowy Hero fold was perfect, and the Inventory position folds retained complete recall. The frozen development gate passed.</p>
+<p>The gate emitted content-addressed candidate <code>3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8</code>, bound to development corpus <code>87a54b2d6a2448f76a86056102e113ed070ed9b2695d25f8bd75844cece91afc</code>. The run completed on CUDA with exit code 0 and no stderr, and the compute broker released the accelerator lease normally.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Accept the candidate as eligible for a different fresh holdout. Do not promote it to live use and do not reuse either spent holdout. Prefer a later session and a visually distinct environment to reduce temporal and scene correlation with the new Hoelbrak development batch.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

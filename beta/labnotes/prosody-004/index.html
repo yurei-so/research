@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="PROSODY-004 · PROSODY · INCONCLUSIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Context-conditioned prosody IR inference and synthesis"><meta property="og:description" content="PROSODY-004 · PROSODY · INCONCLUSIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-004/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-004.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for prosody-004: Context-conditioned prosody IR inference and synthesis, outcome inconclusive">
+<meta property="article:published_time" content="2026-08-13T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Context-conditioned prosody IR inference and synthesis"><meta name="twitter:description" content="PROSODY-004 · PROSODY · INCONCLUSIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-004.png">
+<title>Context-conditioned prosody IR inference and synthesis — prosody-004 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/prosody-004/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-004/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/prosody/" aria-label="Open the prosody family detailed view">LABNOTE / prosody <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Context-conditioned prosody IR inference and synthesis</h1>
+<div class="note-vitals"><span>prosody-004</span><time itemprop="datePublished" datetime="2026-08-13">2026-08-13</time><span data-outcome="inconclusive">inconclusive</span><span>complete</span></div>
+<p class="question" itemprop="description">Can a language model infer an intended, backend-independent prosodic structure from discourse context when the literal target utterance is held fixed? Separately, can a Kokoro compiler render that structure so a listener can recover the intended reading?</p><div class="tags"><span>blinded-review</span><span>conversational-prosody</span><span>inconclusive-result</span><span>synthetic-audio</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-004-context-conditioned-prosody-ir.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-003/"><span class="lineage-id">prosody-003</span><strong>Amy-LM synthetic prosody downstream-response pilot (v0.3.1)</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-07-01</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">prosody-004</span><strong>Context-conditioned prosody IR inference and synthesis</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-13</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-005/"><span class="lineage-id">prosody-005</span><strong>Speculative semantic branch and turn-state prediction</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-13</span></a><a class="lineage-card" href="../prosody-008/"><span class="lineage-id">prosody-008</span><strong>audible focus-control gate</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-23</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="lab-note-context-conditioned-prosody-ir-inference-and-synthesis">Lab note: Context-conditioned prosody IR inference and synthesis<a class="heading-anchor" href="#lab-note-context-conditioned-prosody-ir-inference-and-synthesis" aria-label="Copy link to Lab note: Context-conditioned prosody IR inference and synthesis" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p><strong>Run date:</strong> 2026-08-13</p>
+<p><strong>Package:</strong> <code>conversation-prosody-pipeline</code> 0.3.1</p>
+<p><strong>Status:</strong> Complete; listener evaluation was inconclusive</p>
+<p><strong>Execution environment:</strong> local GPU workstation</p>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Can a language model infer an intended, backend-independent prosodic structure from discourse context when the literal target utterance is held fixed? Separately, can a Kokoro compiler render that structure so a listener can recover the intended reading?</p>
+<h3 id="motivation">Motivation<a class="heading-anchor" href="#motivation" aria-label="Copy link to Motivation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Labnotes 002 and 003 showed that adding structured delivery cues changes downstream language-model responses, but correctly matched cues did not outperform shuffled cues under the available automatic proxies. They therefore did not demonstrate that a model uses correct prosodic information.</p>
+<p>This experiment controls lexical content directly. Each base target appears in two authored discourse conditions that require different delivery. It also separates IR inference from synthesis so a reasoning failure is not confused with a TTS realization failure.</p>
+<h3 id="preregistered-stages">Preregistered stages<a class="heading-anchor" href="#preregistered-stages" aria-label="Copy link to Preregistered stages" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ol>
+<li><strong>IR inference:</strong> context plus an unchanged target is mapped to a closed prosody</li>
+<p>schema.</p>
+<li><strong>Backend calibration:</strong> candidate compiler operations are checked for measurable</li>
+<p>acoustic effects.</p>
+<li><strong>Oracle synthesis:</strong> gold IR is compiled independently of model predictions.</li>
+<li><strong>End-to-end synthesis:</strong> selected model predictions are compiled only after the</li>
+<p>oracle path passes calibration.</p>
+</ol>
+<p>The initial IR contains:</p>
+<ul>
+<li>an optional exact target <code>focus_span</code>;</li>
+<li>ordinal <code>focus_strength</code> from 0 through 2;</li>
+<li><code>boundary</code> as none, continuation, or final;</li>
+<li>a closed <code>delivery</code> category; and</li>
+<li>relative <code>pace</code> as slow, normal, or fast.</li>
+</ul>
+<p>Categorical delivery is recorded for inference evaluation but is not automatically translated into an unsupported TTS emotion control.</p>
+<h3 id="corpus">Corpus<a class="heading-anchor" href="#corpus" aria-label="Copy link to Corpus" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The authored corpus contains 66 base utterances and two discourse-conditioned readings per utterance, producing 132 cases across 11 phenomena:</p>
+<ul>
+<li>contrastive emphasis;</li>
+<li>correction;</li>
+<li>certainty;</li>
+<li>genuine versus rhetorical questions;</li>
+<li>continuation versus final boundaries;</li>
+<li>parenthetical prominence;</li>
+<li>interruption;</li>
+<li>sarcasm versus sincerity;</li>
+<li>excited versus serious delivery;</li>
+<li>information structure; and</li>
+<li>pace.</li>
+</ul>
+<p>Every focus annotation must be an exact contiguous substring of the unchanged target. The corpus contains no downloaded media and is tracked with the experiment source.</p>
+<h3 id="stage-a-inference-matrix">Stage A: inference matrix<a class="heading-anchor" href="#stage-a-inference-matrix" aria-label="Copy link to Stage A: inference matrix" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The preregistered inference matrix is:</p>
+<ul>
+<li>132 cases;</li>
+<li>three local Ollama models: <code>qwen3:8b</code>, <code>gemma3:12b</code>, and <code>llama3.2</code>;</li>
+<li>three prompt formulations: direct, contrastive, and conservative; and</li>
+<li>five seeds: 101, 211, 307, 401, and 503.</li>
+</ul>
+<p>This produces 5,940 trials. The frozen run manifest records exact Ollama model digests, prompt and corpus hashes, generation settings, Python version, and host platform.</p>
+<p>The primary inference outcomes are:</p>
+<ul>
+<li>schema and semantic validity;</li>
+<li>per-field accuracy;</li>
+<li>complete IR exact match;</li>
+<li>whether predictions differ between the paired contexts; and</li>
+<li>whether fields that differ between gold paired readings move in the correct</li>
+<p>direction.</p>
+</ul>
+<p>Semantically inconsistent but structurally valid outputs are retained as model errors; they are not silently normalized or discarded. Proportions are reported with Wilson 95% confidence intervals.</p>
+<h3 id="stage-b-oracle-synthesis-matrix">Stage B: oracle synthesis matrix<a class="heading-anchor" href="#stage-b-oracle-synthesis-matrix" aria-label="Copy link to Stage B: oracle synthesis matrix" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The planned oracle matrix contains:</p>
+<ul>
+<li>132 cases;</li>
+<li>neutral, gold-IR, and sibling-swapped-IR conditions; and</li>
+<li>two Kokoro voices, <code>af_heart</code> and <code>am_adam</code>.</li>
+</ul>
+<p>This produces 792 clips. The initial compiler limits itself to localized focus gain over Kokoro-aligned token timestamps, relative pace, and punctuation-based boundary handling. Each unique text/voice/speed base waveform is cached and reused across conditions so repeated synthesis variation cannot masquerade as an IR effect. The swapped condition applies the other discourse reading's gold IR to the same literal target and tests whether any observed effect follows the intended structure rather than merely the presence of extra processing.</p>
+<p>Kokoro runs on CPU for this experiment. The isolated environment resolved PyTorch 2.13.0, whose CUDA build requires a newer NVIDIA driver than the host currently has; changing the working host driver is outside this experiment's scope. Kokoro's small 82M-parameter model remains practical on CPU, while Ollama retains exclusive GPU use.</p>
+<p>Automated duration, RMS, segment, and artifact-integrity observations are diagnostic. The eventual primary realization outcome is blinded listener recovery of the intended discourse reading; naturalness is secondary.</p>
+<h3 id="execution-and-recovery">Execution and recovery<a class="heading-anchor" href="#execution-and-recovery" aria-label="Copy link to Execution and recovery" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Both phases use native systemd user services on the local GPU workstation, not an interactive SSH process. Inference results are committed individually to a WAL-mode SQLite ledger. A terminated service resets only an in-progress task and skips every completed task on restart. Generated ledgers, audio, exports, and model files remain under ignored <code>artifacts/</code> or host-local caches rather than entering Git.</p>
+<p>The synthesis service runs with Hugging Face Hub and Transformers offline modes enabled after a successful two-voice cache warm-up and fingerprint pass. A detached 12-clip offline smoke matrix completed without failures, demonstrating that synthesis does not require DNS or model-hub access during the experiment.</p>
+<p>The production experiment scheduler and its competing model worker were intentionally stopped and disabled before the run so they cannot contend for model resources. The separate operator-control service remained active.</p>
+<h3 id="results">Results<a class="heading-anchor" href="#results" aria-label="Copy link to Results" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Both detached phases completed without failed tasks or service restarts:</p>
+<div class="table-wrap"><table><thead><tr><th>Phase</th><th>Completed</th><th>Failed</th></tr></thead><tbody><tr><td>IR inference</td><td>5,940/5,940</td><td>0</td></tr><tr><td>Oracle/control synthesis</td><td>792/792</td><td>0</td></tr></tbody></table></div>
+<p>All 792 recorded WAV paths existed after the run and every file matched its ledger SHA-256. No inference task required a retry. The completed systemd units were disabled after verification so a later host reboot cannot replay the successful handoff.</p>
+<h4 id="inference">Inference<a class="heading-anchor" href="#inference" aria-label="Copy link to Inference" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h4>
+<p>The best complete-IR result came from Gemma 3 12B with the conservative prompt:</p>
+<div class="table-wrap"><table><thead><tr><th>Metric</th><th>Result</th><th>Wilson 95% CI</th></tr></thead><tbody><tr><td>Semantic validity</td><td>89.1%</td><td>86.5–91.2%</td></tr><tr><td>Exact IR match</td><td>15.6%</td><td>13.0–18.6%</td></tr><tr><td>Paired prediction changed across contexts</td><td>92.4%</td><td>89.1–94.8%</td></tr><tr><td>Paired directional contrast correct</td><td>23.3%</td><td>19.1–28.2%</td></tr><tr><td>Both readings exact within a pair</td><td>9.4%</td><td>6.7–13.0%</td></tr></tbody></table></div>
+<p>Its per-field accuracy was 92.6% for boundary, 76.8% for delivery, 84.4% for pace, 47.3% for focus strength, and 31.7% for the exact focus span. The contrastive prompt improved Gemma's focus-span accuracy to 44.1% and semantic validity to 100%, but reduced delivery accuracy and complete-IR exact match.</p>
+<p>Aggregate results across all prompts were:</p>
+<div class="table-wrap"><table><thead><tr><th>Model</th><th>Semantic validity</th><th>Exact IR match</th></tr></thead><tbody><tr><td>Gemma 3 12B</td><td>90.2%</td><td>14.1%</td></tr><tr><td>Qwen 3 8B</td><td>99.5%</td><td>6.3%</td></tr><tr><td>Llama 3.2</td><td>70.6%</td><td>3.0%</td></tr></tbody></table></div>
+<p>Of 5,940 structurally valid JSON results, 786 (13.2%) violated a semantic invariant, usually by pairing a null focus span with nonzero focus strength or by selecting text that was not an exact target substring. These were retained as experimental errors.</p>
+<p>The context clearly affected generation: depending on configuration, 92.1–98.5% of paired predictions differed. That sensitivity was not reliably correct. Directional paired accuracy ranged from 3.0% to 23.3%, and complete-pair exact match ranged from 0% to 9.4%.</p>
+<p>The best configuration was also highly phenomenon-dependent. It achieved 91.7% exact match for the authored boundary cases and 40.0% for correction, but 0% for affect, certainty, pace, and parenthetical cases. This exposes a limitation in treating the entire closed IR as equally inferable: straightforward discourse-boundary distinctions were much easier than intended affect, epistemic stance, or pacing.</p>
+<h4 id="synthesis">Synthesis<a class="heading-anchor" href="#synthesis" aria-label="Copy link to Synthesis" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h4>
+<p>The final oracle matrix used cached base waveforms and a localized gain operation over Kokoro-aligned focus timestamps. In the focus calibration pair, neutral, gold, and swapped clips had exactly equal duration, and gold/swapped RMS effects exchanged when the focus span exchanged. This removed the large segment-splicing duration confound found in an earlier smoke compiler.</p>
+<p>Across the full matrix, aggregate gold and swapped summaries were identical by design: each paired reading receives each sibling IR once. Mean durations were 2.405 seconds for <code>af_heart</code> and 2.583 seconds for <code>am_adam</code>; neutral means were 2.371 and 2.547 seconds respectively. The remaining difference arises from intended pace and punctuation-based continuation controls on cases where the gold/swapped rendering is not the neutral rendering.</p>
+<p>These acoustic diagnostics demonstrate that the compiler produced bounded, integrity-checked interventions. They do <strong>not</strong> establish that those interventions communicate the intended meaning. Gold-versus-swapped listener identification remains the required realization test.</p>
+<h4 id="blinded-listener-evaluation">Blinded listener evaluation<a class="heading-anchor" href="#blinded-listener-evaluation" aria-label="Copy link to Blinded listener evaluation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h4>
+<p>The preserved owner-local review session was completed on 2026-09-11. All 11 judgments were durably locked before the intended-versus-swapped mapping was revealed.</p>
+<div class="table-wrap"><table><thead><tr><th>Preference</th><th>Count</th></tr></thead><tbody><tr><td>Intended delivery</td><td>3</td></tr><tr><td>Swapped delivery</td><td>2</td></tr><tr><td>Tie</td><td>6</td></tr></tbody></table></div>
+<p>The intended rendering won only three of the five directional choices, while a majority of all comparisons were ties. This small single-listener result does not distinguish intended from sibling-swapped delivery and supplies no evidence that the intervention communicated the authored discourse reading reliably.</p>
+<h3 id="interpretation">Interpretation<a class="heading-anchor" href="#interpretation" aria-label="Copy link to Interpretation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The Stage A answer is mixed but informative:</p>
+<blockquote>Local models strongly respond to discourse context when assigning prosody, but the</blockquote>
+<blockquote>tested models and prompts do not reliably recover the complete authored prosody IR.</blockquote>
+<blockquote>Boundary intent is promising; exact focus placement and higher-level delivery</blockquote>
+<blockquote>distinctions remain the main inference bottlenecks.</blockquote>
+<p>The run therefore rejects a simple assumption that context sensitivity implies correct prosodic reasoning. It also provides a reproducible corpus and error decomposition for improving the representation or prompting without conflating those changes with TTS behavior.</p>
+<p>Stage B is complete and inconclusive. The blinded judgments do not support successful semantic realization. The review was also split across two sittings separated by more than two weeks, so reviewer drift and the small single-listener sample further limit interpretation. Any future attempt should first improve the audible intervention and use an independently replicated listener design rather than extending this bundle.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

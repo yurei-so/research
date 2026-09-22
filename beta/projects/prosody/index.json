@@ -1,0 +1,87 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-09-22T04:58:06.000Z",
+  "source_revision": "1832268046f6",
+  "family": {
+    "id": "prosody",
+    "title": "Prosody",
+    "labnote_count": 18,
+    "outcomes": {
+      "inconclusive": 4,
+      "mixed": 3,
+      "negative": 8,
+      "positive": 3
+    },
+    "latest_labnote_id": "prosody-018"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Prosody record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "prosody-018",
+        "title": "conversation-conditioned two-speaker pilot",
+        "date": "2026-09-12",
+        "status": "complete",
+        "outcome": "positive",
+        "question": "Can conversation-aware turn direction produce a convincing two-speaker exchange where isolated line direction does not?",
+        "finding": "All twelve turn files were unique and passed the frozen mechanical duration checks. The isolated and conversation-aware assemblies were 12.61 and 13.25 seconds respectively.",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/prosody-018/"
+      },
+      {
+        "id": "prosody-014",
+        "title": "contrastive-focus instruction-form ablation",
+        "date": "2026-09-11",
+        "status": "complete",
+        "outcome": "negative",
+        "question": "Does removing the competing focus word from Qwen's instruction restore directional contrastive emphasis?",
+        "finding": "All eight frozen outputs were distinct, complete, and mechanically valid. The owner-local admission review found natural-sounding examples in the set, but no output could honestly be judged both natural and directionally correct. Neither positive-only nor context-only instruct…",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/prosody-014/"
+      },
+      {
+        "id": "prosody-001",
+        "title": "Selected Poems real-media ingest (v0.1.0)",
+        "date": "2026-06-27",
+        "status": "complete",
+        "outcome": "positive",
+        "question": "Can the packaged file and simulated-stream ingestion paths produce consistent prosodic metadata from real spoken audio when transcription remains an external step?",
+        "finding": "Four of seven recordings (57.1%) were processed, totaling 571.931 seconds (9m 31.9s) and 1,065 transcribed words.",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/prosody-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [
+    {
+      "from": "prosody-018",
+      "to": "prosody-017",
+      "type": "reuses-apparatus"
+    },
+    {
+      "from": "prosody-015",
+      "to": "prosody-014",
+      "type": "extends"
+    },
+    {
+      "from": "prosody-014",
+      "to": "prosody-013",
+      "type": "extends"
+    },
+    {
+      "from": "prosody-002",
+      "to": "prosody-001",
+      "type": "follows"
+    }
+  ],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/beta/projects/prosody/",
+    "complete_corpus": "https://yurei-so.github.io/research/beta/research-corpus-v1.json",
+    "heavy_geometry": "https://yurei-so.github.io/research/beta/projects/prosody/graph.json",
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

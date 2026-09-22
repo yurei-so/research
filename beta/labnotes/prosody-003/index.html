@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="PROSODY-003 · PROSODY · INCONCLUSIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Amy-LM synthetic prosody downstream-response pilot (v0.3.1)"><meta property="og:description" content="PROSODY-003 · PROSODY · INCONCLUSIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-003/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-003.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for prosody-003: Amy-LM synthetic prosody downstream-response pilot (v0.3.1), outcome inconclusive">
+<meta property="article:published_time" content="2026-07-01T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Amy-LM synthetic prosody downstream-response pilot (v0.3.1)"><meta name="twitter:description" content="PROSODY-003 · PROSODY · INCONCLUSIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/prosody-003.png">
+<title>Amy-LM synthetic prosody downstream-response pilot (v0.3.1) — prosody-003 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/prosody-003/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/prosody-003/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/prosody/" aria-label="Open the prosody family detailed view">LABNOTE / prosody <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Amy-LM synthetic prosody downstream-response pilot (v0.3.1)</h1>
+<div class="note-vitals"><span>prosody-003</span><time itemprop="datePublished" datetime="2026-07-01">2026-07-01</time><span data-outcome="inconclusive">inconclusive</span><span>complete</span></div>
+<p class="question" itemprop="description">Does adding delivery cues derived from the correct audio improve an LLM's response to flattened conversational text relative to text-only and shuffled-cue controls?</p><div class="tags"><span>conversational-prosody</span><span>holdout</span><span>inconclusive-result</span><span>provenance</span><span>revision</span><span>synthetic-audio</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-003-amy-lm-synthetic-prosody-downstream-response.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-002/"><span class="lineage-id">prosody-002</span><strong>Shakespeare monologue downstream-response pilot (v0.3.1)</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-07-01</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">prosody-003</span><strong>Amy-LM synthetic prosody downstream-response pilot (v0.3.1)</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-07-01</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-004/"><span class="lineage-id">prosody-004</span><strong>Context-conditioned prosody IR inference and synthesis</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-13</span></a><a class="lineage-card" href="../prosody-011/"><span class="lineage-id">prosody-011</span><strong>Reproducible synthetic conversational-audio rerun</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-23</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="lab-note-amy-lm-synthetic-prosody-downstream-response-pilot-v0-3-1">Lab note: Amy-LM synthetic prosody downstream-response pilot (v0.3.1)<a class="heading-anchor" href="#lab-note-amy-lm-synthetic-prosody-downstream-response-pilot-v0-3-1" aria-label="Copy link to Lab note: Amy-LM synthetic prosody downstream-response pilot (v0.3.1)" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p><strong>Run date:</strong> 2026-07-01 <strong>Package:</strong> <code>conversation-prosody-pipeline</code> 0.3.1 <strong>Metadata schema:</strong> 1.0 <strong>Status:</strong> Completed negative/inconclusive pilot; source audio quarantined after provenance audit</p>
+<blockquote><strong>2026-08-23 provenance correction:</strong> This experiment did not synthesize its input</blockquote>
+<blockquote>audio. It consumed pre-generated WAVs from the named third-party dataset. A later</blockquote>
+<blockquote>audit of every published dataset revision found no synthesis model, voice, prompt,</blockquote>
+<blockquote>seed, generation script, license, or human-validation record. The retained run also</blockquote>
+<blockquote>lacks a source-shard hash and immutable dataset revision. Eight current public rows</blockquote>
+<blockquote>were transcribed as a limited integrity probe: all were closer to <code>rewritten_text</code></blockquote>
+<blockquote>than <code>original_utterance</code>, but one automated transcript contained a possible extra</blockquote>
+<blockquote>interjection absent from both stored text fields. Because the current files cannot</blockquote>
+<blockquote>be proven byte-identical to the unpinned July input, that probe does not retroactively</blockquote>
+<blockquote>validate the original run. Treat the corpus audio as provenance-invalid: preserve</blockquote>
+<blockquote>this negative result as history, but do not use its audio for training, validation,</blockquote>
+<blockquote>or further scientific claims. A separately numbered rerun must generate and</blockquote>
+<blockquote>fingerprint audio locally and pass transcript-fidelity and treatment-separation</blockquote>
+<blockquote>gates before downstream response generation.</blockquote>
+<p>The software run completed, but correctly matched delivery cues did not outperform shuffled cues under the available automatic proxies. The result is consistent with the LLM responding to the presence and style of structured cue text rather than reliably extracting useful social signal from cue correctness. It does not prove that mechanism, and human blinded ratings have not been completed.</p>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does adding delivery cues derived from the correct audio improve an LLM's response to flattened conversational text relative to text-only and shuffled-cue controls?</p>
+<h3 id="setup">Setup<a class="heading-anchor" href="#setup" aria-label="Copy link to Setup" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>This experiment followed the Shakespeare monologue downstream-response pilot. That pilot validated the prompt and generation plumbing and showed that cue text changes generation, but theatrical monologues are not conversation turns and matched cues did not outperform controls. Amy-LM is a bridge experiment using short conversational utterances paired with synthetic speech.</p>
+<p>The inspected local shard of <code>hungphongtrn/amy-lm-synthetic-prosody-speech-dataset</code> contains one <code>train</code> split with 200 rows and these fields:</p>
+<ul>
+<li><code>dialog_id</code></li>
+<li><code>original_utterance</code></li>
+<li><code>rewritten_text</code></li>
+<li><code>emotion</code></li>
+<li><code>speech_act</code></li>
+<li><code>intent</code></li>
+<li><code>audio</code></li>
+</ul>
+<p>Audio is embedded mono 24 kHz PCM WAV. The runner converts selected audio to mono 16 kHz PCM WAV before analysis. The available parquet metadata did not state a license. A programmatic Hub metadata request failed because DNS was unavailable, so the dataset license and revision remain missing or unclear. The provenance and human validation status of the dataset-provided labels were not established. A later audit established that the dataset card contains schema metadata only and does not disclose how the audio was synthesized.</p>
+<p>Reproducibility details:</p>
+<ul>
+<li>Repository commit at experiment start:</li>
+<p><code>4a71808a5c784b0973cb2e31522373ad6eedb33b</code></p>
+<li>Runner SHA-256:</li>
+<p><code>7d01130e3e1dd589916096c4afa438c599b19d84a78e9509e4d4dc43e8f7380a</code></p>
+<li>Requirements SHA-256:</li>
+<p><code>f9c20bbacbe424aad1c575c7c1946f57d20b16da5cce3b4a8d807ef8e720a019</code></p>
+<li>Python: 3.13.5</li>
+<li><code>datasets</code>: 4.8.5</li>
+<li>NumPy: 2.5.0</li>
+<li>SoundFile: 0.14.0</li>
+<li>FFmpeg: 7.1.5</li>
+<li>Ollama model: <code>qwen2.5:3b</code>, local ID <code>357c53fb659c</code></li>
+<li>Generation: temperature 0.4, seed 42, non-streaming chat completion</li>
+<li>Dataset revision and source-shard hash: not available in the retained run metadata</li>
+<li>Audio synthesizer, voice, conditioning, prompt, seed, and generation code: unknown</li>
+</ul>
+<p>The same system prompt was used for every response:</p>
+<blockquote>You are speaking naturally with this person. Respond as a supportive</blockquote>
+<blockquote>conversational companion. Do not summarize what they said. Instead, continue the</blockquote>
+<blockquote>conversation naturally while respecting the speaker's emotional state, confidence,</blockquote>
+<blockquote>uncertainty, pacing, and conversational intent.</blockquote>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The bounded run processed the first 20 rows of the inspected shard. For each row, the runner:</p>
+<ol>
+<li>extracted the embedded WAV and converted it to mono 16 kHz PCM;</li>
+<li>passed the WAV and rewritten text to <code>ingest_wav_file</code>;</li>
+<li>built schema 1.0 output through a fresh <code>ProsodyPipeline</code>;</li>
+<li>calculated experiment-local internal-pause, pitch-variability, and</li>
+<p>energy-variability observations;</p>
+<li>converted numeric observations into compact qualitative-plus-numeric cue text;</li>
+<li>generated five prompt conditions with identical model settings; and</li>
+<li>wrote master, randomly ordered blinded, and separate answer-key JSONL artifacts.</li>
+</ol>
+<p>The package supplied duration, normalized RMS energy, and transcript-derived speech rate. Experiment-local analysis supplied internal-pause count, mean and maximum internal pause, pitch variability, and energy variability. These are descriptive measurements, not emotion inference. No raw JSON or experiment-condition language was shown to the response model.</p>
+<p>The five conditions were:</p>
+<ul>
+<li><strong>A — original utterance only:</strong> expressive dataset text.</li>
+<li><strong>B — rewritten text only:</strong> flatter semantic text.</li>
+<li><strong>C — rewritten text plus matched cues:</strong> compact cues from that row's audio.</li>
+<li><strong>D — rewritten text plus shuffled cues:</strong> the next processed row's complete cue</li>
+<p>bundle, wrapping at the end as a deterministic derangement.</p>
+<li><strong>E — rewritten text plus gold labels:</strong> dataset emotion, speech-act, and intent</li>
+<p>labels as an approximate upper-bound control.</p>
+</ul>
+<p>The rewritten text reduces some lexical emotional leakage and gives delivery cues more room to matter. The shuffled control tests whether correctly matched cues help more than merely adding plausible structured text. Condition E is not a fair production condition.</p>
+<h3 id="results">Results<a class="heading-anchor" href="#results" aria-label="Copy link to Results" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>All 20 selected rows completed with no reported processing failures. The run produced 100 prompts, 100 responses, 100 master evaluation rows, 100 randomly ordered blinded rows, and a separate 100-row answer key.</p>
+<div class="table-wrap"><table><thead><tr><th>Condition</th><th>Mean response words</th><th>Explicit cue-language responses</th></tr></thead><tbody><tr><td>A: original only</td><td>45.25</td><td>0/20</td></tr><tr><td>B: rewritten only</td><td>42.75</td><td>0/20</td></tr><tr><td>C: rewritten + matched cues</td><td>59.35</td><td>0/20</td></tr><tr><td>D: rewritten + shuffled cues</td><td>51.60</td><td>2/20</td></tr><tr><td>E: rewritten + gold labels</td><td>51.35</td><td>0/20</td></tr></tbody></table></div>
+<p>Mean token-set Jaccard similarity was 0.204 for A versus B, 0.263 for B versus C, 0.300 for B versus D, and 0.286 for C versus D. Both matched and shuffled cue blocks changed response wording relative to rewritten text alone. Matched cues produced longer responses on average, but response length and lexical change are not measures of conversational quality or correct cue use.</p>
+<p>A follow-up position-free embedding sanity check compared C and D with the expressive original and with the dataset's emotion-plus-intent text:</p>
+<div class="table-wrap"><table><thead><tr><th>Reference</th><th>C wins</th><th>D wins</th><th>Mean C similarity</th><th>Mean D similarity</th><th>Paired permutation p</th></tr></thead><tbody><tr><td>Expressive original</td><td>9</td><td>11</td><td>0.7296</td><td>0.7332</td><td>0.814</td></tr><tr><td>Gold emotion + intent</td><td>13</td><td>7</td><td>0.5235</td><td>0.5181</td><td>0.569</td></tr></tbody></table></div>
+<p>Neither comparison provides evidence that C outperforms D. The gold-reference result moves slightly toward C, but the difference is small and compatible with chance in this sample.</p>
+<p>The shuffled intervention was not trivially identical to the matched intervention. Only 2 of 20 C/D pairs shared at least 75% of their qualitative cue lines, and no pair had an identical cue bundle.</p>
+<p>A local LLM pairwise judge was also attempted with randomized C/D display order and schema-constrained output. Its preference result was rejected because the judge chose the second displayed candidate in 33 of 40 trials and marked all decisions high confidence. D won only 5 of 18 trials when displayed first but 20 of 22 when displayed second. This is a position-bias diagnostic, not evidence for either condition.</p>
+<h3 id="interpretation">Interpretation<a class="heading-anchor" href="#interpretation" aria-label="Copy link to Interpretation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Compact delivery cues clearly changed model behavior: C was longer and lexically different from B. That observation alone does not show that the model used the cues correctly. D also changed behavior, and C did not beat D on either position-free automatic alignment proxy.</p>
+<p>The cautious interpretation is therefore:</p>
+<blockquote>In this synthetic single-turn dataset, compact delivery cues changed model behavior,</blockquote>
+<blockquote>but matched cues did not outperform shuffled cues under automatic proxies. This is</blockquote>
+<blockquote>consistent with the tested LLM responding to the presence and style of structured</blockquote>
+<blockquote>cue text rather than extracting usable social signal from cue correctness.</blockquote>
+<p>“Consistent with” is important. The run does not isolate the model's internal mechanism, automatic similarity is a weak quality measure, and the experiment does not show that delivery information is generally useless. It shows that this cue representation, model, and evaluation did not demonstrate correct cue use.</p>
+<h3 id="interpretation-limits">Interpretation limits<a class="heading-anchor" href="#interpretation-limits" aria-label="Copy link to Interpretation limits" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Synthetic speech may not generalize to human speech.</li>
+<li>Short single turns do not test conversation-local or multi-turn adaptation.</li>
+<li>The first 20 rows are a small, non-random sample.</li>
+<li>Gold labels are dataset-provided and may not be human-validated.</li>
+<li>One 3B model, one generation per condition, and one seed are insufficient.</li>
+<li>Lightweight pitch, pause, and energy estimates are not validated affect measures.</li>
+<li>Speech rate uses rewritten text over the original audio duration.</li>
+<li>Qualitative cue bins are generic rather than speaker-calibrated.</li>
+<li>Embedding and lexical metrics measure similarity or change, not empathy,</li>
+<p>naturalness, or pragmatic appropriateness.</p>
+<li>The attempted LLM judge had severe display-position bias and was discarded.</li>
+<li>Human blinded ratings have not been completed.</li>
+<li>Dataset license and revision were unavailable during the run.</li>
+<li>The source audio has no reproducible generation provenance and is quarantined from</li>
+<p>reuse; therefore even “matched” means only “same dataset row,” not a validated match between label, intended delivery, and synthesized realization.</p>
+</ul>
+<h3 id="next-steps">Next steps<a class="heading-anchor" href="#next-steps" aria-label="Copy link to Next steps" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ol>
+<li>Do not spend human-rating labor on this quarantined corpus.</li>
+<li>Recreate the bounded experiment with locally generated, fingerprinted</li>
+<p>whole-utterance audio and explicit fidelity/separation gates.</p>
+<li>Use same-text/different-delivery audio so lexical content is exactly controlled.</li>
+<li>Add deliberately contrasting or anti-correlated cue bundles to increase treatment</li>
+<p>separation and test whether responses move in the predicted direction.</p>
+<li>Calibrate qualitative cues against a speaker or dataset baseline.</li>
+<li>Repeat with a stronger local model, multiple seeds, and a position-balanced judge</li>
+<p>only after validating the judge on known-answer controls.</p>
+<li>Move to multi-turn human conversation data after the bridge experiment, subject to</li>
+<p>licensing and annotation review.</p>
+</ol>
+<h3 id="bottom-line">Bottom line<a class="heading-anchor" href="#bottom-line" aria-label="Copy link to Bottom line" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The run validates the historical five-condition plumbing and shows that compact cue text changes generation. Its opaque source audio prevents stronger scientific reuse. It does not provide evidence that the model uses correctly matched delivery cues more effectively than plausible shuffled cues. The current evidence is consistent with sensitivity to structured cue text, not demonstrated use of cue correctness.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

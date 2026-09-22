@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-003 · ZENITH · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="UI-scale stratification"><meta property="og:description" content="ZENITH-003 · ZENITH · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-003/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-003.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-003: UI-scale stratification, outcome negative">
+<meta property="article:published_time" content="2026-08-24T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="UI-scale stratification"><meta name="twitter:description" content="ZENITH-003 · ZENITH · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-003.png">
+<title>UI-scale stratification — zenith-003 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/zenith-003/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-003/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">UI-scale stratification</h1>
+<div class="note-vitals"><span>zenith-003</span><time itemprop="datePublished" datetime="2026-08-24">2026-08-24</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Does one generic default-layout geometry describe the visible Guild Wars 2 HUD across the Small, Normal, and Large UI profiles?</p><div class="tags"><span>blinded-review</span><span>computer-vision</span><span>deduplication</span><span>guild-wars-2</span><span>holdout</span><span>negative-result</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/003-ui-scale-stratification.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-002/"><span class="lineage-id">zenith-002</span><strong>batch holdout geometry confirmation</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-003</span><strong>UI-scale stratification</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-004/"><span class="lineage-id">zenith-004</span><strong>frozen Normal profile seeded validation</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-24</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-003-ui-scale-stratification">Labnote 003: UI-scale stratification<a class="heading-anchor" href="#labnote-003-ui-scale-stratification" aria-label="Copy link to Labnote 003: UI-scale stratification" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does one generic default-layout geometry describe the visible Guild Wars 2 HUD across the Small, Normal, and Large UI profiles?</p>
+<h3 id="data-and-review">Data and review<a class="heading-anchor" href="#data-and-review" aria-label="Copy link to Data and review" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Three private, test-only operator holdouts were evaluated:</p>
+<div class="table-wrap"><table><thead><tr><th>UI profile</th><th>Frames</th><th>Labels</th></tr></thead><tbody><tr><td>Small</td><td>12</td><td>36</td></tr><tr><td>Normal</td><td>12</td><td>36</td></tr><tr><td>Large</td><td>12</td><td>36</td></tr></tbody></table></div>
+<p>Each frame contains operator-approved objectives, skill-bar, and minimap boxes. Collection was window-bound, structurally masked, deduplicated, and separately approved for privacy and annotation. Private image and text content are not recorded here. Larger/XL was deliberately excluded by operator decision.</p>
+<h3 id="generic-baseline-result">Generic baseline result<a class="heading-anchor" href="#generic-baseline-result" aria-label="Copy link to Generic baseline result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>UI profile</th><th>Mean IoU</th><th>Recall at IoU 0.50</th></tr></thead><tbody><tr><td>Small</td><td>0.418298</td><td>0/36 (0.000000)</td></tr><tr><td>Normal</td><td>0.533216</td><td>24/36 (0.666667)</td></tr><tr><td>Large</td><td>0.607690</td><td>24/36 (0.666667)</td></tr></tbody></table></div>
+<p>Per-region recall:</p>
+<div class="table-wrap"><table><thead><tr><th>UI profile</th><th>Objectives</th><th>Skill bar</th><th>Minimap</th></tr></thead><tbody><tr><td>Small</td><td>0/12</td><td>0/12</td><td>0/12</td></tr><tr><td>Normal</td><td>0/12</td><td>12/12</td><td>12/12</td></tr><tr><td>Large</td><td>0/12</td><td>12/12</td><td>12/12</td></tr></tbody></table></div>
+<h3 id="interpretation">Interpretation<a class="heading-anchor" href="#interpretation" aria-label="Copy link to Interpretation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>UI scale is a material layout variable. The generic geometry happens to align best with Large and moderately with Normal, but fails Small entirely. Its objectives proposal fails every reviewed profile, so aggregate success on two regions must not be treated as detector validity.</p>
+<p>The current reviewed boxes were generated as profile-specific seeds and then approved by the operator. They can define frozen crop-profile candidates, but evaluating those candidates on the same frames would be circular. Independent post-freeze validation is required.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Reject a single scale-agnostic geometry profile.</li>
+<li>Preserve explicit Small, Normal, and Large strata.</li>
+<li>Keep Larger/XL unsupported and do not infer it from Large.</li>
+<li>Freeze profile-specific crop candidates next.</li>
+<li>Evaluate each frozen profile on newly collected, separately reviewed frames</li>
+<p>before promotion.</p>
+<li>Continue treating all geometry as crop heuristics, not semantic detection.</li>
+</ul></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

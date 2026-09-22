@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="PROSODY-007 · PROSODY · INCONCLUSIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="LLM-directed bounded speculation subscriptions"><meta property="og:description" content="PROSODY-007 · PROSODY · INCONCLUSIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/prosody-007/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/prosody-007.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for prosody-007: LLM-directed bounded speculation subscriptions, outcome inconclusive">
+<meta property="article:published_time" content="2026-08-15T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="LLM-directed bounded speculation subscriptions"><meta name="twitter:description" content="PROSODY-007 · PROSODY · INCONCLUSIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/prosody-007.png">
+<title>LLM-directed bounded speculation subscriptions — prosody-007 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/prosody-007/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/prosody-007/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/prosody/" aria-label="Open the prosody family detailed view">LABNOTE / prosody <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">LLM-directed bounded speculation subscriptions</h1>
+<div class="note-vitals"><span>prosody-007</span><time itemprop="datePublished" datetime="2026-08-15">2026-08-15</time><span data-outcome="inconclusive">inconclusive</span><span>complete</span></div>
+<p class="question" itemprop="description">Can a conversational model recognize a predictable semantic trajectory once per completed turn and request a bounded runtime-owned subscription that selects future speculative work more effectively than a stateless numeric readiness gate?</p><div class="tags"><span>conversational-prosody</span><span>inconclusive-result</span><span>speculative-execution</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/conversation-prosody-pipeline/docs/labnotes/labnote-007-bounded-speculation-subscriptions.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../prosody-006/"><span class="lineage-id">prosody-006</span><strong>Familiarity-gated speculative cognition</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-15</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">prosody-007</span><strong>LLM-directed bounded speculation subscriptions</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-15</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><span class="lineage-empty">No published follow-up</span></div></div>
+</div></nav>
+<div class="note-body"><h2 id="lab-note-llm-directed-bounded-speculation-subscriptions">Lab note: LLM-directed bounded speculation subscriptions<a class="heading-anchor" href="#lab-note-llm-directed-bounded-speculation-subscriptions" aria-label="Copy link to Lab note: LLM-directed bounded speculation subscriptions" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p><strong>Run date:</strong> 2026-08-15</p>
+<p><strong>Status:</strong> Complete; operational mechanism worked, selection advantage was not demonstrated</p>
+<p><strong>Execution environment:</strong> local GPU workstation</p>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Can a conversational model recognize a predictable semantic trajectory once per completed turn and request a bounded runtime-owned subscription that selects future speculative work more effectively than a stateless numeric readiness gate?</p>
+<h3 id="motivation">Motivation<a class="heading-anchor" href="#motivation" aria-label="Copy link to Motivation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Labnote 006 found a real oracle opportunity but its seven-feature logistic readiness gate selected worse-than-average turns. This follow-up changes the decision unit from one partial turn to a short conversational trajectory. The LLM may request that the runtime watch the next one to three turns; it cannot itself start inference, publish output, speak, invoke tools, or extend authority.</p>
+<p>The runtime owns TTL, topic-scope matching, local confidence, and cancellation. A topic mismatch, TTL exhaustion, or one speculative miss closes the subscription. Public commit remains independently gated.</p>
+<h3 id="cheap-structural-gate">Cheap structural gate<a class="heading-anchor" href="#cheap-structural-gate" aria-label="Copy link to Cheap structural gate" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Before any new model calls, a CPU-only analysis tested whether profitable 006 outcomes clustered. Development would proceed if lag-one profitable-turn lift was at least 1.5 over base rate or at least 25% of profitable turns occurred in runs of two or more.</p>
+<p>On 1,500 development rows, 42.12% of profitable turns occurred in runs of at least two, including 41 two-turn and 11 three-turn runs. The structural gate therefore passed. The sealed 500-row held-out split was not inspected at this stage.</p>
+<h3 id="selector-protocol">Selector protocol<a class="heading-anchor" href="#selector-protocol" aria-label="Copy link to Selector protocol" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>After each completed turn except the final turn in a session, <code>qwen3:8b</code> received at most the previous six completed user turns. It returned a finite schema:</p>
+<pre><code>{
+  &quot;subscribe&quot;: true,
+  &quot;ttl_turns&quot;: 2,
+  &quot;topic_scope&quot;: &quot;software&quot;,
+  &quot;reason&quot;: &quot;The user is continuing one deployment diagnosis&quot;
+}</code></pre>
+<p>The request applies only to future turns. It cannot see the next partial turn or any future outcome. Runtime simulation then applies the subscription to the frozen Labnote 006 counterfactual ledger; no speculative skeleton was regenerated.</p>
+<p>The development collector completed 1,440 decisions across 30 sessions and two seeds. The runtime tested local confidence thresholds 0.0, 0.7, 0.8, and 0.9. The frozen selection rule maximized development latency recovery subject to reducing wasted compute by at least 70% relative to always-on. Threshold 0.0 won; thresholds through 0.8 were behaviorally identical because predictor confidence was saturated, while 0.9 selected no reusable work. This freeze was recorded before the 480 held-out selector decisions were generated.</p>
+<h3 id="results">Results<a class="heading-anchor" href="#results" aria-label="Copy link to Results" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Both detached selector runs completed every task with zero failures and zero service restarts.</p>
+<div class="table-wrap"><table><thead><tr><th>Metric</th><th>Development</th><th>Held out</th></tr></thead><tbody><tr><td>Selector decisions</td><td>1,440</td><td>480</td></tr><tr><td>Subscription requests</td><td>449</td><td>140</td></tr><tr><td>Runtime coverage</td><td>22.07%</td><td>19.20%</td></tr><tr><td>Safe reuse among selected</td><td>9.97%</td><td>17.71%</td></tr><tr><td>Mean latency saved per corpus turn</td><td>16.75 ms</td><td>24.30 ms</td></tr><tr><td>Total latency recovered</td><td>25,123 ms</td><td>12,151 ms</td></tr><tr><td>Total speculative compute</td><td>261,890 ms</td><td>74,456 ms</td></tr><tr><td>Wasted speculative compute</td><td>236,317 ms</td><td>61,604 ms</td></tr><tr><td>Invalid promotions</td><td>0</td><td>0</td></tr></tbody></table></div>
+<p>Held-out subscription selection reduced wasted compute by 80.98% relative to always-on, but it also recovered only 19.39% of the oracle/always-on latency. The changes were nearly proportional. Latency recovered per millisecond of speculative compute was approximately:</p>
+<ul>
+<li>subscription: 0.163;</li>
+<li>always-on: 0.162; and</li>
+<li>naive speculation after five turns: 0.175.</li>
+</ul>
+<p>The subscription therefore did not materially enrich profitable work. Its held-out safe-reuse rate of 17.71% was only modestly above the 16.40% population rate and below the naive five-turn policy's 17.75%.</p>
+<p>The structural premise also weakened on held-out data. Profitable-turn lag-one lift fell from 1.29 on development to 0.84 held out: a profitable turn was followed by another profitable turn only 13.75% of the time, below the 16.40% base rate. The share of profitable turns in runs of two or more fell from 42.12% to 21.95%. Development's apparent clustering did not generalize.</p>
+<h3 id="interpretation">Interpretation<a class="heading-anchor" href="#interpretation" aria-label="Copy link to Interpretation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The runtime mechanism behaved correctly. TTL and topic scope bounded attention, single misses canceled subscriptions, and no invalid branch was promoted. It also substantially reduced absolute GPU waste and recovered more latency than Labnote 006's stateless readiness gate.</p>
+<p>However, the conversational LLM appears to recognize semantic continuity rather than the narrower property needed here: whether an unfinished future turn will produce a reusable response skeleton. Coherent conversational momentum was not a sufficiently selective proxy for profitable speculative computation.</p>
+<p>This distinction is the central result:</p>
+<blockquote>A conversation can be predictably about the same thing without its next partial</blockquote>
+<blockquote>utterance supporting reusable downstream response work.</blockquote>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Do not advance this subscription selector to recorded speech or the separate live voice demo. Do not add retrieval, embeddings, a larger selector, or more elaborate subscription state merely to fit these sessions. The bounded runtime primitive remains a sound architectural option for other attention tasks, but this experiment did not demonstrate a meaningful selection advantage for speculative response skeletons.</p>
+<p>Artifacts are retained under ignored <code>artifacts/labnote-007/</code>. The repository records the frozen protocol, selector runner, runtime simulator, structural analysis, service definitions, and focused tests; generated model ledgers remain out of Git.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

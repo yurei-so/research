@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /research/
+
+Sitemap: https://yurei-so.github.io/research/sitemap.xml

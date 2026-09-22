@@ -1,0 +1,66 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-09-22T04:58:06.000Z",
+  "source_revision": "1832268046f6",
+  "family": {
+    "id": "voxel-guidance",
+    "title": "Voxel Guidance",
+    "labnote_count": 5,
+    "outcomes": {
+      "mixed": 3,
+      "negative": 1,
+      "positive": 1
+    },
+    "latest_labnote_id": "voxel-guidance-005"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Voxel Guidance record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "voxel-guidance-005",
+        "title": "Semantic namespace token ablation",
+        "date": "2026-09-10",
+        "status": "complete",
+        "outcome": "negative",
+        "question": "Can a semantic namespace token replace the full field dictionary when a local model interprets compact behavioral state?",
+        "finding": "Namespace-only and opaque-schema control produced exactly the same 12 predictions. The semantic namespace therefore supplied no measurable zero-shot benefit in this run while adding about 12 prompt tokens. The short group grammar did not preserve the full dictionary's semantic…",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/voxel-guidance-005/"
+      },
+      {
+        "id": "voxel-guidance-001",
+        "title": "Minecraft behavioral-vector pilot",
+        "date": "2026-09-07",
+        "status": "complete",
+        "outcome": "mixed",
+        "question": "Can repeated, task-balanced Minecraft sessions produce an interpretable behavioral vector whose within-condition variation is smaller than its uncertainty?",
+        "finding": "Can repeated, task-balanced Minecraft sessions produce an interpretable behavioral vector whose within-condition variation is smaller than its uncertainty?",
+        "evidence_url": "https://yurei-so.github.io/research/beta/labnotes/voxel-guidance-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [
+    {
+      "from": "voxel-guidance-005",
+      "to": "voxel-guidance-004",
+      "type": "motivated-by"
+    },
+    {
+      "from": "voxel-guidance-002",
+      "to": "voxel-guidance-001",
+      "type": "extends"
+    }
+  ],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/beta/projects/voxel-guidance/",
+    "complete_corpus": "https://yurei-so.github.io/research/beta/research-corpus-v1.json",
+    "heavy_geometry": "https://yurei-so.github.io/research/beta/projects/voxel-guidance/graph.json",
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

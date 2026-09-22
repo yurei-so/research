@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-010 · ZENITH · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="corrective panel transfer"><meta property="og:description" content="ZENITH-010 · ZENITH · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-010/">
+<meta property="og:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-010.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-010: corrective panel transfer, outcome negative">
+<meta property="article:published_time" content="2026-08-24T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="corrective panel transfer"><meta name="twitter:description" content="ZENITH-010 · ZENITH · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/beta/assets/social/zenith-010.png">
+<title>corrective panel transfer — zenith-010 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/beta/labnotes/zenith-010/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=1832268046f6"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/beta/labnotes/zenith-010/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">corrective panel transfer</h1>
+<div class="note-vitals"><span>zenith-010</span><time itemprop="datePublished" datetime="2026-08-24">2026-08-24</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Does adding an approved Inventory-only and closed-panel development batch fix the cross-batch false-positive behavior of the frozen MobileNet V3 Small panel classifier without spending a fresh holdout?</p><div class="tags"><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>negative-result</span><span>panel-recognition</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/010-corrective-panel-transfer.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-009/"><span class="lineage-id">zenith-009</span><strong>panel transfer baseline</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-010</span><strong>corrective panel transfer</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-011/"><span class="lineage-id">zenith-011</span><strong>localized panel transfer</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-08-24</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-010-corrective-panel-transfer">Labnote 010: corrective panel transfer<a class="heading-anchor" href="#labnote-010-corrective-panel-transfer" aria-label="Copy link to Labnote 010: corrective panel transfer" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Does adding an approved Inventory-only and closed-panel development batch fix the cross-batch false-positive behavior of the frozen MobileNet V3 Small panel classifier without spending a fresh holdout?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Private input: four approved, structurally masked development batches only.</li>
+<li>Corrective batch: 12 Small-UI observations containing eight Inventory-only</li>
+<p>states and four closed-panel negatives.</p>
+<li>Spent and future holdouts: not transferred to the execution environment and not read by the</li>
+<p>experiment.</p>
+<li>Model: ImageNet-pretrained MobileNet V3 Small with frozen backbone;</li>
+<p>classifier head only.</p>
+<li>Augmentation: bounded translation, scale, brightness, contrast, and</li>
+<p>saturation.</p>
+<li>Evaluation: four leave-one-batch-out folds, 18 epochs per fold.</li>
+<li>Accelerator: RTX 4070 through a non-preemptive accelerator lease.</li>
+<li>Internal execution record retained; identifier withheld.</li>
+</ul>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>Held batch</th><th>Exact accuracy</th><th>Hero TP/FP/FN</th><th>Inventory TP/FP/FN</th></tr></thead><tbody><tr><td>001</td><td>5/9 (55.6%)</td><td>7/0/0</td><td>2/4/0</td></tr><tr><td>002</td><td>7/9 (77.8%)</td><td>7/0/0</td><td>2/1/1</td></tr><tr><td>003</td><td>9/12 (75.0%)</td><td>7/1/1</td><td>7/1/0</td></tr><tr><td>004 corrective</td><td>8/12 (66.7%)</td><td>0/4/0</td><td>6/0/2</td></tr></tbody></table></div>
+<p>Aggregate exact accuracy was 29/42 (69.0%). The job completed on CUDA with exit code 0 and no stderr. The scheduler and compute broker remained healthy with zero restarts, and the accelerator lease was released normally.</p>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Reject this corrective model and do not spend a fresh holdout. The new batch exposed rather than repaired cross-environment confounding: the model produced four false Hero detections in a batch containing no Hero examples, missed two Inventory states there, and regressed to four false Inventory detections on the first batch. No fold reached 80% exact accuracy.</p>
+<p>Do not respond with more epochs or another blind classifier-head run on the same corpus. The next development slice should separate panel evidence into localized regions, add visually diverse negatives for each class, and freeze a development-only calibration gate before any new holdout is collected or read.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV 1832268046f6</span></footer><script type="module" src="../../assets/labnote.js?v=1832268046f6"></script></body></html>

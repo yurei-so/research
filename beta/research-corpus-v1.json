@@ -1,0 +1,1207 @@
+{
+  "schema": "research-corpus/v1",
+  "generated_at": "2026-09-22T04:58:06.000Z",
+  "source_revision": "1832268046f6",
+  "families": [
+    {
+      "id": "composition",
+      "title": "Composition"
+    },
+    {
+      "id": "meta-research",
+      "title": "Meta Research"
+    },
+    {
+      "id": "narrative-steering",
+      "title": "Narrative Steering"
+    },
+    {
+      "id": "prosody",
+      "title": "Prosody"
+    },
+    {
+      "id": "voxel-guidance",
+      "title": "Voxel Guidance"
+    },
+    {
+      "id": "zenith",
+      "title": "Zenith"
+    }
+  ],
+  "labnotes": [
+    {
+      "id": "meta-research-001",
+      "family": "meta-research",
+      "title": "Grounded build-time labnote summarization",
+      "date": "2026-09-21",
+      "status": "running",
+      "outcome": "pending",
+      "question": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?",
+      "tags": [
+        "meta-research",
+        "summarization",
+        "apparatus",
+        "provenance",
+        "human-review"
+      ],
+      "relations": []
+    },
+    {
+      "id": "composition-009",
+      "family": "composition",
+      "title": "Readiness-gated bounded-span repair",
+      "date": "2026-09-17",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can suffix-triggered readiness plus bounded-span repair recover the deferred-composition idea without freezing incorrect surrounding structure?",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "deferred-infill",
+        "negative-result",
+        "readiness"
+      ],
+      "relations": [
+        {
+          "target": "composition-008",
+          "type": "extends",
+          "rationale": "Tests whether explicit readiness and whole-span repair address the structural failure observed in forced single-hole infill."
+        }
+      ]
+    },
+    {
+      "id": "composition-008",
+      "family": "composition",
+      "title": "Forced deferred-hole composition pilot",
+      "date": "2026-09-17",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does deferring one locally uncertain span until right-hand context exists improve bounded composition over direct generation or unrestricted two-pass revision?",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "deferred-infill",
+        "negative-result"
+      ],
+      "relations": [
+        {
+          "target": "composition-007",
+          "type": "extends",
+          "rationale": "Continues the search for useful inference-time composition structure after extended thinking failed to justify its cost."
+        }
+      ]
+    },
+    {
+      "id": "prosody-018",
+      "family": "prosody",
+      "title": "conversation-conditioned two-speaker pilot",
+      "date": "2026-09-12",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can conversation-aware turn direction produce a convincing two-speaker exchange where isolated line direction does not?",
+      "tags": [
+        "conversational-prosody",
+        "multi-speaker",
+        "synthetic-audio",
+        "turn-taking"
+      ],
+      "relations": [
+        {
+          "target": "prosody-017",
+          "type": "reuses-apparatus",
+          "rationale": "Reuses its validated Qwen3-TTS CustomVoice synthesis path while moving evaluation from isolated utterances to a complete two-speaker scene."
+        }
+      ]
+    },
+    {
+      "id": "composition-007",
+      "family": "composition",
+      "title": "Matched deep-thinking composition campaign",
+      "date": "2026-09-12",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does enabling extended model thinking improve bounded composition enough to justify its latency and generation overhead?",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "negative-result",
+        "reasoning-budget"
+      ],
+      "relations": [
+        {
+          "target": "composition-006",
+          "type": "reuses-data",
+          "rationale": "Reuses its twelve public rewrite tasks to isolate reasoning mode from corpus and model changes."
+        }
+      ]
+    },
+    {
+      "id": "prosody-017",
+      "family": "prosody",
+      "title": "multi-utterance prosody candidate pool",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can a small multi-utterance candidate pool supply natural repeated readings for a held-out fingerprint-retrieval test?",
+      "tags": [
+        "candidate-generation",
+        "conversational-prosody",
+        "dataset",
+        "prosody-fingerprint"
+      ],
+      "relations": [
+        {
+          "target": "prosody-016",
+          "type": "extends",
+          "rationale": "Expands the positive eight-clip representation pilot across unseen lexical content before freezing retrieval."
+        }
+      ]
+    },
+    {
+      "id": "prosody-016",
+      "family": "prosody",
+      "title": "acoustic fingerprint pilot",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Do lightweight acoustic fingerprints recover perceived emphasis and expressive delivery in the Prosody 015 corpus?",
+      "tags": [
+        "acoustic-analysis",
+        "conversational-prosody",
+        "prosody-fingerprint",
+        "representation"
+      ],
+      "relations": [
+        {
+          "target": "prosody-015",
+          "type": "extends",
+          "rationale": "Measures whether deterministic acoustic descriptors recover the owner-labeled readings discovered in that corpus."
+        }
+      ]
+    },
+    {
+      "id": "prosody-015",
+      "family": "prosody",
+      "title": "emergent prosody annotation",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "What coherent readings actually emerge when direct lexical-focus control fails?",
+      "tags": [
+        "annotation",
+        "conversational-prosody",
+        "discovery",
+        "prosody-fingerprint",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-014",
+          "type": "extends",
+          "rationale": "Reframes its natural but misdirected outputs as specimens to characterize rather than failed commands to discard."
+        }
+      ]
+    },
+    {
+      "id": "prosody-014",
+      "family": "prosody",
+      "title": "contrastive-focus instruction-form ablation",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does removing the competing focus word from Qwen's instruction restore directional contrastive emphasis?",
+      "tags": [
+        "ablation",
+        "conversational-prosody",
+        "instruction-control",
+        "prosody-control",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-013",
+          "type": "extends",
+          "rationale": "Tests whether the failed paired instruction made the explicitly prohibited competitor salient."
+        }
+      ]
+    },
+    {
+      "id": "prosody-013",
+      "family": "prosody",
+      "title": "instruction-conditioned contrastive focus",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can reference-free natural-language instructions produce natural, directionally correct contrastive focus?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "instruction-control",
+        "prosody-control",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-012",
+          "type": "extends",
+          "rationale": "Replaces failed recorded-reference conditioning with reference-free natural-language prosody instructions."
+        }
+      ]
+    },
+    {
+      "id": "prosody-012",
+      "family": "prosody",
+      "title": "reference-conditioned contrastive-focus transfer",
+      "date": "2026-09-11",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can whole-utterance reference conditioning reproduce an explicitly demonstrated contrastive focus without the artifacts of post-hoc DSP?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "prosody-control",
+        "reference-conditioning",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-009",
+          "type": "extends",
+          "rationale": "Retains artifact-free whole-utterance generation while replacing unreliable lexical-stress mapping with an explicit spoken reference."
+        },
+        {
+          "target": "prosody-010",
+          "type": "motivated-by",
+          "rationale": "Prosody 010 showed that native primary-versus-secondary stress did not reliably create directional discourse prominence."
+        }
+      ]
+    },
+    {
+      "id": "voxel-guidance-005",
+      "family": "voxel-guidance",
+      "title": "Semantic namespace token ablation",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can a semantic namespace token replace the full field dictionary when a local model interprets compact behavioral state?",
+      "tags": [
+        "behavioral-telemetry",
+        "machine-native-state",
+        "namespace",
+        "ablation",
+        "local-model",
+        "negative-result"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-004",
+          "type": "motivated-by",
+          "rationale": "Labnote 004 found that the shared field dictionary dominated compact prompt cost, so this note tested whether one semantic namespace could replace it."
+        }
+      ]
+    },
+    {
+      "id": "voxel-guidance-004",
+      "family": "voxel-guidance",
+      "title": "Machine-native state serialization baseline",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can two-minute behavior windows be represented compactly without loss, and does one local model preserve task recognition across prose, JSON, and typed tokens?",
+      "tags": [
+        "behavioral-telemetry",
+        "machine-native-state",
+        "serialization",
+        "apparatus",
+        "minecraft",
+        "local-model",
+        "mixed-result"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-003",
+          "type": "motivated-by",
+          "rationale": "The feature-family ablation made the surviving behavior fields concrete enough to test compact machine-native serialization."
+        }
+      ]
+    },
+    {
+      "id": "voxel-guidance-003",
+      "family": "voxel-guidance",
+      "title": "Current-task feature-family ablation",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Which observable behavior families carry the 120-second held-seed task-inference signal?",
+      "tags": [
+        "ablation",
+        "behavioral-telemetry",
+        "classification",
+        "minecraft",
+        "mixed-result"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-002",
+          "type": "ablates",
+          "rationale": "Removes behavior feature families from the successful held-seed classifier to locate which observations carry its task signal."
+        }
+      ]
+    },
+    {
+      "id": "voxel-guidance-002",
+      "family": "voxel-guidance",
+      "title": "Blinded current-task inference",
+      "date": "2026-09-10",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the current Minecraft task be inferred from causal behavior while holding out an entire seed block?",
+      "tags": [
+        "behavioral-telemetry",
+        "classification",
+        "grouped-validation",
+        "minecraft",
+        "positive-result"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-001",
+          "type": "extends",
+          "rationale": "Turns the behavioral-vector pilot into a held-seed test of whether causal play behavior identifies the current task."
+        }
+      ]
+    },
+    {
+      "id": "voxel-guidance-001",
+      "family": "voxel-guidance",
+      "title": "Minecraft behavioral-vector pilot",
+      "date": "2026-09-07",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can repeated, task-balanced Minecraft sessions produce an interpretable behavioral vector whose within-condition variation is smaller than its uncertainty?",
+      "tags": [
+        "behavioral-telemetry",
+        "human-in-the-loop",
+        "minecraft",
+        "planned-experiment",
+        "provenance",
+        "repeated-measures"
+      ],
+      "relations": []
+    },
+    {
+      "id": "narrative-steering-002",
+      "family": "narrative-steering",
+      "title": "Fingerprint compiler and blinded scorer calibration",
+      "date": "2026-09-05",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Which pilot steering coordinates are stable across story states, and can a blinded local model scorer reproduce the human measurements well enough to reduce future review burden?",
+      "tags": [
+        "blinded-review",
+        "human-review",
+        "mixed-result",
+        "model-comparison",
+        "narrative-steering",
+        "story-engine"
+      ],
+      "relations": [
+        {
+          "target": "narrative-steering-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "narrative-steering-001",
+      "family": "narrative-steering",
+      "title": "Matched-state narrative steering vector pilot",
+      "date": "2026-09-05",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can blinded ratings of continuations from matched narrative states recover a repeatable directional steering vector for each model, distinct from story and prompt effects?",
+      "tags": [
+        "human-review",
+        "model-comparison",
+        "narrative-steering",
+        "panel-recognition",
+        "positive-result",
+        "prosody-control",
+        "story-engine"
+      ],
+      "relations": []
+    },
+    {
+      "id": "zenith-017",
+      "family": "zenith",
+      "title": "swamp localized panel holdout",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does snowy-Hero successor candidate `3d37e24ca4e8b57038724062fe87a370c98ec208d5bc0f1663aeb907e40b50f8` generalize to a fresh balanced swamp holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-016",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-016",
+      "family": "zenith",
+      "title": "snowy Hero development fold",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Does adding independently collected Hero-only Hoelbrak development data repair the snowy Hero weakness exposed by Labnote 015 without regressing Inventory?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "positive-result",
+        "privacy",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "zenith-015",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-015",
+      "family": "zenith",
+      "title": "snowy localized panel holdout",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Does deterministic localized candidate `bc155807a28aee1a2d7d10fb18a96b24d40b9fe300fc3e01650f70e5d61cc649` generalize to a fresh balanced holdout captured during the snowy Claw of Jormag encounter?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "mixed-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-014",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-014",
+      "family": "zenith",
+      "title": "deterministic localized transfer",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Does deterministic, class-balanced full-batch multiple-instance training retain Hero generalization after adding varied Inventory-only position data?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "panel-recognition",
+        "positive-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-013",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-013",
+      "family": "zenith",
+      "title": "varied Inventory position transfer",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Does adding new Inventory-only development batches staged at left, right, and center positions repair the localized candidate's position dependence?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "mixed-result",
+        "panel-recognition",
+        "privacy",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "zenith-012",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-012",
+      "family": "zenith",
+      "title": "localized panel frozen holdout",
+      "date": "2026-08-25",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does the localized panel candidate that passed development cross-validation generalize to a separately frozen, balanced live Small-UI holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-011",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-011",
+      "family": "zenith",
+      "title": "localized panel transfer",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can class-specific localized evidence avoid the environmental confounding seen by whole-tile transfer learning while preserving development-only evaluation?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "panel-recognition",
+        "positive-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-010",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-010",
+      "family": "zenith",
+      "title": "corrective panel transfer",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does adding an approved Inventory-only and closed-panel development batch fix the cross-batch false-positive behavior of the frozen MobileNet V3 Small panel classifier without spending a fresh holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-009",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-009",
+      "family": "zenith",
+      "title": "panel transfer baseline",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does a frozen ImageNet-pretrained MobileNet V3 Small backbone provide enough visual structure to recognize Hero and Inventory across development batches without spending another holdout?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-008",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-008",
+      "family": "zenith",
+      "title": "first visual panel baseline",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can a compact CPU ridge classifier trained on masked Small-UI panel tiles generalize from two development batches to a recognition-disabled frozen holdout captured during a live world boss?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-007",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-007",
+      "family": "zenith",
+      "title": "Small-UI panel recognition",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can Zenith Vision recognize a concrete open Guild Wars 2 UI panel in a messy live scene without retaining the full frame or emitting unrelated screen text?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "mixed-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-006",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-006",
+      "family": "zenith",
+      "title": "live one-shot observation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can Zenith Vision execute its complete live privacy and authority boundary once against Guild Wars 2 without allowing an optional OCR failure to suppress valid MumbleLink telemetry?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "positive-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-005",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-005",
+      "family": "zenith",
+      "title": "Normal profile blind human validation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Does the frozen Normal UI crop profile agree with independently drawn human boxes on fresh gameplay frames?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "positive-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-004",
+      "family": "zenith",
+      "title": "frozen Normal profile seeded validation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Does the frozen Normal UI crop profile remain visually acceptable across a fresh, independently collected gameplay batch?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "mixed-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-003",
+      "family": "zenith",
+      "title": "UI-scale stratification",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does one generic default-layout geometry describe the visible Guild Wars 2 HUD across the Small, Normal, and Large UI profiles?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "deduplication",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-002",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-002",
+      "family": "zenith",
+      "title": "batch holdout geometry confirmation",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does the default-layout geometry baseline recover operator-reviewed visible HUD regions across a larger private gameplay holdout?",
+      "tags": [
+        "blinded-review",
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "privacy"
+      ],
+      "relations": [
+        {
+          "target": "zenith-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "zenith-001",
+      "family": "zenith",
+      "title": "default-layout geometry on a real holdout",
+      "date": "2026-08-24",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can the deterministic default-layout proposal serve as a UI-region detector, or is it only suitable for conservative crop routing?",
+      "tags": [
+        "computer-vision",
+        "guild-wars-2",
+        "holdout",
+        "negative-result",
+        "panel-recognition",
+        "privacy"
+      ],
+      "relations": []
+    },
+    {
+      "id": "prosody-011",
+      "family": "prosody",
+      "title": "Reproducible synthetic conversational-audio rerun",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Does the negative Labnote 003 matched-versus-shuffled result persist when every audio clip is generated locally by a known, fingerprinted synthesizer and exact transcript fidelity is verified before downstream generation?",
+      "tags": [
+        "conversational-prosody",
+        "holdout",
+        "inconclusive-result",
+        "provenance",
+        "revision",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-010",
+      "family": "prosody",
+      "title": "native stress prominence gate",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does native lexical stress create reliable directional discourse prominence?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "negative-result",
+        "prosody-control",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-009",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-009",
+      "family": "prosody",
+      "title": "native Kokoro stress pilot",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can native Kokoro lexical stress produce natural audio and validate the intended focus mapping?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "mixed-result",
+        "prosody-control",
+        "revision",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-008",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-008",
+      "family": "prosody",
+      "title": "audible focus-control gate",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can post-hoc focus control create audible, natural emphasis before spending human-review labor?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "negative-result",
+        "prosody-control"
+      ],
+      "relations": [
+        {
+          "target": "prosody-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "composition-006",
+      "family": "composition",
+      "title": "Targeted residual-defect repair",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "A second model pass may justify its cost when restricted to repairing one explicit residual defect in an otherwise complete direct rewrite, even though unrestricted optional editing showed no preference advantage in Labnote 005.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "mixed-result",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "composition-005",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "composition-005",
+      "family": "composition",
+      "title": "Stochastic deduplicated optional editor campaign",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "A modest nonzero sampling temperature can produce enough distinct optional editor outcomes to support a useful conditional blind review, provided exact duplicate answer pairs are removed before operator intake and remain visible as multiplicity telemetry rather than independent samples.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "deduplication",
+        "human-review",
+        "negative-result",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "composition-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "composition-004",
+      "family": "composition",
+      "title": "Changed-output optional editor campaign",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Optional editor access may be useful specifically when it chooses to change a direct rewrite, even if most assignments appropriately remain unchanged. A larger campaign can estimate both overall usefulness and preference conditional on a genuine editor-caused change without requiring the owner to review identical texts.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "inconclusive-result",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "composition-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "composition-003",
+      "family": "composition",
+      "title": "Optional editor-access campaign",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Giving a model optional access to constrained revision after a matched direct rewrite may improve judged output without forcing a mutation. Finalizing the initial candidate unchanged is a first-class treatment outcome.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "negative-result",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "composition-002",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "composition-002",
+      "family": "composition",
+      "title": "Seeded mandatory-revision campaign",
+      "date": "2026-08-22",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Schema-constrained revision can reliably transform a seeded draft through real virtual-buffer mutations and produce outputs suitable for blinded comparison with direct rewriting.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "inconclusive-result",
+        "revision"
+      ],
+      "relations": [
+        {
+          "target": "composition-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "composition-001",
+      "family": "composition",
+      "title": "Prompted and constrained editing baseline",
+      "date": "2026-08-22",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.",
+      "tags": [
+        "composition",
+        "human-review",
+        "positive-result",
+        "revision"
+      ],
+      "relations": []
+    },
+    {
+      "id": "prosody-007",
+      "family": "prosody",
+      "title": "LLM-directed bounded speculation subscriptions",
+      "date": "2026-08-15",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Can a conversational model recognize a predictable semantic trajectory once per completed turn and request a bounded runtime-owned subscription that selects future speculative work more effectively than a stateless numeric readiness gate?",
+      "tags": [
+        "conversational-prosody",
+        "inconclusive-result",
+        "speculative-execution"
+      ],
+      "relations": [
+        {
+          "target": "prosody-006",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-006",
+      "family": "prosody",
+      "title": "Familiarity-gated speculative cognition",
+      "date": "2026-08-15",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can a runtime use a sub-millisecond readiness policy to select the minority of unfinished conversational turns where private speculative response work has positive net value, while abstaining everywhere else?",
+      "tags": [
+        "conversational-prosody",
+        "negative-result",
+        "speculative-execution"
+      ],
+      "relations": [
+        {
+          "target": "prosody-005",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-005",
+      "family": "prosody",
+      "title": "Speculative semantic branch and turn-state prediction",
+      "date": "2026-08-13",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can semantic branch prediction during an unfinished human turn safely hide language model latency, while a turn-state estimator reduces premature interruption and supports optional collaborative completion?",
+      "tags": [
+        "conversational-prosody",
+        "negative-result",
+        "speculative-execution",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-004",
+      "family": "prosody",
+      "title": "Context-conditioned prosody IR inference and synthesis",
+      "date": "2026-08-13",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Can a language model infer an intended, backend-independent prosodic structure from discourse context when the literal target utterance is held fixed? Separately, can a Kokoro compiler render that structure so a listener can recover the intended reading?",
+      "tags": [
+        "blinded-review",
+        "conversational-prosody",
+        "inconclusive-result",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-003",
+      "family": "prosody",
+      "title": "Amy-LM synthetic prosody downstream-response pilot (v0.3.1)",
+      "date": "2026-07-01",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Does adding delivery cues derived from the correct audio improve an LLM's response to flattened conversational text relative to text-only and shuffled-cue controls?",
+      "tags": [
+        "conversational-prosody",
+        "holdout",
+        "inconclusive-result",
+        "provenance",
+        "revision",
+        "synthetic-audio"
+      ],
+      "relations": [
+        {
+          "target": "prosody-002",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-002",
+      "family": "prosody",
+      "title": "Shakespeare monologue downstream-response pilot (v0.3.1)",
+      "date": "2026-07-01",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does adding delivery/prosody information to a transcript improve or meaningfully change an LLM's conversational response?",
+      "tags": [
+        "conversational-prosody",
+        "negative-result"
+      ],
+      "relations": [
+        {
+          "target": "prosody-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ]
+    },
+    {
+      "id": "prosody-001",
+      "family": "prosody",
+      "title": "Selected Poems real-media ingest (v0.1.0)",
+      "date": "2026-06-27",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the packaged file and simulated-stream ingestion paths produce consistent prosodic metadata from real spoken audio when transcription remains an external step?",
+      "tags": [
+        "conversational-prosody",
+        "positive-result",
+        "real-audio"
+      ],
+      "relations": []
+    }
+  ]
+}

@@ -1,0 +1,796 @@
+{
+  "family": {
+    "id": "composition",
+    "title": "Composition"
+  },
+  "notes": [
+    {
+      "id": "composition-001",
+      "family": "composition",
+      "title": "Prompted and constrained editing baseline",
+      "date": "2026-08-22",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.",
+      "tags": [
+        "composition",
+        "human-review",
+        "positive-result",
+        "revision"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/composition-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "composition-002"
+        ]
+      },
+      "result_summary": "An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/001-prompted-constrained-editing-baseline.md"
+    },
+    {
+      "id": "composition-002",
+      "family": "composition",
+      "title": "Seeded mandatory-revision campaign",
+      "date": "2026-08-22",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Schema-constrained revision can reliably transform a seeded draft through real virtual-buffer mutations and produce outputs suitable for blinded comparison with direct rewriting.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "inconclusive-result",
+        "revision"
+      ],
+      "lineage": [
+        "composition-001"
+      ],
+      "relations": [
+        {
+          "target": "composition-001",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/composition-002/",
+      "timeline": {
+        "follows": [
+          "composition-001"
+        ],
+        "continued_by": [
+          "composition-003"
+        ]
+      },
+      "result_summary": "Schema-constrained revision can reliably transform a seeded draft through real virtual-buffer mutations and produce outputs suitable for blinded comparison with direct rewriting.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/002-seeded-mandatory-revision-campaign.md"
+    },
+    {
+      "id": "composition-003",
+      "family": "composition",
+      "title": "Optional editor-access campaign",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Giving a model optional access to constrained revision after a matched direct rewrite may improve judged output without forcing a mutation. Finalizing the initial candidate unchanged is a first-class treatment outcome.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "negative-result",
+        "revision"
+      ],
+      "lineage": [
+        "composition-002"
+      ],
+      "relations": [
+        {
+          "target": "composition-002",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/composition-003/",
+      "timeline": {
+        "follows": [
+          "composition-002"
+        ],
+        "continued_by": [
+          "composition-004"
+        ]
+      },
+      "result_summary": "Giving a model optional access to constrained revision after a matched direct rewrite may improve judged output without forcing a mutation. Finalizing the initial candidate unchanged is a first-class treatment outcome.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/003-optional-editor-access-campaign.md"
+    },
+    {
+      "id": "composition-004",
+      "family": "composition",
+      "title": "Changed-output optional editor campaign",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "inconclusive",
+      "question": "Optional editor access may be useful specifically when it chooses to change a direct rewrite, even if most assignments appropriately remain unchanged. A larger campaign can estimate both overall usefulness and preference conditional on a genuine editor-caused change without requiring the owner to review identical texts.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "inconclusive-result",
+        "revision"
+      ],
+      "lineage": [
+        "composition-003"
+      ],
+      "relations": [
+        {
+          "target": "composition-003",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/composition-004/",
+      "timeline": {
+        "follows": [
+          "composition-003"
+        ],
+        "continued_by": [
+          "composition-005"
+        ]
+      },
+      "result_summary": "Optional editor access may be useful specifically when it chooses to change a direct rewrite, even if most assignments appropriately remain unchanged. A larger campaign can estimate both overall usefulness and preference conditional on a genuine editor-caused change without requiring the owner to review identical texts.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/004-changed-output-optional-editor-campaign.md"
+    },
+    {
+      "id": "composition-005",
+      "family": "composition",
+      "title": "Stochastic deduplicated optional editor campaign",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "A modest nonzero sampling temperature can produce enough distinct optional editor outcomes to support a useful conditional blind review, provided exact duplicate answer pairs are removed before operator intake and remain visible as multiplicity telemetry rather than independent samples.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "deduplication",
+        "human-review",
+        "negative-result",
+        "revision"
+      ],
+      "lineage": [
+        "composition-004"
+      ],
+      "relations": [
+        {
+          "target": "composition-004",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/composition-005/",
+      "timeline": {
+        "follows": [
+          "composition-004"
+        ],
+        "continued_by": [
+          "composition-006"
+        ]
+      },
+      "result_summary": "A modest nonzero sampling temperature can produce enough distinct optional editor outcomes to support a useful conditional blind review, provided exact duplicate answer pairs are removed before operator intake and remain visible as multiplicity telemetry rather than independent samples.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/005-stochastic-deduplicated-editor-campaign.md"
+    },
+    {
+      "id": "composition-006",
+      "family": "composition",
+      "title": "Targeted residual-defect repair",
+      "date": "2026-08-23",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "A second model pass may justify its cost when restricted to repairing one explicit residual defect in an otherwise complete direct rewrite, even though unrestricted optional editing showed no preference advantage in Labnote 005.",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "human-review",
+        "mixed-result",
+        "revision"
+      ],
+      "lineage": [
+        "composition-005"
+      ],
+      "relations": [
+        {
+          "target": "composition-005",
+          "type": "follows",
+          "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+        }
+      ],
+      "href": "labnotes/composition-006/",
+      "timeline": {
+        "follows": [
+          "composition-005"
+        ],
+        "continued_by": [
+          "composition-007"
+        ]
+      },
+      "result_summary": "A second model pass may justify its cost when restricted to repairing one explicit residual defect in an otherwise complete direct rewrite, even though unrestricted optional editing showed no preference advantage in Labnote 005.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/006-targeted-residual-defect-repair.md"
+    },
+    {
+      "id": "composition-007",
+      "family": "composition",
+      "title": "Matched deep-thinking composition campaign",
+      "date": "2026-09-12",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does enabling extended model thinking improve bounded composition enough to justify its latency and generation overhead?",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "negative-result",
+        "reasoning-budget"
+      ],
+      "lineage": [
+        "composition-006"
+      ],
+      "relations": [
+        {
+          "target": "composition-006",
+          "type": "reuses-data",
+          "rationale": "Reuses its twelve public rewrite tasks to isolate reasoning mode from corpus and model changes."
+        }
+      ],
+      "href": "labnotes/composition-007/",
+      "timeline": {
+        "follows": [
+          "composition-006"
+        ],
+        "continued_by": [
+          "composition-008"
+        ]
+      },
+      "result_summary": "All 24 generations completed without failure. Thinking-disabled calls averaged 0.741 seconds and 30.25 generated tokens. Thinking-enabled calls averaged 6.146 seconds and 501 generated tokens, corresponding to approximately 8.3 times the latency and 16.6 times the generation.…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/007-matched-deep-thinking-composition.md"
+    },
+    {
+      "id": "composition-008",
+      "family": "composition",
+      "title": "Forced deferred-hole composition pilot",
+      "date": "2026-09-17",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Does deferring one locally uncertain span until right-hand context exists improve bounded composition over direct generation or unrestricted two-pass revision?",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "deferred-infill",
+        "negative-result"
+      ],
+      "lineage": [
+        "composition-007"
+      ],
+      "relations": [
+        {
+          "target": "composition-007",
+          "type": "extends",
+          "rationale": "Continues the search for useful inference-time composition structure after extended thinking failed to justify its cost."
+        }
+      ],
+      "href": "labnotes/composition-008/",
+      "timeline": {
+        "follows": [
+          "composition-007"
+        ],
+        "continued_by": [
+          "composition-009"
+        ]
+      },
+      "result_summary": "The campaign completed all 24 planned trials. Twenty-three succeeded; the deferred arm for one case failed its structured protocol after the allowed retry. Seven complete three-arm cases remained, passing the six-case review gate. There were no automatic ties, leaving seven ju…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/008-forced-deferred-hole-composition.md"
+    },
+    {
+      "id": "composition-009",
+      "family": "composition",
+      "title": "Readiness-gated bounded-span repair",
+      "date": "2026-09-17",
+      "status": "complete",
+      "outcome": "negative",
+      "question": "Can suffix-triggered readiness plus bounded-span repair recover the deferred-composition idea without freezing incorrect surrounding structure?",
+      "tags": [
+        "blinded-review",
+        "composition",
+        "deferred-infill",
+        "negative-result",
+        "readiness"
+      ],
+      "lineage": [
+        "composition-008"
+      ],
+      "relations": [
+        {
+          "target": "composition-008",
+          "type": "extends",
+          "rationale": "Tests whether explicit readiness and whole-span repair address the structural failure observed in forced single-hole infill."
+        }
+      ],
+      "href": "labnotes/composition-009/",
+      "timeline": {
+        "follows": [
+          "composition-008"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The valid campaign completed all 24 planned trials without failure. All eight complete triplets entered both blinded review sessions, with no automatic ties.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/009-readiness-gated-bounded-span-repair.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "composition-002",
+      "target": "composition-001",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "composition-003",
+      "target": "composition-002",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "composition-004",
+      "target": "composition-003",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "composition-005",
+      "target": "composition-004",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "composition-006",
+      "target": "composition-005",
+      "type": "follows",
+      "rationale": "Recorded as the preceding labnote in the original lineage metadata."
+    },
+    {
+      "source": "composition-007",
+      "target": "composition-006",
+      "type": "reuses-data",
+      "rationale": "Reuses its twelve public rewrite tasks to isolate reasoning mode from corpus and model changes."
+    },
+    {
+      "source": "composition-008",
+      "target": "composition-007",
+      "type": "extends",
+      "rationale": "Continues the search for useful inference-time composition structure after extended thinking failed to justify its cost."
+    },
+    {
+      "source": "composition-009",
+      "target": "composition-008",
+      "type": "extends",
+      "rationale": "Tests whether explicit readiness and whole-span repair address the structural failure observed in forced single-hole infill."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 640,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "composition-001": {
+        "existing": 0.223983,
+        "instruct": 0.223983,
+        "model": 0.130153,
+        "produce": 0.139701,
+        "deterministically": 0.223983,
+        "applicable": 0.223983,
+        "virtual-buffer": 0.20275,
+        "operations": 0.223983,
+        "reliably": 0.20275,
+        "enough": 0.166452,
+        "fine-tuning": 0.223983,
+        "yet": 0.223983,
+        "justified": 0.223983,
+        "prompted": 0.223983,
+        "constrained": 0.20275,
+        "editing": 0.20275,
+        "baseline": 0.166452,
+        "composition": 0.279402,
+        "human-review": 0.26942,
+        "positive-result": 0.279402,
+        "revision": 0.251924
+      },
+      "composition-002": {
+        "schema-constrained": 0.195372,
+        "revision": 0.329615,
+        "reliably": 0.176851,
+        "transform": 0.195372,
+        "seeded": 0.353703,
+        "draft": 0.195372,
+        "through": 0.195372,
+        "real": 0.163711,
+        "virtual-buffer": 0.176851,
+        "mutations": 0.195372,
+        "produce": 0.121856,
+        "outputs": 0.195372,
+        "suitable": 0.176851,
+        "blinded": 0.153518,
+        "comparison": 0.195372,
+        "direct": 0.138148,
+        "rewriting": 0.195372,
+        "mandatory-revision": 0.195372,
+        "campaign": 0.14519,
+        "blinded-review": 0.180389,
+        "composition": 0.243712,
+        "human-review": 0.235005,
+        "inconclusive-result": 0.276297
+      },
+      "composition-003": {
+        "giving": 0.190077,
+        "model": 0.110451,
+        "optional": 0.268809,
+        "access": 0.172058,
+        "constrained": 0.172058,
+        "revision": 0.320682,
+        "after": 0.172058,
+        "matched": 0.159274,
+        "direct": 0.134404,
+        "rewrite": 0.159274,
+        "improve": 0.141255,
+        "judged": 0.190077,
+        "output": 0.190077,
+        "forcing": 0.190077,
+        "mutation": 0.190077,
+        "finalizing": 0.190077,
+        "initial": 0.190077,
+        "candidate": 0.134404,
+        "unchanged": 0.172058,
+        "first-class": 0.190077,
+        "treatment": 0.190077,
+        "outcome": 0.190077,
+        "editor-access": 0.190077,
+        "campaign": 0.141255,
+        "blinded-review": 0.1755,
+        "composition": 0.237107,
+        "human-review": 0.228636,
+        "negative-result": 0.1755
+      },
+      "composition-004": {
+        "optional": 0.21763,
+        "editor": 0.2786,
+        "access": 0.1393,
+        "useful": 0.1393,
+        "specifically": 0.153888,
+        "chooses": 0.153888,
+        "change": 0.2786,
+        "direct": 0.108815,
+        "rewrite": 0.12895,
+        "even": 0.1393,
+        "most": 0.153888,
+        "assignments": 0.153888,
+        "appropriately": 0.153888,
+        "remain": 0.12895,
+        "unchanged": 0.1393,
+        "larger": 0.1393,
+        "campaign": 0.228722,
+        "estimate": 0.153888,
+        "both": 0.153888,
+        "overall": 0.153888,
+        "usefulness": 0.153888,
+        "preference": 0.1393,
+        "conditional": 0.1393,
+        "genuine": 0.153888,
+        "editor-caused": 0.153888,
+        "requiring": 0.153888,
+        "owner": 0.153888,
+        "review": 0.12895,
+        "identical": 0.153888,
+        "texts": 0.153888,
+        "changed-output": 0.153888,
+        "blinded-review": 0.142086,
+        "composition": 0.191964,
+        "human-review": 0.185106,
+        "inconclusive-result": 0.21763,
+        "revision": 0.173085
+      },
+      "composition-005": {
+        "modest": 0.151709,
+        "nonzero": 0.151709,
+        "sampling": 0.151709,
+        "temperature": 0.151709,
+        "produce": 0.094623,
+        "enough": 0.112742,
+        "distinct": 0.137327,
+        "optional": 0.214548,
+        "editor": 0.274655,
+        "outcomes": 0.151709,
+        "support": 0.151709,
+        "useful": 0.137327,
+        "conditional": 0.137327,
+        "blind": 0.137327,
+        "review": 0.127123,
+        "provided": 0.151709,
+        "exact": 0.137327,
+        "duplicate": 0.151709,
+        "answer": 0.151709,
+        "pairs": 0.151709,
+        "removed": 0.151709,
+        "before": 0.127123,
+        "operator": 0.151709,
+        "intake": 0.151709,
+        "remain": 0.127123,
+        "visible": 0.127123,
+        "multiplicity": 0.151709,
+        "telemetry": 0.137327,
+        "rather": 0.151709,
+        "than": 0.127123,
+        "independent": 0.151709,
+        "samples": 0.151709,
+        "stochastic": 0.151709,
+        "deduplicated": 0.151709,
+        "campaign": 0.112742,
+        "blinded-review": 0.140074,
+        "composition": 0.189246,
+        "deduplication": 0.274655,
+        "human-review": 0.182484,
+        "negative-result": 0.140074,
+        "revision": 0.170634
+      },
+      "composition-006": {
+        "second": 0.178217,
+        "model": 0.103559,
+        "pass": 0.178217,
+        "justify": 0.161322,
+        "cost": 0.178217,
+        "restricted": 0.178217,
+        "repairing": 0.178217,
+        "one": 0.140037,
+        "explicit": 0.178217,
+        "residual": 0.178217,
+        "defect": 0.178217,
+        "otherwise": 0.178217,
+        "complete": 0.161322,
+        "direct": 0.126018,
+        "rewrite": 0.149335,
+        "even": 0.161322,
+        "though": 0.178217,
+        "unrestricted": 0.161322,
+        "optional": 0.126018,
+        "editing": 0.161322,
+        "showed": 0.178217,
+        "no": 0.178217,
+        "preference": 0.161322,
+        "advantage": 0.178217,
+        "labnote": 0.140037,
+        "005": 0.178217,
+        "targeted": 0.178217,
+        "residual-defect": 0.178217,
+        "repair": 0.140037,
+        "blinded-review": 0.164549,
+        "composition": 0.222312,
+        "human-review": 0.214369,
+        "mixed-result": 0.222312,
+        "revision": 0.200448
+      },
+      "composition-007": {
+        "enabling": 0.210032,
+        "extended": 0.210032,
+        "model": 0.122046,
+        "thinking": 0.210032,
+        "improve": 0.156084,
+        "bounded": 0.175994,
+        "composition": 0.523997,
+        "enough": 0.156084,
+        "justify": 0.190121,
+        "latency": 0.190121,
+        "generation": 0.175994,
+        "overhead": 0.210032,
+        "matched": 0.175994,
+        "deep-thinking": 0.210032,
+        "campaign": 0.156084,
+        "blinded-review": 0.193924,
+        "negative-result": 0.193924,
+        "reasoning-budget": 0.420063
+      },
+      "composition-008": {
+        "deferring": 0.190886,
+        "one": 0.149993,
+        "locally": 0.17279,
+        "uncertain": 0.190886,
+        "span": 0.190886,
+        "until": 0.190886,
+        "right-hand": 0.190886,
+        "context": 0.17279,
+        "exists": 0.190886,
+        "improve": 0.141856,
+        "bounded": 0.159951,
+        "composition": 0.476232,
+        "over": 0.190886,
+        "direct": 0.134976,
+        "generation": 0.159951,
+        "unrestricted": 0.17279,
+        "two-pass": 0.190886,
+        "revision": 0.107349,
+        "forced": 0.190886,
+        "deferred-hole": 0.190886,
+        "pilot": 0.119058,
+        "blinded-review": 0.176247,
+        "deferred-infill": 0.345581,
+        "negative-result": 0.176247
+      },
+      "composition-009": {
+        "suffix-triggered": 0.187048,
+        "readiness": 0.470206,
+        "plus": 0.187048,
+        "bounded-span": 0.374096,
+        "repair": 0.293954,
+        "recover": 0.139004,
+        "deferred-composition": 0.187048,
+        "idea": 0.187048,
+        "freezing": 0.187048,
+        "incorrect": 0.187048,
+        "surrounding": 0.187048,
+        "structure": 0.156735,
+        "readiness-gated": 0.187048,
+        "blinded-review": 0.172703,
+        "composition": 0.233328,
+        "deferred-infill": 0.338632,
+        "negative-result": 0.172703
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.696817,
+        0.742105,
+        0.852889,
+        0.822988,
+        0.783446,
+        0.811729,
+        0.839896,
+        0.934808
+      ],
+      [
+        0.696817,
+        0,
+        0.712047,
+        0.718662,
+        0.801583,
+        0.78228,
+        0.814652,
+        0.798113,
+        0.911981
+      ],
+      [
+        0.742105,
+        0.712047,
+        0,
+        0.657813,
+        0.735923,
+        0.719082,
+        0.722083,
+        0.752616,
+        0.884058
+      ],
+      [
+        0.852889,
+        0.718662,
+        0.657813,
+        0,
+        0.660414,
+        0.75423,
+        0.836158,
+        0.85027,
+        0.930671
+      ],
+      [
+        0.822988,
+        0.801583,
+        0.735923,
+        0.660414,
+        0,
+        0.834521,
+        0.811314,
+        0.842183,
+        0.907461
+      ],
+      [
+        0.783446,
+        0.78228,
+        0.719082,
+        0.75423,
+        0.834521,
+        0,
+        0.80829,
+        0.77772,
+        0.878546
+      ],
+      [
+        0.811729,
+        0.814652,
+        0.722083,
+        0.836158,
+        0.811314,
+        0.80829,
+        0,
+        0.603657,
+        0.810754
+      ],
+      [
+        0.839896,
+        0.798113,
+        0.752616,
+        0.85027,
+        0.842183,
+        0.77772,
+        0.603657,
+        0,
+        0.71098
+      ],
+      [
+        0.934808,
+        0.911981,
+        0.884058,
+        0.930671,
+        0.907461,
+        0.878546,
+        0.810754,
+        0.71098,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0.442899,
+      "points": {
+        "composition-001": [
+          -0.15863,
+          0.410207
+        ],
+        "composition-002": [
+          -0.201238,
+          0.201965
+        ],
+        "composition-003": [
+          -0.146505,
+          -0.017687
+        ],
+        "composition-004": [
+          -0.297882,
+          -0.286023
+        ],
+        "composition-005": [
+          -0.206039,
+          -0.330993
+        ],
+        "composition-006": [
+          -0.06294,
+          0.09383
+        ],
+        "composition-007": [
+          0.241781,
+          0.028706
+        ],
+        "composition-008": [
+          0.348255,
+          0.022147
+        ],
+        "composition-009": [
+          0.483197,
+          -0.122153
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

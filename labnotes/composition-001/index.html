@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="COMPOSITION-001 · COMPOSITION · POSITIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="Prompted and constrained editing baseline"><meta property="og:description" content="COMPOSITION-001 · COMPOSITION · POSITIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/composition-001/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/composition-001.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for composition-001: Prompted and constrained editing baseline, outcome positive">
+<meta property="article:published_time" content="2026-08-22T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Prompted and constrained editing baseline"><meta name="twitter:description" content="COMPOSITION-001 · COMPOSITION · POSITIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/composition-001.png">
+<title>Prompted and constrained editing baseline — composition-001 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/composition-001/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/composition-001/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/composition/" aria-label="Open the composition family detailed view">LABNOTE / composition <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">Prompted and constrained editing baseline</h1>
+<div class="note-vitals"><span>composition-001</span><time itemprop="datePublished" datetime="2026-08-22">2026-08-22</time><span data-outcome="positive">positive</span><span>complete</span></div>
+<p class="question" itemprop="description">An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.</p><div class="tags"><span>composition</span><span>human-review</span><span>positive-result</span><span>revision</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/composition-pipeline/docs/labnotes/001-prompted-constrained-editing-baseline.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><span class="lineage-empty">No earlier note</span></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">composition-001</span><strong>Prompted and constrained editing baseline</strong><span class="lineage-meta"><span data-outcome="positive">positive</span> · 2026-08-22</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../composition-002/"><span class="lineage-id">composition-002</span><strong>Seeded mandatory-revision campaign</strong><span class="lineage-meta"><span data-outcome="inconclusive">inconclusive</span> · 2026-08-22</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-001-prompted-and-constrained-editing-baseline">Labnote 001: Prompted and constrained editing baseline<a class="heading-anchor" href="#labnote-001-prompted-and-constrained-editing-baseline" aria-label="Copy link to Labnote 001: Prompted and constrained editing baseline" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<p>Date: 2026-08-22</p>
+<h3 id="hypothesis">Hypothesis<a class="heading-anchor" href="#hypothesis" aria-label="Copy link to Hypothesis" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.</p>
+<h3 id="frozen-protocol">Frozen protocol<a class="heading-anchor" href="#frozen-protocol" aria-label="Copy link to Frozen protocol" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Experiment: <code>labnote_001</code></li>
+<li>Internal execution record retained; identifier withheld.</li>
+<li>Model: <code>qwen3:8b</code></li>
+<li>Seed: <code>20260822</code></li>
+<li>Temperature: <code>0</code></li>
+<li>Corpus: six frozen, non-sensitive writing cases</li>
+<li>Arms: append-only, unconstrained JSON editing, and schema-constrained JSON</li>
+<p>editing</p>
+<li>Accelerator ownership: one non-preemptive accelerator lease</li>
+</ul>
+<p>The committed protocol and corpus are the authoritative inputs. Generated text remains in a private artifact store and is not reproduced here.</p>
+<h3 id="runtime-result">Runtime result<a class="heading-anchor" href="#runtime-result" aria-label="Copy link to Runtime result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The run completed successfully with exit code 0 in approximately 24 seconds. It released its accelerator lease normally, left the queue empty, produced an empty stderr log, and retained its stdout artifact with owner-only permissions.</p>
+<div class="table-wrap"><table><thead><tr><th>Editing arm</th><th>Parse success</th><th>Semantic application success</th><th>Finalize success</th></tr></thead><tbody><tr><td>Unconstrained JSON</td><td>6/6 (100%)</td><td>5/6 (83.3%)</td><td>5/6 (83.3%)</td></tr><tr><td>Schema-constrained JSON</td><td>6/6 (100%)</td><td>6/6 (100%)</td><td>6/6 (100%)</td></tr></tbody></table></div>
+<p>The unconstrained arm failed the <code>friendly-technical</code> case because it did not finalize the document. The schema-constrained arm completed all six cases.</p>
+<h3 id="interpretation">Interpretation<a class="heading-anchor" href="#interpretation" aria-label="Copy link to Interpretation" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>The schema-constrained arm cleared the frozen protocol's 95% mechanical reliability gate. On this evidence, fine-tuning is not justified. Constrained decoding is sufficient to continue testing the interface with the existing model.</p>
+<p>This is not evidence that iterative editing improves writing. Both editing arms reported zero edit operations: successful cases primarily supplied a final buffer rather than exercising append, replace, or delete transitions. The experiment therefore established protocol reliability, not composition quality or the value of revision.</p>
+<p>The six-case corpus is intentionally small. A single deterministic run cannot establish general reliability, compare semantic quality, or support a model training decision.</p>
+<h3 id="disposition">Disposition<a class="heading-anchor" href="#disposition" aria-label="Copy link to Disposition" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Do not fine-tune.</li>
+<li>Preserve this run as the mechanical baseline.</li>
+<li>Keep generated texts private until they receive a blinded quality review.</li>
+<li>In the next experiment, begin from a seeded draft and require at least one</li>
+<p>valid revision operation before finalization.</p>
+<li>Compare constrained revision against direct generation using blinded human</li>
+<p>judgments for instruction adherence, correctness, concision, and voice.</p>
+<li>Revisit training only after repeated constrained-protocol failures that</li>
+<p>cannot be resolved through the interface, schema, or prompt design.</p>
+</ul></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

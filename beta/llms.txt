@@ -1,0 +1,23 @@
+# Yurei Research
+
+Public experimental records. Start with the compact overview; retrieve full evidence only as needed.
+
+## Interpretation contract
+
+- Overviews route to evidence; they are not evidence.
+- Authored relations do not automatically establish causality or support.
+- Similarity projections are corpus-relative, lossy navigation aids.
+- AI summaries must declare provenance and review status; none are currently included.
+
+## Entry points
+
+- [Compact corpus overview](https://yurei-so.github.io/research/beta/agent-overview-v1.json)
+- [Complete public corpus](https://yurei-so.github.io/research/beta/research-corpus-v1.json)
+- [Composition](https://yurei-so.github.io/research/beta/projects/composition/index.json) — 9 published labnotes
+- [Meta Research](https://yurei-so.github.io/research/beta/projects/meta-research/index.json) — 1 published labnote
+- [Narrative Steering](https://yurei-so.github.io/research/beta/projects/narrative-steering/index.json) — 2 published labnotes
+- [Prosody](https://yurei-so.github.io/research/beta/projects/prosody/index.json) — 18 published labnotes
+- [Voxel Guidance](https://yurei-so.github.io/research/beta/projects/voxel-guidance/index.json) — 5 published labnotes
+- [Zenith](https://yurei-so.github.io/research/beta/projects/zenith/index.json) — 17 published labnotes
+
+Canonical source: https://github.com/yurei-so/research

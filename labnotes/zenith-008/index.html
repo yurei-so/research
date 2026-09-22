@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<meta name="description" content="ZENITH-008 · ZENITH · NEGATIVE · COMPLETE">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="first visual panel baseline"><meta property="og:description" content="ZENITH-008 · ZENITH · NEGATIVE · COMPLETE"><meta property="og:url" content="https://yurei-so.github.io/research/labnotes/zenith-008/">
+<meta property="og:image" content="https://yurei-so.github.io/research/assets/social/zenith-008.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Research card for zenith-008: first visual panel baseline, outcome negative">
+<meta property="article:published_time" content="2026-08-24T00:00:00Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="first visual panel baseline"><meta name="twitter:description" content="ZENITH-008 · ZENITH · NEGATIVE · COMPLETE"><meta name="twitter:image" content="https://yurei-so.github.io/research/assets/social/zenith-008.png">
+<title>first visual panel baseline — zenith-008 | Yurei Research</title><link rel="canonical" href="https://yurei-so.github.io/research/labnotes/zenith-008/"><link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/styles.css?v=cf9df288b22d"></head><body>
+<header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>
+<main class="note-shell"><a class="back" href="../../">← Return to research library</a>
+<article class="labnote" itemscope itemtype="https://schema.org/TechArticle"><meta itemprop="url" content="https://yurei-so.github.io/research/labnotes/zenith-008/"><meta itemprop="author" content="Yurei Research"><header class="note-header"><div class="eyebrow"><a class="family-backlink" href="../../projects/zenith/" aria-label="Open the zenith family detailed view">LABNOTE / zenith <span aria-hidden="true">↗</span></a></div><h1 itemprop="headline">first visual panel baseline</h1>
+<div class="note-vitals"><span>zenith-008</span><time itemprop="datePublished" datetime="2026-08-24">2026-08-24</time><span data-outcome="negative">negative</span><span>complete</span></div>
+<p class="question" itemprop="description">Can a compact CPU ridge classifier trained on masked Small-UI panel tiles generalize from two development batches to a recognition-disabled frozen holdout captured during a live world boss?</p><div class="tags"><span>blinded-review</span><span>computer-vision</span><span>guild-wars-2</span><span>holdout</span><span>negative-result</span><span>panel-recognition</span><span>privacy</span></div><p class="source-link"><a href="https://github.com/yurei-so/research/blob/main/experiments/zenith-vision/docs/labnotes/008-first-visual-panel-baseline.md">View source record on GitHub ↗</a></p></header>
+<nav class="lineage" aria-label="Labnote lineage">
+<div class="lineage-heading">Related labnotes</div><div class="lineage-track">
+<div class="lineage-group"><span class="lineage-label">Follows</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-007/"><span class="lineage-id">zenith-007</span><strong>Small-UI panel recognition</strong><span class="lineage-meta"><span data-outcome="mixed">mixed</span> · 2026-08-24</span></a></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group current-group"><span class="lineage-label">Current</span><div class="lineage-cards"><div class="lineage-card current" aria-current="page"><span class="lineage-id">zenith-008</span><strong>first visual panel baseline</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></div></div></div>
+<span class="lineage-arrow" aria-hidden="true">→</span>
+<div class="lineage-group"><span class="lineage-label">Continued by</span><div class="lineage-cards"><a class="lineage-card" href="../zenith-009/"><span class="lineage-id">zenith-009</span><strong>panel transfer baseline</strong><span class="lineage-meta"><span data-outcome="negative">negative</span> · 2026-08-24</span></a></div></div>
+</div></nav>
+<div class="note-body"><h2 id="labnote-008-first-visual-panel-baseline">Labnote 008: first visual panel baseline<a class="heading-anchor" href="#labnote-008-first-visual-panel-baseline" aria-label="Copy link to Labnote 008: first visual panel baseline" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h2>
+<h3 id="question">Question<a class="heading-anchor" href="#question" aria-label="Copy link to Question" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Can a compact CPU ridge classifier trained on masked Small-UI panel tiles generalize from two development batches to a recognition-disabled frozen holdout captured during a live world boss?</p>
+<h3 id="method">Method<a class="heading-anchor" href="#method" aria-label="Copy link to Method" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<ul>
+<li>Development set: 18 visually reviewed samples from batches 001 and 002.</li>
+<li>Frozen holdout: 12 samples collected with recognition disabled.</li>
+<li>Holdout composition: 2 closed, 2 Inventory-only, 3 Hero-only, and 5 with</li>
+<p>Hero plus Inventory.</p>
+<li>Input: overlapping left and center tiles after structural chat and party masks.</li>
+<li>Features: pooled luminance, horizontal/vertical gradients, local contrast,</li>
+<p>and luminance histograms.</p>
+<li>Model: independent regularized linear ridge outputs for Hero and Inventory.</li>
+<li>Decision threshold: 0.5, fixed before the holdout run.</li>
+</ul>
+<h3 id="result">Result<a class="heading-anchor" href="#result" aria-label="Copy link to Result" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<div class="table-wrap"><table><thead><tr><th>Metric</th><th>Result</th></tr></thead><tbody><tr><td>Exact panel-set accuracy</td><td>4/12 (33.3%)</td></tr><tr><td>Hero true positives</td><td>7</td></tr><tr><td>Hero false positives</td><td>4</td></tr><tr><td>Hero false negatives</td><td>0</td></tr><tr><td>Inventory true positives</td><td>3</td></tr><tr><td>Inventory false positives</td><td>2</td></tr><tr><td>Inventory false negatives</td><td>4</td></tr></tbody></table></div>
+<h3 id="decision">Decision<a class="heading-anchor" href="#decision" aria-label="Copy link to Decision" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h3>
+<p>Reject the global pooled-image baseline. It captured Hero-like darkness and world-boss scene structure rather than sufficiently local panel evidence, while Inventory geometry varied too much for the small corpus. The frozen holdout is spent and must never be reused for feature selection, threshold selection, or model promotion.</p>
+<p>Continue with localized structural evidence such as the Hero header/icon rail and Inventory grid/header. Gather broader development data, then freeze a new holdout before the next evaluation.</p></div></article></main>
+<footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV cf9df288b22d</span></footer><script type="module" src="../../assets/labnote.js?v=cf9df288b22d"></script></body></html>

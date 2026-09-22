@@ -1,0 +1,67 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-09-22T00:36:46.000Z",
+  "source_revision": "cf9df288b22d",
+  "family": {
+    "id": "composition",
+    "title": "Composition",
+    "labnote_count": 9,
+    "outcomes": {
+      "inconclusive": 2,
+      "mixed": 1,
+      "negative": 5,
+      "positive": 1
+    },
+    "latest_labnote_id": "composition-009"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Composition record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "composition-009",
+        "title": "Readiness-gated bounded-span repair",
+        "date": "2026-09-17",
+        "status": "complete",
+        "outcome": "negative",
+        "question": "Can suffix-triggered readiness plus bounded-span repair recover the deferred-composition idea without freezing incorrect surrounding structure?",
+        "finding": "The valid campaign completed all 24 planned trials without failure. All eight complete triplets entered both blinded review sessions, with no automatic ties.",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/composition-009/"
+      },
+      {
+        "id": "composition-001",
+        "title": "Prompted and constrained editing baseline",
+        "date": "2026-08-22",
+        "status": "complete",
+        "outcome": "positive",
+        "question": "An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.",
+        "finding": "An existing instruct model can produce deterministically applicable virtual-buffer operations reliably enough that fine-tuning is not yet justified.",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/composition-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [
+    {
+      "from": "composition-009",
+      "to": "composition-008",
+      "type": "extends"
+    },
+    {
+      "from": "composition-002",
+      "to": "composition-001",
+      "type": "follows"
+    }
+  ],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/projects/composition/",
+    "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
+    "heavy_geometry": "https://yurei-so.github.io/research/projects/composition/graph.json",
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

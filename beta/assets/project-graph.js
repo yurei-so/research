@@ -49,6 +49,7 @@ async function boot() {
   let tracing = false;
   let terrain = "cells";
   let userAdjustedZoom = false;
+  let panAnimation = 0;
 
   const mapOffset = (map = activeMap()) => {
     const stageBox = stage.getBoundingClientRect();
@@ -57,6 +58,32 @@ async function boot() {
       left: mapBox.left - stageBox.left + stage.scrollLeft,
       top: mapBox.top - stageBox.top + stage.scrollTop,
     };
+  };
+
+  const stopCameraPan = () => {
+    if (panAnimation) cancelAnimationFrame(panAnimation);
+    panAnimation = 0;
+  };
+
+  const panCameraTo = (left, top, { animate = true } = {}) => {
+    stopCameraPan();
+    if (!animate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      stage.scrollTo({ left, top, behavior: "auto" });
+      return;
+    }
+    const fromLeft = stage.scrollLeft;
+    const fromTop = stage.scrollTop;
+    const started = performance.now();
+    const duration = 260;
+    const frame = (now) => {
+      const progress = Math.min(1, (now - started) / duration);
+      const eased = 1 - (1 - progress) ** 3;
+      stage.scrollLeft = fromLeft + (left - fromLeft) * eased;
+      stage.scrollTop = fromTop + (top - fromTop) * eased;
+      if (progress < 1) panAnimation = requestAnimationFrame(frame);
+      else panAnimation = 0;
+    };
+    panAnimation = requestAnimationFrame(frame);
   };
 
   const attentionMap = $(".attention-map");
@@ -135,18 +162,18 @@ async function boot() {
     setZoom(fitZoom());
   });
 
-  const focusSelected = ({ smooth = true } = {}) => {
+  const focusSelected = ({ animate = true } = {}) => {
     const node = activeMap()?.querySelector(`[data-note="${CSS.escape(selected)}"]`);
     if (!node) return;
     const scale = activeMap().clientWidth / naturalWidth;
     const x = Number(node.dataset.centerX) * scale;
     const y = Number(node.dataset.centerY) * scale;
     const offset = mapOffset();
-    stage.scrollTo({
-      left: offset.left + x - stage.clientWidth / 2,
-      top: offset.top + y - stage.clientHeight / 2,
-      behavior: smooth ? "smooth" : "auto",
-    });
+    panCameraTo(
+      offset.left + x - stage.clientWidth / 2,
+      offset.top + y - stage.clientHeight / 2,
+      { animate },
+    );
   };
 
   const revealListSelection = () => {
@@ -177,7 +204,7 @@ async function boot() {
     }
     requestAnimationFrame(() => {
       setZoom(restoredZoom ?? (next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
-      focusSelected({ smooth: false });
+      focusSelected({ animate: false });
     });
   };
 
@@ -313,7 +340,7 @@ async function boot() {
     renderInspector();
     requestAnimationFrame(() => {
       setZoom(zoom);
-      focusSelected({ smooth: false });
+      focusSelected();
     });
   }));
   document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
@@ -383,12 +410,14 @@ async function boot() {
     event.stopPropagation();
   }, true);
   stage.addEventListener("pointerdown", (event) => {
+    stopCameraPan();
     if (event.pointerType === "touch" || event.button !== 0) return;
     suppressMapClick = false;
     stage.scrollTo({ left: stage.scrollLeft, top: stage.scrollTop, behavior: "auto" });
     pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop, moved: false };
     stage.setPointerCapture(event.pointerId);
   });
+  stage.addEventListener("wheel", stopCameraPan, { passive: true });
   stage.addEventListener("pointermove", (event) => {
     if (!pan) return;
     if (!pan.moved && Math.hypot(event.clientX - pan.x, event.clientY - pan.y) < 5) return;

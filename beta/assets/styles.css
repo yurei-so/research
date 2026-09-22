@@ -138,7 +138,7 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .graph-stage { min-width: 0; height: min(62vh, 640px); overflow: auto; overscroll-behavior: contain; background-color: #0b0d14; background-image: radial-gradient(circle, #282e3c 1px, transparent 1px); background-size: 28px 28px; scrollbar-color: #596278 #11151e; touch-action: pan-x pan-y; }
 .graph-stage:not(.panning) { cursor: grab; }
 .graph-stage.panning { cursor: grabbing; user-select: none; }
-.map-world { width: max-content; min-width: 100%; min-height: 100%; background-color: #0b0d14; background-image: radial-gradient(circle, #282e3c 1px, transparent 1px); background-size: 28px 28px; }
+.map-world { width: max-content; min-width: 100%; min-height: 100%; padding: 50vh 50vw; background-color: #0b0d14; background-image: radial-gradient(circle, #282e3c 1px, transparent 1px); background-size: 28px 28px; }
 .project-map, .attention-map { display: block; max-width: none; height: auto; outline: 1px solid #343b4c; outline-offset: -1px; background: #0b0d14; }
 .project-map[hidden], .attention-map[hidden] { display: none; }
 .attention-heat { mix-blend-mode: screen; }
@@ -244,6 +244,7 @@ th:last-child, td:last-child { border-right: 0; }
   .project-page[data-page-view="beta-fit"] .family-notes { height: 100%; max-height: none; overflow-y: auto; overscroll-behavior: contain; }
   .project-page[data-page-view="beta-fit"] .graph-panel { display: grid; height: 100%; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
   .project-page[data-page-view="beta-fit"] .graph-stage { height: auto; min-height: 0; overflow: hidden; }
+  .project-page[data-page-view="beta-fit"] .map-world { padding: 0; }
   .project-page[data-page-view="beta-fit"] .graph-inspector { position: static; min-height: 0; height: 100%; padding: 1rem; overflow-y: auto; overscroll-behavior: contain; }
   .project-page[data-page-view="beta-fit"] .graph-inspector h2 { font-size: 1.15rem; }
   .project-page[data-page-view="beta-fit"] .inspector-summary { font-size: .8rem; }

@@ -74,16 +74,24 @@ async function boot() {
     });
   };
 
-  const runZoom = (action) => {
+  const runZoom = (event, action) => {
+    event.preventDefault();
     try { action(); }
     catch (error) {
       $("#zoom-level").textContent = "ZOOM ERROR";
       $("#edge-note").textContent = `Zoom failed: ${error.message}`;
     }
   };
-  $("#zoom-out").onclick = () => runZoom(() => setZoom(zoom - .12, { manual: true }));
-  $("#zoom-in").onclick = () => runZoom(() => setZoom(zoom + .12, { manual: true }));
-  $("#zoom-fit").onclick = () => runZoom(() => { userAdjustedZoom = false; setZoom(fitZoom()); });
+  const bindZoom = (selector, action) => {
+    const button = $(selector);
+    button.addEventListener("pointerup", (event) => runZoom(event, action));
+    button.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") runZoom(event, action);
+    });
+  };
+  bindZoom("#zoom-out", () => setZoom(zoom - .12, { manual: true }));
+  bindZoom("#zoom-in", () => setZoom(zoom + .12, { manual: true }));
+  bindZoom("#zoom-fit", () => { userAdjustedZoom = false; setZoom(fitZoom()); });
 
   const focusSelected = ({ smooth = true } = {}) => {
     const node = activeMap()?.querySelector(`[data-note="${CSS.escape(selected)}"]`);

@@ -5,6 +5,26 @@ const $ = (selector) => document.querySelector(selector);
 const storedPageView = () => {
   try { return localStorage.getItem("yurei-family-page-view"); } catch { return null; }
 };
+const storedZoom = (view) => {
+  try {
+    const value = Number(JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}")[view]);
+    return Number.isFinite(value) && value >= .25 && value <= 1.4 ? value : null;
+  } catch { return null; }
+};
+const saveZoom = (view, value) => {
+  try {
+    const saved = JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}");
+    saved[view] = value;
+    localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
+  } catch {}
+};
+const clearZoom = (view) => {
+  try {
+    const saved = JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}");
+    delete saved[view];
+    localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
+  } catch {}
+};
 const initialPageView = storedPageView() === "beta-fit" ? "beta-fit" : "standard";
 document.body.dataset.pageView = initialPageView;
 
@@ -65,6 +85,7 @@ async function boot() {
     const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / oldHeight };
     const minimumZoom = document.body.dataset.pageView === "beta-fit" ? .25 : .45;
     zoom = Math.max(minimumZoom, Math.min(1.4, next));
+    if (manual) saveZoom(document.body.dataset.pageView, zoom);
     const newWidth = Math.round(naturalWidth * zoom);
     const newHeight = Math.round(naturalHeight * zoom);
     maps.forEach((entry) => {
@@ -93,7 +114,11 @@ async function boot() {
   };
   bindZoom("#zoom-out", () => setZoom(zoom - .12, { manual: true }));
   bindZoom("#zoom-in", () => setZoom(zoom + .12, { manual: true }));
-  bindZoom("#zoom-fit", () => { userAdjustedZoom = false; setZoom(fitZoom()); });
+  bindZoom("#zoom-fit", () => {
+    userAdjustedZoom = false;
+    clearZoom(document.body.dataset.pageView);
+    setZoom(fitZoom());
+  });
 
   const focusSelected = ({ smooth = true } = {}) => {
     const node = activeMap()?.querySelector(`[data-note="${CSS.escape(selected)}"]`);
@@ -125,12 +150,13 @@ async function boot() {
     document.querySelectorAll("[data-page-view]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.pageView === next));
     });
-    userAdjustedZoom = false;
+    const restoredZoom = storedZoom(next);
+    userAdjustedZoom = restoredZoom !== null;
     if (persist) {
       try { localStorage.setItem("yurei-family-page-view", next); } catch {}
     }
     requestAnimationFrame(() => {
-      setZoom(next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom());
+      setZoom(restoredZoom ?? (next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
       focusSelected({ smooth: false });
     });
   };

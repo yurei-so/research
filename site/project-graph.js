@@ -59,19 +59,21 @@ async function boot() {
   const setZoom = (next, { manual = false } = {}) => {
     if (manual) userAdjustedZoom = true;
     const map = activeMap();
-    const oldWidth = map.getBoundingClientRect().width || naturalWidth * zoom;
-    const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / (oldWidth * naturalHeight / naturalWidth) };
+    const oldBox = map.getBoundingClientRect();
+    const oldWidth = oldBox.width || naturalWidth * zoom;
+    const oldHeight = oldBox.height || naturalHeight * zoom;
+    const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / oldHeight };
     const minimumZoom = document.body.dataset.pageView === "beta-fit" ? .25 : .45;
     zoom = Math.max(minimumZoom, Math.min(1.4, next));
+    const newWidth = Math.round(naturalWidth * zoom);
+    const newHeight = Math.round(naturalHeight * zoom);
     maps.forEach((entry) => {
-      entry.style.width = `${Math.round(naturalWidth * zoom)}px`;
-      entry.style.height = `${Math.round(naturalHeight * zoom)}px`;
+      entry.style.width = `${newWidth}px`;
+      entry.style.height = `${newHeight}px`;
     });
     $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
-    requestAnimationFrame(() => {
-      stage.scrollLeft = focus.x * map.clientWidth - stage.clientWidth / 2;
-      stage.scrollTop = focus.y * map.clientHeight - stage.clientHeight / 2;
-    });
+    stage.scrollLeft = focus.x * newWidth - stage.clientWidth / 2;
+    stage.scrollTop = focus.y * newHeight - stage.clientHeight / 2;
   };
 
   const runZoom = (event, action) => {
@@ -129,7 +131,7 @@ async function boot() {
     }
     requestAnimationFrame(() => {
       setZoom(next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom());
-      requestAnimationFrame(() => focusSelected({ smooth: false }));
+      focusSelected({ smooth: false });
     });
   };
 
@@ -247,7 +249,7 @@ async function boot() {
     renderInspector();
     requestAnimationFrame(() => {
       setZoom(zoom);
-      requestAnimationFrame(() => focusSelected({ smooth: false }));
+      focusSelected({ smooth: false });
     });
   }));
   document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
@@ -324,10 +326,6 @@ async function boot() {
   renderAttentionDisclosure();
   applyPageView(initialPageView, { persist: false });
   $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
-  requestAnimationFrame(() => {
-    setZoom(document.body.dataset.pageView === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom());
-    requestAnimationFrame(() => focusSelected({ smooth: false }));
-  });
 }
 
 boot().catch((error) => { $("#edge-note").textContent = error.message; });

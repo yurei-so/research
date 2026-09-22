@@ -153,6 +153,8 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(client, /let activeView = "attention"/);
   assert.match(client, /focusSelected/);
   assert.match(client, /naturalHeight \* zoom/);
+  assert.match(client, /stage\.scrollLeft = focus\.x \* newWidth/);
+  assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(document\.body\.dataset\.pageView/);
   assert.match(client, /if \(manual\) userAdjustedZoom = true/);
   assert.match(client, /if \(userAdjustedZoom\) return/);
   assert.match(client, /bindZoom\("#zoom-in"/);

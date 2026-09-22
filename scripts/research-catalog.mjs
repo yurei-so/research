@@ -54,6 +54,66 @@ const indexPage = indexTemplate
 fs.writeFileSync(path.join(output, "index.html"), indexPage);
 fs.writeFileSync(path.join(output, "research-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 fs.writeFileSync(path.join(output, "research-corpus-v1.json"), `${JSON.stringify(toInterchange(manifest), null, 2)}\n`);
+const absoluteUrl = (relative = "") => new URL(relative, siteUrl).href;
+const compactText = (value, limit = 280) => value.length <= limit ? value : `${value.slice(0, limit - 1).trimEnd()}…`;
+const writeBoundedJson = (file, value, maxBytes) => {
+  const serialized = `${JSON.stringify(value, null, 2)}\n`;
+  const bytes = Buffer.byteLength(serialized);
+  if (bytes > maxBytes) throw new Error(`${path.relative(root, file)} exceeds its ${maxBytes}-byte agent-view budget (${bytes} bytes)`);
+  fs.writeFileSync(file, serialized);
+};
+const agentDisclaimers = {
+  evidence: "This overview routes readers to published labnotes; it is not itself evidence.",
+  relations: "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+  similarity: "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+  generated_summaries: "Derived AI summaries are absent unless explicitly labeled with provenance and review status.",
+};
+const familyOverview = (family) => {
+  const notes = manifest.labnotes.filter((note) => note.family === family.id);
+  const chronological = [...notes].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+  const latest = chronological.at(-1);
+  const latestNegative = [...chronological].reverse().find((note) => note.outcome === "negative");
+  const entryPoints = [...new Map([latest, latestNegative, chronological[0]].filter(Boolean).map((note) => [note.id, note])).values()]
+    .map((note) => ({ id: note.id, title: note.title, date: note.date, status: note.status, outcome: note.outcome,
+      question: compactText(note.question), finding: compactText(note.result_summary), evidence_url: absoluteUrl(note.href) }));
+  const entryIds = new Set(entryPoints.map((note) => note.id));
+  const relations = notes.flatMap((note) => note.relations.map((relation) => ({ from: note.id, to: relation.target, type: relation.type })))
+    .filter((relation) => entryIds.has(relation.from) || entryIds.has(relation.to)).slice(0, 8);
+  return {
+    schema: "research-family-overview/v1",
+    generated_at: manifest.generated_at,
+    source_revision: manifest.source_revision,
+    family: { id: family.id, title: family.title, labnote_count: family.labnote_count, outcomes: family.outcomes, latest_labnote_id: family.latest_labnote_id },
+    orientation: {
+      purpose: `Compact orientation to the published ${family.title} record. Follow evidence_url before making substantive claims.`,
+      entry_point_policy: "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+      entry_points: entryPoints,
+    },
+    authored_relations_near_entry_points: relations,
+    disclaimers: agentDisclaimers,
+    links: { human: absoluteUrl(`projects/${family.id}/`), complete_corpus: absoluteUrl("research-corpus-v1.json"),
+      heavy_geometry: family.has_graph ? absoluteUrl(`projects/${family.id}/graph.json`) : null,
+      source: `${repositoryUrl}/tree/main/experiments` },
+  };
+};
+const agentFamilies = manifest.families.map((family) => ({ id: family.id, title: family.title, labnote_count: family.labnote_count,
+  outcomes: family.outcomes, latest_labnote_id: family.latest_labnote_id, overview_url: absoluteUrl(`projects/${family.id}/index.json`),
+  human_url: absoluteUrl(`projects/${family.id}/`) }));
+const agentOverview = { schema: "research-agent-overview/v1", generated_at: manifest.generated_at, source_revision: manifest.source_revision,
+  purpose: "Token-bounded orientation and routing for the public Yurei Research record.", disclaimers: agentDisclaimers,
+  families: agentFamilies, links: { human: siteUrl, complete_corpus: absoluteUrl("research-corpus-v1.json"), source: repositoryUrl } };
+writeBoundedJson(path.join(output, "agent-overview-v1.json"), agentOverview, 8192);
+const llms = [`# Yurei Research`, ``, `Public experimental records. Start with the compact overview; retrieve full evidence only as needed.`, ``,
+  `## Interpretation contract`, ``, `- Overviews route to evidence; they are not evidence.`,
+  `- Authored relations do not automatically establish causality or support.`,
+  `- Similarity projections are corpus-relative, lossy navigation aids.`,
+  `- AI summaries must declare provenance and review status; none are currently included.`, ``, `## Entry points`, ``,
+  `- [Compact corpus overview](${absoluteUrl("agent-overview-v1.json")})`,
+  `- [Complete public corpus](${absoluteUrl("research-corpus-v1.json")})`,
+  ...agentFamilies.map((family) => `- [${family.title}](${family.overview_url}) — ${family.labnote_count} published ${family.labnote_count === 1 ? "labnote" : "labnotes"}`), ``,
+  `Canonical source: ${repositoryUrl}`, ``].join("\n");
+if (Buffer.byteLength(llms) > 4096) throw new Error("llms.txt exceeds its 4096-byte agent-view budget");
+fs.writeFileSync(path.join(output, "llms.txt"), llms);
 fs.writeFileSync(path.join(output, ".nojekyll"), "");
 fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /research/\n\nSitemap: ${siteUrl}sitemap.xml\n`);
 const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];
@@ -149,7 +209,11 @@ const pixelAttentionTerrain = (notes, positions, width, height) => {
   return cells.join("");
 };
 const recordById = new Map(records.map((record) => [record.metadata.id, record]));
-for (const family of manifest.families.filter((entry) => entry.has_graph)) {
+for (const family of manifest.families) {
+  const graphDirectory = path.join(output, "projects", family.id);
+  fs.mkdirSync(graphDirectory, { recursive: true });
+  writeBoundedJson(path.join(graphDirectory, "index.json"), familyOverview(family), 4096);
+  if (!family.has_graph) continue;
   const notes = manifest.labnotes.filter((note) => note.family === family.id).sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
   const noteIds = new Set(notes.map((note) => note.id));
   const graphNotes = notes.map((note) => ({ ...note, source_url: `${repositoryUrl}/blob/main/${recordById.get(note.id).relative.split("/").map(encodeURIComponent).join("/")}` }));
@@ -207,8 +271,6 @@ for (const family of manifest.families.filter((entry) => entry.has_graph)) {
     const point = attentionPositions.get(note.id);
     return `<a class="attention-node" data-note="${escapeHtml(note.id)}" data-center-x="${point.x.toFixed(1)}" data-center-y="${point.y.toFixed(1)}" href="../../${escapeHtml(note.href)}"><circle class="attention-hit" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="22"/><circle class="attention-point" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="8" fill="${outcomeColors[note.outcome]}"/><text x="${(point.x + 15).toFixed(1)}" y="${(point.y - 13).toFixed(1)}">${escapeHtml(note.id.toUpperCase())}</text><title>${escapeHtml(note.title)}</title></a>`;
   }).join("");
-  const graphDirectory = path.join(output, "projects", family.id);
-  fs.mkdirSync(graphDirectory, { recursive: true });
   const familySocialImageUrl = `${siteUrl}assets/social/family-${family.id}.png`;
   socialCards.push(writeFamilySocialCard(family, notes, attention,
     path.join(output, "assets", "social", `family-${family.id}.png`)));
@@ -221,6 +283,7 @@ for (const family of manifest.families.filter((entry) => entry.has_graph)) {
   const graphPage = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'"><meta name="description" content="Detailed provenance and research-attention views for ${escapeHtml(family.title)}."><meta property="og:type" content="website"><meta property="og:site_name" content="Yurei Research"><meta property="og:title" content="${escapeHtml(family.title)} detailed view"><meta property="og:description" content="Authored provenance and corpus-relative research attention in Yurei Research."><meta property="og:url" content="${siteUrl}projects/${escapeHtml(family.id)}/"><meta property="og:image" content="${familySocialImageUrl}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pixel attention-map preview for the ${escapeHtml(family.title)} research family"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escapeHtml(family.title)} detailed view"><meta name="twitter:description" content="${family.labnote_count} published labnotes in Yurei Research"><meta name="twitter:image" content="${familySocialImageUrl}"><title>${escapeHtml(family.title)} detailed view | Yurei Research</title><link rel="canonical" href="${siteUrl}projects/${escapeHtml(family.id)}/"><link rel="icon" href="../../favicon.png" type="image/png"><link rel="stylesheet" href="../../assets/styles.css"></head><body><header class="terminal-bar"><a class="wordmark" href="../../"><img src="../../favicon.png" alt="">YUREI RESEARCH</a><span>RESEARCH FAMILY</span></header><main class="project-shell"><a class="back" href="../../">← Return to research library</a><header class="project-header"><div class="eyebrow">PROJECT / ${escapeHtml(family.id)}</div><h1>${escapeHtml(family.title)}</h1><p>Two strictly separate views of the published record: authored provenance and corpus-relative research attention.</p></header><div class="map-modes" aria-label="Detailed visualization"><button type="button" data-map-view="attention" aria-pressed="true">ATTENTION HEATMAP</button><button type="button" data-map-view="provenance" aria-pressed="false">PROVENANCE WEB</button><p id="view-disclosure">Human-authored relationships only. Proximity is not used to create edges.</p></div><div class="graph-layout"><div class="graph-panel"><div class="graph-toolbar" aria-label="Map controls"><button id="zoom-out" type="button" aria-label="Zoom out">−</button><span id="zoom-level">82%</span><button id="zoom-in" type="button" aria-label="Zoom in">+</button><button id="zoom-fit" type="button">FIT</button><button id="terrain-style" type="button">CELLS</button><span>DRAG SCROLLBARS OR PAN WITH TOUCH</span></div><div class="graph-stage" aria-label="${escapeHtml(family.title)} detailed visualization"><svg class="project-map" data-map-view="provenance" data-natural-width="${graphWidth}" data-natural-height="${graphHeight}" style="width:${Math.round(graphWidth * .82)}px" viewBox="0 0 ${graphWidth} ${graphHeight}" role="group" hidden><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#596278"/></marker></defs>${edges}${nodes}</svg><svg class="attention-map" data-map-view="attention" data-terrain="cells" data-natural-width="${graphWidth}" data-natural-height="${graphHeight}" style="width:${Math.round(graphWidth * .82)}px" viewBox="0 0 ${graphWidth} ${graphHeight}" role="group" aria-label="Projected research attention map"><defs><radialGradient id="attention-heat"><stop offset="0" stop-color="#a98aff" stop-opacity=".55"/><stop offset=".45" stop-color="#6650a8" stop-opacity=".22"/><stop offset="1" stop-color="#27223a" stop-opacity="0"/></radialGradient><filter id="fog-blur"><feGaussianBlur stdDeviation="65"/></filter><mask id="fog-mask"><rect width="100%" height="100%" fill="white"/><g filter="url(#fog-blur)" fill="black">${attentionHeat}</g></mask></defs><rect width="100%" height="100%" fill="#0b0d14"/><g class="attention-smooth"><g class="attention-heat" fill="url(#attention-heat)">${attentionHeat}</g><rect class="attention-fog" width="100%" height="100%" fill="#03040a" mask="url(#fog-mask)"/></g><g class="attention-cells">${attentionCells}</g>${attentionNodes}</svg></div></div><aside class="graph-inspector" aria-live="polite"><span class="eyebrow" id="inspect-id">SELECT A LABNOTE</span><h2 id="inspect-title">Project record</h2><div class="inspector-vitals"><span id="inspect-date"></span><span id="inspect-status"></span><span id="inspect-outcome"></span></div><p class="inspector-summary" id="inspect-summary">Select once to inspect. Double-click a node to open its full labnote.</p><div class="relation-list" id="relation-list"></div><div class="inspector-actions"><button id="back-to-map" type="button">↑ BACK TO MAP</button><a id="open-note" href="../../">OPEN LABNOTE</a><a id="view-source" href="${repositoryUrl}">VIEW SOURCE</a><button id="trace-lineage" type="button" aria-pressed="false">TRACE LINEAGE</button><button id="copy-link" type="button">COPY LINK</button></div><p class="edge-note" id="edge-note">Select an edge to read its authored rationale.</p></aside></div></main><footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a></span><span>REV ${escapeHtml(manifest.source_revision)}</span></footer><script type="module" src="../../assets/project-graph.js"></script></body></html>`;
   fs.writeFileSync(path.join(graphDirectory, "index.html"), graphPage
     .replace('<div class="graph-layout">', `<div class="graph-layout">${familyNoteSection}`)
+    .replace("</head>", `<link rel="alternate" type="application/json" href="index.json" title="Compact agent overview"></head>`)
     .replace("../../assets/styles.css", `../../assets/styles.css?v=${escapeHtml(manifest.source_revision)}`)
     .replace("../../assets/project-graph.js", `../../assets/project-graph.js?v=${escapeHtml(manifest.source_revision)}`));
 }

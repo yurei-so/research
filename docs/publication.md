@@ -46,6 +46,15 @@ fields needed for reusable provenance and attention instruments. No tool is
 granted access to canonical private working state; publication/export is the
 only bridge between the two security domains.
 
+Agent discovery begins at `llms.txt` and `agent-overview-v1.json`. Each family
+also exposes a token-bounded `projects/<family>/index.json` orientation document
+through an HTML `rel="alternate"` link. These overviews select at most three
+evidence-routing entry points: the latest work, latest negative result, and
+earliest published record. They explicitly distinguish published evidence,
+human-authored provenance, lossy similarity geometry, and generated summaries.
+The compact family view is limited to 4096 bytes; complete records and heavy
+geometry remain opt-in links rather than default payloads.
+
 The build renders the complete public catalog into static HTML before the
 optional filtering script runs. It also emits canonical URLs, descriptive
 per-note metadata, valid `TechArticle` microdata, `robots.txt`, and a generated

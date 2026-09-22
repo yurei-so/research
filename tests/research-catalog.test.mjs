@@ -222,6 +222,21 @@ test("public catalog exports the research-tools interchange boundary", () => {
   assert.equal(interchange.labnotes.length, manifest.labnotes.length);
 });
 
+test("agent discovery is compact, evidence-routed, and explicit about interpretation limits", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const index = fs.readFileSync(path.resolve("site/index.html"), "utf8");
+  const publication = fs.readFileSync(path.resolve("docs/publication.md"), "utf8");
+  assert.match(index, /rel="alternate" type="application\/json" href="agent-overview-v1\.json"/);
+  assert.match(index, /rel="alternate" type="text\/plain" href="llms\.txt"/);
+  assert.match(catalog, /schema: "research-agent-overview\/v1"/);
+  assert.match(catalog, /schema: "research-family-overview\/v1"/);
+  assert.match(catalog, /Latest work, latest negative result, and earliest published record/);
+  assert.match(catalog, /not itself evidence/);
+  assert.match(catalog, /Similarity geometry is omitted here/);
+  assert.match(catalog, /writeBoundedJson\(path\.join\(graphDirectory, "index\.json"\), familyOverview\(family\), 4096\)/);
+  assert.match(publication, /limited to 4096 bytes/);
+});
+
 test("licensing policy keeps software and research content separate", () => {
   const policy = fs.readFileSync(path.resolve("LICENSE.md"), "utf8");
   assert.match(policy, /AGPL-3\.0-only — research software/);

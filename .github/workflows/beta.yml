@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+
+name: Build beta research library
+
+on:
+  push:
+    branches: [beta]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: research-beta-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Validate and package beta
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run catalog:check
+      - run: npm run build
+      - run: npm run privacy:check
+      - name: Mark artifact as non-canonical beta
+        run: |
+          printf '%s\n' 'Yurei Research beta artifact' 'Not canonical. Not a production deployment.' > dist/BETA.txt
+      - name: Upload beta site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-beta-${{ github.sha }}
+          path: dist
+          if-no-files-found: error
+          retention-days: 14

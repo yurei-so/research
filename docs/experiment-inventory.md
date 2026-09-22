@@ -4,6 +4,15 @@ Inventory taken 2026-09-05 and expanded during full-history imports. Source
 checkouts remain operationally authoritative until each imported suite is
 verified and the source repository is explicitly archived.
 
+## Meta Research family
+
+Meta Research studies apparatus, representations, and workflows used to
+produce, preserve, evaluate, discover, and communicate Yūrei research.
+
+| ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
+| --- | --- | --- | --- | --- | --- |
+| `meta-research-001` | Grounded build-time labnote summarization | Running | Pending | `meta-research`, `summarization`, `apparatus`, `human-review` | Shadow-mode campaign; generated candidates cannot modify the public site. Toolkit promotion and public activation are separate evidence-gated decisions. |
+
 ## Conversation prosody family
 
 Source: `yurei-so/conversation-prosody-pipeline`, local branch

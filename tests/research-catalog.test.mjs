@@ -16,7 +16,8 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.ok(records.length >= 37);
   assert.ok(manifest.labnotes.some((note) => note.id === "prosody-001"));
   assert.ok(manifest.labnotes.some((note) => note.id === "voxel-guidance-001"));
-  assert.equal(manifest.families.length, 5);
+  assert.equal(manifest.families.length, 6);
+  assert.equal(manifest.families.find((family) => family.id === "meta-research")?.title, "Meta Research");
   assert.ok(manifest.families.every((family) => !Object.hasOwn(family, "status")));
   assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "timeline", "title"]);
   assert.ok(manifest.labnotes.every((note) => !JSON.stringify(note).includes("/home/")));
@@ -178,6 +179,19 @@ test("generated pages revision their styles and scripts to avoid mixed deploymen
   assert.match(catalog, /labnote\.js\?v=\$\{escapeHtml\(manifest\.source_revision\)\}/);
 });
 
+test("detailed family pages expose a persistent beta-fit view without nested map scrolling", () => {
+  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
+  const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
+  const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
+  assert.match(catalog, /data-page-view="standard"/);
+  assert.match(catalog, /data-page-view="beta-fit"/);
+  assert.match(client, /yurei-family-page-view/);
+  assert.match(client, /fitLocked \? fitZoom\(\) : readableZoom\(\)/);
+  assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
+  assert.match(styles, /data-page-view="beta-fit".*?\.family-notes \{[^}]*overflow-y: auto/s);
+  assert.match(styles, /data-page-view="beta-fit".*?\.graph-stage \{[^}]*overflow: hidden/s);
+});
+
 test("family cards derive success readouts from published positive outcomes", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/app.js"), "utf8");
@@ -188,6 +202,10 @@ test("family cards derive success readouts from published positive outcomes", ()
   assert.match(client, /class="success-rate"/);
   assert.match(catalog, /class="family-primary" href="projects\//);
   assert.match(client, /OPEN RESEARCH MAP/);
+  assert.match(client, /FILTER TO THIS FAMILY/);
+  assert.match(catalog, /FILTER TO THIS FAMILY/);
+  assert.match(client, /family\.labnote_count === 1 \? "labnote" : "labnotes"/);
+  assert.match(catalog, /family\.labnote_count === 1 \? "labnote" : "labnotes"/);
 });
 
 test("attention model preserves vectors and distances separately from its 2D projection", () => {

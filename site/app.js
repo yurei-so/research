@@ -9,7 +9,9 @@ function familyCard(family) {
   const successRate = family.labnote_count
     ? Math.round(((family.outcomes.positive ?? 0) / family.labnote_count) * 100)
     : 0;
-  const content = `<h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published labnotes</p><div class="outcomes">${outcomes}</div><span class="inspect">OPEN RESEARCH MAP →</span>`;
+  const noteLabel = family.labnote_count === 1 ? "labnote" : "labnotes";
+  const action = family.has_graph ? "OPEN RESEARCH MAP →" : "FILTER TO THIS FAMILY ↓";
+  const content = `<h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published ${noteLabel}</p><div class="outcomes">${outcomes}</div><span class="inspect">${action}</span>`;
   const primary = family.has_graph
     ? `<a class="family-primary" href="projects/${family.id}/">${content}</a>`
     : `<button class="family-filter family-primary" data-family="${family.id}" type="button">${content}</button>`;

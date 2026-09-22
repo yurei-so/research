@@ -2,6 +2,12 @@
 
 const $ = (selector) => document.querySelector(selector);
 
+const storedPageView = () => {
+  try { return localStorage.getItem("yurei-family-page-view"); } catch { return null; }
+};
+const initialPageView = storedPageView() === "beta-fit" ? "beta-fit" : "standard";
+document.body.dataset.pageView = initialPageView;
+
 async function boot() {
   const response = await fetch("graph.json");
   if (!response.ok) throw new Error(`project graph unavailable (${response.status})`);
@@ -49,7 +55,8 @@ async function boot() {
     const map = activeMap();
     const oldWidth = map.getBoundingClientRect().width || naturalWidth * zoom;
     const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / (oldWidth * naturalHeight / naturalWidth) };
-    zoom = Math.max(.45, Math.min(1.4, next));
+    const minimumZoom = document.body.dataset.pageView === "beta-fit" ? .25 : .45;
+    zoom = Math.max(minimumZoom, Math.min(1.4, next));
     maps.forEach((entry) => { entry.style.width = `${Math.round(naturalWidth * zoom)}px`; });
     $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
     requestAnimationFrame(() => {
@@ -82,6 +89,22 @@ async function boot() {
 
   const fitZoom = () => Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight);
   const readableZoom = () => Math.max(matchMedia("(max-width: 720px)").matches ? .58 : .68, fitZoom());
+  const applyPageView = (view, { persist = true } = {}) => {
+    const next = view === "beta-fit" ? "beta-fit" : "standard";
+    document.body.dataset.pageView = next;
+    document.querySelectorAll("[data-page-view]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.pageView === next));
+    });
+    const fitLocked = next === "beta-fit" && matchMedia("(min-width: 1000px)").matches;
+    for (const id of ["#zoom-out", "#zoom-in", "#zoom-fit"]) $(id).disabled = fitLocked;
+    if (persist) {
+      try { localStorage.setItem("yurei-family-page-view", next); } catch {}
+    }
+    requestAnimationFrame(() => {
+      setZoom(fitLocked ? fitZoom() : readableZoom());
+      requestAnimationFrame(() => focusSelected({ smooth: false }));
+    });
+  };
 
   const neighborhood = (root) => {
     const seen = new Set([root]);
@@ -199,6 +222,12 @@ async function boot() {
       requestAnimationFrame(() => focusSelected({ smooth: false }));
     });
   }));
+  document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
+    applyPageView(button.dataset.pageView);
+  }));
+  addEventListener("resize", () => {
+    if (document.body.dataset.pageView === "beta-fit") applyPageView("beta-fit", { persist: false });
+  });
   $("#trace-lineage").addEventListener("click", () => {
     tracing = !tracing;
     const button = $("#trace-lineage");
@@ -266,9 +295,10 @@ async function boot() {
   }));
   renderInspector();
   renderAttentionDisclosure();
+  applyPageView(initialPageView, { persist: false });
   $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
   requestAnimationFrame(() => {
-    setZoom(readableZoom());
+    setZoom(document.body.dataset.pageView === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom());
     requestAnimationFrame(() => focusSelected({ smooth: false }));
   });
 }

@@ -7,7 +7,7 @@ import { assemblePublication } from "../scripts/assemble-pages.mjs";
 
 const fixture = (root, label) => {
   fs.mkdirSync(root, { recursive: true });
-  fs.writeFileSync(path.join(root, "index.html"), `<!doctype html><html><head><link rel="canonical" href="https://yurei-so.github.io/research/"><link rel="alternate" type="application/json" href="agent-overview-v1.json"></head><body>${label}<footer><span>REV abc123</span></footer></body></html>`);
+  fs.writeFileSync(path.join(root, "index.html"), `<!doctype html><html><head><link rel="canonical" href="https://yurei-so.github.io/research/"><link rel="alternate" type="application/json" href="agent-overview-v1.json"></head><body><header class="terminal-bar"><a class="wordmark" href="./">YUREI RESEARCH</a><span>RESEARCH LIBRARY</span></header>${label}<footer><span>REV abc123</span></footer></body></html>`);
   fs.writeFileSync(path.join(root, "research-manifest.json"), JSON.stringify({ label, url: "https://yurei-so.github.io/research/" }));
   fs.writeFileSync(path.join(root, "research-corpus-v1.json"), "{}");
   fs.writeFileSync(path.join(root, "agent-overview-v1.json"), "{}");
@@ -29,7 +29,11 @@ test("assembles allowlisted stable and non-canonical beta publication trees", ()
   fixture(beta, "beta");
   const manifest = assemblePublication({ stable, beta, output, stableSha: "abc123", betaSha: "def456" });
   assert.equal(manifest.stable.source_revision, "abc123");
-  assert.match(fs.readFileSync(path.join(output, "index.html"), "utf8"), />stable</);
+  const stableHtml = fs.readFileSync(path.join(output, "index.html"), "utf8");
+  assert.match(stableHtml, />stable</);
+  assert.match(stableHtml, /class="publication-channel-switch"/);
+  assert.match(stableHtml, /aria-current="page">STABLE/);
+  assert.match(stableHtml, /href="beta\/"[^>]*>BETA VIEW/);
   const betaHtml = fs.readFileSync(path.join(output, "beta", "index.html"), "utf8");
   assert.match(betaHtml, /noindex,nofollow/);
   assert.match(betaHtml, /https:\/\/yurei-so\.github\.io\/research\/beta\//);
@@ -37,6 +41,9 @@ test("assembles allowlisted stable and non-canonical beta publication trees", ()
   assert.match(betaHtml, /REV def456/);
   assert.doesNotMatch(betaHtml, /REV abc123/);
   assert.match(betaHtml, /href="\.\.\/publication-switch\.css"/);
+  assert.match(betaHtml, /aria-current="page">BETA VIEW/);
+  assert.match(betaHtml, /href="\.\.\/">STABLE/);
+  assert.doesNotMatch(betaHtml, /href="https:\/\/yurei-so\.github\.io\/research\/"[^>]*>STABLE/);
   assert.doesNotMatch(betaHtml, /https:\/\/yurei-so\.github\.io\/research\/publication-switch\.css/);
   assert.doesNotMatch(betaHtml, /rel="alternate"/);
   assert.equal(fs.readFileSync(path.join(output, "beta", "robots.txt"), "utf8"), "User-agent: *\nDisallow: /\n");

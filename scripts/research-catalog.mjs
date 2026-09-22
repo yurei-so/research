@@ -289,9 +289,8 @@ for (const family of manifest.families) {
   fs.writeFileSync(path.join(graphDirectory, "index.html"), graphPage
     .replace('<div class="graph-layout">', `<div class="graph-layout">${familyNoteSection}`)
     .replace('<p class="inspector-summary" id="inspect-summary">Select once to inspect. Double-click a node to open its full labnote.</p>', '<div class="inspector-reading"><span class="inspector-label">QUESTION</span><p class="inspector-question" id="inspect-question">Select a labnote to read its research question.</p><span class="inspector-label">RESULT</span><p class="inspector-summary" id="inspect-summary">Its published result will appear here.</p></div>')
-    .replace('aria-label="Page view"', 'aria-label="Page layout"')
-    .replace('>STANDARD</button>', '>SCROLL</button>')
-    .replace('>BETA FIT</button>', '>FIT TO SCREEN</button>')
+    .replace('<div class="page-view-switch" aria-label="Page view"><button type="button" data-page-view="standard" aria-pressed="true">STANDARD</button><button type="button" data-page-view="beta-fit" aria-pressed="false">BETA FIT</button></div>', '')
+    .replace('<div class="graph-toolbar" aria-label="Map controls">', '<div class="graph-toolbar" aria-label="Map controls"><div class="map-layout-switch" aria-label="Map layout"><button type="button" data-page-view="standard" aria-pressed="true">SCROLL</button><button type="button" data-page-view="beta-fit" aria-pressed="false">FIT SCREEN</button></div>')
     .replace("</head>", `<link rel="alternate" type="application/json" href="index.json" title="Compact agent overview"></head>`)
     .replace('<script type="module" src="../../assets/project-graph.js">', `<script id="project-graph-data" type="application/json">${inlineJson(graphData)}</script><script type="module" src="../../assets/project-graph.js">`)
     .replace("../../assets/styles.css", `../../assets/styles.css?v=${escapeHtml(manifest.source_revision)}`)

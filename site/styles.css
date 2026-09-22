@@ -131,6 +131,9 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .graph-toolbar button { min-width: 2rem; height: 1.85rem; border: 1px solid var(--line); color: var(--ink); background: #11151e; font: .7rem var(--mono); cursor: pointer; }
 .graph-toolbar button:hover { border-color: var(--signal); color: var(--signal); }
 .graph-toolbar span:last-child { margin-left: auto; }
+.map-layout-switch { display: inline-flex; gap: .25rem; padding-right: .45rem; border-right: 1px solid var(--line); }
+.map-layout-switch button { width: auto; padding: 0 .55rem; color: var(--muted); }
+.map-layout-switch button[aria-pressed="true"] { border-color: var(--signal); color: var(--signal); background: #171421; }
 .graph-stage { min-width: 0; height: min(62vh, 640px); overflow: auto; overscroll-behavior: contain; background-image: radial-gradient(circle, #282e3c 1px, transparent 1px); background-size: 28px 28px; scrollbar-color: #596278 #11151e; touch-action: pan-x pan-y; }
 .graph-stage:not(.panning) { cursor: grab; }
 .graph-stage.panning { cursor: grabbing; user-select: none; }

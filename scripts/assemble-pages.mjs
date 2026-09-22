@@ -67,18 +67,28 @@ function markBeta(root) {
 
 const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
-function publicationRoute(relative) {
-  const normalized = relative.split(path.sep).join("/");
-  return normalized === "index.html" ? "" : normalized.replace(/index\.html$/, "");
+function relativePageUrl(fromFile, targetFile) {
+  const relative = path.relative(path.dirname(fromFile), targetFile).split(path.sep).join("/");
+  if (!relative.endsWith("index.html")) return relative;
+  const directory = relative.slice(0, -"index.html".length);
+  return directory || "./";
 }
 
-function revisionControl({ channel, revision, stableUrl, betaUrl, summaryHtml }) {
+function channelSwitch({ channel, stableUrl, betaUrl }) {
+  const stable = channel === "stable" ? '<span aria-current="page">STABLE</span>'
+    : stableUrl ? `<a href="${escapeHtml(stableUrl)}">STABLE</a>` : '<span class="unavailable">STABLE</span>';
+  const beta = channel === "beta" ? '<span aria-current="page">BETA VIEW</span>'
+    : betaUrl ? `<a href="${escapeHtml(betaUrl)}" title="Open the latest eligible visual beta">BETA VIEW</a>` : '<span class="unavailable">BETA VIEW</span>';
+  return `<nav class="publication-channel-switch" aria-label="Publication channel">${stable}${beta}</nav>`;
+}
+
+function revisionControl({ channel, revision, stableUrl, betaUrl, manifestUrl, summaryHtml }) {
   const stable = channel === "stable" ? `<span aria-current="page">STABLE · ${escapeHtml(revision.slice(0, 12))}</span>`
     : stableUrl ? `<a href="${escapeHtml(stableUrl)}">STABLE</a>` : '<span class="unavailable">STABLE · ROUTE UNAVAILABLE</span>';
   const beta = channel === "beta" ? `<span aria-current="page">BETA · ${escapeHtml(revision.slice(0, 12))}</span>`
     : betaUrl ? `<a href="${escapeHtml(betaUrl)}">BETA</a>` : '<span class="unavailable">BETA · ROUTE UNAVAILABLE</span>';
   const summary = summaryHtml ?? `REV ${escapeHtml(revision.slice(0, 12))}`;
-  return `<details class="publication-revision"><summary>${summary}</summary><div class="publication-revision-menu"><strong>PUBLICATION VIEW</strong>${stable}${beta}<p>Beta changes presentation only. It does not revise labnote content or research tools, and exposes no beta machine-readable research interface.</p><a href="${stableBase}deployment-manifest.json">VIEW DEPLOYMENT MANIFEST</a></div></details>`;
+  return `<details class="publication-revision"><summary>${summary}</summary><div class="publication-revision-menu"><strong>PUBLICATION VIEW</strong>${stable}${beta}<p>Beta changes presentation only. It does not revise labnote content or research tools, and exposes no beta machine-readable research interface.</p><a href="${escapeHtml(manifestUrl)}">VIEW DEPLOYMENT MANIFEST</a></div></details>`;
 }
 
 function addRevisionControls(output, channel, revision) {
@@ -87,16 +97,21 @@ function addRevisionControls(output, channel, revision) {
   for (const file of filesUnder(root).filter((entry) => path.extname(entry).toLowerCase() === ".html"
     && (channel !== "stable" || !entry.startsWith(betaRoot)))) {
     const relative = path.relative(root, file);
-    const route = publicationRoute(relative);
     const stableFile = path.join(output, relative);
     const betaFile = path.join(output, "beta", relative);
     const options = { channel, revision,
-      stableUrl: fs.existsSync(stableFile) ? `${stableBase}${route}` : null,
-      betaUrl: fs.existsSync(betaFile) ? `${betaBase}${route}` : null };
+      stableUrl: fs.existsSync(stableFile) ? relativePageUrl(file, stableFile) : null,
+      betaUrl: fs.existsSync(betaFile) ? relativePageUrl(file, betaFile) : null,
+      manifestUrl: path.relative(path.dirname(file), path.join(output, "deployment-manifest.json")).split(path.sep).join("/") };
     const control = revisionControl(options);
     const heroControl = revisionControl({ ...options, summaryHtml: `<b id="revision">${escapeHtml(revision.slice(0, 12))}</b> REVISION` });
+    const publicationSwitch = channelSwitch(options);
     const switchStyles = path.relative(path.dirname(file), path.join(output, "publication-switch.css")).split(path.sep).join("/");
     let content = fs.readFileSync(file, "utf8");
+    content = content.replace(/<header class="terminal-bar">([\s\S]*?)<\/header>/i, (header) => {
+      if (header.includes("publication-channel-switch")) return header;
+      return header.replace(/<span>[^<]*<\/span>\s*<\/header>$/i, `${publicationSwitch}</header>`);
+    });
     content = content.replace(/<b id="revision">[^<]+<\/b> REVISION/, heroControl);
     content = content.replace(/<span id="generated">(CATALOG [^<]+?) \/ REV [0-9a-f]+<\/span>/i, `<span>$1 / ${control}</span><span id="generated" hidden></span>`);
     content = content.replace(/<span>REV [0-9a-f]+<\/span>/gi, `<span>${control}</span>`);

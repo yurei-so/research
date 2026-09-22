@@ -156,6 +156,9 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(client, /stage\.scrollLeft = focus\.x \* newWidth/);
   assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(document\.body\.dataset\.pageView/);
   assert.match(client, /if \(manual\) userAdjustedZoom = true/);
+  assert.match(client, /yurei-family-map-zoom/);
+  assert.match(client, /saveZoom\(document\.body\.dataset\.pageView, zoom\)/);
+  assert.match(client, /restoredZoom \?\?/);
   assert.match(client, /if \(userAdjustedZoom\) return/);
   assert.match(client, /bindZoom\("#zoom-in"/);
   assert.match(client, /addEventListener\("pointerup"/);
@@ -195,6 +198,8 @@ test("detailed family pages expose a persistent fit-to-screen view with working 
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
   assert.match(catalog, /data-page-view="standard"/);
   assert.match(catalog, /data-page-view="beta-fit"/);
+  assert.match(catalog, /class="map-layout-switch"/);
+  assert.match(catalog, />FIT SCREEN<\/button>/);
   assert.match(client, /yurei-family-page-view/);
   assert.doesNotMatch(client, /fitLocked/);
   assert.match(client, /setZoom\(zoom\)/);

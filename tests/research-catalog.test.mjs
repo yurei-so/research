@@ -146,12 +146,12 @@ test("family view defaults to fit-screen attention with a synchronized note rail
   const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
   assert.match(catalog, /<strong>ATTENTION HEATMAP<\/strong>/);
-  assert.match(catalog, /data-page-view="beta-fit" aria-pressed="true"/);
+  assert.doesNotMatch(catalog, /class="map-layout-switch"/);
   assert.match(catalog, /replace\(\/<svg class="project-map"/);
   assert.match(catalog, /class="family-note-select"/);
   assert.match(catalog, /replace\('<div class="graph-layout">'/);
   assert.match(client, /const maps = \[\$\("\.attention-map"\)\]/);
-  assert.match(client, /storedPageView\(\) === "standard" \? "standard" : "beta-fit"/);
+  assert.match(client, /const initialPageView = "beta-fit"/);
   assert.doesNotMatch(client, /activeView/);
   assert.match(client, /focusSelected/);
   assert.match(client, /naturalHeight \* zoom/);
@@ -177,7 +177,7 @@ test("family view defaults to fit-screen attention with a synchronized note rail
   assert.match(client, /Math\.hypot\(event\.clientX - pan\.x, event\.clientY - pan\.y\) < 5/);
   assert.doesNotMatch(client, /graph-inspector.*scrollIntoView/);
   assert.match(styles, /\.attention-node text \{ font-size: 14px/);
-  assert.match(styles, /\.map-layout-switch \{ display: none; \}/);
+  assert.doesNotMatch(styles, /\.map-layout-switch/);
   assert.match(catalog, /class="mobile-map-instrument"/);
   assert.match(catalog, /class="map-world"/);
   assert.match(catalog, /id="mobile-sheet-toggle"/);
@@ -231,15 +231,12 @@ test("strict CSP pages avoid inline scripts and runtime style attributes", () =>
   assert.match(projectClient, /setAttribute\("width", String\(newWidth\)\)/);
 });
 
-test("detailed family pages expose a persistent fit-to-screen view with working zoom", () => {
+test("detailed family pages use the fit-to-screen composition with working zoom", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
-  assert.match(catalog, /data-page-view="standard"/);
-  assert.match(catalog, /data-page-view="beta-fit"/);
-  assert.match(catalog, /class="map-layout-switch"/);
-  assert.match(catalog, />FIT SCREEN<\/button>/);
-  assert.match(client, /yurei-family-page-view/);
+  assert.doesNotMatch(catalog, /class="map-layout-switch"/);
+  assert.match(client, /const initialPageView = "beta-fit"/);
   assert.doesNotMatch(client, /fitLocked/);
   assert.match(client, /setZoom\(restoredZoom \?\?/);
   assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);

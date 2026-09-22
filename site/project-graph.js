@@ -2,9 +2,6 @@
 
 const $ = (selector) => document.querySelector(selector);
 
-const storedPageView = () => {
-  try { return localStorage.getItem("yurei-family-page-view"); } catch { return null; }
-};
 const storedZoom = (view) => {
   try {
     const value = Number(JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}")[view]);
@@ -25,7 +22,7 @@ const clearZoom = (view) => {
     localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
   } catch {}
 };
-const initialPageView = storedPageView() === "standard" ? "standard" : "beta-fit";
+const initialPageView = "beta-fit";
 document.body.dataset.pageView = initialPageView;
 
 async function boot() {
@@ -254,9 +251,6 @@ async function boot() {
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
     node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNote(node.dataset.note, { reveal: true }); } });
   });
-  document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
-    applyPageView(button.dataset.pageView);
-  }));
   const moveInCatalog = (delta) => {
     const index = catalogNotes.findIndex((note) => note.id === selected);
     const target = catalogNotes[index + delta];

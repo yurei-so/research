@@ -170,7 +170,11 @@ a.lineage-card:hover { border-color: #4a405f; background: var(--surface-2); }
 .graph-inspector { position: sticky; top: 1rem; min-height: 24rem; padding: 1.4rem; border: 1px solid var(--line); background: var(--surface); }
 .graph-inspector h2 { margin: .5rem 0; font-size: 1.35rem; font-weight: 560; line-height: 1.2; }
 .inspector-vitals { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--muted); font: .62rem var(--mono); text-transform: uppercase; }
-.inspector-summary { color: #b5bbc7; font-size: .9rem; }
+.inspector-reading { display: grid; gap: .4rem; margin-top: 1rem; }
+.inspector-label { color: var(--signal); font: .58rem var(--mono); letter-spacing: .09em; }
+.inspector-question, .inspector-summary { margin: 0 0 .65rem; font-size: .9rem; }
+.inspector-question { color: var(--ink); font-weight: 520; line-height: 1.45; }
+.inspector-summary { color: #9ea6b5; line-height: 1.45; }
 .relation-list { display: grid; gap: .7rem; margin: 1.3rem 0; }
 .relation-item { width: 100%; padding: .7rem 0 0; border: 0; border-top: 1px solid var(--line); color: inherit; background: transparent; text-align: left; cursor: pointer; }
 .relation-item:hover, .relation-item:focus-visible { border-color: var(--signal); outline: none; }
@@ -238,6 +242,7 @@ th:last-child, td:last-child { border-right: 0; }
   .project-page[data-page-view="beta-fit"] .graph-inspector { position: static; min-height: 0; height: 100%; padding: 1rem; overflow-y: auto; overscroll-behavior: contain; }
   .project-page[data-page-view="beta-fit"] .graph-inspector h2 { font-size: 1.15rem; }
   .project-page[data-page-view="beta-fit"] .inspector-summary { font-size: .8rem; }
+  .project-page[data-page-view="beta-fit"] .inspector-question { font-size: .82rem; }
   .project-page[data-page-view="beta-fit"] .relation-list { margin: .8rem 0; gap: .45rem; }
   .project-page[data-page-view="beta-fit"] .relation-item p { font-size: .68rem; }
   .project-page[data-page-view="beta-fit"] > footer { display: none; }
@@ -263,14 +268,16 @@ th:last-child, td:last-child { border-right: 0; }
   .lineage-card, .lineage-empty { min-height: 6.5rem; }
   .graph-layout { display: flex; gap: 1rem; flex-direction: column; }
   .graph-panel { width: 100%; border-right: 0; border-left: 0; }
-  .graph-inspector { position: static; min-height: 0; margin: 0 1rem; scroll-margin-top: 1rem; }
-  .family-notes { width: calc(100% - 2rem); max-height: 44svh; margin: 0 1rem; order: 2; }
+  .graph-inspector { position: static; min-height: 0; margin: 0 1rem; scroll-margin-top: 1rem; order: 2; }
+  .family-notes { width: calc(100% - 2rem); max-height: none; margin: 0 1rem; overflow: visible; order: 3; }
   .graph-panel { order: 1; }
-  .graph-inspector { order: 3; }
-  .graph-toolbar { min-height: 3.4rem; padding: .45rem .7rem; }
+  .graph-toolbar { position: sticky; z-index: 3; top: 0; min-height: 3.4rem; padding: .45rem .7rem; flex-wrap: wrap; background: var(--surface); }
   .graph-toolbar button { min-width: 2.75rem; height: 2.75rem; }
   .graph-toolbar span:last-child { display: none; }
-  .graph-stage { width: 100vw; height: min(58svh, 520px); }
+  .graph-stage { width: 100vw; height: min(52svh, 500px); }
+  .inspector-reading { grid-template-columns: 4.5rem minmax(0, 1fr); gap: .55rem .8rem; }
+  .inspector-label { padding-top: .15rem; }
+  .inspector-question, .inspector-summary { margin-bottom: .5rem; }
   .inspector-actions a, .inspector-actions button { display: inline-flex; min-height: 2.75rem; align-items: center; }
   #back-to-map { display: inline-flex; }
 }

@@ -138,7 +138,7 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(catalog, /ID, title, question, or tag/);
   assert.match(styles, /\.graph-edge\.traced path/);
   assert.match(styles, /\.family-note-list/);
-  assert.match(styles, /height: min\(58svh, 520px\)/);
+  assert.match(styles, /height: min\(52svh, 500px\)/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
@@ -152,6 +152,9 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(catalog, /replace\('<div class="graph-layout">'/);
   assert.match(client, /let activeView = "attention"/);
   assert.match(client, /focusSelected/);
+  assert.match(client, /naturalHeight \* zoom/);
+  assert.match(client, /if \(manual\) userAdjustedZoom = true/);
+  assert.match(client, /if \(userAdjustedZoom\) return/);
   assert.match(client, /revealListSelection/);
   assert.match(client, /selectNote\(node\.dataset\.note, \{ reveal: true \}\)/);
   assert.match(client, /item\.addEventListener\("click", \(\) => selectNote\(other\.id, \{ focus: true, reveal: true \}\)\)/);
@@ -161,6 +164,8 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(styles, /\.attention-context-edge \{[^}]+opacity: 0/s);
   assert.match(styles, /\.attention-context-edge\.related \{ opacity: \.72/);
   assert.match(styles, /\.relation-item:hover/);
+  assert.match(catalog, /id="inspect-question"/);
+  assert.match(client, /\$\("#inspect-question"\)\.textContent = note\.question/);
 });
 
 test("labnote headers link back to their family detailed view", () => {
@@ -191,6 +196,8 @@ test("detailed family pages expose a persistent fit-to-screen view with working 
   assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.family-notes \{[^}]*overflow-y: auto/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.graph-stage \{[^}]*overflow: hidden/s);
+  assert.match(styles, /\.family-notes \{[^}]*max-height: none;[^}]*overflow: visible;[^}]*order: 3/s);
+  assert.match(styles, /\.graph-inspector \{[^}]*order: 2/s);
 });
 
 test("family cards derive success readouts from published positive outcomes", () => {

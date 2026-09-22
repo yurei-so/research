@@ -74,6 +74,14 @@ async function boot() {
     });
   };
 
+  $(".graph-toolbar").addEventListener("click", (event) => {
+    const control = event.target.closest("button");
+    if (!control) return;
+    if (control.id === "zoom-out") setZoom(zoom - .12, { manual: true });
+    if (control.id === "zoom-in") setZoom(zoom + .12, { manual: true });
+    if (control.id === "zoom-fit") { userAdjustedZoom = false; setZoom(fitZoom()); }
+  });
+
   const focusSelected = ({ smooth = true } = {}) => {
     const node = activeMap()?.querySelector(`[data-note="${CSS.escape(selected)}"]`);
     if (!node) return;
@@ -252,9 +260,6 @@ async function boot() {
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";
     }
   });
-  $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12, { manual: true }));
-  $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12, { manual: true }));
-  $("#zoom-fit").addEventListener("click", () => { userAdjustedZoom = false; setZoom(fitZoom()); });
   $("#terrain-style").addEventListener("click", () => {
     terrain = terrain === "cells" ? "smooth" : "cells";
     const attentionMap = $(".attention-map");

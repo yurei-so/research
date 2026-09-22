@@ -153,7 +153,8 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(client, /let activeView = "attention"/);
   assert.match(client, /focusSelected/);
   assert.match(client, /naturalHeight \* zoom/);
-  assert.match(client, /stage\.scrollLeft = focus\.x \* newWidth/);
+  assert.match(client, /const oldOffset = mapOffset\(map\)/);
+  assert.match(client, /stage\.scrollLeft = newOffset\.left \+ focus\.x \* newWidth/);
   assert.doesNotMatch(client, /requestAnimationFrame\(\(\) => \{\n\s+setZoom\(document\.body\.dataset\.pageView/);
   assert.match(client, /if \(manual\) userAdjustedZoom = true/);
   assert.match(client, /yurei-family-map-zoom/);
@@ -173,11 +174,15 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(styles, /\.attention-node text \{ font-size: 14px/);
   assert.match(styles, /\.map-layout-switch \{ display: none; \}/);
   assert.match(catalog, /class="mobile-map-instrument"/);
+  assert.match(catalog, /class="map-world"/);
   assert.match(catalog, /id="mobile-sheet-toggle"/);
   assert.match(client, /lineageCandidates/);
   assert.match(client, /moveInCatalog/);
   assert.match(styles, /\.graph-inspector\.mobile-expanded/);
   assert.match(styles, /\.family-notes \{ display: none; \}/);
+  assert.match(styles, /\.map-world \{ padding: 50svh 50vw; \}/);
+  assert.match(styles, /outline: 1px solid #343b4c/);
+  assert.match(client, /left: offset\.left \+ x/);
   assert.match(client, /selectNote\(button\.closest\("\.family-note"\)\.dataset\.note, \{ focus: true \}\)/);
   assert.match(styles, /grid-template-columns: 19rem minmax\(0, 1fr\) 21rem/);
   assert.match(styles, /\.attention-context-edge \{[^}]+opacity: 0/s);

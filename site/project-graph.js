@@ -50,6 +50,15 @@ async function boot() {
   let terrain = "cells";
   let userAdjustedZoom = false;
 
+  const mapOffset = (map = activeMap()) => {
+    const stageBox = stage.getBoundingClientRect();
+    const mapBox = map.getBoundingClientRect();
+    return {
+      left: mapBox.left - stageBox.left + stage.scrollLeft,
+      top: mapBox.top - stageBox.top + stage.scrollTop,
+    };
+  };
+
   const attentionMap = $(".attention-map");
   const attentionNodes = new Map([...attentionMap.querySelectorAll(".attention-node")]
     .map((node) => [node.dataset.note, node]));
@@ -83,7 +92,11 @@ async function boot() {
     const oldBox = map.getBoundingClientRect();
     const oldWidth = oldBox.width || naturalWidth * zoom;
     const oldHeight = oldBox.height || naturalHeight * zoom;
-    const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / oldHeight };
+    const oldOffset = mapOffset(map);
+    const focus = {
+      x: (stage.scrollLeft + stage.clientWidth / 2 - oldOffset.left) / oldWidth,
+      y: (stage.scrollTop + stage.clientHeight / 2 - oldOffset.top) / oldHeight,
+    };
     const minimumZoom = document.body.dataset.pageView === "beta-fit" ? .25 : .45;
     zoom = Math.max(minimumZoom, Math.min(1.4, next));
     if (manual) saveZoom(document.body.dataset.pageView, zoom);
@@ -94,8 +107,9 @@ async function boot() {
       entry.style.height = `${newHeight}px`;
     });
     $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
-    stage.scrollLeft = focus.x * newWidth - stage.clientWidth / 2;
-    stage.scrollTop = focus.y * newHeight - stage.clientHeight / 2;
+    const newOffset = mapOffset();
+    stage.scrollLeft = newOffset.left + focus.x * newWidth - stage.clientWidth / 2;
+    stage.scrollTop = newOffset.top + focus.y * newHeight - stage.clientHeight / 2;
   };
 
   const runZoom = (event, action) => {
@@ -127,7 +141,12 @@ async function boot() {
     const scale = activeMap().clientWidth / naturalWidth;
     const x = Number(node.dataset.centerX) * scale;
     const y = Number(node.dataset.centerY) * scale;
-    stage.scrollTo({ left: x - stage.clientWidth / 2, top: y - stage.clientHeight / 2, behavior: smooth ? "smooth" : "auto" });
+    const offset = mapOffset();
+    stage.scrollTo({
+      left: offset.left + x - stage.clientWidth / 2,
+      top: offset.top + y - stage.clientHeight / 2,
+      behavior: smooth ? "smooth" : "auto",
+    });
   };
 
   const revealListSelection = () => {

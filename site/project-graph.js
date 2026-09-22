@@ -37,6 +37,7 @@ async function boot() {
       return response.json();
     });
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
+  const catalogNotes = [...graph.notes].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
   const stage = $(".graph-stage");
   const maps = [...document.querySelectorAll(".project-map, .attention-map")];
   let activeView = "attention";
@@ -181,6 +182,26 @@ async function boot() {
     return seen;
   };
 
+  const lineageCandidates = (direction) => graph.relations
+    .filter((relation) => direction === "previous" ? relation.source === selected : relation.target === selected)
+    .map((relation) => byId.get(direction === "previous" ? relation.target : relation.source))
+    .filter(Boolean)
+    .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
+
+  const updateMobileNavigation = () => {
+    const catalogIndex = catalogNotes.findIndex((note) => note.id === selected);
+    $("#mobile-record-position").textContent = `${catalogIndex + 1} / ${catalogNotes.length}`;
+    $("#mobile-catalog-previous").disabled = catalogIndex <= 0;
+    $("#mobile-catalog-next").disabled = catalogIndex < 0 || catalogIndex >= catalogNotes.length - 1;
+    for (const [direction, selector, glyph] of [["previous", "#mobile-lineage-previous", "←"], ["next", "#mobile-lineage-next", "→"]]) {
+      const candidates = lineageCandidates(direction);
+      const button = $(selector);
+      button.disabled = candidates.length === 0;
+      button.textContent = candidates.length > 1 ? `${glyph}${candidates.length}` : glyph;
+      button.title = candidates.length ? candidates.map((note) => `${note.id}: ${note.title}`).join("\n") : `No ${direction} provenance relation`;
+    }
+  };
+
   const renderInspector = () => {
     const note = byId.get(selected);
     if (!note) return;
@@ -230,6 +251,7 @@ async function boot() {
     document.querySelectorAll(".attention-context-edge").forEach((edge) => {
       edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
     });
+    updateMobileNavigation();
   };
 
   const selectNote = (id, { focus = false, reveal = false } = {}) => {
@@ -278,6 +300,26 @@ async function boot() {
   document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
     applyPageView(button.dataset.pageView);
   }));
+  const moveInCatalog = (delta) => {
+    const index = catalogNotes.findIndex((note) => note.id === selected);
+    const target = catalogNotes[index + delta];
+    if (target) selectNote(target.id, { focus: true, reveal: true });
+  };
+  $("#mobile-catalog-previous").addEventListener("click", () => moveInCatalog(-1));
+  $("#mobile-catalog-next").addEventListener("click", () => moveInCatalog(1));
+  $("#mobile-lineage-previous").addEventListener("click", () => {
+    const target = lineageCandidates("previous")[0];
+    if (target) selectNote(target.id, { focus: true, reveal: true });
+  });
+  $("#mobile-lineage-next").addEventListener("click", () => {
+    const target = lineageCandidates("next")[0];
+    if (target) selectNote(target.id, { focus: true, reveal: true });
+  });
+  $("#mobile-sheet-toggle").addEventListener("click", () => {
+    const expanded = $(".graph-inspector").classList.toggle("mobile-expanded");
+    $("#mobile-sheet-toggle").setAttribute("aria-expanded", String(expanded));
+    $("#mobile-sheet-toggle b").textContent = expanded ? "COLLAPSE DETAIL" : "EXPAND DETAIL";
+  });
   addEventListener("resize", () => {
     if (userAdjustedZoom) return;
     requestAnimationFrame(() => setZoom(document.body.dataset.pageView === "beta-fit"
@@ -304,7 +346,15 @@ async function boot() {
     $("#terrain-style").setAttribute("aria-label", `Attention terrain: ${terrain}`);
     renderAttentionDisclosure();
   });
-  $("#back-to-map").addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
+  $("#back-to-map").addEventListener("click", () => {
+    if (matchMedia("(max-width: 720px)").matches) {
+      $(".graph-inspector").classList.remove("mobile-expanded");
+      $("#mobile-sheet-toggle").setAttribute("aria-expanded", "false");
+      $("#mobile-sheet-toggle b").textContent = "EXPAND DETAIL";
+      return;
+    }
+    stage.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   let pan = null;
   let suppressMapClick = false;
   stage.addEventListener("click", (event) => {

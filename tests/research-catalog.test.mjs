@@ -138,7 +138,7 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(catalog, /ID, title, question, or tag/);
   assert.match(styles, /\.graph-edge\.traced path/);
   assert.match(styles, /\.family-note-list/);
-  assert.match(styles, /height: clamp\(25rem, 62svh, 38rem\)/);
+  assert.match(styles, /\.graph-stage \{ width: 100vw; height: 100%/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
@@ -172,6 +172,12 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.doesNotMatch(client, /graph-inspector.*scrollIntoView/);
   assert.match(styles, /\.attention-node text \{ font-size: 14px/);
   assert.match(styles, /\.map-layout-switch \{ display: none; \}/);
+  assert.match(catalog, /class="mobile-map-instrument"/);
+  assert.match(catalog, /id="mobile-sheet-toggle"/);
+  assert.match(client, /lineageCandidates/);
+  assert.match(client, /moveInCatalog/);
+  assert.match(styles, /\.graph-inspector\.mobile-expanded/);
+  assert.match(styles, /\.family-notes \{ display: none; \}/);
   assert.match(client, /selectNote\(button\.closest\("\.family-note"\)\.dataset\.note, \{ focus: true \}\)/);
   assert.match(styles, /grid-template-columns: 19rem minmax\(0, 1fr\) 21rem/);
   assert.match(styles, /\.attention-context-edge \{[^}]+opacity: 0/s);
@@ -211,8 +217,8 @@ test("detailed family pages expose a persistent fit-to-screen view with working 
   assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.family-notes \{[^}]*overflow-y: auto/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.graph-stage \{[^}]*overflow: hidden/s);
-  assert.match(styles, /\.family-notes \{[^}]*max-height: none;[^}]*overflow: visible;[^}]*order: 3/s);
-  assert.match(styles, /\.graph-inspector \{[^}]*order: 2/s);
+  assert.match(styles, /\.family-notes \{ display: none; \}/);
+  assert.match(styles, /\.graph-inspector \{ position: fixed;[^}]*top: auto;[^}]*bottom: 3\.65rem/s);
 });
 
 test("family cards derive success readouts from published positive outcomes", () => {

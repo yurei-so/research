@@ -25,7 +25,7 @@ const clearZoom = (view) => {
     localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
   } catch {}
 };
-const initialPageView = storedPageView() === "beta-fit" ? "beta-fit" : "standard";
+const initialPageView = storedPageView() === "standard" ? "standard" : "beta-fit";
 document.body.dataset.pageView = initialPageView;
 
 async function boot() {
@@ -39,14 +39,12 @@ async function boot() {
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
   const catalogNotes = [...graph.notes].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
   const stage = $(".graph-stage");
-  const maps = [...document.querySelectorAll(".project-map, .attention-map")];
-  let activeView = "attention";
-  const activeMap = () => maps.find((entry) => entry.dataset.mapView === activeView);
+  const maps = [$(".attention-map")];
+  const activeMap = () => maps[0];
   const naturalWidth = Number(maps[0].dataset.naturalWidth);
   const naturalHeight = Number(maps[0].dataset.naturalHeight);
   let zoom = .82;
   let selected = graph.notes.at(-1)?.id;
-  let tracing = false;
   let terrain = "cells";
   let userAdjustedZoom = false;
 
@@ -179,26 +177,6 @@ async function boot() {
     focusSelected();
   };
 
-  const neighborhood = (root) => {
-    const seen = new Set([root]);
-    const walk = (direction) => {
-      let frontier = new Set([root]);
-      while (frontier.size) {
-        const next = new Set();
-        for (const relation of graph.relations) {
-          const from = direction === "ancestors" ? relation.source : relation.target;
-          const to = direction === "ancestors" ? relation.target : relation.source;
-          if (frontier.has(from) && !seen.has(to)) { seen.add(to); next.add(to); }
-        }
-        frontier = next;
-      }
-    };
-    for (const direction of ["ancestors", "descendants"]) {
-      walk(direction);
-    }
-    return seen;
-  };
-
   const lineageCandidates = (direction) => graph.relations
     .filter((relation) => direction === "previous" ? relation.source === selected : relation.target === selected)
     .map((relation) => byId.get(direction === "previous" ? relation.target : relation.source))
@@ -249,21 +227,11 @@ async function boot() {
       item.addEventListener("click", () => selectNote(other.id, { focus: true, reveal: true }));
       return item;
     }));
-    document.querySelectorAll(".graph-node, .attention-node").forEach((node) => node.classList.toggle("selected", node.dataset.note === selected));
+    document.querySelectorAll(".attention-node").forEach((node) => node.classList.toggle("selected", node.dataset.note === selected));
     document.querySelectorAll(".family-note").forEach((item) => {
       const isSelected = item.dataset.note === selected;
       item.classList.toggle("selected", isSelected);
       item.querySelector(".family-note-select")?.setAttribute("aria-pressed", String(isSelected));
-    });
-    const visible = tracing ? neighborhood(selected) : new Set(graph.notes.map((entry) => entry.id));
-    document.querySelectorAll(".graph-node").forEach((node) => {
-      node.classList.toggle("unrelated", !visible.has(node.dataset.note));
-      node.classList.toggle("traced", tracing && visible.has(node.dataset.note));
-    });
-    document.querySelectorAll(".graph-edge").forEach((edge) => {
-      edge.classList.toggle("unrelated", !visible.has(edge.dataset.source) || !visible.has(edge.dataset.target));
-      edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
-      edge.classList.toggle("traced", tracing && visible.has(edge.dataset.source) && visible.has(edge.dataset.target));
     });
     document.querySelectorAll(".attention-context-edge").forEach((edge) => {
       edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
@@ -279,38 +247,13 @@ async function boot() {
     if (reveal) requestAnimationFrame(revealListSelection);
   };
 
-  document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
+  document.querySelectorAll(".attention-node").forEach((node) => {
     node.addEventListener("click", (event) => {
       event.preventDefault(); selectNote(node.dataset.note, { reveal: true });
     });
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
     node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNote(node.dataset.note, { reveal: true }); } });
   });
-  document.querySelectorAll(".graph-edge").forEach((edge) => edge.addEventListener("click", () => {
-    $("#edge-note").textContent = edge.dataset.rationale;
-  }));
-  document.querySelectorAll(".map-modes button[data-map-view]").forEach((button) => button.addEventListener("click", () => {
-    activeView = button.dataset.mapView;
-    maps.forEach((entry) => {
-      entry.hidden = entry.dataset.mapView !== activeView;
-    });
-    document.querySelectorAll(".map-modes button[data-map-view]").forEach((entry) => entry.setAttribute("aria-pressed", String(entry === button)));
-    tracing = false;
-    $("#trace-lineage").setAttribute("aria-pressed", "false");
-    $("#trace-lineage").textContent = "TRACE LINEAGE";
-    $("#trace-lineage").disabled = activeView !== "provenance";
-    $("#terrain-style").disabled = activeView !== "attention";
-    if (activeView === "attention") {
-      renderAttentionDisclosure();
-      $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
-    } else {
-      $("#view-disclosure").textContent = "Human-authored relationships only. Proximity is not used to create edges.";
-      $("#edge-note").textContent = "Select an edge to read its authored rationale.";
-    }
-    renderInspector();
-    setZoom(zoom);
-    focusSelected();
-  }));
   document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
     applyPageView(button.dataset.pageView);
   }));
@@ -338,19 +281,6 @@ async function boot() {
     if (userAdjustedZoom) return;
     requestAnimationFrame(() => setZoom(document.body.dataset.pageView === "beta-fit"
       && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
-  });
-  $("#trace-lineage").addEventListener("click", () => {
-    tracing = !tracing;
-    const button = $("#trace-lineage");
-    button.setAttribute("aria-pressed", String(tracing));
-    button.textContent = tracing ? "SHOW ALL" : "TRACE LINEAGE";
-    renderInspector();
-    if (tracing) {
-      const count = neighborhood(selected).size;
-      $("#edge-note").textContent = `Highlighted ${count} authored ancestor/current/descendant notes. Only explicit provenance edges are traced.`;
-    } else {
-      $("#edge-note").textContent = "Select an edge to read its authored rationale.";
-    }
   });
   $("#terrain-style").addEventListener("click", () => {
     terrain = terrain === "cells" ? "smooth" : "cells";

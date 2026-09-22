@@ -132,25 +132,27 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(client, /attention-context-edge/);
   assert.match(client, /Authored neighbor context/);
   assert.match(client, /back-to-map/);
-  assert.match(client, /Highlighted \$\{count\} authored ancestor\/current\/descendant notes/);
+  assert.doesNotMatch(client, /Highlighted \$\{count\} authored ancestor\/current\/descendant notes/);
   assert.match(client, /family-note-filter/);
   assert.match(catalog, /class="family-note-list"/);
   assert.match(catalog, /ID, title, question, or tag/);
-  assert.match(styles, /\.graph-edge\.traced path/);
   assert.match(styles, /\.family-note-list/);
   assert.match(styles, /\.graph-stage \{ width: 100vw; height: 100%/);
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
-test("family view defaults to the attention map with a synchronized note rail", () => {
+test("family view defaults to fit-screen attention with a synchronized note rail", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
-  assert.match(catalog, /data-map-view="attention" aria-pressed="true"/);
-  assert.match(catalog, /class="project-map"[^>]+hidden/);
+  assert.match(catalog, /<strong>ATTENTION HEATMAP<\/strong>/);
+  assert.match(catalog, /data-page-view="beta-fit" aria-pressed="true"/);
+  assert.match(catalog, /replace\(\/<svg class="project-map"/);
   assert.match(catalog, /class="family-note-select"/);
   assert.match(catalog, /replace\('<div class="graph-layout">'/);
-  assert.match(client, /let activeView = "attention"/);
+  assert.match(client, /const maps = \[\$\("\.attention-map"\)\]/);
+  assert.match(client, /storedPageView\(\) === "standard" \? "standard" : "beta-fit"/);
+  assert.doesNotMatch(client, /activeView/);
   assert.match(client, /focusSelected/);
   assert.match(client, /naturalHeight \* zoom/);
   assert.match(client, /const oldOffset = mapOffset\(map\)/);
@@ -181,6 +183,7 @@ test("family view defaults to the attention map with a synchronized note rail", 
   assert.match(catalog, /id="mobile-sheet-toggle"/);
   assert.match(client, /lineageCandidates/);
   assert.match(client, /moveInCatalog/);
+  assert.doesNotMatch(client, /trace-lineage/);
   assert.match(styles, /\.graph-inspector\.mobile-expanded/);
   assert.match(styles, /\.family-notes \{ display: none; \}/);
   assert.match(styles, /@media \(max-width: 720px\).*?\.map-world \{ padding: 50svh 50vw; \}/s);
@@ -238,7 +241,7 @@ test("detailed family pages expose a persistent fit-to-screen view with working 
   assert.match(catalog, />FIT SCREEN<\/button>/);
   assert.match(client, /yurei-family-page-view/);
   assert.doesNotMatch(client, /fitLocked/);
-  assert.match(client, /setZoom\(zoom\)/);
+  assert.match(client, /setZoom\(restoredZoom \?\?/);
   assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.family-notes \{[^}]*overflow-y: auto/s);
   assert.match(styles, /data-page-view="beta-fit".*?\.graph-stage \{[^}]*overflow: hidden/s);

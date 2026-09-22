@@ -99,13 +99,11 @@ async function boot() {
     document.querySelectorAll("[data-page-view]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.pageView === next));
     });
-    const fitLocked = next === "beta-fit" && matchMedia("(min-width: 1000px)").matches;
-    for (const id of ["#zoom-out", "#zoom-in", "#zoom-fit"]) $(id).disabled = fitLocked;
     if (persist) {
       try { localStorage.setItem("yurei-family-page-view", next); } catch {}
     }
     requestAnimationFrame(() => {
-      setZoom(fitLocked ? fitZoom() : readableZoom());
+      setZoom(next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom());
       requestAnimationFrame(() => focusSelected({ smooth: false }));
     });
   };
@@ -222,7 +220,7 @@ async function boot() {
     }
     renderInspector();
     requestAnimationFrame(() => {
-      setZoom(activeView === "attention" ? readableZoom() : fitZoom());
+      setZoom(zoom);
       requestAnimationFrame(() => focusSelected({ smooth: false }));
     });
   }));

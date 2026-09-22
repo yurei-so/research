@@ -234,7 +234,7 @@ th:last-child, td:last-child { border-right: 0; }
   .project-page[data-page-view="beta-fit"] .graph-layout { min-height: 0; height: 100%; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr) minmax(17rem, 20rem); gap: .65rem; align-items: stretch; }
   .project-page[data-page-view="beta-fit"] .family-notes { height: 100%; max-height: none; overflow-y: auto; overscroll-behavior: contain; }
   .project-page[data-page-view="beta-fit"] .graph-panel { display: grid; height: 100%; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
-  .project-page[data-page-view="beta-fit"] .graph-stage { height: auto; min-height: 0; overflow: hidden; cursor: default; }
+  .project-page[data-page-view="beta-fit"] .graph-stage { height: auto; min-height: 0; overflow: hidden; }
   .project-page[data-page-view="beta-fit"] .graph-inspector { position: static; min-height: 0; height: 100%; padding: 1rem; overflow-y: auto; overscroll-behavior: contain; }
   .project-page[data-page-view="beta-fit"] .graph-inspector h2 { font-size: 1.15rem; }
   .project-page[data-page-view="beta-fit"] .inspector-summary { font-size: .8rem; }

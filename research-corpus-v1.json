@@ -1,11 +1,15 @@
 {
   "schema": "research-corpus/v1",
-  "generated_at": "2026-09-22T00:36:46.000Z",
-  "source_revision": "cf9df288b22d",
+  "generated_at": "2026-09-22T18:37:37.000Z",
+  "source_revision": "9e7ad49bea7d",
   "families": [
     {
       "id": "composition",
       "title": "Composition"
+    },
+    {
+      "id": "meta-research",
+      "title": "Meta Research"
     },
     {
       "id": "narrative-steering",
@@ -25,6 +29,23 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "meta-research-001",
+      "family": "meta-research",
+      "title": "Grounded build-time labnote summarization",
+      "date": "2026-09-21",
+      "status": "running",
+      "outcome": "pending",
+      "question": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?",
+      "tags": [
+        "meta-research",
+        "summarization",
+        "apparatus",
+        "provenance",
+        "human-review"
+      ],
+      "relations": []
+    },
     {
       "id": "composition-009",
       "family": "composition",

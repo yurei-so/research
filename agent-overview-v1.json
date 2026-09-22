@@ -1,7 +1,7 @@
 {
   "schema": "research-agent-overview/v1",
-  "generated_at": "2026-09-22T00:36:46.000Z",
-  "source_revision": "cf9df288b22d",
+  "generated_at": "2026-09-22T18:37:37.000Z",
+  "source_revision": "9e7ad49bea7d",
   "purpose": "Token-bounded orientation and routing for the public Yurei Research record.",
   "disclaimers": {
     "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
@@ -23,6 +23,17 @@
       "latest_labnote_id": "composition-009",
       "overview_url": "https://yurei-so.github.io/research/projects/composition/index.json",
       "human_url": "https://yurei-so.github.io/research/projects/composition/"
+    },
+    {
+      "id": "meta-research",
+      "title": "Meta Research",
+      "labnote_count": 1,
+      "outcomes": {
+        "pending": 1
+      },
+      "latest_labnote_id": "meta-research-001",
+      "overview_url": "https://yurei-so.github.io/research/projects/meta-research/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/meta-research/"
     },
     {
       "id": "narrative-steering",

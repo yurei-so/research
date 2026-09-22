@@ -2,11 +2,42 @@
 
 const $ = (selector) => document.querySelector(selector);
 
+const storedPageView = () => {
+  try { return localStorage.getItem("yurei-family-page-view"); } catch { return null; }
+};
+const storedZoom = (view) => {
+  try {
+    const value = Number(JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}")[view]);
+    return Number.isFinite(value) && value >= .25 && value <= 1.4 ? value : null;
+  } catch { return null; }
+};
+const saveZoom = (view, value) => {
+  try {
+    const saved = JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}");
+    saved[view] = value;
+    localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
+  } catch {}
+};
+const clearZoom = (view) => {
+  try {
+    const saved = JSON.parse(localStorage.getItem("yurei-family-map-zoom") ?? "{}");
+    delete saved[view];
+    localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
+  } catch {}
+};
+const initialPageView = storedPageView() === "beta-fit" ? "beta-fit" : "standard";
+document.body.dataset.pageView = initialPageView;
+
 async function boot() {
-  const response = await fetch("graph.json");
-  if (!response.ok) throw new Error(`project graph unavailable (${response.status})`);
-  const graph = await response.json();
+  const embedded = $("#project-graph-data")?.content.textContent;
+  const graph = embedded
+    ? JSON.parse(embedded)
+    : await fetch("graph.json").then((response) => {
+      if (!response.ok) throw new Error(`project graph unavailable (${response.status})`);
+      return response.json();
+    });
   const byId = new Map(graph.notes.map((note) => [note.id, note]));
+  const catalogNotes = [...graph.notes].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
   const stage = $(".graph-stage");
   const maps = [...document.querySelectorAll(".project-map, .attention-map")];
   let activeView = "attention";
@@ -17,6 +48,16 @@ async function boot() {
   let selected = graph.notes.at(-1)?.id;
   let tracing = false;
   let terrain = "cells";
+  let userAdjustedZoom = false;
+
+  const mapOffset = (map = activeMap()) => {
+    const stageBox = stage.getBoundingClientRect();
+    const mapBox = map.getBoundingClientRect();
+    return {
+      left: mapBox.left - stageBox.left + stage.scrollLeft,
+      top: mapBox.top - stageBox.top + stage.scrollTop,
+    };
+  };
 
   const attentionMap = $(".attention-map");
   const attentionNodes = new Map([...attentionMap.querySelectorAll(".attention-node")]
@@ -45,26 +86,67 @@ async function boot() {
     $("#view-disclosure").textContent = `${graph.attention.representation.method} vectors projected with classical MDS · ${graph.notes.length} records · stress ${stress}. ${rendering}; geometry is approximate.`;
   };
 
-  const setZoom = (next) => {
+  const setZoom = (next, { manual = false } = {}) => {
+    if (manual) userAdjustedZoom = true;
     const map = activeMap();
-    const oldWidth = map.getBoundingClientRect().width || naturalWidth * zoom;
-    const focus = { x: (stage.scrollLeft + stage.clientWidth / 2) / oldWidth, y: (stage.scrollTop + stage.clientHeight / 2) / (oldWidth * naturalHeight / naturalWidth) };
-    zoom = Math.max(.45, Math.min(1.4, next));
-    maps.forEach((entry) => { entry.style.width = `${Math.round(naturalWidth * zoom)}px`; });
-    $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
-    requestAnimationFrame(() => {
-      stage.scrollLeft = focus.x * map.clientWidth - stage.clientWidth / 2;
-      stage.scrollTop = focus.y * map.clientHeight - stage.clientHeight / 2;
+    const oldBox = map.getBoundingClientRect();
+    const oldWidth = oldBox.width || naturalWidth * zoom;
+    const oldHeight = oldBox.height || naturalHeight * zoom;
+    const oldOffset = mapOffset(map);
+    const focus = {
+      x: (stage.scrollLeft + stage.clientWidth / 2 - oldOffset.left) / oldWidth,
+      y: (stage.scrollTop + stage.clientHeight / 2 - oldOffset.top) / oldHeight,
+    };
+    const minimumZoom = document.body.dataset.pageView === "beta-fit" ? .25 : .45;
+    zoom = Math.max(minimumZoom, Math.min(1.4, next));
+    if (manual) saveZoom(document.body.dataset.pageView, zoom);
+    const newWidth = Math.round(naturalWidth * zoom);
+    const newHeight = Math.round(naturalHeight * zoom);
+    maps.forEach((entry) => {
+      entry.setAttribute("width", String(newWidth));
+      entry.setAttribute("height", String(newHeight));
     });
+    $("#zoom-level").textContent = `${Math.round(zoom * 100)}%`;
+    const newOffset = mapOffset();
+    stage.scrollLeft = newOffset.left + focus.x * newWidth - stage.clientWidth / 2;
+    stage.scrollTop = newOffset.top + focus.y * newHeight - stage.clientHeight / 2;
   };
 
-  const focusSelected = ({ smooth = true } = {}) => {
+  const runZoom = (event, action) => {
+    event.preventDefault();
+    try { action(); }
+    catch (error) {
+      $("#zoom-level").textContent = "ZOOM ERROR";
+      $("#edge-note").textContent = `Zoom failed: ${error.message}`;
+    }
+  };
+  const bindZoom = (selector, action) => {
+    const button = $(selector);
+    button.addEventListener("pointerup", (event) => runZoom(event, action));
+    button.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") runZoom(event, action);
+    });
+  };
+  bindZoom("#zoom-out", () => setZoom(zoom - .12, { manual: true }));
+  bindZoom("#zoom-in", () => setZoom(zoom + .12, { manual: true }));
+  bindZoom("#zoom-fit", () => {
+    userAdjustedZoom = false;
+    clearZoom(document.body.dataset.pageView);
+    setZoom(fitZoom());
+  });
+
+  const focusSelected = () => {
     const node = activeMap()?.querySelector(`[data-note="${CSS.escape(selected)}"]`);
     if (!node) return;
     const scale = activeMap().clientWidth / naturalWidth;
     const x = Number(node.dataset.centerX) * scale;
     const y = Number(node.dataset.centerY) * scale;
-    stage.scrollTo({ left: x - stage.clientWidth / 2, top: y - stage.clientHeight / 2, behavior: smooth ? "smooth" : "auto" });
+    const offset = mapOffset();
+    stage.scrollTo({
+      left: offset.left + x - stage.clientWidth / 2,
+      top: offset.top + y - stage.clientHeight / 2,
+      behavior: "auto",
+    });
   };
 
   const revealListSelection = () => {
@@ -81,7 +163,21 @@ async function boot() {
   };
 
   const fitZoom = () => Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight);
-  const readableZoom = () => Math.max(matchMedia("(max-width: 720px)").matches ? .58 : .68, fitZoom());
+  const readableZoom = () => Math.max(.68, fitZoom());
+  const applyPageView = (view, { persist = true } = {}) => {
+    const next = view === "beta-fit" ? "beta-fit" : "standard";
+    document.body.dataset.pageView = next;
+    document.querySelectorAll("[data-page-view]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.pageView === next));
+    });
+    const restoredZoom = storedZoom(next);
+    userAdjustedZoom = restoredZoom !== null;
+    if (persist) {
+      try { localStorage.setItem("yurei-family-page-view", next); } catch {}
+    }
+    setZoom(restoredZoom ?? (next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
+    focusSelected();
+  };
 
   const neighborhood = (root) => {
     const seen = new Set([root]);
@@ -103,6 +199,26 @@ async function boot() {
     return seen;
   };
 
+  const lineageCandidates = (direction) => graph.relations
+    .filter((relation) => direction === "previous" ? relation.source === selected : relation.target === selected)
+    .map((relation) => byId.get(direction === "previous" ? relation.target : relation.source))
+    .filter(Boolean)
+    .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
+
+  const updateMobileNavigation = () => {
+    const catalogIndex = catalogNotes.findIndex((note) => note.id === selected);
+    $("#mobile-record-position").textContent = `${catalogIndex + 1} / ${catalogNotes.length}`;
+    $("#mobile-catalog-previous").disabled = catalogIndex <= 0;
+    $("#mobile-catalog-next").disabled = catalogIndex < 0 || catalogIndex >= catalogNotes.length - 1;
+    for (const [direction, selector, glyph] of [["previous", "#mobile-lineage-previous", "←"], ["next", "#mobile-lineage-next", "→"]]) {
+      const candidates = lineageCandidates(direction);
+      const button = $(selector);
+      button.disabled = candidates.length === 0;
+      button.textContent = candidates.length > 1 ? `${glyph}${candidates.length}` : glyph;
+      button.title = candidates.length ? candidates.map((note) => `${note.id}: ${note.title}`).join("\n") : `No ${direction} provenance relation`;
+    }
+  };
+
   const renderInspector = () => {
     const note = byId.get(selected);
     if (!note) return;
@@ -112,6 +228,7 @@ async function boot() {
     $("#inspect-status").textContent = note.status;
     $("#inspect-outcome").textContent = note.outcome;
     $("#inspect-outcome").dataset.outcome = note.outcome;
+    $("#inspect-question").textContent = note.question;
     $("#inspect-summary").textContent = note.result_summary;
     $("#open-note").href = `../../${note.href}`;
     $("#view-source").href = note.source_url;
@@ -151,6 +268,7 @@ async function boot() {
     document.querySelectorAll(".attention-context-edge").forEach((edge) => {
       edge.classList.toggle("related", edge.dataset.source === selected || edge.dataset.target === selected);
     });
+    updateMobileNavigation();
   };
 
   const selectNote = (id, { focus = false, reveal = false } = {}) => {
@@ -164,9 +282,6 @@ async function boot() {
   document.querySelectorAll(".graph-node, .attention-node").forEach((node) => {
     node.addEventListener("click", (event) => {
       event.preventDefault(); selectNote(node.dataset.note, { reveal: true });
-      if (matchMedia("(max-width: 720px)").matches) {
-        requestAnimationFrame(() => $(".graph-inspector").scrollIntoView({ behavior: "smooth", block: "start" }));
-      }
     });
     node.addEventListener("dblclick", () => location.assign(node.getAttribute("href")));
     node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNote(node.dataset.note, { reveal: true }); } });
@@ -178,7 +293,6 @@ async function boot() {
     activeView = button.dataset.mapView;
     maps.forEach((entry) => {
       entry.hidden = entry.dataset.mapView !== activeView;
-      entry.style.display = entry.hidden ? "none" : "block";
     });
     document.querySelectorAll(".map-modes button[data-map-view]").forEach((entry) => entry.setAttribute("aria-pressed", String(entry === button)));
     tracing = false;
@@ -194,11 +308,37 @@ async function boot() {
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";
     }
     renderInspector();
-    requestAnimationFrame(() => {
-      setZoom(activeView === "attention" ? readableZoom() : fitZoom());
-      requestAnimationFrame(() => focusSelected({ smooth: false }));
-    });
+    setZoom(zoom);
+    focusSelected();
   }));
+  document.querySelectorAll("[data-page-view]").forEach((button) => button.addEventListener("click", () => {
+    applyPageView(button.dataset.pageView);
+  }));
+  const moveInCatalog = (delta) => {
+    const index = catalogNotes.findIndex((note) => note.id === selected);
+    const target = catalogNotes[index + delta];
+    if (target) selectNote(target.id, { focus: true, reveal: true });
+  };
+  $("#mobile-catalog-previous").addEventListener("click", () => moveInCatalog(-1));
+  $("#mobile-catalog-next").addEventListener("click", () => moveInCatalog(1));
+  $("#mobile-lineage-previous").addEventListener("click", () => {
+    const target = lineageCandidates("previous")[0];
+    if (target) selectNote(target.id, { focus: true, reveal: true });
+  });
+  $("#mobile-lineage-next").addEventListener("click", () => {
+    const target = lineageCandidates("next")[0];
+    if (target) selectNote(target.id, { focus: true, reveal: true });
+  });
+  $("#mobile-sheet-toggle").addEventListener("click", () => {
+    const expanded = $(".graph-inspector").classList.toggle("mobile-expanded");
+    $("#mobile-sheet-toggle").setAttribute("aria-expanded", String(expanded));
+    $("#mobile-sheet-toggle b").textContent = expanded ? "COLLAPSE DETAIL" : "EXPAND DETAIL";
+  });
+  addEventListener("resize", () => {
+    if (userAdjustedZoom) return;
+    requestAnimationFrame(() => setZoom(document.body.dataset.pageView === "beta-fit"
+      && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
+  });
   $("#trace-lineage").addEventListener("click", () => {
     tracing = !tracing;
     const button = $("#trace-lineage");
@@ -212,9 +352,6 @@ async function boot() {
       $("#edge-note").textContent = "Select an edge to read its authored rationale.";
     }
   });
-  $("#zoom-out").addEventListener("click", () => setZoom(zoom - .12));
-  $("#zoom-in").addEventListener("click", () => setZoom(zoom + .12));
-  $("#zoom-fit").addEventListener("click", () => setZoom(fitZoom()));
   $("#terrain-style").addEventListener("click", () => {
     terrain = terrain === "cells" ? "smooth" : "cells";
     const attentionMap = $(".attention-map");
@@ -223,16 +360,36 @@ async function boot() {
     $("#terrain-style").setAttribute("aria-label", `Attention terrain: ${terrain}`);
     renderAttentionDisclosure();
   });
-  $("#back-to-map").addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
+  $("#back-to-map").addEventListener("click", () => {
+    if (matchMedia("(max-width: 720px)").matches) {
+      $(".graph-inspector").classList.remove("mobile-expanded");
+      $("#mobile-sheet-toggle").setAttribute("aria-expanded", "false");
+      $("#mobile-sheet-toggle b").textContent = "EXPAND DETAIL";
+      return;
+    }
+    stage.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   let pan = null;
+  let suppressMapClick = false;
+  stage.addEventListener("click", (event) => {
+    if (!suppressMapClick) return;
+    suppressMapClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
   stage.addEventListener("pointerdown", (event) => {
-    if (event.target.closest(".graph-node, .attention-node, .graph-edge")) return;
-    pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop };
+    if (event.pointerType === "touch" || event.button !== 0) return;
+    suppressMapClick = false;
+    stage.scrollTo({ left: stage.scrollLeft, top: stage.scrollTop, behavior: "auto" });
+    pan = { x: event.clientX, y: event.clientY, left: stage.scrollLeft, top: stage.scrollTop, moved: false };
     stage.setPointerCapture(event.pointerId);
-    stage.classList.add("panning");
   });
   stage.addEventListener("pointermove", (event) => {
     if (!pan) return;
+    if (!pan.moved && Math.hypot(event.clientX - pan.x, event.clientY - pan.y) < 5) return;
+    pan.moved = true;
+    suppressMapClick = true;
+    stage.classList.add("panning");
     stage.scrollLeft = pan.left - (event.clientX - pan.x);
     stage.scrollTop = pan.top - (event.clientY - pan.y);
   });
@@ -266,11 +423,8 @@ async function boot() {
   }));
   renderInspector();
   renderAttentionDisclosure();
+  applyPageView(initialPageView, { persist: false });
   $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
-  requestAnimationFrame(() => {
-    setZoom(readableZoom());
-    requestAnimationFrame(() => focusSelected({ smooth: false }));
-  });
 }
 
 boot().catch((error) => { $("#edge-note").textContent = error.message; });

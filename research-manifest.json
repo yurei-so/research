@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-22T00:36:46.000Z",
-  "source_revision": "cf9df288b22d",
+  "generated_at": "2026-09-22T18:37:37.000Z",
+  "source_revision": "9e7ad49bea7d",
   "families": [
     {
       "id": "composition",
@@ -14,6 +14,16 @@
         "mixed": 1,
         "negative": 5,
         "positive": 1
+      }
+    },
+    {
+      "id": "meta-research",
+      "title": "Meta Research",
+      "labnote_count": 1,
+      "latest_labnote_id": "meta-research-001",
+      "has_graph": false,
+      "outcomes": {
+        "pending": 1
       }
     },
     {
@@ -66,6 +76,30 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "meta-research-001",
+      "family": "meta-research",
+      "title": "Grounded build-time labnote summarization",
+      "date": "2026-09-21",
+      "status": "running",
+      "outcome": "pending",
+      "question": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?",
+      "tags": [
+        "meta-research",
+        "summarization",
+        "apparatus",
+        "provenance",
+        "human-review"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/meta-research-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": []
+      },
+      "result_summary": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?"
+    },
     {
       "id": "composition-009",
       "family": "composition",

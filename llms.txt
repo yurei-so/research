@@ -14,6 +14,7 @@ Public experimental records. Start with the compact overview; retrieve full evid
 - [Compact corpus overview](https://yurei-so.github.io/research/agent-overview-v1.json)
 - [Complete public corpus](https://yurei-so.github.io/research/research-corpus-v1.json)
 - [Composition](https://yurei-so.github.io/research/projects/composition/index.json) — 9 published labnotes
+- [Meta Research](https://yurei-so.github.io/research/projects/meta-research/index.json) — 1 published labnote
 - [Narrative Steering](https://yurei-so.github.io/research/projects/narrative-steering/index.json) — 2 published labnotes
 - [Prosody](https://yurei-so.github.io/research/projects/prosody/index.json) — 18 published labnotes
 - [Voxel Guidance](https://yurei-so.github.io/research/projects/voxel-guidance/index.json) — 5 published labnotes

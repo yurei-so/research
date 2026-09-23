@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "A reproducible synthetic-audio rerun repaired the provenance and transcript-fidelity problems of an earlier study, and both preregistered gates passed. Matched cues still showed no advantage over shuffled cues on automatic response proxies, leaving the result negative/inconclusive until human conversational-quality review exists.",
+  "finding": "The apparatus and provenance repair succeeded, but automatic diagnostics did not show that correctly matched neutral-synthesis cues help more than shuffled cues.",
+  "limitations": ["The downstream model changed from the unavailable historical model to a preregistered successor.", "The diagnostics measure behavior change rather than empathy or conversational quality.", "External text and generated artifacts remain outside source control because the dataset license is undisclosed."],
+  "negative_evidence": ["Matched cues were not uniquely closer to text-only responses than shuffled cues.", "No proxy demonstrated a matched-cue advantage, and human quality review was not performed."],
+  "evidence_quotes": ["The provenance repair succeeded: this run has exact text/audio fidelity, immutable audio hashes, a known synthesizer, and genuinely distinct matched/shuffled cue blocks.", "The automatic downstream result nevertheless remains negative/inconclusive.", "Nothing in these proxies demonstrates that correctly matched neutral-synthesis cues help more than shuffled cues.", "Human review would be required for a conversational-quality claim, but the prior result no longer depends on unknowable third-party audio generation."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

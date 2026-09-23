@@ -8,6 +8,8 @@ __pycache__/
 dist/
 build/
 artifacts/
+!experiments/meta-research/experiments/meta-research-001/artifacts/
+!experiments/meta-research/experiments/meta-research-001/artifacts/**
 import/
 coverage/
 *.log

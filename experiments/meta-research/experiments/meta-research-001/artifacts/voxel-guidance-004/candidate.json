@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "Compact typed tokens losslessly encoded all twelve behavioral snapshots and reduced bytes by 64.27% versus prose and 17.22% versus JSON. A one-model exploratory probe scored compact prompts highest, but reused sessions, post hoc design, correlated formats, and backend nondeterminism make that reasoning result hypothesis-generating only.",
+  "finding": "The compact schema is validated as a lossless, smaller transport for the bounded observations; no reasoning advantage was established.",
+  "limitations": ["The model probe reused twelve sessions with one model and one prompt under a post hoc protocol.", "The three representations were correlated and backend repeatability was not guaranteed.", "Byte savings did not map directly to token savings because the shared legend dominated prompts."],
+  "negative_evidence": ["Prose and JSON probe accuracy remained near chance, and the compact numerical lead is not confirmatory.", "The compact prompt reduced model-counted tokens only slightly relative to JSON."],
+  "evidence_quotes": ["The compact representation was **64.27% smaller than deterministic prose** and **17.22% smaller than canonical JSON**.", "JSON and compact decoding both retained exact numerical equality across all 12 snapshots.", "The compact representation's numerical lead over chance-level prose and JSON is hypothesis-generating only", "Byte reduction also did not translate directly into token reduction."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

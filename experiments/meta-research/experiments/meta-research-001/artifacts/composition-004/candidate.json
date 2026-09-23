@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "A 120-assignment optional-editor campaign yielded 100 automatic ties and 20 changed-output reviews split 10/10. A post-review audit found only two unique answer pairs repeated ten times each, so the raw judgments are pseudoreplicated and cannot establish equal quality or justify promotion.",
+  "finding": "The campaign validated tie filtering and self-matching but was inconclusive on editor quality because deterministic repetition collapsed the manual review to two unique comparisons.",
+  "limitations": ["Twenty manual judgments represented only two unique unordered answer sets.", "The result reflects one owner's repeated judgments and deterministic temperature-zero outputs.", "Private candidate text prevents public pair-level reanalysis."],
+  "negative_evidence": ["Optional editing achieved protocol success in only 60 of 120 trials.", "The nominal 10/10 split cannot be interpreted as twenty independent comparisons.", "The disposition rejects promotion or fine-tuning."],
+  "evidence_quotes": ["The raw manual aggregate was 10 direct-rewrite preferences, 10 optional-editor preferences, and no selected ties.", "The repeated judgments provide a limited intra-rater consistency signal, not twenty independent quality comparisons.", "Do not use the 10/10 raw aggregate as evidence of equal arm quality.", "Do not promote or fine-tune from this campaign."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

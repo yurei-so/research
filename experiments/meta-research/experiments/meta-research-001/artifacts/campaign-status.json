@@ -1,0 +1,13 @@
+{
+  "schema": "meta-research-001/campaign-status/v1",
+  "protocol": "../frozen-protocol.json",
+  "mode": "shadow",
+  "public_write_allowed": false,
+  "generated_at": "2026-09-23T01:40:03Z",
+  "candidates": 8,
+  "validator_ready": 8,
+  "human_reviews_complete": 0,
+  "promotion_gate_evaluated": false,
+  "status": "awaiting-human-review",
+  "records": ["composition-001","prosody-018","composition-009","prosody-014","prosody-017","voxel-guidance-004","composition-004","prosody-011"]
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "An eight-output ablation removed competing focus words from Qwen3-TTS instructions, but neither positive-only nor context-only phrasing produced a reading that was both natural and directionally correct. Expressive sarcasm and exasperation emerged, suggesting useful variation without reliable word-level control.",
+  "finding": "Neither instruction form restored directional contrastive emphasis, so no mechanism won and no blinded follow-up was admitted.",
+  "limitations": ["This was a small mechanism-selection pilot with one voice and shared seeds.", "The admission interface initially combined naturalness and directional correctness, requiring operator correction.", "Emergent expressive behavior was observed but not tested as a selection architecture."],
+  "negative_evidence": ["No output passed both naturalness and directional-correctness criteria.", "The apparent expressive successes did not satisfy the requested lexical-focus control."],
+  "evidence_quotes": ["no output could honestly be judged both natural and directionally correct.", "Neither positive-only nor context-only instruction therefore won the mechanism-selection gate, and no blinded follow-up was prepared.", "That hypothesis is not tested by this labnote."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

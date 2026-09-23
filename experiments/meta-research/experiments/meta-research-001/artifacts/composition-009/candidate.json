@@ -1,0 +1,28 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "A frozen eight-task campaign tested whether readiness signals plus replaceable spans improve deferred composition. The method beat hole-only in 5/8 comparisons, but unrestricted full revision won 8/8 while using less latency and fewer generated tokens; the labnote rejects readiness-span for production.",
+  "finding": "Readiness plus whole-span repair partially improved on hole-only, but lost every blinded comparison against unrestricted full revision and was rejected as a production composition mechanism.",
+  "limitations": [
+    "The result comes from eight authored tasks judged by one reviewer and is not a general population estimate.",
+    "The campaign evaluated one model at temperature zero under the frozen protocol.",
+    "Two apparatus pilots failed before the valid campaign and were excluded from review."
+  ],
+  "negative_evidence": [
+    "Full revision was preferred to readiness-span in all eight comparisons.",
+    "Readiness-span used more latency and generated tokens and frequently repeated or contradicted source material.",
+    "The disposition explicitly rejects production adoption and repetition with a larger token budget."
+  ],
+  "evidence_quotes": [
+    "Readiness-span was preferred to hole-only in five of eight cases; hole-only won three, with no ties.",
+    "Full revision was preferred to readiness-span in all eight cases, with no ties.",
+    "Because one reviewer judged a small authored corpus, this remains a bounded result rather than a general population estimate.",
+    "Do not add it to the production composition path and do not repeat this corpus with a larger token budget."
+  ],
+  "no_new_claims": true,
+  "generation": {
+    "provider": "openai-codex",
+    "model": "runtime-unspecified",
+    "prompt_version": "meta-research-001/v1",
+    "generated_at": "2026-09-23T01:40:03Z"
+  }
+}

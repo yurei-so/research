@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "A six-case mechanical baseline found schema-constrained JSON editing parsed, applied, and finalized successfully in all cases, so fine-tuning was not justified. The run mostly produced final buffers rather than real edit operations, so it does not show that iterative editing improves writing or generalizes reliably.",
+  "finding": "Schema-constrained decoding cleared the frozen mechanical reliability gate, supporting continued interface testing with the existing model rather than fine-tuning.",
+  "limitations": ["The corpus contained only six cases and one deterministic run.", "Successful outputs mostly supplied final buffers instead of exercising append, replace, or delete transitions.", "Composition quality was not compared."],
+  "negative_evidence": ["The unconstrained arm failed one case by not finalizing the document.", "The experiment established protocol reliability, not revision value or writing quality."],
+  "evidence_quotes": ["The schema-constrained arm completed all six cases.", "This is not evidence that iterative editing improves writing.", "The six-case corpus is intentionally small. A single deterministic run cannot establish general reliability, compare semantic quality, or support a model training decision.", "Do not fine-tune."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

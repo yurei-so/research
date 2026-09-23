@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "In one blinded six-turn pilot, a conversation-aware two-speaker render passed all four whole-scene gates while the isolated-instruction arm passed only timing. This supports scene-grounded direction as promising for the current apparatus, but one scene, one sample per arm, and one listener cannot identify dialogue context as the cause.",
+  "finding": "The conversation-aware arm was judged natural, mutually responsive, conversationally timed, and convincing; the isolated arm passed only turn timing.",
+  "limitations": ["The pilot used one authored scene, one sample per arm, and one listener.", "Authored directions varied turn by turn, confounding shared context with per-turn direction.", "Replication across scenes and seeds is required."],
+  "negative_evidence": ["The isolated render failed naturalness, mutual reaction, and whole-scene conviction.", "The pilot does not establish a reliable causal effect of dialogue context."],
+  "evidence_quotes": ["The conversation-aware render passed all four gates: its voices sounded natural, its turns sounded mutually responsive, its timing felt conversational, and the complete scene was judged convincing.", "It is not evidence that dialogue context reliably causes the improvement: the pilot contains one scene, one sample per arm, and one listener, and its authored directions differ turn by turn."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

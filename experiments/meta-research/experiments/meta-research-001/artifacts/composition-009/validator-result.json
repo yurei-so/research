@@ -1,0 +1,10 @@
+{
+  "valid": true,
+  "status": "ready-for-human-review",
+  "errors": [],
+  "provenance": {
+    "source_hash": "sha256:a041426ab9f94d0e4ff1c79e88f7071b42885e111c7a398af993c9238f6dfe50",
+    "apparatus_version": "0.1.0",
+    "schema": "labnote-tldr/v1"
+  }
+}

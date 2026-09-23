@@ -1,0 +1,10 @@
+{
+  "schema": "labnote-tldr/v1",
+  "orientation": "A twelve-clip, four-utterance pool produced six natural expressive readings across all utterances, but every natural clip was labeled with disbelief and none was neutral-only. The pool expands the expressive gallery but cannot support the intended balanced neutral-versus-expressive retrieval test.",
+  "finding": "The candidate pool supplied natural expressive coverage across new lexical content but failed to supply the neutral class required for balanced held-out retrieval.",
+  "limitations": ["The pool contained twelve clips from one speaker, model, and shared seed.", "This was corpus construction rather than an instruction-following or retrieval evaluation.", "Recipe identity was hidden, but annotation established an imbalanced realized label distribution."],
+  "negative_evidence": ["Only six of twelve clips met the naturalness floor.", "No natural clip was neutral-only, blocking the planned balanced retrieval test."],
+  "evidence_quotes": ["Six met the 4/5 naturalness floor, spanning all four new utterances.", "Every natural clip carried a disbelief label; none was neutral-only.", "The pool successfully expanded the natural expressive gallery across new lexical content, but it cannot support a balanced held-out neutral-versus-expressive retrieval test."],
+  "no_new_claims": true,
+  "generation": {"provider":"openai-codex","model":"runtime-unspecified","prompt_version":"meta-research-001/v1","generated_at":"2026-09-23T01:40:03Z"}
+}

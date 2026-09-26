@@ -17,7 +17,7 @@ Public experimental records. Start with the compact overview; retrieve full evid
 - [Meta Research](https://yurei-so.github.io/research/projects/meta-research/index.json) — 1 published labnote
 - [Narrative Steering](https://yurei-so.github.io/research/projects/narrative-steering/index.json) — 2 published labnotes
 - [Prosody](https://yurei-so.github.io/research/projects/prosody/index.json) — 18 published labnotes
-- [Voxel Guidance](https://yurei-so.github.io/research/projects/voxel-guidance/index.json) — 5 published labnotes
+- [Voxel Guidance](https://yurei-so.github.io/research/projects/voxel-guidance/index.json) — 6 published labnotes
 - [Zenith](https://yurei-so.github.io/research/projects/zenith/index.json) — 17 published labnotes
 
 Canonical source: https://github.com/yurei-so/research

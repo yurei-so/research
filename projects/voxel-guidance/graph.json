@@ -176,10 +176,47 @@
         "follows": [
           "voxel-guidance-004"
         ],
-        "continued_by": []
+        "continued_by": [
+          "voxel-guidance-006"
+        ]
       },
       "result_summary": "Namespace-only and opaque-schema control produced exactly the same 12 predictions. The semantic namespace therefore supplied no measurable zero-shot benefit in this run while adding about 12 prompt tokens. The short group grammar did not preserve the full dictionary's semantic…",
       "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-005-semantic-namespace-ablation.md"
+    },
+    {
+      "id": "voxel-guidance-006",
+      "family": "voxel-guidance",
+      "title": "Temporal synthetic spatial-perception calibration",
+      "date": "2026-09-25",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Do short grayscale frame sequences plus ego-motion improve local spatial estimates over a matched single-frame baseline on held-out procedural geometry?",
+      "tags": [
+        "synthetic-data",
+        "spatial-ai",
+        "temporal-vision",
+        "blender",
+        "apparatus"
+      ],
+      "lineage": [
+        "voxel-guidance-005"
+      ],
+      "relations": [
+        {
+          "target": "voxel-guidance-005",
+          "type": "extends",
+          "rationale": "Moves from compact behavioral state interpretation to a separately bounded test of compact machine-facing spatial state."
+        }
+      ],
+      "href": "labnotes/voxel-guidance-006/",
+      "timeline": {
+        "follows": [
+          "voxel-guidance-005"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The temporal condition modestly improved depth error and discontinuity detection while modestly worsening free-space overlap. The run completed with exit code zero and empty stderr. The frozen result and scheduler receipt are retained under experiments/labnote006/.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/voxel-guidance/docs/labnotes/voxel-guidance-006-synthetic-spatial-perception.md"
     }
   ],
   "relations": [
@@ -206,6 +243,12 @@
       "target": "voxel-guidance-004",
       "type": "motivated-by",
       "rationale": "Labnote 004 found that the shared field dictionary dominated compact prompt cost, so this note tested whether one semantic namespace could replace it."
+    },
+    {
+      "source": "voxel-guidance-006",
+      "target": "voxel-guidance-005",
+      "type": "extends",
+      "rationale": "Moves from compact behavioral state interpretation to a separately bounded test of compact machine-facing spatial state."
     }
   ],
   "attention": {
@@ -216,181 +259,226 @@
         "title",
         "tags"
       ],
-      "dimensions": 640,
+      "dimensions": 654,
       "metric": "cosine-distance"
     },
     "vectors": {
       "voxel-guidance-001": {
-        "repeated": 0.144035,
-        "task-balanced": 0.159119,
-        "minecraft": 0.500125,
-        "sessions": 0.159119,
-        "produce": 0.099245,
-        "interpretable": 0.159119,
-        "behavioral": 0.144035,
-        "vector": 0.144035,
-        "whose": 0.159119,
-        "within-condition": 0.159119,
-        "variation": 0.159119,
-        "smaller": 0.159119,
-        "than": 0.133333,
-        "uncertainty": 0.159119,
-        "behavioral-vector": 0.159119,
-        "pilot": 0.099245,
-        "behavioral-telemetry": 0.236497,
-        "human-in-the-loop": 0.318239,
-        "planned-experiment": 0.318239,
-        "provenance": 0.250062,
-        "repeated-measures": 0.318239
+        "repeated": 0.144021,
+        "task-balanced": 0.159032,
+        "minecraft": 0.500443,
+        "sessions": 0.159032,
+        "produce": 0.09945,
+        "interpretable": 0.159032,
+        "behavioral": 0.144021,
+        "vector": 0.144021,
+        "whose": 0.159032,
+        "within-condition": 0.159032,
+        "variation": 0.159032,
+        "smaller": 0.159032,
+        "than": 0.133371,
+        "uncertainty": 0.159032,
+        "behavioral-vector": 0.159032,
+        "pilot": 0.09945,
+        "behavioral-telemetry": 0.236722,
+        "human-in-the-loop": 0.318064,
+        "planned-experiment": 0.318064,
+        "provenance": 0.250221,
+        "repeated-measures": 0.318064
       },
       "voxel-guidance-002": {
-        "current": 0.188002,
-        "minecraft": 0.44318,
-        "task": 0.17018,
-        "inferred": 0.188002,
-        "causal": 0.188002,
-        "behavior": 0.147727,
-        "holding": 0.188002,
-        "out": 0.188002,
-        "entire": 0.188002,
-        "seed": 0.188002,
-        "block": 0.188002,
-        "blinded": 0.147727,
-        "current-task": 0.17018,
-        "inference": 0.17018,
-        "behavioral-telemetry": 0.279425,
-        "classification": 0.34036,
-        "grouped-validation": 0.376005,
-        "positive-result": 0.234519
+        "current": 0.187882,
+        "minecraft": 0.443422,
+        "task": 0.170149,
+        "inferred": 0.187882,
+        "causal": 0.187882,
+        "behavior": 0.147807,
+        "holding": 0.187882,
+        "out": 0.187882,
+        "entire": 0.187882,
+        "seed": 0.187882,
+        "block": 0.187882,
+        "blinded": 0.147807,
+        "current-task": 0.170149,
+        "inference": 0.170149,
+        "behavioral-telemetry": 0.279667,
+        "classification": 0.340298,
+        "grouped-validation": 0.375765,
+        "positive-result": 0.234984
       },
       "voxel-guidance-003": {
-        "observable": 0.198934,
-        "behavior": 0.156317,
-        "families": 0.198934,
-        "carry": 0.198934,
-        "120-second": 0.198934,
-        "held-seed": 0.198934,
-        "task-inference": 0.198934,
-        "signal": 0.198934,
-        "current-task": 0.180076,
-        "feature-family": 0.198934,
-        "ablation": 0.500086,
-        "behavioral-telemetry": 0.295674,
-        "classification": 0.360151,
-        "minecraft": 0.312633,
-        "mixed-result": 0.248155
+        "observable": 0.198791,
+        "behavior": 0.156389,
+        "families": 0.198791,
+        "carry": 0.198791,
+        "120-second": 0.198791,
+        "held-seed": 0.198791,
+        "task-inference": 0.198791,
+        "signal": 0.198791,
+        "current-task": 0.180028,
+        "feature-family": 0.198791,
+        "ablation": 0.500145,
+        "behavioral-telemetry": 0.295904,
+        "classification": 0.360055,
+        "minecraft": 0.312778,
+        "mixed-result": 0.248627
       },
       "voxel-guidance-004": {
-        "two-minute": 0.154909,
-        "behavior": 0.121723,
-        "windows": 0.154909,
-        "represented": 0.154909,
-        "compactly": 0.154909,
-        "loss": 0.154909,
-        "one": 0.121723,
-        "local": 0.129805,
-        "model": 0.090016,
-        "preserve": 0.140224,
-        "task": 0.140224,
-        "recognition": 0.140224,
-        "across": 0.109537,
-        "prose": 0.154909,
-        "json": 0.154909,
-        "typed": 0.154909,
-        "tokens": 0.154909,
-        "machine-native": 0.154909,
-        "state": 0.140224,
-        "serialization": 0.464728,
-        "baseline": 0.11512,
-        "behavioral-telemetry": 0.23024,
-        "machine-native-state": 0.280448,
-        "apparatus": 0.280448,
-        "minecraft": 0.243446,
-        "local-model": 0.280448,
-        "mixed-result": 0.193238
+        "two-minute": 0.155964,
+        "behavior": 0.122697,
+        "windows": 0.155964,
+        "represented": 0.155964,
+        "compactly": 0.155964,
+        "loss": 0.155964,
+        "one": 0.122697,
+        "local": 0.122697,
+        "model": 0.090912,
+        "preserve": 0.141243,
+        "task": 0.141243,
+        "recognition": 0.141243,
+        "across": 0.110481,
+        "prose": 0.155964,
+        "json": 0.155964,
+        "typed": 0.155964,
+        "tokens": 0.155964,
+        "machine-native": 0.155964,
+        "state": 0.141243,
+        "serialization": 0.467891,
+        "baseline": 0.110481,
+        "behavioral-telemetry": 0.232155,
+        "machine-native-state": 0.282486,
+        "apparatus": 0.261597,
+        "minecraft": 0.245394,
+        "local-model": 0.282486,
+        "mixed-result": 0.195063
       },
       "voxel-guidance-005": {
-        "semantic": 0.244292,
-        "namespace": 0.583076,
-        "token": 0.291538,
-        "replace": 0.145769,
-        "full": 0.13195,
-        "field": 0.145769,
-        "dictionary": 0.145769,
-        "local": 0.122146,
-        "model": 0.084704,
-        "interprets": 0.145769,
-        "compact": 0.13195,
-        "behavioral": 0.13195,
-        "state": 0.13195,
-        "ablation": 0.366438,
-        "behavioral-telemetry": 0.216655,
-        "machine-native-state": 0.263901,
-        "local-model": 0.263901,
-        "negative-result": 0.13459
+        "semantic": 0.244605,
+        "namespace": 0.583333,
+        "token": 0.291666,
+        "replace": 0.145833,
+        "full": 0.132069,
+        "field": 0.145833,
+        "dictionary": 0.145833,
+        "local": 0.114727,
+        "model": 0.085007,
+        "interprets": 0.145833,
+        "compact": 0.132069,
+        "behavioral": 0.132069,
+        "state": 0.132069,
+        "ablation": 0.366908,
+        "behavioral-telemetry": 0.217076,
+        "machine-native-state": 0.264137,
+        "local-model": 0.264137,
+        "negative-result": 0.135332
+      },
+      "voxel-guidance-006": {
+        "short": 0.165572,
+        "grayscale": 0.165572,
+        "frame": 0.149944,
+        "sequences": 0.165572,
+        "plus": 0.149944,
+        "ego-motion": 0.165572,
+        "improve": 0.117287,
+        "local": 0.130256,
+        "spatial": 0.165572,
+        "estimates": 0.165572,
+        "over": 0.149944,
+        "matched": 0.130256,
+        "single-frame": 0.165572,
+        "baseline": 0.117287,
+        "held-out": 0.149944,
+        "procedural": 0.165572,
+        "geometry": 0.130256,
+        "temporal": 0.165572,
+        "synthetic": 0.138856,
+        "spatial-perception": 0.165572,
+        "calibration": 0.149944,
+        "synthetic-data": 0.331144,
+        "spatial-ai": 0.331144,
+        "temporal-vision": 0.331144,
+        "blender": 0.331144,
+        "apparatus": 0.277713
       }
     },
     "pairwise_distances": [
       [
         0,
-        0.712271,
-        0.773718,
-        0.823795,
-        0.929756
+        0.711889,
+        0.773425,
+        0.822238,
+        0.929593,
+        1
       ],
       [
-        0.712271,
+        0.711889,
         0,
-        0.60251,
-        0.785929,
-        0.939461
+        0.602279,
+        0.784093,
+        0.939291,
+        1
       ],
       [
-        0.773718,
-        0.60251,
+        0.773425,
+        0.602279,
         0,
-        0.788834,
-        0.752691
+        0.786864,
+        0.752259,
+        1
       ],
       [
-        0.823795,
-        0.785929,
-        0.788834,
+        0.822238,
+        0.784093,
+        0.786864,
         0,
-        0.760114
+        0.759916,
+        0.898411
       ],
       [
-        0.929756,
-        0.939461,
-        0.752691,
-        0.760114,
+        0.929593,
+        0.939291,
+        0.752259,
+        0.759916,
+        0,
+        0.985056
+      ],
+      [
+        1,
+        1,
+        1,
+        0.898411,
+        0.985056,
         0
       ]
     ],
     "projection": {
       "method": "classical-mds",
       "dimensions": 2,
-      "normalized_stress": 0.23713,
+      "normalized_stress": 0.340139,
       "points": {
         "voxel-guidance-001": [
-          -0.317513,
-          0.271492
+          0.237848,
+          0.260909
         ],
         "voxel-guidance-002": [
-          -0.337036,
-          -0.15219
+          0.312617,
+          0.22022
         ],
         "voxel-guidance-003": [
-          -0.055682,
-          -0.344839
+          0.256052,
+          -0.08656
         ],
         "voxel-guidance-004": [
-          0.197621,
-          0.317168
+          -0.078493,
+          -0.13694
         ],
         "voxel-guidance-005": [
-          0.51261,
-          -0.091632
+          -0.094892,
+          -0.525044
+        ],
+        "voxel-guidance-006": [
+          -0.633132,
+          0.267414
         ]
       }
     },

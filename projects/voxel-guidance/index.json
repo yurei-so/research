@@ -1,22 +1,32 @@
 {
   "schema": "research-family-overview/v1",
-  "generated_at": "2026-09-22T19:04:02.000Z",
-  "source_revision": "3d5f5e917a72",
+  "generated_at": "2026-09-26T04:23:10.000Z",
+  "source_revision": "17c7ed942522",
   "family": {
     "id": "voxel-guidance",
     "title": "Voxel Guidance",
-    "labnote_count": 5,
+    "labnote_count": 6,
     "outcomes": {
-      "mixed": 3,
+      "mixed": 4,
       "negative": 1,
       "positive": 1
     },
-    "latest_labnote_id": "voxel-guidance-005"
+    "latest_labnote_id": "voxel-guidance-006"
   },
   "orientation": {
     "purpose": "Compact orientation to the published Voxel Guidance record. Follow evidence_url before making substantive claims.",
     "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
     "entry_points": [
+      {
+        "id": "voxel-guidance-006",
+        "title": "Temporal synthetic spatial-perception calibration",
+        "date": "2026-09-25",
+        "status": "complete",
+        "outcome": "mixed",
+        "question": "Do short grayscale frame sequences plus ego-motion improve local spatial estimates over a matched single-frame baseline on held-out procedural geometry?",
+        "finding": "The temporal condition modestly improved depth error and discontinuity detection while modestly worsening free-space overlap. The run completed with exit code zero and empty stderr. The frozen result and scheduler receipt are retained under experiments/labnote006/.",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/voxel-guidance-006/"
+      },
       {
         "id": "voxel-guidance-005",
         "title": "Semantic namespace token ablation",
@@ -40,6 +50,11 @@
     ]
   },
   "authored_relations_near_entry_points": [
+    {
+      "from": "voxel-guidance-006",
+      "to": "voxel-guidance-005",
+      "type": "extends"
+    },
     {
       "from": "voxel-guidance-005",
       "to": "voxel-guidance-004",

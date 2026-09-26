@@ -59,6 +59,22 @@ class SpatialDatasetContractTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_completed_result_is_bound_to_runtime_receipt(self):
+        result_path = ROOT / "result.json"
+        result = json.loads(result_path.read_text(encoding="utf-8"))
+        receipt = json.loads((ROOT / "run-receipt.json").read_text(encoding="utf-8"))
+        protocol = json.loads((ROOT / "frozen-protocol.json").read_text(encoding="utf-8"))
+        self.assertEqual(receipt["status"], "completed")
+        self.assertEqual(receipt["exit_code"], 0)
+        self.assertEqual(receipt["stderr_bytes"], 0)
+        self.assertEqual(receipt["result_sha256"], sha256_file(result_path))
+        self.assertEqual(result["dataset_set_manifest_sha256"],
+                         protocol["apparatus"]["dataset_set_manifest_sha256"])
+        self.assertIsNone(result["dataset_limits"]["test"])
+        self.assertLess(result["comparison"]["depth_mae_m"], 0)
+        self.assertLess(result["comparison"]["free_space_iou"], 0)
+        self.assertGreater(result["comparison"]["discontinuity_f1"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

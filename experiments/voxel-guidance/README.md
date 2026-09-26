@@ -64,10 +64,10 @@ Labnote 005 tests whether a semantic namespace can replace the full field
 dictionary. It cannot in this zero-shot probe: namespace-only matched the opaque
 control exactly, while the full dictionary retained the strongest score.
 
-Labnote 006 is a frozen, approval-gated synthetic spatial-perception experiment.
-Its Blender generator, manifest-bound dataset contract, matched
-single-frame/temporal models, and mpai runner passed apparatus calibration.
-The evidentiary run is pending and no outcome is claimed yet.
+Labnote 006 compares matched single-frame and temporal spatial-perception
+models on held-out procedural geometry. Temporal context modestly improved
+depth error and discontinuity F1 but reduced free-space IoU, a mixed result
+that earns a separately frozen transfer probe rather than a general claim.
 
 ## Local live-guidance prototype
 

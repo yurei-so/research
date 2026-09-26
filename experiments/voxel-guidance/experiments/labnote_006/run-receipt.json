@@ -1,0 +1,17 @@
+{
+  "format": "voxel-guidance.agent-runtime-run-receipt",
+  "version": 1,
+  "run_id": "476528aa-65af-4a36-972d-fe9af17db159",
+  "definition_id": "voxel-guidance.labnote-006",
+  "status": "completed",
+  "created_at": "2026-09-26T04:18:59.704Z",
+  "decided_at": "2026-09-26T04:19:30.078Z",
+  "started_at": "2026-09-26T04:19:38.439Z",
+  "finished_at": "2026-09-26T04:19:44.860Z",
+  "exit_code": 0,
+  "stderr_bytes": 0,
+  "result_sha256": "4d8590d687c353eba45762cc04adacbc9fc3fa7e22877cc893913884a82b9a84",
+  "stdout_sha256": "d1a89e92272e6041f5dd88ccd47b412759655a43a2f881aa9cd2e9655a2a8a86",
+  "single_frame_checkpoint_sha256": "92810e018387b197758691533069e41aea081b15231aa4fb53eb769ed282d30d",
+  "temporal_checkpoint_sha256": "0e03f8fe490949db52b328e84e99c981a67b52e73580ee80bce1471701117bf1"
+}

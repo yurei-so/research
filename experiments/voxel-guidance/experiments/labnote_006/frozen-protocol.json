@@ -19,7 +19,7 @@
     "prohibition": "No scene seed may appear in more than one split. Test metrics are computed only after both model runs finish."
   },
   "runtime": {
-    "host": "mpai",
+    "host": "approved private accelerator host",
     "accelerator": "NVIDIA GeForce RTX 4070",
     "python": "3.13.5",
     "torch": "2.6.0+cu124",

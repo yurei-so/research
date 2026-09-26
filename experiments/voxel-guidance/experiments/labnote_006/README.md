@@ -23,8 +23,9 @@ receipt is recorded in `frozen-protocol.json` and verified again by the
 training entrypoint.
 
 `run_training.py` validates every shard digest before importing PyTorch. Its
-output directory is supplied by Agent Runtime through `ROOST_EXPERIMENT_ARTIFACT_DIR`;
-the fixed mpai wrapper maps the runtime's private run directory to that name.
+output directory is supplied by the approval-gated scheduler through
+`ROOST_EXPERIMENT_ARTIFACT_DIR`; deployment-specific interpreter and dataset
+paths are supplied through explicit environment variables.
 
 No raw game captures, personal worlds, identifiers, or coordinates belong in
 this apparatus. Cross-game observations require a later frozen transfer

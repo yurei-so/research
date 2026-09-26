@@ -31,7 +31,7 @@ frozen before training.
 The matched 171,682-parameter conditions used the same encoder, ConvGRU, and
 prediction heads. The single-frame condition received only the final frame;
 the temporal condition received all four observations and ego-motion. Both
-trained for 20 epochs with seed 1701 on mpai's RTX 4070. The test split was
+trained for 20 epochs with seed 1701 on an RTX 4070. The test split was
 evaluated once after both runs finished.
 
 ## Results
@@ -44,7 +44,7 @@ evaluated once after both runs finished.
 
 The temporal condition modestly improved depth error and discontinuity
 detection while modestly worsening free-space overlap. The run completed with
-exit code zero and empty stderr. The frozen result and Agent Runtime receipt
+exit code zero and empty stderr. The frozen result and scheduler receipt
 are retained under `experiments/labnote_006/`.
 
 ## Interpretation

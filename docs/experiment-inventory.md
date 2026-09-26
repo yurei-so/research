@@ -82,6 +82,7 @@ launcher-control dependency; experimental protocols and evidence remain here.
 | `voxel-guidance-003` | Current-task feature-family ablation | Complete | Mixed | `minecraft`, `behavioral-telemetry`, `classification`, `ablation` | Block actions alone matched the full 10/12 result; movement retained signal while inventory alone did not reliably beat chance. |
 | `voxel-guidance-004` | Machine-native state serialization baseline | Complete | Mixed | `behavioral-telemetry`, `machine-native-state`, `serialization`, `apparatus` | Compact state was lossless and smaller; one exploratory local-model probe favored compact 5/12 over prose 3/12 and JSON 2/12, but is too small and post hoc to establish a reasoning advantage. |
 | `voxel-guidance-005` | Semantic namespace token ablation | Complete | Negative | `machine-native-state`, `namespace`, `ablation`, `local-model` | Namespace-only exactly matched the opaque control at 3/12; the full field dictionary reached 7/12, so a readable namespace did not replace explicit field semantics. |
+| `voxel-guidance-006` | Temporal synthetic spatial-perception calibration | Running | Pending | `synthetic-data`, `spatial-ai`, `temporal-vision`, `blender` | Frozen Blender-backed apparatus for a held-scene comparison of matched single-frame and temporal local spatial prediction; approval-gated evidentiary run pending. |
 
 ## Migration checks
 

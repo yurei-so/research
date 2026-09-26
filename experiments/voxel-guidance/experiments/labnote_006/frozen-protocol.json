@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "experiment_id": "voxel-guidance-006",
+  "status": "frozen",
+  "frozen_at": "2026-09-25",
+  "question": "Do short grayscale frame sequences plus ego-motion improve local depth, free-space, and discontinuity estimates over a parameter-matched single-frame baseline on held-out procedural geometry?",
+  "apparatus": {
+    "blender_version": "5.2.2 LTS",
+    "observation": { "width": 64, "height": 64, "channels": 1, "sequence_frames": 4 },
+    "target": { "width": 16, "height": 16, "maximum_depth_m": 20.0 },
+    "generator_revision": 1,
+    "dataset_set_manifest_sha256": "fc41ca16c9d6035e3b98c9165ed8ab5b0920c11a040df0500a3e0cd9248eaada"
+  },
+  "split_policy": {
+    "unit": "scene_seed",
+    "train_seeds": [1000, 1255],
+    "validation_seeds": [2000, 2063],
+    "test_seeds": [3000, 3063],
+    "prohibition": "No scene seed may appear in more than one split. Test metrics are computed only after both model runs finish."
+  },
+  "runtime": {
+    "host": "mpai",
+    "accelerator": "NVIDIA GeForce RTX 4070",
+    "python": "3.13.5",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.2.6",
+    "seed": 1701,
+    "epochs": 20,
+    "batch_size": 16,
+    "optimizer": "AdamW(lr=0.002,weight_decay=0.0001)",
+    "loss": "smooth_l1(depth)+0.35*bce_with_logits(edge,pos_weight=3.0)",
+    "gradient_clip_norm": 2.0
+  },
+  "models": ["single-frame", "temporal-convgru"],
+  "primary_metrics": ["depth_mae_m", "free_space_iou", "discontinuity_f1"],
+  "primary_comparison": "temporal-convgru minus single-frame on the held-out test seeds",
+  "claim_boundary": "This run can establish only whether the compact temporal apparatus improves held-out procedural-geometry metrics relative to its matched single-frame baseline. It cannot establish mesh reconstruction, navigation competence, or cross-game transfer."
+}

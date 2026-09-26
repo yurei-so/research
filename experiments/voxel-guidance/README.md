@@ -64,6 +64,11 @@ Labnote 005 tests whether a semantic namespace can replace the full field
 dictionary. It cannot in this zero-shot probe: namespace-only matched the opaque
 control exactly, while the full dictionary retained the strongest score.
 
+Labnote 006 is a frozen, approval-gated synthetic spatial-perception experiment.
+Its Blender generator, manifest-bound dataset contract, matched
+single-frame/temporal models, and mpai runner passed apparatus calibration.
+The evidentiary run is pending and no outcome is claimed yet.
+
 ## Local live-guidance prototype
 
 Bridge 0.3.0 can display a session-bound hint written by the local shadow

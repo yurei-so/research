@@ -1,0 +1,74 @@
+{
+  "schema": "meta-research-001/protocol/v3",
+  "frozen_at": "2026-09-26T00:00:00Z",
+  "supersedes": "frozen-protocol-v2.json",
+  "supersession_reason": "V2 controlled output length and shape but produced compressed research-paper language with no TL;DR utility.",
+  "apparatus_version": "0.3.0",
+  "mode": "shadow",
+  "public_write_allowed": false,
+  "candidate_schema": "labnote-orientation/v3",
+  "frozen_corpus": [
+    { "id": "composition-001", "outcome": "positive" },
+    { "id": "prosody-018", "outcome": "positive" },
+    { "id": "composition-009", "outcome": "negative" },
+    { "id": "prosody-014", "outcome": "negative" },
+    { "id": "prosody-017", "outcome": "mixed" },
+    { "id": "voxel-guidance-004", "outcome": "mixed" },
+    { "id": "composition-004", "outcome": "inconclusive" },
+    { "id": "prosody-011", "outcome": "inconclusive" }
+  ],
+  "generator_principle": "Imagine the reader asks: What were you trying to find out, and what happened? Answer in two sentences using words you would use in conversation. Keep every important limit, but translate research terms into what they mean. If the reader must know how research papers talk, rewrite it.",
+  "reader_facing_contract": {
+    "audience": "a curious non-specialist with no project vocabulary",
+    "sentence_count": 2,
+    "sentence_1": "Say what we wanted to know, plus only the minimum comparison needed to understand the question.",
+    "sentence_2": "Say what happened and what that lets us conclude, preserving negative, mixed, and uncertain outcomes.",
+    "one_main_idea_per_sentence": true,
+    "numbers_only_when_material": true,
+    "governing_test": "Could Blake naturally say this aloud to a technically curious friend without sounding like an abstract?",
+    "rewrite_triggers": [
+      "paper-compression jargon",
+      "research-procedure shorthand",
+      "noun piles",
+      "prestige verbs where simple verbs work",
+      "fake certainty",
+      "flattened mixed outcomes",
+      "irrelevant method trivia",
+      "undefined project vocabulary"
+    ],
+    "technical_terms": "A technical term may remain only when replacing it loses accuracy or it names the studied thing; its meaning must be immediately recoverable."
+  },
+  "deterministic_checks": {
+    "hard": [
+      "exactly two sentences",
+      "source hash and generation provenance present"
+    ],
+    "soft_warnings": [
+      "more than 30 words in either sentence",
+      "more than 55 words total",
+      "known paper-language terms",
+      "more than one parenthetical",
+      "unexplained acronyms"
+    ],
+    "intentionally_excluded": [
+      "grade-level score",
+      "syllable limit",
+      "fixed simple-word vocabulary"
+    ]
+  },
+  "review_gate": {
+    "decisions": ["accept", "reject"],
+    "acceptance_question": "Would this help you understand the note quickly?",
+    "reason_required_for": ["reject"],
+    "spoken_explanation_veto": "Reject if you would not naturally explain the experiment this way to someone outside the project.",
+    "minimum_accepted_candidates": 7
+  },
+  "presentation_contract": {
+    "label": "AI ORIENTATION · EXPERIMENTAL",
+    "treatment": "muted inset panel with low-contrast border and clipped corners",
+    "must_be_easy_to_skip": true,
+    "must_not_resemble_canonical_authored_prose": true
+  },
+  "requires_separate_toolkit_change": true,
+  "requires_separate_public_activation": true
+}

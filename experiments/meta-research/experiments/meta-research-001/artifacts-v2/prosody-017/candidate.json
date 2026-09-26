@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This pool tested whether varied utterances could supply natural repeated readings for a held-out prosody-retrieval experiment.",
+    "effect": "Natural clips covered all utterances but only expressive disbelief, so the pool expanded useful material without enabling the planned balanced test."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

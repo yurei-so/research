@@ -1,0 +1,16 @@
+{
+  "schema": "labnote-orientation-human-review/v2",
+  "candidate": "candidate.json",
+  "status": "complete",
+  "reviewer": "Blake",
+  "human_scores": {
+    "claim_support": 0,
+    "question_or_cause_clarity": 0,
+    "effect_fidelity": 0,
+    "necessary_uncertainty_retention": 0,
+    "relevance_utility": 0
+  },
+  "human_decision": "accept",
+  "reviewer_notes": null,
+  "reviewed_at": "2026-09-26T00:00:00Z"
+}

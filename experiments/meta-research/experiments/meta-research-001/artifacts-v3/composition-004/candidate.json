@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We asked whether an optional AI editor helps when it chooses to change a first draft.",
+    "effect": "Reviewers split evenly on the changed drafts, and most comparisons repeated the same two answer pairs, so the test could not tell us whether the editor helped."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

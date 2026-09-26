@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We asked whether simpler instructions could make an AI stress the right word when speaking.",
+    "effect": "Some clips sounded expressive, but none was both natural and correct, so changing the wording did not solve the problem."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

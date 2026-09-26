@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This pilot asked whether conversation-aware direction could make a two-speaker exchange convincing when isolated line direction did not.",
+    "effect": "The directed scene passed all four listening gates versus one for the isolated arm, making the approach promising but not causal evidence from one scene."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

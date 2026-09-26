@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This rerun asked whether a prior matched-versus-shuffled result survived with reproducible local audio and verified transcripts.",
+    "effect": "Both preregistered gates passed, but matched cues still showed no automatic advantage, leaving conversational benefit unresolved without human review."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

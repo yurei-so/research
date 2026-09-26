@@ -32,10 +32,11 @@ test("every frozen candidate retains a reproducible validator receipt", () => {
   }
 });
 
-test("shadow campaign stays blocked while human reviews are pending", () => {
+test("v1 shadow campaign stays blocked after its construct-mismatch stop", () => {
   const status = readJson(path.join(artifacts, "campaign-status.json"));
   assert.equal(status.public_write_allowed, false);
-  assert.equal(status.status, "awaiting-human-review");
+  assert.equal(status.status, "stopped-construct-mismatch");
+  assert.equal(status.superseded_by_protocol, "../frozen-protocol-v2.json");
   assert.equal(status.promotion_gate_evaluated, false);
   assert.equal(status.human_reviews_complete, 0);
   for (const id of sources.keys()) {
@@ -45,5 +46,22 @@ test("shadow campaign stays blocked while human reviews are pending", () => {
     assert.equal(review.human_decision, null);
     assert.equal(review.reviewer_notes, null);
     assert.ok(Object.values(review.human_scores).every((score) => score === null));
+  }
+});
+
+test("v3 campaign passes without authorizing public writes", () => {
+  const v3 = path.join(experiment, "artifacts-v3");
+  const status = readJson(path.join(v3, "campaign-status.json"));
+  assert.equal(status.status, "promotion-gate-passed");
+  assert.equal(status.promotion_gate_evaluated, true);
+  assert.equal(status.promotion_gate_result.accepted_candidates, 8);
+  assert.equal(status.public_write_allowed, false);
+  for (const id of sources.keys()) {
+    const receipt = readJson(path.join(v3, id, "validator-result.json"));
+    const review = readJson(path.join(v3, id, "human-review.json"));
+    assert.equal(receipt.valid, true);
+    assert.deepEqual(receipt.warnings, []);
+    assert.equal(review.status, "complete");
+    assert.equal(review.human_decision, "accept");
   }
 });

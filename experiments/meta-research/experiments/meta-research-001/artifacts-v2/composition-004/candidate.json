@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This campaign asked whether optional editing helps specifically when it changes a direct rewrite rather than leaving it alone.",
+    "effect": "The changed outputs split evenly in review but collapsed to two repeated answer pairs, leaving editor usefulness unresolved."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

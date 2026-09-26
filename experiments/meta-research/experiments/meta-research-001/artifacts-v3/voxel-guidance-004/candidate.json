@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We asked whether game behavior could be written in a smaller form without losing information or confusing a local AI.",
+    "effect": "The smallest form kept all the data, but its apparent AI advantage came from an early test and needs stronger proof."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

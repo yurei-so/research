@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We wanted to know if an existing AI could edit text reliably without extra training.",
+    "effect": "It finished all six tests, but usually rewrote the whole answer instead of making small edits, so we still do not know how well real step-by-step editing works."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

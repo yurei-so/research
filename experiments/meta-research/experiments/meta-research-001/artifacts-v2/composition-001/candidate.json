@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This baseline asked whether an existing instruct model could produce reliably applicable virtual-buffer edits without fine-tuning.",
+    "effect": "All six cases completed mechanically, but mostly as final buffers, so fine-tuning was deferred without proving iterative editing quality."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

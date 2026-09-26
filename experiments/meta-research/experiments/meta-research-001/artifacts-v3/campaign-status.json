@@ -1,0 +1,28 @@
+{
+  "schema": "meta-research-001/campaign-status/v3",
+  "protocol": "../frozen-protocol-v3.json",
+  "mode": "shadow",
+  "public_write_allowed": false,
+  "generated_at": "2026-09-26T00:00:00Z",
+  "candidates": 8,
+  "validator_ready": 8,
+  "human_reviews_complete": 8,
+  "promotion_gate_evaluated": true,
+  "status": "promotion-gate-passed",
+  "promotion_gate_result": {
+    "passed": true,
+    "accepted_candidates": 8,
+    "rejected_candidates": 0,
+    "minimum_accepted_candidates": 7
+  },
+  "records": [
+    "composition-001",
+    "prosody-018",
+    "composition-009",
+    "prosody-014",
+    "prosody-017",
+    "voxel-guidance-004",
+    "composition-004",
+    "prosody-011"
+  ]
+}

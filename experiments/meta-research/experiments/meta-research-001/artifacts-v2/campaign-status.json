@@ -1,0 +1,29 @@
+{
+  "schema": "meta-research-001/campaign-status/v2",
+  "protocol": "../frozen-protocol-v2.json",
+  "mode": "shadow",
+  "public_write_allowed": false,
+  "generated_at": "2026-09-26T00:00:00Z",
+  "candidates": 8,
+  "validator_ready": 8,
+  "human_reviews_complete": 8,
+  "promotion_gate_evaluated": true,
+  "status": "promotion-gate-failed",
+  "promotion_gate_result": {
+    "passed": false,
+    "acceptable_candidates": 0,
+    "median_relevance_utility": 0,
+    "reason": "The two-sentence candidates still read like compressed research prose rather than useful TL;DRs."
+  },
+  "superseded_by_protocol": "../frozen-protocol-v3.json",
+  "records": [
+    "composition-001",
+    "prosody-018",
+    "composition-009",
+    "prosody-014",
+    "prosody-017",
+    "voxel-guidance-004",
+    "composition-004",
+    "prosody-011"
+  ]
+}

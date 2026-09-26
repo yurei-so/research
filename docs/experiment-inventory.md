@@ -11,7 +11,7 @@ produce, preserve, evaluate, discover, and communicate Yūrei research.
 
 | ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
 | --- | --- | --- | --- | --- | --- |
-| `meta-research-001` | Grounded build-time labnote summarization | Running | Pending | `meta-research`, `summarization`, `apparatus`, `human-review` | Shadow-mode campaign; generated candidates cannot modify the public site. Toolkit promotion and public activation are separate evidence-gated decisions. |
+| `meta-research-001` | Grounded build-time labnote summarization | Complete | Positive | `meta-research`, `summarization`, `apparatus`, `human-review` | V1 exposed a construct mismatch and V2 retained paper language. V3 Crayon Speak passed with 8/8 accepted orientations. Toolkit promotion and public activation remain separate reviewed changes. |
 
 ## Conversation prosody family
 

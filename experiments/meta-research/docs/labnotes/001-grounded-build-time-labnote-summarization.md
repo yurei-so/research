@@ -3,8 +3,8 @@ schema_version: 1
 id: meta-research-001
 title: "Grounded build-time labnote summarization"
 date: 2026-09-21
-status: running
-outcome: pending
+status: complete
+outcome: positive
 question: "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?"
 tags: ["meta-research","summarization","apparatus","provenance","human-review"]
 lineage: []
@@ -28,8 +28,9 @@ invent claims. Those risks require an experiment before site integration.
 
 ## Frozen protocol
 
-The versioned protocol is stored with the experiment in
-`experiments/meta-research/experiments/meta-research-001/frozen-protocol.json`.
+The original frozen protocol and its superseding v2 protocol are stored with
+the experiment. The v1 file remains immutable so the stopped pilot can be
+reproduced; `frozen-protocol-v2.json` governs the replacement campaign.
 Candidate summaries are generated from public canonical labnotes in shadow
 mode. Generation does not modify labnotes, the public manifest, or `dist/`.
 
@@ -53,8 +54,58 @@ activation decision; generation success alone never authorizes publication.
 
 ## Current status
 
-The experiment and shadow-mode apparatus are active. Results remain pending
-until the frozen campaign and review are complete.
+The first shadow campaign stopped before human scoring due to a construct
+mismatch. Its candidates were concise and grounded, but behaved like compressed
+abstracts: they made the reader process a smaller version of the labnote instead
+of quickly answering why the note exists and what changed.
+
+The original protocol and artifacts remain frozen as failed-pilot evidence.
+The superseding v2 protocol narrows the reader-facing contract to exactly two
+sentences: the first states the question or causal premise; the second states
+the observed effect and practical implication. Supporting quotations and
+provenance do not expand the reader-facing orientation. V2 does not require the
+model to extract citations; the apparatus retains the complete source hash and
+generation provenance, while human review remains responsible for fidelity.
+
+Any future public rendering must mark the text as generated without demanding
+attention. The proposed treatment is a muted inset panel with clipped corners,
+lower-contrast text, and a compact `AI ORIENTATION · EXPERIMENTAL` label. This
+separates it from canonical authored prose while keeping it easy to ignore.
+
+## Second supervised shadow observation
+
+All eight v2 candidates passed the two-sentence structural validator. Human
+review nevertheless scored every candidate zero across all five dimensions.
+The imposed shape had produced tiny abstracts rather than conversational
+orientations: terms such as “bounded-span,” “directionally correct,” and
+“preregistered gates” remained compact but did not help a reader understand the
+work quickly. The v2 promotion gate therefore failed with zero acceptable
+candidates and median relevance utility zero.
+
+V3 adds a translation-register requirement called Crayon Speak. Its governing
+test is whether the orientation could be said naturally to a technically
+curious friend who has no project vocabulary. It keeps exactly two sentences,
+requires one main idea in each, and replaces research shorthand with what the
+term means. Length, jargon, parentheses, and acronym checks are warnings rather
+than hard readability formulas; grounding and effect fidelity remain human
+review gates.
+
+V3 review is binary by design. The reviewer accepts an orientation if it helps
+them understand the note quickly, or rejects it with a reason. The earlier
+five-score form was removed because it added bookkeeping without clarifying the
+actual product decision.
+
+## Result
+
+All eight v3 candidates passed the structural checks without language warnings,
+and the human reviewer accepted all eight as useful for understanding their
+source notes quickly. The frozen gate required at least seven acceptances, so
+the v3 campaign passed.
+
+The experiment therefore supports Crayon Speak as the generation contract for
+a reusable orientation apparatus. It does not activate generated text on the
+public site: toolkit promotion and public rendering remain separate reviewed
+changes, as required by every protocol version.
 
 ## Initial supervised shadow observation
 

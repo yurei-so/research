@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We wanted to know if giving an AI the whole conversation would make two voices sound like they were really talking to each other.",
+    "effect": "It worked better than directing each line alone in this one scene, but we need more scenes before we can say why."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

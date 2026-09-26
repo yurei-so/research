@@ -8,6 +8,8 @@
   "validator_ready": 8,
   "human_reviews_complete": 0,
   "promotion_gate_evaluated": false,
-  "status": "awaiting-human-review",
+  "status": "stopped-construct-mismatch",
+  "stop_reason": "Candidates were compressed abstracts, not the intended two-sentence question/cause plus effect orientation.",
+  "superseded_by_protocol": "../frozen-protocol-v2.json",
   "records": ["composition-001","prosody-018","composition-009","prosody-014","prosody-017","voxel-guidance-004","composition-004","prosody-011"]
 }

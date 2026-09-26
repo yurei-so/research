@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This ablation asked whether removing a competing focus word from Qwen's instruction would restore directional emphasis.",
+    "effect": "Neither revised instruction produced speech that was both natural and directionally correct, so wording alone did not solve focus control."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We wanted a small set of natural voice clips with both calm and expressive readings for a later test.",
+    "effect": "We got natural clips for every sentence, but they all sounded expressive, so the set cannot support the planned calm-versus-expressive comparison."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

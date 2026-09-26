@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v3",
+  "orientation": {
+    "question_or_cause": "We tested whether waiting for the right moment and then fixing one section could make AI rewrites better.",
+    "effect": "Letting the AI revise the whole answer worked better every time and used less time and text, so the smaller fix was not worth using."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v3", "generated_at": "2026-09-26T00:00:00Z" }
+}

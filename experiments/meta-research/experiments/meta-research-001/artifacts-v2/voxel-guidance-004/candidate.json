@@ -1,0 +1,9 @@
+{
+  "schema": "labnote-orientation/v2",
+  "orientation": {
+    "question_or_cause": "This baseline tested whether behavior windows could be encoded compactly without loss while preserving a local model's task recognition.",
+    "effect": "Typed tokens were lossless and smallest, while their apparent reasoning advantage remained exploratory rather than evidence for a preferred format."
+  },
+  "no_new_claims": true,
+  "generation": { "provider": "openai-codex", "model": "runtime-unspecified", "prompt_version": "meta-research-001/v2", "generated_at": "2026-09-26T00:00:00Z" }
+}

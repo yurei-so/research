@@ -1,13 +1,13 @@
 {
   "schema": "research-family-overview/v1",
-  "generated_at": "2026-09-26T04:23:10.000Z",
-  "source_revision": "17c7ed942522",
+  "generated_at": "2026-09-26T18:40:32.000Z",
+  "source_revision": "df502ec8f305",
   "family": {
     "id": "meta-research",
     "title": "Meta Research",
     "labnote_count": 1,
     "outcomes": {
-      "pending": 1
+      "positive": 1
     },
     "latest_labnote_id": "meta-research-001"
   },
@@ -19,10 +19,10 @@
         "id": "meta-research-001",
         "title": "Grounded build-time labnote summarization",
         "date": "2026-09-21",
-        "status": "running",
-        "outcome": "pending",
+        "status": "complete",
+        "outcome": "positive",
         "question": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?",
-        "finding": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?",
+        "finding": "All eight v3 candidates passed the structural checks without language warnings, and the human reviewer accepted all eight as useful for understanding their source notes quickly. The frozen gate required at least seven acceptances, so the v3 campaign passed.",
         "evidence_url": "https://yurei-so.github.io/research/labnotes/meta-research-001/"
       }
     ]

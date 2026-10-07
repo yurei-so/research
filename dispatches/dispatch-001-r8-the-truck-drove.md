@@ -2,11 +2,11 @@
 schema_version: 1
 id: dispatch-001
 title: After-action report: the truck drove, and the cameras kept receipts
-date: 2026-10-05
+date: 2026-10-07
 status: published
 lede: We let the game’s own recorded route take the wheel in a headless test. The truck moved, the waypoint loop wrapped, and four software-rendered camera feeds left a time-stamped trail.
 tags: ["voidwright", "space-engineers", "headless-testing", "camera-observation"]
-related_labnotes: []
+related_labnotes: ["multiview-cameras-001", "voxel-guidance-006"]
 publish: true
 ---
 
@@ -99,6 +99,17 @@ the route or command its wheels. Nor is this native GPU or framebuffer capture:
 the LCD images came from a mod’s software renderer. The short bounded run
 crossed a route loop, but it was not intended to qualify every obstacle,
 vehicle configuration, or repeatability condition.
+
+## Related research records
+
+- [Multiview Cameras 001](../../labnotes/multiview-cameras-001/) documents the
+  headless HoloView capture path and its renderer-side scene metadata. It is
+  the formal record for the camera pipeline, not proof that the R8 truck was
+  controlled by that apparatus.
+- [Voxel Guidance 006](../../labnotes/voxel-guidance-006/) is a separate
+  Blender-generated temporal-perception calibration. It explicitly did not
+  test transfer to Space Engineers imagery, so it is context rather than
+  evidence for this run.
 
 ## Next sortie
 

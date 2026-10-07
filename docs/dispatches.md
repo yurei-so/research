@@ -68,8 +68,10 @@ directive can embed a YouTube video by its 11-character ID:
 ```
 
 The page generator builds the iframe using YouTube's privacy-enhanced
-`youtube-nocookie.com` host, lazy-loads it, omits the referrer, and keeps a
-direct Watch on YouTube link beneath it. The dispatch-page Content Security
+`youtube-nocookie.com` host, lazy-loads it, sends only the site origin as its
+cross-origin referrer, and keeps a direct Watch on YouTube link beneath it.
+The origin-only referrer is required for YouTube's embedded player identity;
+suppressing it produces player Error 153. The dispatch-page Content Security
 Policy permits frames only from that exact host. Loading the player still
 contacts YouTube; use an ordinary link instead when a dispatch should not make
 that third-party request.

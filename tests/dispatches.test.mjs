@@ -63,9 +63,20 @@ test("YouTube embeds use a strict ID, privacy-enhanced host, and narrow frame po
   const html = renderDispatchPage(record, "abc123");
   assert.match(html, /frame-src https:\/\/www\.youtube-nocookie\.com/);
   assert.match(html, /src="https:\/\/www\.youtube-nocookie\.com\/embed\/tR0AT65-AZs"/);
-  assert.match(html, /loading="lazy" referrerpolicy="no-referrer"/);
+  assert.match(html, /loading="lazy" referrerpolicy="strict-origin-when-cross-origin"/);
+  assert.match(html, /allow="picture-in-picture; web-share"/);
+  assert.doesNotMatch(html, /accelerometer|encrypted-media|gyroscope/);
   assert.match(html, /Watch on YouTube/);
 
   const invalid = { ...parseDispatch(source({ status: "published", publish: true }, ':::youtube invalid "Not an embed"')), relative: "dispatches/dispatch-001-test.md" };
   assert.doesNotMatch(renderDispatchPage(invalid, "abc123"), /<iframe/);
+});
+
+test("published Dispatch 001 visibly links the relevant formal research records", () => {
+  const root = path.resolve(import.meta.dirname, "..");
+  const record = collectDispatches(root).find((item) => item.metadata.id === "dispatch-001");
+  assert.deepEqual(record.metadata.related_labnotes, ["multiview-cameras-001", "voxel-guidance-006"]);
+  const html = renderDispatchPage(record, "abc123");
+  assert.match(html, /href="\.\.\/\.\.\/labnotes\/multiview-cameras-001\/"/);
+  assert.match(html, /href="\.\.\/\.\.\/labnotes\/voxel-guidance-006\/"/);
 });

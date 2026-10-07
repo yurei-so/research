@@ -16,8 +16,10 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.ok(records.length >= 37);
   assert.ok(manifest.labnotes.some((note) => note.id === "prosody-001"));
   assert.ok(manifest.labnotes.some((note) => note.id === "voxel-guidance-001"));
-  assert.equal(manifest.families.length, 6);
+  assert.ok(manifest.labnotes.some((note) => note.id === "multiview-cameras-001"));
+  assert.equal(manifest.families.length, 7);
   assert.equal(manifest.families.find((family) => family.id === "meta-research")?.title, "Meta Research");
+  assert.equal(manifest.families.find((family) => family.id === "multiview-cameras")?.title, "Multiview Cameras");
   assert.ok(manifest.families.every((family) => !Object.hasOwn(family, "status")));
   assert.deepEqual(Object.keys(manifest.labnotes[0]).sort(), ["date", "family", "href", "id", "lineage", "outcome", "question", "relations", "status", "tags", "timeline", "title"]);
   assert.ok(manifest.labnotes.every((note) => !JSON.stringify(note).includes("/home/")));

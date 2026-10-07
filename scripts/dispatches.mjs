@@ -17,7 +17,7 @@ function renderYoutubeEmbed(videoId, title) {
   // allow-listed no-cookie host is the only external frame source in Dispatch pages.
   const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
   const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  return `<figure class="dispatch-video"><div class="dispatch-video-frame"><iframe src="${embedUrl}" title="${escapeHtml(title)}" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><figcaption>${escapeHtml(title)} · <a href="${watchUrl}">Watch on YouTube ↗</a></figcaption></figure>`;
+  return `<figure class="dispatch-video"><div class="dispatch-video-frame"><iframe src="${embedUrl}" title="${escapeHtml(title)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="picture-in-picture; web-share" allowfullscreen></iframe></div><figcaption>${escapeHtml(title)} · <a href="${watchUrl}">Watch on YouTube ↗</a></figcaption></figure>`;
 }
 
 function parseValue(value, file) {

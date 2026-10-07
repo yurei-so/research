@@ -84,6 +84,12 @@ launcher-control dependency; experimental protocols and evidence remain here.
 | `voxel-guidance-005` | Semantic namespace token ablation | Complete | Negative | `machine-native-state`, `namespace`, `ablation`, `local-model` | Namespace-only exactly matched the opaque control at 3/12; the full field dictionary reached 7/12, so a readable namespace did not replace explicit field semantics. |
 | `voxel-guidance-006` | Temporal synthetic spatial-perception calibration | Complete | Mixed | `synthetic-data`, `spatial-ai`, `temporal-vision`, `blender` | Temporal context improved depth MAE and discontinuity F1 but reduced free-space IoU on 64 held-out procedural scenes; transfer remains untested. |
 
+## Multiview Cameras family
+
+| ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
+| --- | --- | --- | --- | --- | --- |
+| `multiview-cameras-001` | Bounded HoloView capture in a headless dedicated server | Complete | Positive | `space-engineers`, `headless-rendering`, `camera-observation`, `scene-metadata` | One HoloView camera/LCD stream produced bounded, tick-linked frames and renderer-side metadata on a dedicated server; true multiview synchronization and pixel-derived semantics remain untested. |
+
 ## Migration checks
 
 Before marking either family imported:

@@ -3,27 +3,27 @@
   "generated_at": "2026-10-07T17:28:42.000Z",
   "source_revision": "31f32c4c55a7",
   "family": {
-    "id": "meta-research",
-    "title": "Meta Research",
+    "id": "multiview-cameras",
+    "title": "Multiview Cameras",
     "labnote_count": 1,
     "outcomes": {
       "positive": 1
     },
-    "latest_labnote_id": "meta-research-001"
+    "latest_labnote_id": "multiview-cameras-001"
   },
   "orientation": {
-    "purpose": "Compact orientation to the published Meta Research record. Follow evidence_url before making substantive claims.",
+    "purpose": "Compact orientation to the published Multiview Cameras record. Follow evidence_url before making substantive claims.",
     "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
     "entry_points": [
       {
-        "id": "meta-research-001",
-        "title": "Grounded build-time labnote summarization",
-        "date": "2026-09-21",
+        "id": "multiview-cameras-001",
+        "title": "Bounded HoloView capture in a headless dedicated server",
+        "date": "2026-10-07",
         "status": "complete",
         "outcome": "positive",
-        "question": "Can a versioned AI apparatus produce concise labnote orientations that preserve findings, limitations, and negative results without introducing unsupported claims?",
-        "finding": "All eight v3 candidates passed the structural checks without language warnings, and the human reviewer accepted all eight as useful for understanding their source notes quickly. The frozen gate required at least seven acceptances, so the v3 campaign passed.",
-        "evidence_url": "https://yurei-so.github.io/research/labnotes/meta-research-001/"
+        "question": "Can a headless Space Engineers server export a bounded camera-frame sequence with pose/tick provenance and renderer-side scene context, without native framebuffer access?",
+        "finding": "The bounded single-camera export completed and produced a tick-indexed video, hashed frames, a capture manifest, and frame-linked scene metadata from the headless server environment. This is a positive feasibility result for the specific HoloView software-renderer path.",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/multiview-cameras-001/"
       }
     ]
   },
@@ -35,7 +35,7 @@
     "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
   },
   "links": {
-    "human": "https://yurei-so.github.io/research/projects/meta-research/",
+    "human": "https://yurei-so.github.io/research/projects/multiview-cameras/",
     "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
     "heavy_geometry": null,
     "source": "https://github.com/yurei-so/research/tree/main/experiments"

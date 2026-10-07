@@ -1,7 +1,7 @@
 {
   "schema": "research-corpus/v1",
-  "generated_at": "2026-10-07T17:14:19.000Z",
-  "source_revision": "dd40dd8fad98",
+  "generated_at": "2026-10-07T17:28:42.000Z",
+  "source_revision": "31f32c4c55a7",
   "families": [
     {
       "id": "composition",
@@ -10,6 +10,10 @@
     {
       "id": "meta-research",
       "title": "Meta Research"
+    },
+    {
+      "id": "multiview-cameras",
+      "title": "Multiview Cameras"
     },
     {
       "id": "narrative-steering",
@@ -29,6 +33,24 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "multiview-cameras-001",
+      "family": "multiview-cameras",
+      "title": "Bounded HoloView capture in a headless dedicated server",
+      "date": "2026-10-07",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can a headless Space Engineers server export a bounded camera-frame sequence with pose/tick provenance and renderer-side scene context, without native framebuffer access?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "scene-metadata",
+        "provenance",
+        "software-rendering"
+      ],
+      "relations": []
+    },
     {
       "id": "voxel-guidance-006",
       "family": "voxel-guidance",

@@ -1,7 +1,7 @@
 {
   "schema": "research-agent-overview/v1",
-  "generated_at": "2026-10-07T17:14:19.000Z",
-  "source_revision": "dd40dd8fad98",
+  "generated_at": "2026-10-07T17:28:42.000Z",
+  "source_revision": "31f32c4c55a7",
   "purpose": "Token-bounded orientation and routing for the public Yurei Research record.",
   "disclaimers": {
     "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
@@ -34,6 +34,17 @@
       "latest_labnote_id": "meta-research-001",
       "overview_url": "https://yurei-so.github.io/research/projects/meta-research/index.json",
       "human_url": "https://yurei-so.github.io/research/projects/meta-research/"
+    },
+    {
+      "id": "multiview-cameras",
+      "title": "Multiview Cameras",
+      "labnote_count": 1,
+      "outcomes": {
+        "positive": 1
+      },
+      "latest_labnote_id": "multiview-cameras-001",
+      "overview_url": "https://yurei-so.github.io/research/projects/multiview-cameras/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/multiview-cameras/"
     },
     {
       "id": "narrative-steering",

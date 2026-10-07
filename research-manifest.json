@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-07T17:14:19.000Z",
-  "source_revision": "dd40dd8fad98",
+  "generated_at": "2026-10-07T17:28:42.000Z",
+  "source_revision": "31f32c4c55a7",
   "families": [
     {
       "id": "composition",
@@ -21,6 +21,16 @@
       "title": "Meta Research",
       "labnote_count": 1,
       "latest_labnote_id": "meta-research-001",
+      "has_graph": false,
+      "outcomes": {
+        "positive": 1
+      }
+    },
+    {
+      "id": "multiview-cameras",
+      "title": "Multiview Cameras",
+      "labnote_count": 1,
+      "latest_labnote_id": "multiview-cameras-001",
       "has_graph": false,
       "outcomes": {
         "positive": 1
@@ -76,6 +86,31 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "multiview-cameras-001",
+      "family": "multiview-cameras",
+      "title": "Bounded HoloView capture in a headless dedicated server",
+      "date": "2026-10-07",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can a headless Space Engineers server export a bounded camera-frame sequence with pose/tick provenance and renderer-side scene context, without native framebuffer access?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "scene-metadata",
+        "provenance",
+        "software-rendering"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/multiview-cameras-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": []
+      },
+      "result_summary": "The bounded single-camera export completed and produced a tick-indexed video, hashed frames, a capture manifest, and frame-linked scene metadata from the headless server environment. This is a positive feasibility result for the specific HoloView software-renderer path."
+    },
     {
       "id": "voxel-guidance-006",
       "family": "voxel-guidance",

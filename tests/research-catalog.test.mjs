@@ -73,6 +73,16 @@ test("markdown renderer escapes raw HTML and unsafe links", () => {
   assert.equal(escapeHtml('<img src=x onerror="bad">'), "&lt;img src=x onerror=&quot;bad&quot;&gt;");
 });
 
+test("markdown renderer permits only local raster figures and escapes alt text", () => {
+  const rendered = renderMarkdown(
+    '![View <one>](assets/dispatch-001/overhead.png) ![remote](https://example.com/image.png) ![escape](../secret.png)',
+    { imagePrefix: "../../dispatches/" },
+  );
+  assert.match(rendered, /<img class="note-figure" src="\.\.\/\.\.\/dispatches\/assets\/dispatch-001\/overhead\.png" alt="View &lt;one&gt;" loading="lazy" decoding="async">/);
+  assert.equal((rendered.match(/<img /g) ?? []).length, 1);
+  assert.match(rendered, /\[image path not allowed\]/);
+});
+
 test("markdown renderer preserves readable tables without trusting HTML", () => {
   const rendered = renderMarkdown("| Result | Count |\n| --- | ---: |\n| Negative | 4 |\n| <unsafe> | 1 |");
   assert.ok(rendered.includes("<table>"));

@@ -1,20 +1,29 @@
 # Public research projection
 
 The GitHub Pages site is a generated, allowlisted projection of canonical
-labnotes. It is not a mirror of the repository.
+labnotes and editorial Dispatches. It is not a mirror of the repository.
 
 ## Publication boundary
 
 A labnote is eligible only when its versioned front matter contains
-`publish: true`. The catalog compiler emits a fixed set of metadata fields and
-the rendered Markdown body for eligible notes. It never copies experiment
-directories, artifacts, raw recordings, private review state, machine-local
-inputs, or arbitrary repository files into the Pages artifact.
+`publish: true`. A Dispatch is eligible only when its own versioned front
+matter contains `publish: true` and `status: published`. Each type has a
+separate metadata allowlist and route. The compiler emits a fixed set of
+metadata fields and rendered Markdown only for eligible records. It never
+copies experiment directories, artifacts, raw recordings, private review
+state, machine-local inputs, or arbitrary repository files into the Pages
+artifact.
 
-Setting `publish: false` keeps the canonical labnote in the research record but
-omits its metadata and body from every generated public view. A published note
-may not name an unpublished note as a lineage target because that would leak
-the private note's stable identity.
+Setting `publish: false` omits a record's metadata and body from every generated
+Pages view. For labnotes, a published note may not name an unpublished note as
+a lineage target because that would leak the private note's stable identity.
+Dispatches have their own human-readable index and page route; they do not enter
+labnote counts, outcome rates, family graphs, or the machine-readable research
+corpus. A Dispatch may only link to labnotes that are already public.
+
+`publish: false` governs the Pages projection, not repository access. Because
+this is a public source repository, an uncommitted local draft is not safe to
+push merely because it is omitted from `dist/`.
 
 ## Local verification
 

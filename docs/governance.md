@@ -3,6 +3,8 @@
 ## What belongs here
 
 - Hypotheses, protocols, labnotes, fixtures, analysis, and results.
+- Human-readable Dispatches that explain engineering context without replacing
+  or overstating the formal research record.
 - Bounded implementations whose primary purpose is answering a research
   question.
 - Shared human-review, annotation, scoring, and evaluation apparatus.

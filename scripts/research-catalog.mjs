@@ -6,6 +6,7 @@ import path from "node:path";
 import process from "node:process";
 import { buildAttentionModel, toInterchange } from "@yurei-so/research-tools";
 import { collectCatalog, escapeHtml, extractResultSummary, renderMarkdown } from "./research-catalog-lib.mjs";
+import { collectDispatches, renderDispatchPage } from "./dispatches.mjs";
 import { writeFamilySocialCard, writeSocialCard } from "./social-card.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -16,8 +17,16 @@ const mode = process.argv[2] ?? "check";
 if (!new Set(["check", "build"]).has(mode)) throw new Error("usage: node scripts/research-catalog.mjs [check|build]");
 
 const { records, manifest } = collectCatalog(root);
+const dispatchRecords = collectDispatches(root);
+const publishedIds = new Set(manifest.labnotes.map((note) => note.id));
+for (const dispatch of dispatchRecords.filter((record) => record.metadata.publish)) {
+  for (const relatedId of dispatch.metadata.related_labnotes) {
+    if (!publishedIds.has(relatedId)) throw new Error(`${dispatch.relative}: public dispatch references missing or unpublished labnote ${relatedId}`);
+  }
+}
+const dispatches = dispatchRecords.filter((record) => record.metadata.publish);
 if (mode === "check") {
-  console.log(`Validated ${records.length} labnotes; ${manifest.labnotes.length} eligible for publication.`);
+  console.log(`Validated ${records.length} labnotes and ${dispatchRecords.length} dispatch${dispatchRecords.length === 1 ? "" : "es"}; ${manifest.labnotes.length} labnotes and ${dispatches.length} dispatch${dispatches.length === 1 ? "" : "es"} eligible for publication.`);
   process.exit(0);
 }
 
@@ -46,18 +55,34 @@ const familyCard = (family) => {
   return `<article class="family-card" data-family="${escapeHtml(family.id)}"><span class="success-rate" title="Positive published labnotes divided by all published labnotes" aria-label="${successRate} percent positive-result rate">${successRate}% SUCCESS</span>${primary}</article>`;
 };
 const noteCard = (note) => `<article class="feed-entry" data-family="${escapeHtml(note.family)}"><div class="entry-index"><time datetime="${note.date}">${note.date}</time><b>${escapeHtml(note.id)}</b></div><div class="entry-main"><div class="entry-state"><span>${escapeHtml(note.status)}</span><span data-outcome="${note.outcome}">${escapeHtml(note.outcome)}</span></div><h3><a href="${escapeHtml(note.href)}">${escapeHtml(note.title)}</a></h3><p>${escapeHtml(note.question)}</p><div class="tags">${note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="${escapeHtml(note.href)}" aria-label="Open ${escapeHtml(note.id)}">↗</a></article>`;
+const dispatchCard = ({ metadata }) => `<article class="dispatch-entry"><div class="entry-index"><time datetime="${escapeHtml(metadata.date)}">${escapeHtml(metadata.date)}</time><b>${escapeHtml(metadata.id)}</b></div><div class="entry-main"><div class="dispatch-kicker">FIELD DISPATCH / ${escapeHtml(metadata.status)}</div><h3><a href="dispatches/${escapeHtml(metadata.id)}/">${escapeHtml(metadata.title)}</a></h3><p>${escapeHtml(metadata.lede)}</p><div class="tags">${metadata.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="dispatches/${escapeHtml(metadata.id)}/" aria-label="Open ${escapeHtml(metadata.id)}">↗</a></article>`;
 const indexTemplate = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");
 const indexPage = indexTemplate
   .replaceAll("{{NOTE_COUNT}}", String(manifest.labnotes.length))
   .replaceAll("{{FAMILY_COUNT}}", String(manifest.families.length))
+  .replaceAll("{{DISPATCH_COUNT}}", String(dispatches.length))
   .replaceAll("{{REVISION}}", escapeHtml(manifest.source_revision))
   .replaceAll("{{GENERATED_AT}}", escapeHtml(manifest.generated_at.slice(0, 10)))
   .replace("{{FAMILY_CARDS}}", manifest.families.map(familyCard).join(""))
   .replace("{{LABNOTE_CARDS}}", manifest.labnotes.map(noteCard).join(""))
+  .replace("{{DISPATCH_CARDS}}", dispatches.map(dispatchCard).join("") || '<p class="empty">No public dispatches yet.</p>')
   .replace("{{RESEARCH_MANIFEST_JSON}}", inlineJson(manifest));
 fs.writeFileSync(path.join(output, "index.html"), indexPage);
 fs.writeFileSync(path.join(output, "research-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 fs.writeFileSync(path.join(output, "research-corpus-v1.json"), `${JSON.stringify(toInterchange(manifest), null, 2)}\n`);
+const dispatchIndexCards = dispatches.map(dispatchCard).join("").replaceAll('href="dispatches/', 'href="');
+const dispatchIndex = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none"><title>Dispatches | Yurei Research</title><link rel="canonical" href="${siteUrl}dispatches/"><link rel="icon" href="../favicon.png" type="image/png"><link rel="stylesheet" href="../assets/styles.css?v=${escapeHtml(manifest.source_revision)}"></head><body><header class="terminal-bar"><a class="wordmark" href="../"><img src="../favicon.png" alt="">YUREI RESEARCH</a><span>FIELD DISPATCHES</span></header><main class="note-shell"><a class="back" href="../">← Return to research library</a><section class="dispatch-index"><div class="eyebrow">ENGINEERING / AFTER-ACTION REPORTS</div><h1>Dispatches</h1><p>Human-readable accounts of the work around the evidence. These stories can orient and entertain; formal labnotes remain the research record.</p><div class="feed">${dispatchIndexCards || '<p class="empty">No public dispatches yet.</p>'}</div></section></main><footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a></span><span>REV ${escapeHtml(manifest.source_revision)}</span></footer></body></html>`;
+fs.mkdirSync(path.join(output, "dispatches"), { recursive: true });
+fs.writeFileSync(path.join(output, "dispatches", "index.html"), dispatchIndex);
+for (const record of dispatches) {
+  const directory = path.join(output, "dispatches", record.metadata.id);
+  fs.mkdirSync(directory, { recursive: true });
+  const sourceAssets = path.join(root, "dispatches", "assets", record.metadata.id);
+  if (fs.existsSync(sourceAssets)) {
+    fs.cpSync(sourceAssets, path.join(output, "dispatches", "assets", record.metadata.id), { recursive: true });
+  }
+  fs.writeFileSync(path.join(directory, "index.html"), renderDispatchPage(record, manifest.source_revision));
+}
 const absoluteUrl = (relative = "") => new URL(relative, siteUrl).href;
 const compactText = (value, limit = 280) => value.length <= limit ? value : `${value.slice(0, limit - 1).trimEnd()}…`;
 const writeBoundedJson = (file, value, maxBytes) => {
@@ -120,7 +145,7 @@ if (Buffer.byteLength(llms) > 4096) throw new Error("llms.txt exceeds its 4096-b
 fs.writeFileSync(path.join(output, "llms.txt"), llms);
 fs.writeFileSync(path.join(output, ".nojekyll"), "");
 fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /research/\n\nSitemap: ${siteUrl}sitemap.xml\n`);
-const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date }))];
+const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date })), ...dispatches.map(({ metadata }) => ({ loc: `${siteUrl}dispatches/${metadata.id}/`, lastmod: metadata.date }))];
 fs.writeFileSync(path.join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(({ loc, lastmod }) => `  <url><loc>${escapeHtml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>\n`);
 
 const socialCards = [];
@@ -307,5 +332,5 @@ for (const family of manifest.families) {
     .replace("../../assets/project-graph.js", `../../assets/project-graph.js?v=${escapeHtml(manifest.source_revision)}`));
 }
 await Promise.all(socialCards);
-console.log(`Built public research library with ${manifest.labnotes.length} labnotes in dist/.`);
+console.log(`Built public research library with ${manifest.labnotes.length} labnotes and ${dispatches.length} dispatch${dispatches.length === 1 ? "" : "es"} in dist/.`);
 // SPDX-License-Identifier: AGPL-3.0-only

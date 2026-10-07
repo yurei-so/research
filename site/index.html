@@ -10,7 +10,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Yurei Research Library">
-  <meta property="og:description" content="Protocols, labnotes, and results from Yurei's reproducible AI research.">
+  <meta property="og:description" content="Field dispatches, protocols, labnotes, and results from Yurei's reproducible AI research.">
   <meta property="og:url" content="https://yurei-so.github.io/research/">
   <title>Yurei Research Library</title>
   <link rel="canonical" href="https://yurei-so.github.io/research/">
@@ -28,15 +28,19 @@
     <section class="hero">
       <div class="eyebrow">YUREI RESEARCH</div>
       <h1>Research library</h1>
-      <p>Protocols, labnotes, and results from Yurei's experimental work. Positive, negative, inconclusive, and ongoing work remain part of the record.</p>
-      <div class="hero-readout"><span><b id="note-count">{{NOTE_COUNT}}</b> LABNOTES</span><span><b id="family-count">{{FAMILY_COUNT}}</b> RESEARCH AREAS</span><span><b id="revision">{{REVISION}}</b> REVISION</span></div>
+      <p>Field dispatches, protocols, labnotes, and results from Yurei's experimental work. The stories may be lively; the evidence stays inspectable.</p>
+      <div class="hero-readout"><span><b id="note-count">{{NOTE_COUNT}}</b> LABNOTES</span><span><b id="dispatch-count">{{DISPATCH_COUNT}}</b> DISPATCHES</span><span><b id="family-count">{{FAMILY_COUNT}}</b> RESEARCH AREAS</span><span><b id="revision">{{REVISION}}</b> REVISION</span></div>
     </section>
     <section class="deck" aria-labelledby="deck-title">
       <div class="section-heading"><div><span>01</span><h2 id="deck-title">Research areas</h2></div><p>Browse published experiment families.</p></div>
       <div id="families" class="family-grid" aria-live="polite">{{FAMILY_CARDS}}</div>
     </section>
+    <section class="archive dispatch-archive" id="dispatches" aria-labelledby="dispatch-title">
+      <div class="section-heading"><div><span>02</span><h2 id="dispatch-title">Dispatches</h2></div><p>Human-readable debriefs around the work. Formal labnotes remain the evidence record.</p></div>
+      <div class="feed dispatch-feed">{{DISPATCH_CARDS}}</div>
+    </section>
     <section class="archive" aria-labelledby="archive-title">
-      <div class="section-heading"><div><span>02</span><h2 id="archive-title">Labnotes</h2></div><p>Published records ordered by research date.</p></div>
+      <div class="section-heading"><div><span>03</span><h2 id="archive-title">Labnotes</h2></div><p>Published records ordered by research date.</p></div>
       <div class="controls">
         <label>FILTER <input id="search" type="search" placeholder="ID, question, method…"></label>
         <label>OUTCOME <select id="outcome"><option value="">All outcomes</option></select></label>

@@ -9,6 +9,8 @@ records cross this boundary only through deliberate publication.
 ## Repository shape
 
 - `experiments/` — bounded research projects and their labnotes.
+- `dispatches/` — human-readable engineering debriefs, separate from formal
+  experimental evidence.
 - `apparatus/` — reusable evaluation, annotation, and review tools.
 - `demos/` — research-derived demonstrations that preserve an experimental
   connection but have their own runnable surface.
@@ -22,7 +24,8 @@ to the standalone project.
 
 See [research governance](docs/governance.md), the
 [experiment inventory](docs/experiment-inventory.md), the
-[labnote metadata contract](docs/labnote-metadata.md), and the
+[labnote metadata contract](docs/labnote-metadata.md), the
+[Dispatch format](docs/dispatches.md), and the
 [migration ledger](docs/migration-ledger.md).
 
 ## Licensing

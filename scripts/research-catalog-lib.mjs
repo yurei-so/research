@@ -182,8 +182,15 @@ export function extractResultSummary(markdown, fallback = "") {
   return summary.length <= 280 ? summary : `${summary.slice(0, 277).trimEnd()}…`;
 }
 
-function inline(text) {
+function inline(text, imagePrefix = "") {
   let value = escapeHtml(text);
+  const safeImagePrefix = /^(?:(?:\.\.\/)|(?:[a-zA-Z0-9_-]+\/))*$/.test(imagePrefix) ? imagePrefix : "";
+  value = value.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (_, alt, href) => {
+    if (!/^(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-][a-zA-Z0-9._-]*\.(?:png|jpe?g|webp|gif)$/i.test(href)) {
+      return `${alt} <span class="image-omitted">[image path not allowed]</span>`;
+    }
+    return `<img class="note-figure" src="${escapeHtml(`${safeImagePrefix}${href}`)}" alt="${alt}" loading="lazy" decoding="async">`;
+  });
   value = value.replace(/`([^`]+)`/g, "<code>$1</code>");
   value = value.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   value = value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
@@ -193,7 +200,7 @@ function inline(text) {
   return value;
 }
 
-export function renderMarkdown(markdown) {
+export function renderMarkdown(markdown, { imagePrefix = "", renderYoutubeEmbed = null } = {}) {
   const lines = markdown.replace(/\r/g, "").split("\n");
   const html = [];
   let paragraph = [];
@@ -208,7 +215,8 @@ export function renderMarkdown(markdown) {
     headingIds.set(base, count);
     return count === 1 ? base : `${base}-${count}`;
   };
-  const flushParagraph = () => { if (paragraph.length) { html.push(`<p>${inline(paragraph.join(" "))}</p>`); paragraph = []; } };
+  const renderInline = (text) => inline(text, imagePrefix);
+  const flushParagraph = () => { if (paragraph.length) { html.push(`<p>${renderInline(paragraph.join(" "))}</p>`); paragraph = []; } };
   const flushList = () => { if (list) { html.push(`</${list}>`); list = null; } };
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
@@ -218,6 +226,12 @@ export function renderMarkdown(markdown) {
       continue;
     }
     if (line.startsWith("```")) { flushParagraph(); flushList(); code = []; continue; }
+    const youtubeEmbed = line.match(/^:::youtube ([A-Za-z0-9_-]{11}) "([^"\n]{1,160})"$/);
+    if (youtubeEmbed && typeof renderYoutubeEmbed === "function") {
+      flushParagraph(); flushList();
+      html.push(renderYoutubeEmbed(youtubeEmbed[1], youtubeEmbed[2]));
+      continue;
+    }
     if (line.trim().startsWith("|") && line.trim().endsWith("|")
         && /^\s*\|(?:\s*:?-+:?\s*\|)+\s*$/.test(lines[index + 1] ?? "")) {
       flushParagraph(); flushList();
@@ -229,7 +243,7 @@ export function renderMarkdown(markdown) {
         rows.push(cells(lines[index])); index += 1;
       }
       index -= 1;
-      html.push(`<div class="table-wrap"><table><thead><tr>${headers.map((cell) => `<th>${inline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${inline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
+      html.push(`<div class="table-wrap"><table><thead><tr>${headers.map((cell) => `<th>${renderInline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${renderInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
       continue;
     }
     const heading = line.match(/^(#{1,4})\s+(.+)$/);
@@ -237,12 +251,12 @@ export function renderMarkdown(markdown) {
       flushParagraph(); flushList();
       const level = Math.min(heading[1].length + 1, 5);
       const id = headingId(heading[2]);
-      html.push(`<h${level} id="${id}">${inline(heading[2])}<a class="heading-anchor" href="#${id}" aria-label="Copy link to ${escapeHtml(plainMarkdown(heading[2]))}" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h${level}>`);
+      html.push(`<h${level} id="${id}">${renderInline(heading[2])}<a class="heading-anchor" href="#${id}" aria-label="Copy link to ${escapeHtml(plainMarkdown(heading[2]))}" title="Copy link to this section"><span aria-hidden="true">🔗</span></a></h${level}>`);
       continue;
     }
     const item = line.match(/^\s*([-*]|\d+\.)\s+(.+)$/);
-    if (item) { flushParagraph(); const type = item[1].endsWith(".") ? "ol" : "ul"; if (list !== type) { flushList(); list = type; html.push(`<${type}>`); } html.push(`<li>${inline(item[2])}</li>`); continue; }
-    if (line.startsWith("> ")) { flushParagraph(); flushList(); html.push(`<blockquote>${inline(line.slice(2))}</blockquote>`); continue; }
+    if (item) { flushParagraph(); const type = item[1].endsWith(".") ? "ol" : "ul"; if (list !== type) { flushList(); list = type; html.push(`<${type}>`); } html.push(`<li>${renderInline(item[2])}</li>`); continue; }
+    if (line.startsWith("> ")) { flushParagraph(); flushList(); html.push(`<blockquote>${renderInline(line.slice(2))}</blockquote>`); continue; }
     if (!line.trim()) { flushParagraph(); flushList(); continue; }
     if (/^[-| :]+$/.test(line.trim())) continue;
     paragraph.push(line.trim());

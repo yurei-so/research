@@ -89,6 +89,8 @@ launcher-control dependency; experimental protocols and evidence remain here.
 | ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
 | --- | --- | --- | --- | --- | --- |
 | `multiview-cameras-001` | Bounded HoloView capture in a headless dedicated server | Complete | Positive | `space-engineers`, `headless-rendering`, `camera-observation`, `scene-metadata` | One HoloView camera/LCD stream produced bounded, tick-linked frames and renderer-side metadata on a dedicated server; true multiview synchronization and pixel-derived semantics remain untested. |
+| `multiview-cameras-002` | Paired HoloView capture during a bounded vehicle approach | Complete | Positive | `space-engineers`, `headless-rendering`, `camera-observation`, `vehicle-control` | Initial attempt stalled about 9 m short; after updating the staged controller, one continuation reached the 3 m ground-plane threshold (3.219 m spatial distance), with 119 paired frames per capture. Not a 3D-arrival, repeatability, or general-navigation result. |
+| `multiview-cameras-003` | Sparse terrain-height reconstruction over a stitched vehicle run | Complete | Mixed | `space-engineers`, `depth-sensing`, `terrain-reconstruction`, `vehicle-telemetry` | Registered 64 receipt-validated front-depth captures against an 80-operation route into a gravity-aligned sparse height layer (26.3% sampled-cell coverage); drive ended 80.9 m short at the attitude safety limit, and the map was post-hoc, not controller input. |
 
 ## Migration checks
 

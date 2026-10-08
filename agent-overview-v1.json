@@ -1,7 +1,7 @@
 {
   "schema": "research-agent-overview/v1",
-  "generated_at": "2026-10-08T18:32:43.000Z",
-  "source_revision": "6b7bc2910490",
+  "generated_at": "2026-10-08T18:49:06.000Z",
+  "source_revision": "124fed90e431",
   "purpose": "Token-bounded orientation and routing for the public Yurei Research record.",
   "disclaimers": {
     "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
@@ -38,10 +38,10 @@
     {
       "id": "multiview-cameras",
       "title": "Multiview Cameras",
-      "labnote_count": 2,
+      "labnote_count": 3,
       "outcomes": {
         "mixed": 1,
-        "positive": 1
+        "positive": 2
       },
       "latest_labnote_id": "multiview-cameras-003",
       "overview_url": "https://yurei-so.github.io/research/projects/multiview-cameras/index.json",

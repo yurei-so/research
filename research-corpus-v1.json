@@ -1,7 +1,7 @@
 {
   "schema": "research-corpus/v1",
-  "generated_at": "2026-10-08T18:32:43.000Z",
-  "source_revision": "6b7bc2910490",
+  "generated_at": "2026-10-08T18:49:06.000Z",
+  "source_revision": "124fed90e431",
   "families": [
     {
       "id": "composition",
@@ -50,6 +50,30 @@
         "mixed-result"
       ],
       "relations": []
+    },
+    {
+      "id": "multiview-cameras-002",
+      "family": "multiview-cameras",
+      "title": "Paired HoloView capture during a bounded vehicle approach",
+      "date": "2026-10-07",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the current Voidwright server controller bring a land truck to a defined approach radius while paired onboard and overhead HoloView feeds record the complete bounded trial?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "vehicle-control",
+        "bounded-navigation",
+        "provenance"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends single-camera capture to paired onboard and overhead feeds recorded during a bounded vehicle-control trial."
+        }
+      ]
     },
     {
       "id": "multiview-cameras-001",

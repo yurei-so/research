@@ -1,0 +1,241 @@
+{
+  "family": {
+    "id": "multiview-cameras",
+    "title": "Multiview Cameras"
+  },
+  "notes": [
+    {
+      "id": "multiview-cameras-001",
+      "family": "multiview-cameras",
+      "title": "Bounded HoloView capture in a headless dedicated server",
+      "date": "2026-10-07",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can a headless Space Engineers server export a bounded camera-frame sequence with pose/tick provenance and renderer-side scene context, without native framebuffer access?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "scene-metadata",
+        "provenance",
+        "software-rendering"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/multiview-cameras-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "multiview-cameras-002"
+        ]
+      },
+      "result_summary": "The bounded single-camera export completed and produced a tick-indexed video, hashed frames, a capture manifest, and frame-linked scene metadata from the headless server environment. This is a positive feasibility result for the specific HoloView software-renderer path.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-001-headless-holoview-capture.md"
+    },
+    {
+      "id": "multiview-cameras-002",
+      "family": "multiview-cameras",
+      "title": "Paired HoloView capture during a bounded vehicle approach",
+      "date": "2026-10-07",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the current Voidwright server controller bring a land truck to a defined approach radius while paired onboard and overhead HoloView feeds record the complete bounded trial?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "vehicle-control",
+        "bounded-navigation",
+        "provenance"
+      ],
+      "lineage": [
+        "multiview-cameras-001"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends single-camera capture to paired onboard and overhead feeds recorded during a bounded vehicle-control trial."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-002/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The refreshed controller completed the second operation after 3,436 ticks. The terminal record reported a 2.999 m ground-plane target distance, inside the configured 3 m arrival radius, and neutralized the wheels. The full 7,200-tick camera-capture window continued after arriv…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-002-bounded-vehicle-approach.md"
+    },
+    {
+      "id": "multiview-cameras-003",
+      "family": "multiview-cameras",
+      "title": "Sparse terrain-height reconstruction over a stitched vehicle run",
+      "date": "2026-10-08",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can receipt-backed front-depth captures be registered to a long Voidwright drive trace to produce a useful, explicitly sparse terrain-height overlay?",
+      "tags": [
+        "space-engineers",
+        "depth-sensing",
+        "terrain-reconstruction",
+        "vehicle-telemetry",
+        "provenance",
+        "mixed-result"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/multiview-cameras-003/",
+      "timeline": {
+        "follows": [],
+        "continued_by": []
+      },
+      "result_summary": "The 80 operations contain 1,601 logged vehicle poses: 5 ended as complete, 72 timed out, and 3 stopped at the attitude safety limit. Within-command logged travel sums to 703.55 m, and the final position is 590.34 m from the initial position. The End GPS distance fell from 668.…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-003-sparse-heightmap.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "multiview-cameras-002",
+      "target": "multiview-cameras-001",
+      "type": "extends",
+      "rationale": "Extends single-camera capture to paired onboard and overhead feeds recorded during a bounded vehicle-control trial."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 705,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "multiview-cameras-001": {
+        "headless": 0.295873,
+        "space": 0.147936,
+        "engineers": 0.147936,
+        "server": 0.268294,
+        "export": 0.147936,
+        "bounded": 0.221147,
+        "camera-frame": 0.147936,
+        "sequence": 0.147936,
+        "pose": 0.147936,
+        "tick": 0.147936,
+        "provenance": 0.302369,
+        "renderer-side": 0.147936,
+        "scene": 0.134147,
+        "context": 0.124363,
+        "native": 0.124363,
+        "framebuffer": 0.147936,
+        "access": 0.124363,
+        "holoview": 0.134147,
+        "capture": 0.134147,
+        "dedicated": 0.147936,
+        "space-engineers": 0.248726,
+        "headless-rendering": 0.268294,
+        "camera-observation": 0.268294,
+        "scene-metadata": 0.295873,
+        "software-rendering": 0.295873
+      },
+      "multiview-cameras-002": {
+        "current": 0.129477,
+        "voidwright": 0.129477,
+        "server": 0.129477,
+        "controller": 0.142786,
+        "bring": 0.142786,
+        "land": 0.142786,
+        "truck": 0.142786,
+        "defined": 0.142786,
+        "approach": 0.285572,
+        "radius": 0.142786,
+        "paired": 0.285572,
+        "onboard": 0.142786,
+        "overhead": 0.129477,
+        "holoview": 0.258954,
+        "feeds": 0.142786,
+        "record": 0.142786,
+        "complete": 0.120034,
+        "bounded": 0.213448,
+        "trial": 0.142786,
+        "capture": 0.129477,
+        "during": 0.112709,
+        "vehicle": 0.129477,
+        "space-engineers": 0.240067,
+        "headless-rendering": 0.258954,
+        "camera-observation": 0.258954,
+        "vehicle-control": 0.285572,
+        "bounded-navigation": 0.285572,
+        "provenance": 0.194562
+      },
+      "multiview-cameras-003": {
+        "receipt-backed": 0.155394,
+        "front-depth": 0.155394,
+        "captures": 0.155394,
+        "registered": 0.155394,
+        "long": 0.155394,
+        "voidwright": 0.140909,
+        "drive": 0.155394,
+        "trace": 0.155394,
+        "produce": 0.094494,
+        "useful": 0.130632,
+        "explicitly": 0.140909,
+        "sparse": 0.310788,
+        "terrain-height": 0.310788,
+        "overlay": 0.155394,
+        "reconstruction": 0.155394,
+        "over": 0.130632,
+        "stitched": 0.155394,
+        "vehicle": 0.140909,
+        "run": 0.155394,
+        "space-engineers": 0.261264,
+        "depth-sensing": 0.310788,
+        "terrain-reconstruction": 0.310788,
+        "vehicle-telemetry": 0.310788,
+        "provenance": 0.211741,
+        "mixed-result": 0.188989
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.60846,
+        0.870993
+      ],
+      [
+        0.60846,
+        0,
+        0.859593
+      ],
+      [
+        0.870993,
+        0.859593,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0,
+      "points": {
+        "multiview-cameras-001": [
+          0.280541,
+          -0.300088
+        ],
+        "multiview-cameras-002": [
+          0.259446,
+          0.308007
+        ],
+        "multiview-cameras-003": [
+          -0.539987,
+          -0.007919
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

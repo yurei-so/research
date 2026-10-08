@@ -1,7 +1,7 @@
 {
   "schema": "research-family-overview/v1",
-  "generated_at": "2026-10-08T18:32:43.000Z",
-  "source_revision": "6b7bc2910490",
+  "generated_at": "2026-10-08T18:49:06.000Z",
+  "source_revision": "124fed90e431",
   "family": {
     "id": "voxel-guidance",
     "title": "Voxel Guidance",

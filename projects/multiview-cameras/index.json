@@ -1,14 +1,14 @@
 {
   "schema": "research-family-overview/v1",
-  "generated_at": "2026-10-08T18:32:43.000Z",
-  "source_revision": "6b7bc2910490",
+  "generated_at": "2026-10-08T18:49:06.000Z",
+  "source_revision": "124fed90e431",
   "family": {
     "id": "multiview-cameras",
     "title": "Multiview Cameras",
-    "labnote_count": 2,
+    "labnote_count": 3,
     "outcomes": {
       "mixed": 1,
-      "positive": 1
+      "positive": 2
     },
     "latest_labnote_id": "multiview-cameras-003"
   },
@@ -38,7 +38,13 @@
       }
     ]
   },
-  "authored_relations_near_entry_points": [],
+  "authored_relations_near_entry_points": [
+    {
+      "from": "multiview-cameras-002",
+      "to": "multiview-cameras-001",
+      "type": "extends"
+    }
+  ],
   "disclaimers": {
     "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
     "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
@@ -48,7 +54,7 @@
   "links": {
     "human": "https://yurei-so.github.io/research/projects/multiview-cameras/",
     "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
-    "heavy_geometry": null,
+    "heavy_geometry": "https://yurei-so.github.io/research/projects/multiview-cameras/graph.json",
     "source": "https://github.com/yurei-so/research/tree/main/experiments"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-08T18:32:43.000Z",
-  "source_revision": "6b7bc2910490",
+  "generated_at": "2026-10-08T18:49:06.000Z",
+  "source_revision": "124fed90e431",
   "families": [
     {
       "id": "composition",
@@ -29,12 +29,12 @@
     {
       "id": "multiview-cameras",
       "title": "Multiview Cameras",
-      "labnote_count": 2,
+      "labnote_count": 3,
       "latest_labnote_id": "multiview-cameras-003",
-      "has_graph": false,
+      "has_graph": true,
       "outcomes": {
         "mixed": 1,
-        "positive": 1
+        "positive": 2
       }
     },
     {
@@ -113,6 +113,41 @@
       "result_summary": "The 80 operations contain 1,601 logged vehicle poses: 5 ended as complete, 72 timed out, and 3 stopped at the attitude safety limit. Within-command logged travel sums to 703.55 m, and the final position is 590.34 m from the initial position. The End GPS distance fell from 668.…"
     },
     {
+      "id": "multiview-cameras-002",
+      "family": "multiview-cameras",
+      "title": "Paired HoloView capture during a bounded vehicle approach",
+      "date": "2026-10-07",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the current Voidwright server controller bring a land truck to a defined approach radius while paired onboard and overhead HoloView feeds record the complete bounded trial?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "vehicle-control",
+        "bounded-navigation",
+        "provenance"
+      ],
+      "lineage": [
+        "multiview-cameras-001"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends single-camera capture to paired onboard and overhead feeds recorded during a bounded vehicle-control trial."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-002/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The refreshed controller completed the second operation after 3,436 ticks. The terminal record reported a 2.999 m ground-plane target distance, inside the configured 3 m arrival radius, and neutralized the wheels. The full 7,200-tick camera-capture window continued after arriv…"
+    },
+    {
       "id": "multiview-cameras-001",
       "family": "multiview-cameras",
       "title": "Bounded HoloView capture in a headless dedicated server",
@@ -133,7 +168,9 @@
       "href": "labnotes/multiview-cameras-001/",
       "timeline": {
         "follows": [],
-        "continued_by": []
+        "continued_by": [
+          "multiview-cameras-002"
+        ]
       },
       "result_summary": "The bounded single-camera export completed and produced a tick-indexed video, hashed frames, a capture manifest, and frame-linked scene metadata from the headless server environment. This is a positive feasibility result for the specific HoloView software-renderer path."
     },

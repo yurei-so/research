@@ -1,7 +1,7 @@
 {
   "schema": "research-corpus/v1",
-  "generated_at": "2026-10-07T17:28:42.000Z",
-  "source_revision": "31f32c4c55a7",
+  "generated_at": "2026-10-08T18:32:43.000Z",
+  "source_revision": "6b7bc2910490",
   "families": [
     {
       "id": "composition",
@@ -33,6 +33,24 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "multiview-cameras-003",
+      "family": "multiview-cameras",
+      "title": "Sparse terrain-height reconstruction over a stitched vehicle run",
+      "date": "2026-10-08",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can receipt-backed front-depth captures be registered to a long Voidwright drive trace to produce a useful, explicitly sparse terrain-height overlay?",
+      "tags": [
+        "space-engineers",
+        "depth-sensing",
+        "terrain-reconstruction",
+        "vehicle-telemetry",
+        "provenance",
+        "mixed-result"
+      ],
+      "relations": []
+    },
     {
       "id": "multiview-cameras-001",
       "family": "multiview-cameras",

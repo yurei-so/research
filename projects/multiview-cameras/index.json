@@ -1,20 +1,31 @@
 {
   "schema": "research-family-overview/v1",
-  "generated_at": "2026-10-07T17:28:42.000Z",
-  "source_revision": "31f32c4c55a7",
+  "generated_at": "2026-10-08T18:32:43.000Z",
+  "source_revision": "6b7bc2910490",
   "family": {
     "id": "multiview-cameras",
     "title": "Multiview Cameras",
-    "labnote_count": 1,
+    "labnote_count": 2,
     "outcomes": {
+      "mixed": 1,
       "positive": 1
     },
-    "latest_labnote_id": "multiview-cameras-001"
+    "latest_labnote_id": "multiview-cameras-003"
   },
   "orientation": {
     "purpose": "Compact orientation to the published Multiview Cameras record. Follow evidence_url before making substantive claims.",
     "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
     "entry_points": [
+      {
+        "id": "multiview-cameras-003",
+        "title": "Sparse terrain-height reconstruction over a stitched vehicle run",
+        "date": "2026-10-08",
+        "status": "complete",
+        "outcome": "mixed",
+        "question": "Can receipt-backed front-depth captures be registered to a long Voidwright drive trace to produce a useful, explicitly sparse terrain-height overlay?",
+        "finding": "The 80 operations contain 1,601 logged vehicle poses: 5 ended as complete, 72 timed out, and 3 stopped at the attitude safety limit. Within-command logged travel sums to 703.55 m, and the final position is 590.34 m from the initial position. The End GPS distance fell from 668.…",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/multiview-cameras-003/"
+      },
       {
         "id": "multiview-cameras-001",
         "title": "Bounded HoloView capture in a headless dedicated server",

@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
-const allowedExtensions = new Set([".css", ".html", ".js", ".json", ".png", ".txt", ".xml"]);
+const allowedExtensions = new Set([".css", ".html", ".js", ".json", ".mp4", ".png", ".txt", ".xml"]);
 const allowedExtensionless = new Set([".nojekyll"]);
 const stableBase = "https://yurei-so.github.io/research/";
 const betaBase = `${stableBase}beta/`;
@@ -36,6 +36,13 @@ function validateBuild(root, label) {
     const extension = path.extname(name).toLowerCase();
     if (!allowedExtensions.has(extension) && !allowedExtensionless.has(name)) {
       throw new Error(`${label} build contains a non-public file type: ${path.relative(root, file)}`);
+    }
+    if (extension === ".mp4") {
+      const relative = path.relative(root, file).split(path.sep).join("/");
+      if (!/^labnotes\/([a-z0-9]+(?:-[a-z0-9]+)*-\d{3})\/assets\/\1\/[A-Za-z0-9][A-Za-z0-9._-]*\.mp4$/i.test(relative)) {
+        throw new Error(`${label} build contains a video outside an explicit labnote asset route: ${relative}`);
+      }
+      if (fs.statSync(file).size > 25 * 1024 * 1024) throw new Error(`${label} build contains an MP4 larger than 25 MiB: ${relative}`);
     }
   }
 }

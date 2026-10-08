@@ -27,6 +27,8 @@ test("assembles allowlisted stable and non-canonical beta publication trees", ()
   const output = path.join(temporary, "publication");
   fixture(stable, "stable");
   fixture(beta, "beta");
+  fs.mkdirSync(path.join(stable, "labnotes", "demo-001", "assets", "demo-001"), { recursive: true });
+  fs.writeFileSync(path.join(stable, "labnotes", "demo-001", "assets", "demo-001", "run.mp4"), "bounded media");
   const manifest = assemblePublication({ stable, beta, output, stableSha: "abc123", betaSha: "def456" });
   assert.equal(manifest.stable.source_revision, "abc123");
   const stableHtml = fs.readFileSync(path.join(output, "index.html"), "utf8");
@@ -53,6 +55,7 @@ test("assembles allowlisted stable and non-canonical beta publication trees", ()
   }
   assert.ok(fs.existsSync(path.join(output, "publication-switch.css")));
   assert.ok(fs.existsSync(path.join(output, "deployment-manifest.json")));
+  assert.equal(fs.readFileSync(path.join(output, "labnotes", "demo-001", "assets", "demo-001", "run.mp4"), "utf8"), "bounded media");
 });
 
 test("rejects unexpected source-like files from a build", () => {
@@ -63,4 +66,15 @@ test("rejects unexpected source-like files from a build", () => {
   fixture(beta, "beta");
   fs.writeFileSync(path.join(beta, "secret.env"), "nope");
   assert.throws(() => assemblePublication({ stable, beta, output: path.join(temporary, "out"), stableSha: "a", betaSha: "b" }), /non-public file type/);
+});
+
+test("rejects MP4 outside a labnote's explicit media route", () => {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "research-pages-mp4-reject-"));
+  const stable = path.join(temporary, "stable");
+  const beta = path.join(temporary, "beta");
+  fixture(stable, "stable");
+  fixture(beta, "beta");
+  fs.mkdirSync(path.join(beta, "assets"), { recursive: true });
+  fs.writeFileSync(path.join(beta, "assets", "unexpected.mp4"), "nope");
+  assert.throws(() => assemblePublication({ stable, beta, output: path.join(temporary, "out"), stableSha: "a", betaSha: "b" }), /video outside an explicit labnote asset route/);
 });

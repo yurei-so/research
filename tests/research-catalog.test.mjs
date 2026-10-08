@@ -6,7 +6,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { buildAttentionModel, toInterchange, validateCorpus } from "@yurei-so/research-tools";
-import { collectCatalog, escapeHtml, extractResultSummary, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
+import { collectCatalog, copyPublishedLabnoteAssets, escapeHtml, extractResultSummary, parseLabnote, renderMarkdown, validateMetadata } from "../scripts/research-catalog-lib.mjs";
 import { familySocialCardSvg, socialCardSvg } from "../scripts/social-card.mjs";
 
 const metadata = { schema_version: 1, id: "test-001", title: "Test", date: "2026-09-08", status: "complete", outcome: "negative", question: "Did it work?", tags: ["negative-result"], lineage: [], publish: true };
@@ -56,6 +56,35 @@ test("publish false is excluded from the public projection", () => {
   fs.rmSync(root, { recursive: true, force: true });
 });
 
+test("only referenced, explicitly declared assets of published labnotes are copied", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "research-labnote-assets-"));
+  const notes = path.join(root, "experiments", "demo", "docs", "labnotes");
+  const publicDir = path.join(notes, "assets", "demo-001");
+  const privateDir = path.join(notes, "assets", "demo-002");
+  fs.mkdirSync(publicDir, { recursive: true });
+  fs.mkdirSync(privateDir, { recursive: true });
+  fs.writeFileSync(path.join(publicDir, "figure.png"), Buffer.from("png"));
+  fs.writeFileSync(path.join(publicDir, "run.mp4"), Buffer.from("mp4"));
+  fs.writeFileSync(path.join(publicDir, "not-listed.json"), "private");
+  fs.writeFileSync(path.join(privateDir, "private.png"), Buffer.from("private"));
+  const note = (id, publish, assets, body) => `---\n${Object.entries({
+    ...metadata, id, status: "complete", outcome: "mixed", publish, public_assets: assets,
+  }).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join("\n")}\n---\n${body}`;
+  fs.writeFileSync(path.join(notes, "demo-001.md"), note("demo-001", true, ["figure.png", "run.mp4"],
+    "![figure](assets/demo-001/figure.png)\n\n[video](./assets/demo-001/run.mp4)"));
+  fs.writeFileSync(path.join(notes, "demo-002.md"), note("demo-002", false, ["private.png"],
+    "![private](assets/demo-002/private.png)"));
+  const { records, manifest } = collectCatalog(root);
+  const output = path.join(root, "dist");
+  copyPublishedLabnoteAssets(records, output);
+  assert.equal(fs.readFileSync(path.join(output, "labnotes", "demo-001", "assets", "demo-001", "figure.png"), "utf8"), "png");
+  assert.equal(fs.readFileSync(path.join(output, "labnotes", "demo-001", "assets", "demo-001", "run.mp4"), "utf8"), "mp4");
+  assert.equal(fs.existsSync(path.join(output, "labnotes", "demo-001", "assets", "demo-001", "not-listed.json")), false);
+  assert.equal(fs.existsSync(path.join(output, "labnotes", "demo-002")), false);
+  assert.equal(Object.hasOwn(manifest.labnotes[0], "public_assets"), false);
+  fs.rmSync(root, { recursive: true, force: true });
+});
+
 test("unknown metadata fields fail closed", () => {
   assert.throws(() => parseLabnote(`---\nid: test-001\nsecret_path: /tmp/private\n---\n`, "unsafe.md"), /unknown public metadata field/);
 });
@@ -65,6 +94,7 @@ test("invalid metadata and unsafe lineage are rejected", () => {
   assert.throws(() => validateMetadata({ ...metadata, lineage: ["test-001"] }), /self lineage/);
   assert.throws(() => validateMetadata({ ...metadata, relations: [{ target: "other-001", type: "imagines", rationale: "No." }] }), /invalid relation type/);
   assert.throws(() => validateMetadata({ ...metadata, relations: [{ target: "other-001", type: "extends", rationale: "" }] }), /invalid relation rationale/);
+  assert.throws(() => validateMetadata({ ...metadata, public_assets: ["../secret.png"] }), /supported filenames/);
 });
 
 test("markdown renderer escapes raw HTML and unsafe links", () => {

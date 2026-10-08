@@ -7,9 +7,13 @@ import { execFileSync } from "node:child_process";
 const statuses = new Set(["planned", "running", "awaiting-review", "complete", "aborted"]);
 const outcomes = new Set(["positive", "negative", "mixed", "inconclusive", "pending", "not-applicable"]);
 const relationTypes = new Set(["motivated-by", "reuses-data", "reuses-apparatus", "extends", "ablates", "replicates", "supports", "challenges", "supersedes"]);
-const allowedKeys = new Set(["schema_version", "id", "title", "date", "status", "outcome", "question", "tags", "lineage", "relations", "publish"]);
+const allowedKeys = new Set(["schema_version", "id", "title", "date", "status", "outcome", "question", "tags", "lineage", "relations", "public_assets", "publish"]);
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*-\d{3}$/;
 const tagPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const publicAssetNamePattern = /^[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|jpe?g|webp|mp4)$/i;
+const maxPublicAssets = 8;
+const maxPublicAssetBytes = 25 * 1024 * 1024;
+const maxPublicAssetsBytes = 50 * 1024 * 1024;
 
 function fail(file, message) {
   throw new Error(`${file}: ${message}`);
@@ -47,7 +51,7 @@ function validateArray(value, field, file) {
 }
 
 export function validateMetadata(metadata, file = "labnote") {
-  for (const key of allowedKeys) if (key !== "relations" && !Object.hasOwn(metadata, key)) fail(file, `missing ${key}`);
+  for (const key of allowedKeys) if (!["relations", "public_assets"].includes(key) && !Object.hasOwn(metadata, key)) fail(file, `missing ${key}`);
   if (metadata.schema_version !== 1) fail(file, "unsupported schema_version");
   if (typeof metadata.id !== "string" || !idPattern.test(metadata.id)) fail(file, "invalid id");
   for (const key of ["title", "question"]) if (typeof metadata[key] !== "string" || !metadata[key].trim()) fail(file, `invalid ${key}`);
@@ -75,6 +79,49 @@ export function validateMetadata(metadata, file = "labnote") {
       seen.add(identity);
     }
   }
+  if (metadata.public_assets !== undefined) {
+    validateArray(metadata.public_assets, "public_assets", file);
+    if (metadata.public_assets.length > maxPublicAssets
+        || new Set(metadata.public_assets).size !== metadata.public_assets.length
+        || metadata.public_assets.some((name) => !publicAssetNamePattern.test(name))) {
+      fail(file, `public_assets must contain at most ${maxPublicAssets} unique supported filenames`);
+    }
+  }
+}
+
+function validatePublicAssets(record) {
+  const names = record.metadata.public_assets;
+  if (names === undefined) return;
+  const referenced = new Set();
+  const links = record.body.matchAll(/!?\[[^\]]*\]\(([^)\s]+)\)/g);
+  for (const [, href] of links) {
+    if (!/^(?:\.\/)?assets\//.test(href)) continue;
+    const match = href.match(/^(?:\.\/)?assets\/([^/]+)\/([^/]+)$/);
+    if (!match || match[1] !== record.metadata.id) fail(record.relative, "labnote media links must stay under assets/<labnote-id>/");
+    if (!names.includes(match[2])) fail(record.relative, `media reference is not listed in public_assets: ${match[2]}`);
+    referenced.add(match[2]);
+  }
+  for (const name of names) if (!referenced.has(name)) fail(record.relative, `public asset is not referenced by the note body: ${name}`);
+
+  if (names.length === 0) return;
+  const assetsRoot = path.join(path.dirname(record.file), "assets");
+  let assetsRootStat;
+  try { assetsRootStat = fs.lstatSync(assetsRoot); } catch { fail(record.relative, "public assets root is missing"); }
+  if (!assetsRootStat.isDirectory() || assetsRootStat.isSymbolicLink()) fail(record.relative, "public assets root must be a real directory");
+  const directory = path.join(assetsRoot, record.metadata.id);
+  let directoryStat;
+  try { directoryStat = fs.lstatSync(directory); } catch { fail(record.relative, "public asset directory is missing"); }
+  if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) fail(record.relative, "public asset directory must be a real directory");
+  let totalBytes = 0;
+  for (const name of names) {
+    const source = path.join(directory, name);
+    let stat;
+    try { stat = fs.lstatSync(source); } catch { fail(record.relative, `public asset is missing: ${name}`); }
+    if (!stat.isFile() || stat.isSymbolicLink()) fail(record.relative, `public asset must be a regular file: ${name}`);
+    if (stat.size > maxPublicAssetBytes) fail(record.relative, `public asset exceeds 25 MiB: ${name}`);
+    totalBytes += stat.size;
+  }
+  if (totalBytes > maxPublicAssetsBytes) fail(record.relative, "public assets exceed 50 MiB total");
 }
 
 function walk(directory) {
@@ -95,7 +142,9 @@ export function collectCatalog(root) {
     const relative = path.relative(root, file).split(path.sep).join("/");
     const parsed = parseLabnote(fs.readFileSync(file, "utf8"), relative);
     validateMetadata(parsed.metadata, relative);
-    return { ...parsed, file, relative };
+    const record = { ...parsed, file, relative };
+    validatePublicAssets(record);
+    return record;
   });
   const byId = new Map();
   for (const record of records) {
@@ -144,6 +193,22 @@ export function collectCatalog(root) {
     generatedAt = new Date(epoch * 1000).toISOString();
   } catch {}
   return { records, manifest: { schema_version: 1, generated_at: generatedAt, source_revision: revision, families, labnotes } };
+}
+
+export function copyPublishedLabnoteAssets(records, output) {
+  for (const record of records) {
+    const names = record.metadata.publish ? (record.metadata.public_assets ?? []) : [];
+    if (names.length === 0) continue;
+    const sourceDirectory = path.join(path.dirname(record.file), "assets", record.metadata.id);
+    const destinationDirectory = path.join(output, "labnotes", record.metadata.id, "assets", record.metadata.id);
+    fs.mkdirSync(destinationDirectory, { recursive: true });
+    for (const name of names) {
+      const source = path.join(sourceDirectory, name);
+      const stat = fs.lstatSync(source);
+      if (!stat.isFile() || stat.isSymbolicLink()) fail(record.relative, `public asset changed during build: ${name}`);
+      fs.copyFileSync(source, path.join(destinationDirectory, name));
+    }
+  }
 }
 
 export function escapeHtml(value) {

@@ -10,9 +10,18 @@ A labnote is eligible only when its versioned front matter contains
 matter contains `publish: true` and `status: published`. Each type has a
 separate metadata allowlist and route. The compiler emits a fixed set of
 metadata fields and rendered Markdown only for eligible records. It never
-copies experiment directories, artifacts, raw recordings, private review
-state, machine-local inputs, or arbitrary repository files into the Pages
-artifact.
+copies experiment directories, raw recordings, private review state,
+machine-local inputs, or arbitrary repository files into the Pages artifact.
+
+Labnote figures and video links are an explicit exception, not a directory
+mirror. A note may declare up to eight filenames in its optional
+`public_assets` front matter field. The compiler copies only those referenced
+files from that note's `assets/<labnote-id>/` folder, and only PNG, JPEG, WebP,
+or MP4 files. Each file is limited to 25 MiB and the total per note to 50 MiB. Only
+listed files are copied; symlinks, nested paths, unlisted references, and
+unreferenced declarations fail validation. These filenames are not added to
+machine-readable research metadata. The Pages assembler accepts MP4 only
+under that exact labnote asset route and enforces the per-file limit again.
 
 Setting `publish: false` omits a record's metadata and body from every generated
 Pages view. For labnotes, a published note may not name an unpublished note as

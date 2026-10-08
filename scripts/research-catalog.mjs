@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { buildAttentionModel, toInterchange } from "@yurei-so/research-tools";
-import { collectCatalog, escapeHtml, extractResultSummary, renderMarkdown } from "./research-catalog-lib.mjs";
+import { collectCatalog, copyPublishedLabnoteAssets, escapeHtml, extractResultSummary, renderMarkdown } from "./research-catalog-lib.mjs";
 import { collectDispatches, renderDispatchPage } from "./dispatches.mjs";
 import { writeFamilySocialCard, writeSocialCard } from "./social-card.mjs";
 
@@ -197,6 +197,7 @@ ${lineage}
 <footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV ${manifest.source_revision}</span></footer><script type="module" src="../../assets/labnote.js?v=${escapeHtml(manifest.source_revision)}"></script></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);
 }
+copyPublishedLabnoteAssets(records, output);
 
 const outcomeColors = { positive: "#84d6a0", negative: "#de8d9a", mixed: "#d9bd78", inconclusive: "#70d7da", pending: "#858d9d", "not-applicable": "#858d9d" };
 // Graph arrows run from earlier evidence to the later note, so labels use the

@@ -21,6 +21,7 @@ tags:
 lineage:
   - prosody-003
 relations: [{"target":"prosody-003","type":"replicates","rationale":"Repeats the original test with locally generated, fidelity-gated audio."}]
+public_assets: ["figure.png"]
 publish: true
 ---
 ```
@@ -49,6 +50,14 @@ graph renders that authored connection as the neutral `FOLLOWED BY` type. Do
 not promote it to a causal or evidentiary type without a source-backed
 rationale.
 - `publish` — whether the note belongs in the public Pages projection.
+- `public_assets` — optional per-note allowlist of raster figures and MP4 files
+  to include beside its Pages route. Source files must live under
+  `experiments/<family>/docs/labnotes/assets/<labnote-id>/`, and the note body
+  must reference each declared file with a local `assets/<labnote-id>/...`
+  image or link. Only listed files are copied; the compiler never mirrors the
+  asset directory. The publisher caps a note at eight files, 25 MiB per file,
+  and 50 MiB total. This field is not emitted in public machine-readable
+  metadata.
 
 `status` and `outcome` stay separate. A completed experiment may have a
 negative or inconclusive outcome; those are valid research records, not failed

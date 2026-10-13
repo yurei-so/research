@@ -26,7 +26,9 @@
       "timeline": {
         "follows": [],
         "continued_by": [
-          "multiview-cameras-002"
+          "multiview-cameras-002",
+          "multiview-cameras-004",
+          "multiview-cameras-006"
         ]
       },
       "result_summary": "The bounded single-camera export completed and produced a tick-indexed video, hashed frames, a capture manifest, and frame-linked scene metadata from the headless server environment. This is a positive feasibility result for the specific HoloView software-renderer path.",
@@ -93,6 +95,117 @@
       },
       "result_summary": "The 80 operations contain 1,601 logged vehicle poses: 5 ended as complete, 72 timed out, and 3 stopped at the attitude safety limit. Within-command logged travel sums to 703.55 m, and the final position is 590.34 m from the initial position. The End GPS distance fell from 668.…",
       "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-003-sparse-heightmap.md"
+    },
+    {
+      "id": "multiview-cameras-004",
+      "family": "multiview-cameras",
+      "title": "Live multiplayer observation and moving-grid camera tracking",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can Voidwright observe a connected human and a human-driven moving vehicle in a shared Space Engineers world, keep a grid-relative virtual camera attached, and return provenance-bound HoloView captures?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "multiplayer",
+        "vehicle-follow",
+        "provenance"
+      ],
+      "lineage": [
+        "multiview-cameras-001"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends the bounded HoloView capture path to a live human-connected session with a moving-grid-relative perspective."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-004/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-001"
+        ],
+        "continued_by": [
+          "multiview-cameras-005"
+        ]
+      },
+      "result_summary": "The same anonymous character was observed before and after the brief walk, with a 4.107 m sample-to-sample displacement.",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-004-live-multiplayer-observation-and-moving-grid-follow.md"
+    },
+    {
+      "id": "multiview-cameras-005",
+      "family": "multiview-cameras",
+      "title": "Client-visible markers for virtual camera poses",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can a connected Space Engineers client display a virtual camera's position and orientation as GPS markers that track a moving vehicle?",
+      "tags": [
+        "space-engineers",
+        "camera-observation",
+        "gps",
+        "client-display",
+        "vehicle-follow",
+        "provenance"
+      ],
+      "lineage": [
+        "multiview-cameras-004"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-004",
+          "type": "extends",
+          "rationale": "Extends the live grid-relative camera observation with client-visible GPS markers for the virtual camera pose."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-005/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-004"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The participant confirmed that all three markers appeared and followed the truck while retaining their relative shape. The server-side pose packet also changed position and orientation during the session. Together these observations support that the client-visible points track…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-005-client-visible-virtual-camera-markers.md"
+    },
+    {
+      "id": "multiview-cameras-006",
+      "family": "multiview-cameras",
+      "title": "Operational vision through damage-aware wireframes and normal MCP capture",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can the read-only Voidwright interface expose a damage-aware structural view and an inspectable HoloView image through ordinary Codex MCP tools?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "mcp",
+        "structural-visualization",
+        "provenance",
+        "mixed-result"
+      ],
+      "lineage": [
+        "multiview-cameras-001"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends the headless HoloView capture result with an ordinary Codex MCP invocation and a damage-aware structural wireframe path."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-006/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The normal MCP image-return path succeeded in one bounded invocation, and the damage-aware wireframe path passed synthetic contract tests. However, one live session's injected catalog omitted the otherwise configured capture tool, so availability was not consistent across sess…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/multiview-cameras/docs/labnotes/multiview-cameras-006-operational-vision-and-normal-mcp-capture.md"
     }
   ],
   "relations": [
@@ -101,6 +214,24 @@
       "target": "multiview-cameras-001",
       "type": "extends",
       "rationale": "Extends single-camera capture to paired onboard and overhead feeds recorded during a bounded vehicle-control trial."
+    },
+    {
+      "source": "multiview-cameras-004",
+      "target": "multiview-cameras-001",
+      "type": "extends",
+      "rationale": "Extends the bounded HoloView capture path to a live human-connected session with a moving-grid-relative perspective."
+    },
+    {
+      "source": "multiview-cameras-005",
+      "target": "multiview-cameras-004",
+      "type": "extends",
+      "rationale": "Extends the live grid-relative camera observation with client-visible GPS markers for the virtual camera pose."
+    },
+    {
+      "source": "multiview-cameras-006",
+      "target": "multiview-cameras-001",
+      "type": "extends",
+      "rationale": "Extends the headless HoloView capture result with an ordinary Codex MCP invocation and a damage-aware structural wireframe path."
     }
   ],
   "attention": {
@@ -111,128 +242,256 @@
         "title",
         "tags"
       ],
-      "dimensions": 705,
+      "dimensions": 780,
       "metric": "cosine-distance"
     },
     "vectors": {
       "multiview-cameras-001": {
-        "headless": 0.295873,
-        "space": 0.147936,
-        "engineers": 0.147936,
-        "server": 0.268294,
-        "export": 0.147936,
-        "bounded": 0.221147,
-        "camera-frame": 0.147936,
-        "sequence": 0.147936,
-        "pose": 0.147936,
-        "tick": 0.147936,
-        "provenance": 0.302369,
-        "renderer-side": 0.147936,
-        "scene": 0.134147,
-        "context": 0.124363,
-        "native": 0.124363,
-        "framebuffer": 0.147936,
-        "access": 0.124363,
-        "holoview": 0.134147,
-        "capture": 0.134147,
-        "dedicated": 0.147936,
-        "space-engineers": 0.248726,
-        "headless-rendering": 0.268294,
-        "camera-observation": 0.268294,
-        "scene-metadata": 0.295873,
-        "software-rendering": 0.295873
+        "headless": 0.317105,
+        "space": 0.133856,
+        "engineers": 0.133856,
+        "server": 0.267712,
+        "export": 0.158553,
+        "bounded": 0.209925,
+        "camera-frame": 0.158553,
+        "sequence": 0.158553,
+        "pose": 0.158553,
+        "tick": 0.158553,
+        "provenance": 0.275581,
+        "renderer-side": 0.158553,
+        "scene": 0.144106,
+        "context": 0.133856,
+        "native": 0.133856,
+        "framebuffer": 0.158553,
+        "access": 0.133856,
+        "holoview": 0.125905,
+        "capture": 0.133856,
+        "dedicated": 0.158553,
+        "space-engineers": 0.202417,
+        "headless-rendering": 0.251811,
+        "camera-observation": 0.238818,
+        "scene-metadata": 0.317105,
+        "software-rendering": 0.317105
       },
       "multiview-cameras-002": {
-        "current": 0.129477,
-        "voidwright": 0.129477,
-        "server": 0.129477,
-        "controller": 0.142786,
-        "bring": 0.142786,
-        "land": 0.142786,
-        "truck": 0.142786,
-        "defined": 0.142786,
-        "approach": 0.285572,
-        "radius": 0.142786,
-        "paired": 0.285572,
-        "onboard": 0.142786,
-        "overhead": 0.129477,
-        "holoview": 0.258954,
-        "feeds": 0.142786,
-        "record": 0.142786,
-        "complete": 0.120034,
-        "bounded": 0.213448,
-        "trial": 0.142786,
-        "capture": 0.129477,
-        "during": 0.112709,
-        "vehicle": 0.129477,
-        "space-engineers": 0.240067,
-        "headless-rendering": 0.258954,
-        "camera-observation": 0.258954,
-        "vehicle-control": 0.285572,
-        "bounded-navigation": 0.285572,
-        "provenance": 0.194562
+        "current": 0.14201,
+        "voidwright": 0.124074,
+        "server": 0.131909,
+        "controller": 0.14201,
+        "bring": 0.156247,
+        "land": 0.156247,
+        "truck": 0.131909,
+        "defined": 0.156247,
+        "approach": 0.312494,
+        "radius": 0.156247,
+        "paired": 0.312494,
+        "onboard": 0.156247,
+        "overhead": 0.14201,
+        "holoview": 0.248148,
+        "feeds": 0.156247,
+        "record": 0.156247,
+        "complete": 0.131909,
+        "bounded": 0.206872,
+        "trial": 0.156247,
+        "capture": 0.131909,
+        "during": 0.124074,
+        "vehicle": 0.124074,
+        "space-engineers": 0.199473,
+        "headless-rendering": 0.248148,
+        "camera-observation": 0.235345,
+        "vehicle-control": 0.263818,
+        "bounded-navigation": 0.263818,
+        "provenance": 0.181049
       },
       "multiview-cameras-003": {
-        "receipt-backed": 0.155394,
-        "front-depth": 0.155394,
-        "captures": 0.155394,
-        "registered": 0.155394,
-        "long": 0.155394,
-        "voidwright": 0.140909,
-        "drive": 0.155394,
-        "trace": 0.155394,
-        "produce": 0.094494,
-        "useful": 0.130632,
-        "explicitly": 0.140909,
-        "sparse": 0.310788,
-        "terrain-height": 0.310788,
-        "overlay": 0.155394,
-        "reconstruction": 0.155394,
-        "over": 0.130632,
-        "stitched": 0.155394,
-        "vehicle": 0.140909,
-        "run": 0.155394,
-        "space-engineers": 0.261264,
-        "depth-sensing": 0.310788,
-        "terrain-reconstruction": 0.310788,
-        "vehicle-telemetry": 0.310788,
-        "provenance": 0.211741,
-        "mixed-result": 0.188989
+        "receipt-backed": 0.160213,
+        "front-depth": 0.160213,
+        "captures": 0.145615,
+        "registered": 0.160213,
+        "long": 0.160213,
+        "voidwright": 0.127224,
+        "drive": 0.160213,
+        "trace": 0.160213,
+        "produce": 0.098837,
+        "useful": 0.135258,
+        "explicitly": 0.145615,
+        "sparse": 0.320427,
+        "terrain-height": 0.320427,
+        "overlay": 0.160213,
+        "reconstruction": 0.160213,
+        "over": 0.135258,
+        "stitched": 0.160213,
+        "vehicle": 0.127224,
+        "run": 0.160213,
+        "space-engineers": 0.204537,
+        "depth-sensing": 0.320427,
+        "terrain-reconstruction": 0.320427,
+        "vehicle-telemetry": 0.320427,
+        "provenance": 0.185645,
+        "mixed-result": 0.180309
+      },
+      "multiview-cameras-004": {
+        "voidwright": 0.121814,
+        "observe": 0.153401,
+        "connected": 0.139423,
+        "human": 0.121814,
+        "human-driven": 0.139423,
+        "moving": 0.139423,
+        "vehicle": 0.121814,
+        "shared": 0.153401,
+        "space": 0.129506,
+        "engineers": 0.129506,
+        "world": 0.139423,
+        "keep": 0.153401,
+        "grid-relative": 0.153401,
+        "virtual": 0.139423,
+        "camera": 0.278847,
+        "attached": 0.153401,
+        "return": 0.139423,
+        "provenance-bound": 0.153401,
+        "holoview": 0.121814,
+        "captures": 0.139423,
+        "live": 0.115529,
+        "multiplayer": 0.460202,
+        "observation": 0.139423,
+        "moving-grid": 0.153401,
+        "tracking": 0.153401,
+        "space-engineers": 0.19584,
+        "headless-rendering": 0.243628,
+        "camera-observation": 0.231058,
+        "vehicle-follow": 0.278847,
+        "provenance": 0.177751
+      },
+      "multiview-cameras-005": {
+        "connected": 0.143874,
+        "space": 0.13364,
+        "engineers": 0.13364,
+        "client": 0.158297,
+        "display": 0.158297,
+        "virtual": 0.287747,
+        "camera": 0.287747,
+        "position": 0.125702,
+        "orientation": 0.158297,
+        "gps": 0.40092,
+        "markers": 0.316594,
+        "track": 0.158297,
+        "moving": 0.143874,
+        "vehicle": 0.125702,
+        "client-visible": 0.158297,
+        "poses": 0.158297,
+        "space-engineers": 0.202091,
+        "camera-observation": 0.238433,
+        "client-display": 0.316594,
+        "vehicle-follow": 0.287747,
+        "provenance": 0.183425
+      },
+      "multiview-cameras-006": {
+        "read-only": 0.139142,
+        "voidwright": 0.110491,
+        "interface": 0.139142,
+        "expose": 0.139142,
+        "damage-aware": 0.278284,
+        "structural": 0.139142,
+        "view": 0.139142,
+        "inspectable": 0.139142,
+        "holoview": 0.110491,
+        "image": 0.139142,
+        "through": 0.252928,
+        "ordinary": 0.139142,
+        "codex": 0.139142,
+        "mcp": 0.556567,
+        "tools": 0.139142,
+        "operational": 0.139142,
+        "vision": 0.117469,
+        "wireframes": 0.139142,
+        "normal": 0.110491,
+        "capture": 0.117469,
+        "space-engineers": 0.177636,
+        "headless-rendering": 0.220983,
+        "camera-observation": 0.209581,
+        "structural-visualization": 0.278284,
+        "provenance": 0.161229,
+        "mixed-result": 0.156595
       }
     },
     "pairwise_distances": [
       [
         0,
-        0.60846,
-        0.870993
+        0.663397,
+        0.907438,
+        0.744837,
+        0.815826,
+        0.784279
       ],
       [
-        0.60846,
+        0.663397,
         0,
-        0.859593
+        0.894019,
+        0.753463,
+        0.854769,
+        0.774593
       ],
       [
-        0.870993,
-        0.859593,
+        0.907438,
+        0.894019,
+        0,
+        0.875647,
+        0.908621,
+        0.891443
+      ],
+      [
+        0.744837,
+        0.753463,
+        0.875647,
+        0,
+        0.582087,
+        0.807371
+      ],
+      [
+        0.815826,
+        0.854769,
+        0.908621,
+        0.582087,
+        0,
+        0.884557
+      ],
+      [
+        0.784279,
+        0.774593,
+        0.891443,
+        0.807371,
+        0.884557,
         0
       ]
     ],
     "projection": {
       "method": "classical-mds",
       "dimensions": 2,
-      "normalized_stress": 0,
+      "normalized_stress": 0.3851,
       "points": {
         "multiview-cameras-001": [
-          0.280541,
-          -0.300088
+          -0.004521,
+          0.277985
         ],
         "multiview-cameras-002": [
-          0.259446,
-          0.308007
+          -0.086906,
+          0.292788
         ],
         "multiview-cameras-003": [
-          -0.539987,
-          -0.007919
+          -0.411002,
+          -0.458948
+        ],
+        "multiview-cameras-004": [
+          0.306449,
+          -0.091404
+        ],
+        "multiview-cameras-005": [
+          0.412019,
+          -0.220248
+        ],
+        "multiview-cameras-006": [
+          -0.216039,
+          0.199826
         ]
       }
     },

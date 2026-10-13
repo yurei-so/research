@@ -1,0 +1,60 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-10-13T20:43:47.000Z",
+  "source_revision": "654ccfc93611",
+  "family": {
+    "id": "vehicle-navigation",
+    "title": "Vehicle Navigation",
+    "labnote_count": 2,
+    "outcomes": {
+      "mixed": 1,
+      "positive": 1
+    },
+    "latest_labnote_id": "vehicle-navigation-002"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Vehicle Navigation record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "vehicle-navigation-002",
+        "title": "V3 Red Truck depth-guided GPS attempt",
+        "date": "2026-10-09",
+        "status": "complete",
+        "outcome": "mixed",
+        "question": "Can the V3 Red Truck's depth-guided controller reach the End Position GPS within a bounded low-speed operation?",
+        "finding": "The operation timed out without reaching the target. Ground-plane target distance fell from 77.857 m to 68.520 m, and the position-derived path and center-of-mass displacement were 10.175 m and 10.125 m. The terminal sample reported a clear scan, 8 m minimum corridor clearance…",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/vehicle-navigation-002/"
+      },
+      {
+        "id": "vehicle-navigation-001",
+        "title": "Repeated V2 color-zone waypoint baseline",
+        "date": "2026-10-09",
+        "status": "complete",
+        "outcome": "positive",
+        "question": "Can the V2 Blue Utility Truck repeatedly reach the four color-zone GPS targets and return to Safe Spawn on the open proving-ground platform using bounded wheel guidance?",
+        "finding": "All ten color-zone legs completed inside the configured 3 m ground-plane radius. Across them, the receipts report about 634.689 m of position-sampled path and 626.823 m of center-of-mass displacement over 39,402 simulation ticks (656.7 nominal seconds). Terminal physics speed…",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/vehicle-navigation-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [
+    {
+      "from": "vehicle-navigation-002",
+      "to": "vehicle-navigation-001",
+      "type": "motivated-by"
+    }
+  ],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/projects/vehicle-navigation/",
+    "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
+    "heavy_geometry": "https://yurei-so.github.io/research/projects/vehicle-navigation/graph.json",
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

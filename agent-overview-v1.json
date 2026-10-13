@@ -1,7 +1,7 @@
 {
   "schema": "research-agent-overview/v1",
-  "generated_at": "2026-10-08T18:49:06.000Z",
-  "source_revision": "124fed90e431",
+  "generated_at": "2026-10-13T20:43:47.000Z",
+  "source_revision": "654ccfc93611",
   "purpose": "Token-bounded orientation and routing for the public Yurei Research record.",
   "disclaimers": {
     "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
@@ -25,6 +25,17 @@
       "human_url": "https://yurei-so.github.io/research/projects/composition/"
     },
     {
+      "id": "game-session-observation",
+      "title": "Game Session Observation",
+      "labnote_count": 1,
+      "outcomes": {
+        "mixed": 1
+      },
+      "latest_labnote_id": "game-session-observation-001",
+      "overview_url": "https://yurei-so.github.io/research/projects/game-session-observation/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/game-session-observation/"
+    },
+    {
       "id": "meta-research",
       "title": "Meta Research",
       "labnote_count": 1,
@@ -38,12 +49,12 @@
     {
       "id": "multiview-cameras",
       "title": "Multiview Cameras",
-      "labnote_count": 3,
+      "labnote_count": 6,
       "outcomes": {
-        "mixed": 1,
-        "positive": 2
+        "mixed": 2,
+        "positive": 4
       },
-      "latest_labnote_id": "multiview-cameras-003",
+      "latest_labnote_id": "multiview-cameras-006",
       "overview_url": "https://yurei-so.github.io/research/projects/multiview-cameras/index.json",
       "human_url": "https://yurei-so.github.io/research/projects/multiview-cameras/"
     },
@@ -72,6 +83,18 @@
       "latest_labnote_id": "prosody-018",
       "overview_url": "https://yurei-so.github.io/research/projects/prosody/index.json",
       "human_url": "https://yurei-so.github.io/research/projects/prosody/"
+    },
+    {
+      "id": "vehicle-navigation",
+      "title": "Vehicle Navigation",
+      "labnote_count": 2,
+      "outcomes": {
+        "mixed": 1,
+        "positive": 1
+      },
+      "latest_labnote_id": "vehicle-navigation-002",
+      "overview_url": "https://yurei-so.github.io/research/projects/vehicle-navigation/index.json",
+      "human_url": "https://yurei-so.github.io/research/projects/vehicle-navigation/"
     },
     {
       "id": "voxel-guidance",

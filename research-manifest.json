@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-08T18:49:06.000Z",
-  "source_revision": "124fed90e431",
+  "generated_at": "2026-10-13T20:43:47.000Z",
+  "source_revision": "654ccfc93611",
   "families": [
     {
       "id": "composition",
@@ -17,6 +17,16 @@
       }
     },
     {
+      "id": "game-session-observation",
+      "title": "Game Session Observation",
+      "labnote_count": 1,
+      "latest_labnote_id": "game-session-observation-001",
+      "has_graph": false,
+      "outcomes": {
+        "mixed": 1
+      }
+    },
+    {
       "id": "meta-research",
       "title": "Meta Research",
       "labnote_count": 1,
@@ -29,12 +39,12 @@
     {
       "id": "multiview-cameras",
       "title": "Multiview Cameras",
-      "labnote_count": 3,
-      "latest_labnote_id": "multiview-cameras-003",
+      "labnote_count": 6,
+      "latest_labnote_id": "multiview-cameras-006",
       "has_graph": true,
       "outcomes": {
-        "mixed": 1,
-        "positive": 2
+        "mixed": 2,
+        "positive": 4
       }
     },
     {
@@ -59,6 +69,17 @@
         "mixed": 3,
         "negative": 8,
         "positive": 3
+      }
+    },
+    {
+      "id": "vehicle-navigation",
+      "title": "Vehicle Navigation",
+      "labnote_count": 2,
+      "latest_labnote_id": "vehicle-navigation-002",
+      "has_graph": true,
+      "outcomes": {
+        "mixed": 1,
+        "positive": 1
       }
     },
     {
@@ -87,6 +108,201 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "multiview-cameras-006",
+      "family": "multiview-cameras",
+      "title": "Operational vision through damage-aware wireframes and normal MCP capture",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can the read-only Voidwright interface expose a damage-aware structural view and an inspectable HoloView image through ordinary Codex MCP tools?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "mcp",
+        "structural-visualization",
+        "provenance",
+        "mixed-result"
+      ],
+      "lineage": [
+        "multiview-cameras-001"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends the headless HoloView capture result with an ordinary Codex MCP invocation and a damage-aware structural wireframe path."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-006/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The normal MCP image-return path succeeded in one bounded invocation, and the damage-aware wireframe path passed synthetic contract tests. However, one live session's injected catalog omitted the otherwise configured capture tool, so availability was not consistent across sess…"
+    },
+    {
+      "id": "multiview-cameras-005",
+      "family": "multiview-cameras",
+      "title": "Client-visible markers for virtual camera poses",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can a connected Space Engineers client display a virtual camera's position and orientation as GPS markers that track a moving vehicle?",
+      "tags": [
+        "space-engineers",
+        "camera-observation",
+        "gps",
+        "client-display",
+        "vehicle-follow",
+        "provenance"
+      ],
+      "lineage": [
+        "multiview-cameras-004"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-004",
+          "type": "extends",
+          "rationale": "Extends the live grid-relative camera observation with client-visible GPS markers for the virtual camera pose."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-005/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-004"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The participant confirmed that all three markers appeared and followed the truck while retaining their relative shape. The server-side pose packet also changed position and orientation during the session. Together these observations support that the client-visible points track…"
+    },
+    {
+      "id": "multiview-cameras-004",
+      "family": "multiview-cameras",
+      "title": "Live multiplayer observation and moving-grid camera tracking",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can Voidwright observe a connected human and a human-driven moving vehicle in a shared Space Engineers world, keep a grid-relative virtual camera attached, and return provenance-bound HoloView captures?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "multiplayer",
+        "vehicle-follow",
+        "provenance"
+      ],
+      "lineage": [
+        "multiview-cameras-001"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends the bounded HoloView capture path to a live human-connected session with a moving-grid-relative perspective."
+        }
+      ],
+      "href": "labnotes/multiview-cameras-004/",
+      "timeline": {
+        "follows": [
+          "multiview-cameras-001"
+        ],
+        "continued_by": [
+          "multiview-cameras-005"
+        ]
+      },
+      "result_summary": "The same anonymous character was observed before and after the brief walk, with a 4.107 m sample-to-sample displacement."
+    },
+    {
+      "id": "game-session-observation-001",
+      "family": "game-session-observation",
+      "title": "V3 human-driven valley recording and server evidence",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "What can a bounded desktop recording and dedicated-server logs establish about a human-driven V3 valley session?",
+      "tags": [
+        "space-engineers",
+        "game-session-recording",
+        "human-driven",
+        "simulation-logs",
+        "provenance",
+        "mixed-result"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/game-session-observation-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": []
+      },
+      "result_summary": "What can a bounded desktop recording and dedicated-server logs establish about a human-driven V3 valley session?"
+    },
+    {
+      "id": "vehicle-navigation-002",
+      "family": "vehicle-navigation",
+      "title": "V3 Red Truck depth-guided GPS attempt",
+      "date": "2026-10-09",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can the V3 Red Truck's depth-guided controller reach the End Position GPS within a bounded low-speed operation?",
+      "tags": [
+        "space-engineers",
+        "vehicle-control",
+        "depth-guidance",
+        "gps-waypoints",
+        "bounded-navigation",
+        "mixed-result"
+      ],
+      "lineage": [
+        "vehicle-navigation-001"
+      ],
+      "relations": [
+        {
+          "target": "vehicle-navigation-001",
+          "type": "motivated-by",
+          "rationale": "Tests a different controller and fixture after the V2 open-platform GPS waypoint baseline; this is not a direct replication."
+        }
+      ],
+      "href": "labnotes/vehicle-navigation-002/",
+      "timeline": {
+        "follows": [
+          "vehicle-navigation-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The operation timed out without reaching the target. Ground-plane target distance fell from 77.857 m to 68.520 m, and the position-derived path and center-of-mass displacement were 10.175 m and 10.125 m. The terminal sample reported a clear scan, 8 m minimum corridor clearance…"
+    },
+    {
+      "id": "vehicle-navigation-001",
+      "family": "vehicle-navigation",
+      "title": "Repeated V2 color-zone waypoint baseline",
+      "date": "2026-10-09",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the V2 Blue Utility Truck repeatedly reach the four color-zone GPS targets and return to Safe Spawn on the open proving-ground platform using bounded wheel guidance?",
+      "tags": [
+        "space-engineers",
+        "vehicle-control",
+        "gps-waypoints",
+        "bounded-navigation",
+        "baseline",
+        "provenance"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/vehicle-navigation-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "vehicle-navigation-002"
+        ]
+      },
+      "result_summary": "All ten color-zone legs completed inside the configured 3 m ground-plane radius. Across them, the receipts report about 634.689 m of position-sampled path and 626.823 m of center-of-mass displacement over 39,402 simulation ticks (656.7 nominal seconds). Terminal physics speed…"
+    },
     {
       "id": "multiview-cameras-003",
       "family": "multiview-cameras",
@@ -169,7 +385,9 @@
       "timeline": {
         "follows": [],
         "continued_by": [
-          "multiview-cameras-002"
+          "multiview-cameras-002",
+          "multiview-cameras-004",
+          "multiview-cameras-006"
         ]
       },
       "result_summary": "The bounded single-camera export completed and produced a tick-indexed video, hashed frames, a capture manifest, and frame-linked scene metadata from the headless server environment. This is a positive feasibility result for the specific HoloView software-renderer path."

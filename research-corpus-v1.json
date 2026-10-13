@@ -1,11 +1,15 @@
 {
   "schema": "research-corpus/v1",
-  "generated_at": "2026-10-08T18:49:06.000Z",
-  "source_revision": "124fed90e431",
+  "generated_at": "2026-10-13T20:43:47.000Z",
+  "source_revision": "654ccfc93611",
   "families": [
     {
       "id": "composition",
       "title": "Composition"
+    },
+    {
+      "id": "game-session-observation",
+      "title": "Game Session Observation"
     },
     {
       "id": "meta-research",
@@ -24,6 +28,10 @@
       "title": "Prosody"
     },
     {
+      "id": "vehicle-navigation",
+      "title": "Vehicle Navigation"
+    },
+    {
       "id": "voxel-guidance",
       "title": "Voxel Guidance"
     },
@@ -33,6 +41,139 @@
     }
   ],
   "labnotes": [
+    {
+      "id": "multiview-cameras-006",
+      "family": "multiview-cameras",
+      "title": "Operational vision through damage-aware wireframes and normal MCP capture",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can the read-only Voidwright interface expose a damage-aware structural view and an inspectable HoloView image through ordinary Codex MCP tools?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "mcp",
+        "structural-visualization",
+        "provenance",
+        "mixed-result"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends the headless HoloView capture result with an ordinary Codex MCP invocation and a damage-aware structural wireframe path."
+        }
+      ]
+    },
+    {
+      "id": "multiview-cameras-005",
+      "family": "multiview-cameras",
+      "title": "Client-visible markers for virtual camera poses",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can a connected Space Engineers client display a virtual camera's position and orientation as GPS markers that track a moving vehicle?",
+      "tags": [
+        "space-engineers",
+        "camera-observation",
+        "gps",
+        "client-display",
+        "vehicle-follow",
+        "provenance"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-004",
+          "type": "extends",
+          "rationale": "Extends the live grid-relative camera observation with client-visible GPS markers for the virtual camera pose."
+        }
+      ]
+    },
+    {
+      "id": "multiview-cameras-004",
+      "family": "multiview-cameras",
+      "title": "Live multiplayer observation and moving-grid camera tracking",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can Voidwright observe a connected human and a human-driven moving vehicle in a shared Space Engineers world, keep a grid-relative virtual camera attached, and return provenance-bound HoloView captures?",
+      "tags": [
+        "space-engineers",
+        "headless-rendering",
+        "camera-observation",
+        "multiplayer",
+        "vehicle-follow",
+        "provenance"
+      ],
+      "relations": [
+        {
+          "target": "multiview-cameras-001",
+          "type": "extends",
+          "rationale": "Extends the bounded HoloView capture path to a live human-connected session with a moving-grid-relative perspective."
+        }
+      ]
+    },
+    {
+      "id": "game-session-observation-001",
+      "family": "game-session-observation",
+      "title": "V3 human-driven valley recording and server evidence",
+      "date": "2026-10-13",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "What can a bounded desktop recording and dedicated-server logs establish about a human-driven V3 valley session?",
+      "tags": [
+        "space-engineers",
+        "game-session-recording",
+        "human-driven",
+        "simulation-logs",
+        "provenance",
+        "mixed-result"
+      ],
+      "relations": []
+    },
+    {
+      "id": "vehicle-navigation-002",
+      "family": "vehicle-navigation",
+      "title": "V3 Red Truck depth-guided GPS attempt",
+      "date": "2026-10-09",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can the V3 Red Truck's depth-guided controller reach the End Position GPS within a bounded low-speed operation?",
+      "tags": [
+        "space-engineers",
+        "vehicle-control",
+        "depth-guidance",
+        "gps-waypoints",
+        "bounded-navigation",
+        "mixed-result"
+      ],
+      "relations": [
+        {
+          "target": "vehicle-navigation-001",
+          "type": "motivated-by",
+          "rationale": "Tests a different controller and fixture after the V2 open-platform GPS waypoint baseline; this is not a direct replication."
+        }
+      ]
+    },
+    {
+      "id": "vehicle-navigation-001",
+      "family": "vehicle-navigation",
+      "title": "Repeated V2 color-zone waypoint baseline",
+      "date": "2026-10-09",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the V2 Blue Utility Truck repeatedly reach the four color-zone GPS targets and return to Safe Spawn on the open proving-ground platform using bounded wheel guidance?",
+      "tags": [
+        "space-engineers",
+        "vehicle-control",
+        "gps-waypoints",
+        "bounded-navigation",
+        "baseline",
+        "provenance"
+      ],
+      "relations": []
+    },
     {
       "id": "multiview-cameras-003",
       "family": "multiview-cameras",

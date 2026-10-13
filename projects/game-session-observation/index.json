@@ -1,0 +1,43 @@
+{
+  "schema": "research-family-overview/v1",
+  "generated_at": "2026-10-13T20:43:47.000Z",
+  "source_revision": "654ccfc93611",
+  "family": {
+    "id": "game-session-observation",
+    "title": "Game Session Observation",
+    "labnote_count": 1,
+    "outcomes": {
+      "mixed": 1
+    },
+    "latest_labnote_id": "game-session-observation-001"
+  },
+  "orientation": {
+    "purpose": "Compact orientation to the published Game Session Observation record. Follow evidence_url before making substantive claims.",
+    "entry_point_policy": "Latest work, latest negative result, and earliest published record; duplicates are removed.",
+    "entry_points": [
+      {
+        "id": "game-session-observation-001",
+        "title": "V3 human-driven valley recording and server evidence",
+        "date": "2026-10-13",
+        "status": "complete",
+        "outcome": "mixed",
+        "question": "What can a bounded desktop recording and dedicated-server logs establish about a human-driven V3 valley session?",
+        "finding": "What can a bounded desktop recording and dedicated-server logs establish about a human-driven V3 valley session?",
+        "evidence_url": "https://yurei-so.github.io/research/labnotes/game-session-observation-001/"
+      }
+    ]
+  },
+  "authored_relations_near_entry_points": [],
+  "disclaimers": {
+    "evidence": "This overview routes readers to published labnotes; it is not itself evidence.",
+    "relations": "Relations are human-authored provenance statements, not automatic proof of causality or support.",
+    "similarity": "Similarity geometry is omitted here. Its projection is navigational, corpus-relative, lossy, and not evidence of causality.",
+    "generated_summaries": "Derived AI summaries are absent unless explicitly labeled with provenance and review status."
+  },
+  "links": {
+    "human": "https://yurei-so.github.io/research/projects/game-session-observation/",
+    "complete_corpus": "https://yurei-so.github.io/research/research-corpus-v1.json",
+    "heavy_geometry": null,
+    "source": "https://github.com/yurei-so/research/tree/main/experiments"
+  }
+}

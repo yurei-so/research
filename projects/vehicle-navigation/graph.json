@@ -1,0 +1,172 @@
+{
+  "family": {
+    "id": "vehicle-navigation",
+    "title": "Vehicle Navigation"
+  },
+  "notes": [
+    {
+      "id": "vehicle-navigation-001",
+      "family": "vehicle-navigation",
+      "title": "Repeated V2 color-zone waypoint baseline",
+      "date": "2026-10-09",
+      "status": "complete",
+      "outcome": "positive",
+      "question": "Can the V2 Blue Utility Truck repeatedly reach the four color-zone GPS targets and return to Safe Spawn on the open proving-ground platform using bounded wheel guidance?",
+      "tags": [
+        "space-engineers",
+        "vehicle-control",
+        "gps-waypoints",
+        "bounded-navigation",
+        "baseline",
+        "provenance"
+      ],
+      "lineage": [],
+      "relations": [],
+      "href": "labnotes/vehicle-navigation-001/",
+      "timeline": {
+        "follows": [],
+        "continued_by": [
+          "vehicle-navigation-002"
+        ]
+      },
+      "result_summary": "All ten color-zone legs completed inside the configured 3 m ground-plane radius. Across them, the receipts report about 634.689 m of position-sampled path and 626.823 m of center-of-mass displacement over 39,402 simulation ticks (656.7 nominal seconds). Terminal physics speed…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/vehicle-navigation/docs/labnotes/vehicle-navigation-001-v2-color-zone-waypoint-baseline.md"
+    },
+    {
+      "id": "vehicle-navigation-002",
+      "family": "vehicle-navigation",
+      "title": "V3 Red Truck depth-guided GPS attempt",
+      "date": "2026-10-09",
+      "status": "complete",
+      "outcome": "mixed",
+      "question": "Can the V3 Red Truck's depth-guided controller reach the End Position GPS within a bounded low-speed operation?",
+      "tags": [
+        "space-engineers",
+        "vehicle-control",
+        "depth-guidance",
+        "gps-waypoints",
+        "bounded-navigation",
+        "mixed-result"
+      ],
+      "lineage": [
+        "vehicle-navigation-001"
+      ],
+      "relations": [
+        {
+          "target": "vehicle-navigation-001",
+          "type": "motivated-by",
+          "rationale": "Tests a different controller and fixture after the V2 open-platform GPS waypoint baseline; this is not a direct replication."
+        }
+      ],
+      "href": "labnotes/vehicle-navigation-002/",
+      "timeline": {
+        "follows": [
+          "vehicle-navigation-001"
+        ],
+        "continued_by": []
+      },
+      "result_summary": "The operation timed out without reaching the target. Ground-plane target distance fell from 77.857 m to 68.520 m, and the position-derived path and center-of-mass displacement were 10.175 m and 10.125 m. The terminal sample reported a clear scan, 8 m minimum corridor clearance…",
+      "source_url": "https://github.com/yurei-so/research/blob/main/experiments/vehicle-navigation/docs/labnotes/vehicle-navigation-002-v3-red-truck-depth-guided-gps-attempt.md"
+    }
+  ],
+  "relations": [
+    {
+      "source": "vehicle-navigation-002",
+      "target": "vehicle-navigation-001",
+      "type": "motivated-by",
+      "rationale": "Tests a different controller and fixture after the V2 open-platform GPS waypoint baseline; this is not a direct replication."
+    }
+  ],
+  "attention": {
+    "representation": {
+      "method": "tf-idf",
+      "fields": [
+        "question",
+        "title",
+        "tags"
+      ],
+      "dimensions": 780,
+      "metric": "cosine-distance"
+    },
+    "vectors": {
+      "vehicle-navigation-001": {
+        "v2": 0.307513,
+        "blue": 0.153756,
+        "utility": 0.153756,
+        "truck": 0.129807,
+        "repeatedly": 0.153756,
+        "reach": 0.139747,
+        "four": 0.153756,
+        "color-zone": 0.307513,
+        "gps": 0.129807,
+        "targets": 0.153756,
+        "return": 0.139747,
+        "safe": 0.153756,
+        "spawn": 0.153756,
+        "open": 0.139747,
+        "proving-ground": 0.153756,
+        "platform": 0.153756,
+        "using": 0.153756,
+        "bounded": 0.101787,
+        "wheel": 0.153756,
+        "guidance": 0.153756,
+        "repeated": 0.129807,
+        "waypoint": 0.153756,
+        "baseline": 0.317571,
+        "space-engineers": 0.196294,
+        "vehicle-control": 0.259614,
+        "gps-waypoints": 0.279494,
+        "bounded-navigation": 0.259614,
+        "provenance": 0.178164
+      },
+      "vehicle-navigation-002": {
+        "v3": 0.251593,
+        "red": 0.316831,
+        "truck": 0.26748,
+        "depth-guided": 0.316831,
+        "controller": 0.143981,
+        "reach": 0.143981,
+        "end": 0.158416,
+        "position": 0.125796,
+        "gps": 0.26748,
+        "within": 0.158416,
+        "bounded": 0.104872,
+        "low-speed": 0.158416,
+        "operation": 0.158416,
+        "attempt": 0.158416,
+        "space-engineers": 0.202242,
+        "vehicle-control": 0.26748,
+        "depth-guidance": 0.316831,
+        "gps-waypoints": 0.287963,
+        "bounded-navigation": 0.26748,
+        "mixed-result": 0.178286
+      }
+    },
+    "pairwise_distances": [
+      [
+        0,
+        0.640697
+      ],
+      [
+        0.640697,
+        0
+      ]
+    ],
+    "projection": {
+      "method": "classical-mds",
+      "dimensions": 2,
+      "normalized_stress": 0,
+      "points": {
+        "vehicle-navigation-001": [
+          0.320349,
+          0
+        ],
+        "vehicle-navigation-002": [
+          -0.320349,
+          0
+        ]
+      }
+    },
+    "warning": "Density and sparsity describe only the supplied published corpus. Two-dimensional geometry is approximate and is not evidence of causality, support, value, truth, or a real knowledge gap."
+  }
+}

@@ -17,7 +17,7 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.ok(manifest.labnotes.some((note) => note.id === "prosody-001"));
   assert.ok(manifest.labnotes.some((note) => note.id === "voxel-guidance-001"));
   assert.ok(manifest.labnotes.some((note) => note.id === "multiview-cameras-001"));
-  assert.equal(manifest.families.length, 7);
+  assert.equal(manifest.families.length, 9);
   assert.equal(manifest.families.find((family) => family.id === "meta-research")?.title, "Meta Research");
   assert.equal(manifest.families.find((family) => family.id === "multiview-cameras")?.title, "Multiview Cameras");
   assert.ok(manifest.families.every((family) => !Object.hasOwn(family, "status")));
@@ -32,7 +32,7 @@ test("repository catalog validates and exposes only allowlisted metadata", () =>
   assert.equal(namespaceAblation.relations[0].target, "voxel-guidance-004");
   assert.ok(manifest.families.find((family) => family.id === "voxel-guidance").has_graph);
   assert.deepEqual(manifest.families.filter((family) => family.has_graph).map((family) => family.id),
-    ["composition", "multiview-cameras", "narrative-steering", "prosody", "voxel-guidance", "zenith"]);
+    ["composition", "multiview-cameras", "narrative-steering", "prosody", "vehicle-navigation", "voxel-guidance", "zenith"]);
 });
 
 test("every published labnote has enough metadata for a standalone discovery page", () => {

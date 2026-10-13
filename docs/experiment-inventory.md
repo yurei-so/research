@@ -91,6 +91,22 @@ launcher-control dependency; experimental protocols and evidence remain here.
 | `multiview-cameras-001` | Bounded HoloView capture in a headless dedicated server | Complete | Positive | `space-engineers`, `headless-rendering`, `camera-observation`, `scene-metadata` | One HoloView camera/LCD stream produced bounded, tick-linked frames and renderer-side metadata on a dedicated server; true multiview synchronization and pixel-derived semantics remain untested. |
 | `multiview-cameras-002` | Paired HoloView capture during a bounded vehicle approach | Complete | Positive | `space-engineers`, `headless-rendering`, `camera-observation`, `vehicle-control` | Initial attempt stalled about 9 m short; after updating the staged controller, one continuation reached the 3 m ground-plane threshold (3.219 m spatial distance), with 119 paired frames per capture. Not a 3D-arrival, repeatability, or general-navigation result. |
 | `multiview-cameras-003` | Sparse terrain-height reconstruction over a stitched vehicle run | Complete | Mixed | `space-engineers`, `depth-sensing`, `terrain-reconstruction`, `vehicle-telemetry` | Registered 64 receipt-validated front-depth captures against an 80-operation route into a gravity-aligned sparse height layer (26.3% sampled-cell coverage); drive ended 80.9 m short at the attitude safety limit, and the map was post-hoc, not controller input. |
+| `multiview-cameras-004` | Live multiplayer observation and moving-grid camera tracking | Complete | Positive | `space-engineers`, `headless-rendering`, `multiplayer`, `vehicle-follow` | One human-driven V2 session demonstrated changing character and truck samples, a grid-relative camera update, and nonblank HoloView captures; not continuous tracking or Codex control. |
+| `multiview-cameras-005` | Client-visible markers for virtual camera poses | Complete | Positive | `space-engineers`, `camera-observation`, `gps`, `client-display` | A participant confirmed three GPS points followed a moving truck; no saved client screenshot or marker-accuracy measurement. |
+| `multiview-cameras-006` | Operational vision through damage-aware wireframes and normal MCP capture | Complete | Mixed | `space-engineers`, `camera-observation`, `mcp`, `structural-visualization` | One ordinary MCP call returned a static image and synthetic damage coloring passed checks, but tool-catalog exposure differed across sessions and live damage was not tested. |
+
+## Vehicle Navigation family
+
+| ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
+| --- | --- | --- | --- | --- | --- |
+| `vehicle-navigation-001` | Repeated V2 color-zone waypoint baseline | Complete | Positive | `space-engineers`, `vehicle-control`, `gps-waypoints`, `bounded-navigation` | Ten open-platform legs reached four GPS zones and returned to Safe Spawn; obstacle avoidance, collision contacts, and course completion remain untested. |
+| `vehicle-navigation-002` | V3 Red Truck depth-guided GPS attempt | Complete | Mixed | `space-engineers`, `vehicle-control`, `depth-guidance`, `gps-waypoints` | The truck moved toward End Position but timed out 68.520 m away; a terminal clear scan is not proof the full route was clear. |
+
+## Game Session Observation family
+
+| ID | Canonical note | Status | Outcome | Primary tags | Inventory note |
+| --- | --- | --- | --- | --- | --- |
+| `game-session-observation-001` | V3 human-driven valley recording and server evidence | Complete | Mixed | `space-engineers`, `game-session-recording`, `human-driven`, `simulation-logs` | The recording and sparse server events support bounded cockpit and endpoint observations, not a continuous trajectory, total distance, or launch count. |
 
 ## Migration checks
 

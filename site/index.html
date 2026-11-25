@@ -19,28 +19,53 @@
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css?v={{REVISION}}">
 </head>
-<body>
+<body class="observatory" id="overview">
   <header class="terminal-bar">
-    <a class="wordmark" href="./"><img src="favicon.png" alt="">YUREI RESEARCH</a>
-    <span>RESEARCH LIBRARY</span>
+    <a class="wordmark" href="./"><img src="favicon.png" alt="">YŪREI RESEARCH</a>
+    <span class="stable-label">STABLE</span>
   </header>
+  <div class="observatory-layout">
+  <nav class="observatory-nav" aria-label="Research">
+    <a href="#overview" aria-current="page">Overview</a>
+    <a href="#programs">Research programs</a>
+    <a href="#families-section">Experiment families</a>
+    <a href="#labnotes">Labnotes</a>
+    <a href="maps/">Research maps</a>
+    <a href="https://github.com/yurei-so/research/tree/main/apparatus">Apparatus</a>
+    <a href="https://github.com/yurei-so/research/blob/main/docs/governance.md">Methodology</a>
+    <a href="reviewers/">For reviewers</a>
+  </nav>
   <main itemscope itemtype="https://schema.org/CollectionPage">
-    <section class="hero">
-      <div class="eyebrow">YUREI RESEARCH</div>
-      <h1>Research library</h1>
-      <p>Field dispatches, protocols, labnotes, and results from Yurei's experimental work. The stories may be lively; the evidence stays inspectable.</p>
-      <div class="hero-readout"><span><b id="note-count">{{NOTE_COUNT}}</b> LABNOTES</span><span><b id="dispatch-count">{{DISPATCH_COUNT}}</b> DISPATCHES</span><span><b id="family-count">{{FAMILY_COUNT}}</b> RESEARCH AREAS</span><span><b id="revision">{{REVISION}}</b> REVISION</span></div>
+    <section class="observatory-intro" aria-labelledby="mission">
+      <p class="eyebrow">RESEARCH OVERVIEW</p>
+      <h1 id="mission">Bounded intelligence. Inspectable evidence.</h1>
+      <p>Experimental research into resource-conscious interactive AI systems.</p>
+      <div class="observatory-counts">
+        <a href="#labnotes"><b>{{NOTE_COUNT}}</b> Labnotes</a>
+        <a href="#programs"><b>{{PROGRAM_COUNT}}</b> Programs</a>
+        <a href="#families-section"><b>{{FAMILY_COUNT}}</b> Families</a>
+        <a href="#dispatches"><b>{{DISPATCH_COUNT}}</b> Dispatches</a>
+      </div>
     </section>
-    <section class="deck" aria-labelledby="deck-title">
-      <div class="section-heading"><div><span>01</span><h2 id="deck-title">Research areas</h2></div><p>Browse published experiment families.</p></div>
+    <section id="programs" aria-labelledby="program-title">
+      <h2 id="program-title">Research programs</h2>
+      <div class="program-grid">{{PROGRAM_CARDS}}</div>
+    </section>
+    <div class="observatory-evidence">
+      <section aria-labelledby="latest-title"><h2 id="latest-title">Latest evidence</h2><ul class="latest-evidence">{{LATEST_EVIDENCE}}</ul></section>
+      <section aria-labelledby="outcomes-title"><h2 id="outcomes-title">Outcome mix</h2>{{OUTCOME_MIX}}</section>
+    </div>
+    <section aria-labelledby="reading-title"><h2 id="reading-title">Exemplar readings</h2><ul class="exemplar-readings">{{EXEMPLAR_READINGS}}</ul></section>
+    <section class="deck" id="families-section" aria-labelledby="deck-title">
+      <div class="section-heading"><div><h2 id="deck-title">Experiment families</h2></div><p><a href="inventory/">View current publication inventory</a></p></div>
       <div id="families" class="family-grid" aria-live="polite">{{FAMILY_CARDS}}</div>
     </section>
     <section class="archive dispatch-archive" id="dispatches" aria-labelledby="dispatch-title">
-      <div class="section-heading"><div><span>02</span><h2 id="dispatch-title">Dispatches</h2></div><p>Human-readable debriefs around the work. Formal labnotes remain the evidence record.</p></div>
+      <div class="section-heading"><div><h2 id="dispatch-title">Dispatches</h2></div><p>Human-readable debriefs around the work. Formal labnotes remain the evidence record.</p></div>
       <div class="feed dispatch-feed">{{DISPATCH_CARDS}}</div>
     </section>
-    <section class="archive" aria-labelledby="archive-title">
-      <div class="section-heading"><div><span>03</span><h2 id="archive-title">Labnotes</h2></div><p>Published records ordered by research date.</p></div>
+    <section class="archive" id="labnotes" aria-labelledby="archive-title">
+      <div class="section-heading"><div><h2 id="archive-title">Labnotes</h2></div><p>Published records ordered by research date.</p></div>
       <div class="controls">
         <label>FILTER <input id="search" type="search" placeholder="ID, question, method…"></label>
         <label>OUTCOME <select id="outcome"><option value="">All outcomes</option></select></label>
@@ -49,6 +74,7 @@
       <div id="feed" class="feed" aria-live="polite">{{LABNOTE_CARDS}}</div>
     </section>
   </main>
+  </div>
   <footer><span>YUREI RESEARCH · <a href="https://github.com/yurei-so/research">SOURCE</a> · <a href="https://github.com/yurei-so/research/blob/main/LICENSE.md">SOFTWARE LICENSE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span id="generated">CATALOG {{GENERATED_AT}} / REV {{REVISION}}</span></footer>
   <template id="research-manifest-data">{{RESEARCH_MANIFEST_JSON}}</template>
   <script type="module" src="assets/app.js?v={{REVISION}}"></script>

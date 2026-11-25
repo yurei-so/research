@@ -19,8 +19,11 @@ version of any labnote or research tool. Dedicated research JSON, corpus,
 agent-overview, graph-data, sitemap, and agent-discovery files are omitted from
 `/beta/`; those machine-readable contracts remain available only on stable.
 Visual pages carry the minimum embedded data needed for their human-facing
-interactions. Revision menus link matching stable and beta routes and identify
-the exact source revisions recorded in the deployment manifest.
+interactions. The stable source owns the assembler and its list of approved beta family IDs.
+A switch appears only on a listed family with both builds present and identical embedded published evidence and authored relations. Stable is
+the default. The homepage, labnotes, dispatches and other pages have no beta
+switch. Ineligible legacy preview URLs forward to stable. The deployment
+manifest records the pinned source revisions.
 
 GitHub Pages publishes from the generated `gh-pages` branch. A source change on
 either `main` or `beta` rebuilds both pinned channels before atomically updating

@@ -9,6 +9,8 @@ import { collectCatalog, copyPublishedLabnoteAssets, escapeHtml, extractResultSu
 import { collectDispatches, renderDispatchPage } from "./dispatches.mjs";
 import { writeFamilySocialCard, writeSocialCard } from "./social-card.mjs";
 
+import { evidence, observatory, outcomeMix } from "./observatory.mjs";
+
 const root = path.resolve(import.meta.dirname, "..");
 const siteUrl = "https://yurei-so.github.io/research/";
 const repositoryUrl = "https://github.com/yurei-so/research";
@@ -45,19 +47,27 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   note.result_summary = extractResultSummary(record.body, note.question);
 }
 const familyCard = (family) => {
-  const successRate = family.labnote_count
-    ? Math.round(((family.outcomes.positive ?? 0) / family.labnote_count) * 100)
-    : 0;
   const noteLabel = family.labnote_count === 1 ? "labnote" : "labnotes";
   const action = family.has_graph ? "OPEN RESEARCH MAP →" : "FILTER TO THIS FAMILY ↓";
   const content = `<h3>${escapeHtml(family.title)}</h3><p>${family.labnote_count} published ${noteLabel}</p><div class="outcomes">${Object.entries(family.outcomes).map(([name, count]) => `<span data-outcome="${name}">${count} ${name}</span>`).join("")}</div><span class="inspect">${action}</span>`;
   const primary = family.has_graph ? `<a class="family-primary" href="projects/${escapeHtml(family.id)}/">${content}</a>` : `<button class="family-filter family-primary" data-family="${escapeHtml(family.id)}" type="button">${content}</button>`;
-  return `<article class="family-card" data-family="${escapeHtml(family.id)}"><span class="success-rate" title="Positive published labnotes divided by all published labnotes" aria-label="${successRate} percent positive-result rate">${successRate}% SUCCESS</span>${primary}</article>`;
+  return `<article class="family-card" data-family="${escapeHtml(family.id)}">${primary}</article>`;
 };
 const noteCard = (note) => `<article class="feed-entry" data-family="${escapeHtml(note.family)}"><div class="entry-index"><time datetime="${note.date}">${note.date}</time><b>${escapeHtml(note.id)}</b></div><div class="entry-main"><div class="entry-state"><span>${escapeHtml(note.status)}</span><span data-outcome="${note.outcome}">${escapeHtml(note.outcome)}</span></div><h3><a href="${escapeHtml(note.href)}">${escapeHtml(note.title)}</a></h3><p>${escapeHtml(note.question)}</p><div class="tags">${note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="${escapeHtml(note.href)}" aria-label="Open ${escapeHtml(note.id)}">↗</a></article>`;
 const dispatchCard = ({ metadata }) => `<article class="dispatch-entry"><div class="entry-index"><time datetime="${escapeHtml(metadata.date)}">${escapeHtml(metadata.date)}</time><b>${escapeHtml(metadata.id)}</b></div><div class="entry-main"><div class="dispatch-kicker">FIELD DISPATCH / ${escapeHtml(metadata.status)}</div><h3><a href="dispatches/${escapeHtml(metadata.id)}/">${escapeHtml(metadata.title)}</a></h3><p>${escapeHtml(metadata.lede)}</p><div class="tags">${metadata.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="dispatches/${escapeHtml(metadata.id)}/" aria-label="Open ${escapeHtml(metadata.id)}">↗</a></article>`;
 const indexTemplate = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");
+const overview = observatory(manifest, siteUrl, repositoryUrl);
+for (const [route, page] of overview.pages) {
+  const directory = path.join(output, route);
+  fs.mkdirSync(directory, { recursive: true });
+  fs.writeFileSync(path.join(directory, "index.html"), page);
+}
 const indexPage = indexTemplate
+  .replace("{{PROGRAM_COUNT}}", String(overview.programCount))
+  .replace("{{PROGRAM_CARDS}}", overview.cards)
+  .replace("{{LATEST_EVIDENCE}}", overview.latest)
+  .replace("{{OUTCOME_MIX}}", outcomeMix(manifest.labnotes))
+  .replace("{{EXEMPLAR_READINGS}}", overview.readings)
   .replaceAll("{{NOTE_COUNT}}", String(manifest.labnotes.length))
   .replaceAll("{{FAMILY_COUNT}}", String(manifest.families.length))
   .replaceAll("{{DISPATCH_COUNT}}", String(dispatches.length))
@@ -145,7 +155,7 @@ if (Buffer.byteLength(llms) > 4096) throw new Error("llms.txt exceeds its 4096-b
 fs.writeFileSync(path.join(output, "llms.txt"), llms);
 fs.writeFileSync(path.join(output, ".nojekyll"), "");
 fs.writeFileSync(path.join(output, "robots.txt"), `User-agent: *\nAllow: /research/\n\nSitemap: ${siteUrl}sitemap.xml\n`);
-const sitemapUrls = [{ loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date })), ...dispatches.map(({ metadata }) => ({ loc: `${siteUrl}dispatches/${metadata.id}/`, lastmod: metadata.date }))];
+const sitemapUrls = [...[...overview.pages.keys()].map((route) => ({ loc: siteUrl + route })), { loc: siteUrl + "dispatches/" }, { loc: siteUrl, lastmod: manifest.labnotes[0]?.date }, ...manifest.families.filter((family) => family.has_graph).map((family) => ({ loc: `${siteUrl}projects/${family.id}/`, lastmod: manifest.labnotes.find((note) => note.id === family.latest_labnote_id)?.date })), ...manifest.labnotes.map((note) => ({ loc: `${siteUrl}${note.href}`, lastmod: note.date })), ...dispatches.map(({ metadata }) => ({ loc: `${siteUrl}dispatches/${metadata.id}/`, lastmod: metadata.date }))];
 fs.writeFileSync(path.join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(({ loc, lastmod }) => `  <url><loc>${escapeHtml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>\n`);
 
 const socialCards = [];
@@ -161,6 +171,23 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const socialDescription = `${note.id.toUpperCase()} · ${note.family.toUpperCase()} · ${note.outcome.toUpperCase()} · ${note.status.toUpperCase()}`;
   socialCards.push(writeSocialCard(note, path.join(output, "assets", "social", `${note.id}.png`)));
   const sourceUrl = `${repositoryUrl}/blob/main/${record.relative.split("/").map(encodeURIComponent).join("/")}`;
+  const annotation = evidence[note.id];
+  const bodyHtml = renderMarkdown(record.body);
+  const evidenceSections = [...bodyHtml.matchAll(/<h[2-5] id="([^"]+)">([^<]+)<a class="heading-anchor"/g)]
+    .filter(([, , heading]) => /protocol|reproduc|artifact|environment|data and review/i.test(heading))
+    .map(([, id, heading]) => `<li><a href="#${id}">${heading}</a></li>`).join("");
+  const assets = (record.metadata.public_assets ?? [])
+    .map((name) => `<li><a href="assets/${note.id}/${encodeURIComponent(name)}">${escapeHtml(name)}</a></li>`).join("");
+  const revision = escapeHtml(manifest.source_revision);
+  const pinnedSource = sourceUrl.replace("/blob/main/", `/blob/${revision}/`);
+  const evidencePanel = `<section class="evidence-panel" aria-labelledby="evidence-title"><h2 id="evidence-title">Evidence &amp; reproduction</h2>
+<p><a href="${pinnedSource}">Source at publication revision ${revision.slice(0, 12)}</a></p>
+${annotation ? `<p class="eyebrow">${escapeHtml(annotation[0])}</p><p>${escapeHtml(annotation[1])}</p>` : ""}
+<dl>
+<dt>Protocol, code, data and environment</dt><dd>${evidenceSections ? `<ul>${evidenceSections}</ul>` : "See the source record for any documented methods, inputs, commands or versions."}</dd>
+<dt>Published attachments</dt><dd>${assets ? `<ul>${assets}</ul>` : "No direct attachments are listed for this labnote. The record may link to public code or artifacts elsewhere."}</dd>
+<dt>External reproducibility</dt><dd>Consult the record for available inputs and commands. Publication alone does not establish that a third party can rerun the work.</dd>
+</dl></section>`;
   const relationCard = (id, current = false) => {
     const related = manifest.labnotes.find((entry) => entry.id === id);
     if (!related) throw new Error(`${note.id}: public relation target ${id} is missing`);
@@ -193,7 +220,8 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
 <div class="note-vitals"><span>${note.id}</span><time itemprop="datePublished" datetime="${note.date}">${note.date}</time><span data-outcome="${note.outcome}">${note.outcome}</span><span>${note.status}</span></div>
 <p class="question" itemprop="description">${question}</p><div class="tags">${tags}</div><p class="source-link"><a href="${sourceUrl}">View source record on GitHub ↗</a></p></header>
 ${lineage}
-<div class="note-body">${renderMarkdown(record.body)}</div></article></main>
+${evidencePanel}
+<div class="note-body">${bodyHtml}</div></article></main>
 <footer><span>YUREI RESEARCH · <a href="${repositoryUrl}">SOURCE</a> · <a href="https://github.com/yurei-so">GITHUB</a></span><span>REV ${manifest.source_revision}</span></footer><script type="module" src="../../assets/labnote.js?v=${escapeHtml(manifest.source_revision)}"></script></body></html>`;
   fs.writeFileSync(path.join(directory, "index.html"), page);
 }

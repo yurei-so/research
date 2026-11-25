@@ -183,7 +183,7 @@ test("detailed map retains both terrains and dedicated mobile navigation", () =>
   assert.match(styles, /#back-to-map \{ display: inline-flex; \}/);
 });
 
-test("family view defaults to fit-screen attention with a synchronized note rail", () => {
+test("family view defaults to stable attention with a synchronized note rail", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
@@ -193,7 +193,7 @@ test("family view defaults to fit-screen attention with a synchronized note rail
   assert.match(catalog, /class="family-note-select"/);
   assert.match(catalog, /replace\('<div class="graph-layout">'/);
   assert.match(client, /const maps = \[\$\("\.attention-map"\)\]/);
-  assert.match(client, /const initialPageView = "beta-fit"/);
+  assert.match(client, /const initialPageView = "standard"/);
   assert.doesNotMatch(client, /activeView/);
   assert.match(client, /focusSelected/);
   assert.match(client, /naturalHeight \* zoom/);
@@ -273,12 +273,12 @@ test("strict CSP pages avoid inline scripts and runtime style attributes", () =>
   assert.match(projectClient, /setAttribute\("width", String\(newWidth\)\)/);
 });
 
-test("detailed family pages use the fit-to-screen composition with working zoom", () => {
+test("detailed family pages initialize standard composition with working zoom", () => {
   const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
   const client = fs.readFileSync(path.resolve("site/project-graph.js"), "utf8");
   const styles = fs.readFileSync(path.resolve("site/styles.css"), "utf8");
   assert.doesNotMatch(catalog, /class="map-layout-switch"/);
-  assert.match(client, /const initialPageView = "beta-fit"/);
+  assert.match(client, /const initialPageView = "standard"/);
   assert.doesNotMatch(client, /fitLocked/);
   assert.match(client, /setZoom\(restoredZoom \?\?/);
   assert.match(styles, /data-page-view="beta-fit".*?overflow: hidden/s);
@@ -288,20 +288,12 @@ test("detailed family pages use the fit-to-screen composition with working zoom"
   assert.match(styles, /\.graph-inspector \{ position: fixed;[^}]*top: auto;[^}]*bottom: 3\.65rem/s);
 });
 
-test("family cards derive success readouts from published positive outcomes", () => {
-  const catalog = fs.readFileSync(path.resolve("scripts/research-catalog.mjs"), "utf8");
-  const client = fs.readFileSync(path.resolve("site/app.js"), "utf8");
-  assert.match(catalog, /family\.outcomes\.positive \?\? 0/);
-  assert.match(catalog, /class="success-rate"/);
-  assert.match(catalog, /Positive published labnotes divided by all published labnotes/);
-  assert.match(client, /family\.outcomes\.positive \?\? 0/);
-  assert.match(client, /class="success-rate"/);
-  assert.match(catalog, /class="family-primary" href="projects\//);
-  assert.match(client, /OPEN RESEARCH MAP/);
-  assert.match(client, /FILTER TO THIS FAMILY/);
-  assert.match(catalog, /FILTER TO THIS FAMILY/);
-  assert.match(client, /family\.labnote_count === 1 \? "labnote" : "labnotes"/);
-  assert.match(catalog, /family\.labnote_count === 1 \? "labnote" : "labnotes"/);
+test("outcome mix counts every canonical outcome without treating positives as success", async () => {
+  const { outcomeMix } = await import("../scripts/observatory.mjs");
+  const mix = outcomeMix([{ outcome: "positive" }, { outcome: "negative" }, { outcome: "negative" }]);
+  assert.match(mix, /viewBox="0 0 3 1"/);
+  for (const label of ["1 positive", "0 mixed", "2 negative", "0 inconclusive"]) assert.match(mix, new RegExp(label));
+  assert.doesNotMatch(mix, /success/i);
 });
 
 test("attention model preserves vectors and distances separately from its 2D projection", () => {

@@ -52,14 +52,14 @@ jobs:
           npm test --prefix experiments/meta-research/apparatus/tldr-generator
       - name: Assemble allowlisted publication output
         run: |
-          node beta-source/scripts/assemble-pages.mjs \
+          node stable-source/scripts/assemble-pages.mjs \
             --stable stable-source/dist \
             --beta beta-source/dist \
             --output publication \
             --stable-sha "$(git -C stable-source rev-parse HEAD)" \
             --beta-sha "$(git -C beta-source rev-parse HEAD)"
           cd publication
-          node ../beta-source/scripts/public-surface-audit.mjs
+          node ../stable-source/scripts/public-surface-audit.mjs
       - name: Upload inspectable publication artifact
         uses: actions/upload-artifact@v4
         with:

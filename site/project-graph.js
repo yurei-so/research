@@ -22,7 +22,7 @@ const clearZoom = (view) => {
     localStorage.setItem("yurei-family-map-zoom", JSON.stringify(saved));
   } catch {}
 };
-const initialPageView = "beta-fit";
+const initialPageView = "standard";
 document.body.dataset.pageView = initialPageView;
 
 async function boot() {
@@ -159,18 +159,12 @@ async function boot() {
 
   const fitZoom = () => Math.min((stage.clientWidth - 28) / naturalWidth, (stage.clientHeight - 28) / naturalHeight);
   const readableZoom = () => Math.max(.68, fitZoom());
-  const applyPageView = (view, { persist = true } = {}) => {
-    const next = view === "beta-fit" ? "beta-fit" : "standard";
+  const initializePageView = () => {
+    const next = initialPageView;
     document.body.dataset.pageView = next;
-    document.querySelectorAll("[data-page-view]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.pageView === next));
-    });
     const restoredZoom = storedZoom(next);
     userAdjustedZoom = restoredZoom !== null;
-    if (persist) {
-      try { localStorage.setItem("yurei-family-page-view", next); } catch {}
-    }
-    setZoom(restoredZoom ?? (next === "beta-fit" && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
+    setZoom(restoredZoom ?? readableZoom());
     focusSelected();
   };
 
@@ -273,8 +267,7 @@ async function boot() {
   });
   addEventListener("resize", () => {
     if (userAdjustedZoom) return;
-    requestAnimationFrame(() => setZoom(document.body.dataset.pageView === "beta-fit"
-      && matchMedia("(min-width: 1000px)").matches ? fitZoom() : readableZoom()));
+    requestAnimationFrame(() => setZoom(readableZoom()));
   });
   $("#terrain-style").addEventListener("click", () => {
     terrain = terrain === "cells" ? "smooth" : "cells";
@@ -347,7 +340,7 @@ async function boot() {
   }));
   renderInspector();
   renderAttentionDisclosure();
-  applyPageView(initialPageView, { persist: false });
+  initializePageView();
   $("#edge-note").textContent = "Only the selected note’s authored relations are drawn. Semantic proximity creates no relationship edges.";
 }
 

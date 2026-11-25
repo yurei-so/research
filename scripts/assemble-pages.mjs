@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: AGPL-3.0-only
 
+import { isDeepStrictEqual } from "node:util";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -81,24 +82,49 @@ function relativePageUrl(fromFile, targetFile) {
   return directory || "./";
 }
 
+// Approve alternates by canonical family ID after presentation and evidence review.
+const approvedBetaFamilies = new Set([]);
+
+function eligibleFamilyRoutes(output, approvedFamilies) {
+  const routes = new Set();
+  for (const family of approvedFamilies) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(family)) throw new Error(`Invalid beta family ID: ${family}`);
+    const relative = `projects/${family}/index.html`;
+    const stable = path.join(output, relative);
+    const beta = path.join(output, "beta", relative);
+    if (!fs.existsSync(stable) || !fs.existsSync(beta)) continue;
+    const readEvidence = (file) => {
+      const embedded = fs.readFileSync(file, "utf8").match(/<template id="project-graph-data">([\s\S]*?)<\/template>/);
+      if (!embedded) return null;
+      const { family: identity, notes, relations } = JSON.parse(embedded[1]);
+      return identity?.id === family && Array.isArray(notes) && notes.length && Array.isArray(relations)
+        ? { identity, notes, relations } : null;
+    };
+    const evidence = readEvidence(stable);
+    if (evidence && isDeepStrictEqual(evidence, readEvidence(beta))) routes.add(relative);
+  }
+  return routes;
+}
+
+function stableAlias(file, stableFile) {
+  const href = escapeHtml(relativePageUrl(file, stableFile));
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="refresh" content="0; url=${href}"><title>Yūrei Research · Stable</title></head><body><p><a href="${href}">Continue to the stable publication</a></p></body></html>`;
+}
+
 function channelSwitch({ channel, stableUrl, betaUrl }) {
   const stable = channel === "stable" ? '<span aria-current="page">STABLE</span>'
-    : stableUrl ? `<a href="${escapeHtml(stableUrl)}">STABLE</a>` : '<span class="unavailable">STABLE</span>';
+    : `<a href="${escapeHtml(stableUrl)}">STABLE</a>`;
   const beta = channel === "beta" ? '<span aria-current="page">BETA VIEW</span>'
-    : betaUrl ? `<a href="${escapeHtml(betaUrl)}" title="Open the latest eligible visual beta">BETA VIEW</a>` : '<span class="unavailable">BETA VIEW</span>';
+    : betaUrl ? `<a href="${escapeHtml(betaUrl)}">BETA VIEW</a>` : "";
   return `<nav class="publication-channel-switch" aria-label="Publication channel">${stable}${beta}</nav>`;
 }
 
-function revisionControl({ channel, revision, stableUrl, betaUrl, manifestUrl, summaryHtml }) {
-  const stable = channel === "stable" ? `<span aria-current="page">STABLE · ${escapeHtml(revision.slice(0, 12))}</span>`
-    : stableUrl ? `<a href="${escapeHtml(stableUrl)}">STABLE</a>` : '<span class="unavailable">STABLE · ROUTE UNAVAILABLE</span>';
-  const beta = channel === "beta" ? `<span aria-current="page">BETA · ${escapeHtml(revision.slice(0, 12))}</span>`
-    : betaUrl ? `<a href="${escapeHtml(betaUrl)}">BETA</a>` : '<span class="unavailable">BETA · ROUTE UNAVAILABLE</span>';
-  const summary = summaryHtml ?? `REV ${escapeHtml(revision.slice(0, 12))}`;
-  return `<details class="publication-revision"><summary>${summary}</summary><div class="publication-revision-menu"><strong>PUBLICATION VIEW</strong>${stable}${beta}<p>Beta changes presentation only. It does not revise labnote content or research tools, and exposes no beta machine-readable research interface.</p><a href="${escapeHtml(manifestUrl)}">VIEW DEPLOYMENT MANIFEST</a></div></details>`;
+function revisionControl({ channel, revision, stableUrl, betaUrl, manifestUrl }) {
+  const disclosure = betaUrl ? "<p>Beta changes presentation only. The stable labnotes remain the canonical record.</p>" : "";
+  return `<details class="publication-revision"><summary>REV ${escapeHtml(revision.slice(0, 12))}</summary><div class="publication-revision-menu">${channelSwitch({ channel, stableUrl, betaUrl })}${disclosure}<a href="${escapeHtml(manifestUrl)}">VIEW DEPLOYMENT MANIFEST</a></div></details>`;
 }
 
-function addRevisionControls(output, channel, revision) {
+function addRevisionControls(output, channel, revision, eligibleRoutes) {
   const root = channel === "stable" ? output : path.join(output, "beta");
   const betaRoot = path.join(output, "beta") + path.sep;
   for (const file of filesUnder(root).filter((entry) => path.extname(entry).toLowerCase() === ".html"
@@ -106,20 +132,23 @@ function addRevisionControls(output, channel, revision) {
     const relative = path.relative(root, file);
     const stableFile = path.join(output, relative);
     const betaFile = path.join(output, "beta", relative);
+    const eligible = eligibleRoutes.has(relative.split(path.sep).join("/"));
+    if (channel === "beta" && !eligible) {
+      fs.writeFileSync(file, stableAlias(file, fs.existsSync(stableFile) ? stableFile : path.join(output, "index.html")));
+      continue;
+    }
     const options = { channel, revision,
       stableUrl: fs.existsSync(stableFile) ? relativePageUrl(file, stableFile) : null,
-      betaUrl: fs.existsSync(betaFile) ? relativePageUrl(file, betaFile) : null,
+      betaUrl: eligible ? relativePageUrl(file, betaFile) : null,
       manifestUrl: path.relative(path.dirname(file), path.join(output, "deployment-manifest.json")).split(path.sep).join("/") };
     const control = revisionControl(options);
-    const heroControl = revisionControl({ ...options, summaryHtml: `<b id="revision">${escapeHtml(revision.slice(0, 12))}</b> REVISION` });
     const publicationSwitch = channelSwitch(options);
     const switchStyles = path.relative(path.dirname(file), path.join(output, "publication-switch.css")).split(path.sep).join("/");
     let content = fs.readFileSync(file, "utf8");
     content = content.replace(/<header class="terminal-bar">([\s\S]*?)<\/header>/i, (header) => {
       if (header.includes("publication-channel-switch")) return header;
-      return header.replace(/<span>[^<]*<\/span>\s*<\/header>$/i, `${publicationSwitch}</header>`);
+      return header.replace(/<span(?: class="stable-label")?>[^<]*<\/span>\s*<\/header>$/i, `${publicationSwitch}</header>`);
     });
-    content = content.replace(/<b id="revision">[^<]+<\/b> REVISION/, heroControl);
     content = content.replace(/<span id="generated">(CATALOG [^<]+?) \/ REV [0-9a-f]+<\/span>/i, `<span>$1 / ${control}</span><span id="generated" hidden></span>`);
     content = content.replace(/<span>REV [0-9a-f]+<\/span>/gi, `<span>${control}</span>`);
     content = content.replace(/<head>/i, `<head><link rel="stylesheet" href="${escapeHtml(switchStyles)}">`);
@@ -127,7 +156,7 @@ function addRevisionControls(output, channel, revision) {
   }
 }
 
-export function assemblePublication({ stable, beta, output, stableSha, betaSha }) {
+export function assemblePublication({ stable, beta, output, stableSha, betaSha, approvedFamilies = approvedBetaFamilies }) {
   validateBuild(stable, "stable");
   validateBuild(beta, "beta");
   fs.rmSync(output, { recursive: true, force: true });
@@ -135,6 +164,7 @@ export function assemblePublication({ stable, beta, output, stableSha, betaSha }
   copyTree(stable, output);
   copyTree(beta, path.join(output, "beta"));
   markBeta(path.join(output, "beta"));
+  const eligibleRoutes = eligibleFamilyRoutes(output, approvedFamilies);
   const manifest = {
     schema: "yurei-pages-publication/v1",
     stable: { source_branch: "main", source_revision: stableSha, path: "/" },
@@ -142,8 +172,8 @@ export function assemblePublication({ stable, beta, output, stableSha, betaSha }
   };
   fs.writeFileSync(path.join(output, "deployment-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
   fs.copyFileSync(path.resolve(import.meta.dirname, "..", "site", "publication-switch.css"), path.join(output, "publication-switch.css"));
-  addRevisionControls(output, "stable", stableSha);
-  addRevisionControls(output, "beta", betaSha);
+  addRevisionControls(output, "stable", stableSha, eligibleRoutes);
+  addRevisionControls(output, "beta", betaSha, eligibleRoutes);
   validateBuild(output, "assembled publication");
   return manifest;
 }

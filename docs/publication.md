@@ -91,3 +91,11 @@ field supplies its direct predecessors; the public manifest adds `relations`
 with `follows` and `continued_by` IDs. Individual note pages render that local
 timeline directly into static HTML. Unpublished notes cannot appear as either
 side of a public relationship.
+
+### Observatory editorial metadata
+
+Program groupings, featured labnote IDs and the labels in
+`site/evidence-labels.json` are editorial navigation aids. Maintain them
+against the cited labnotes. Findings, counts, outcomes, publication dates
+and authored links are derived from the public catalog and canonical labnotes.
+Keep experiment-specific explanations and reproduction details in those records.

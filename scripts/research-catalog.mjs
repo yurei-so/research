@@ -9,7 +9,7 @@ import { collectCatalog, copyPublishedLabnoteAssets, escapeHtml, extractResultSu
 import { collectDispatches, renderDispatchPage } from "./dispatches.mjs";
 import { writeFamilySocialCard, writeSocialCard } from "./social-card.mjs";
 
-import { evidence, observatory, outcomeMix } from "./observatory.mjs";
+import { observatory, outcomeMix } from "./observatory.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const siteUrl = "https://yurei-so.github.io/research/";
@@ -55,6 +55,7 @@ const familyCard = (family) => {
 };
 const noteCard = (note) => `<article class="feed-entry" data-family="${escapeHtml(note.family)}"><div class="entry-index"><time datetime="${note.date}">${note.date}</time><b>${escapeHtml(note.id)}</b></div><div class="entry-main"><div class="entry-state"><span>${escapeHtml(note.status)}</span><span data-outcome="${note.outcome}">${escapeHtml(note.outcome)}</span></div><h3><a href="${escapeHtml(note.href)}">${escapeHtml(note.title)}</a></h3><p>${escapeHtml(note.question)}</p><div class="tags">${note.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="${escapeHtml(note.href)}" aria-label="Open ${escapeHtml(note.id)}">↗</a></article>`;
 const dispatchCard = ({ metadata }) => `<article class="dispatch-entry"><div class="entry-index"><time datetime="${escapeHtml(metadata.date)}">${escapeHtml(metadata.date)}</time><b>${escapeHtml(metadata.id)}</b></div><div class="entry-main"><div class="dispatch-kicker">FIELD DISPATCH / ${escapeHtml(metadata.status)}</div><h3><a href="dispatches/${escapeHtml(metadata.id)}/">${escapeHtml(metadata.title)}</a></h3><p>${escapeHtml(metadata.lede)}</p><div class="tags">${metadata.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div><a class="open-note" href="dispatches/${escapeHtml(metadata.id)}/" aria-label="Open ${escapeHtml(metadata.id)}">↗</a></article>`;
+const evidenceLabels = JSON.parse(fs.readFileSync(path.join(root, "site", "evidence-labels.json"), "utf8"));
 const indexTemplate = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");
 const overview = observatory(manifest, siteUrl, repositoryUrl);
 for (const [route, page] of overview.pages) {
@@ -171,7 +172,7 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const socialDescription = `${note.id.toUpperCase()} · ${note.family.toUpperCase()} · ${note.outcome.toUpperCase()} · ${note.status.toUpperCase()}`;
   socialCards.push(writeSocialCard(note, path.join(output, "assets", "social", `${note.id}.png`)));
   const sourceUrl = `${repositoryUrl}/blob/main/${record.relative.split("/").map(encodeURIComponent).join("/")}`;
-  const annotation = evidence[note.id];
+  const labels = evidenceLabels[note.id];
   const bodyHtml = renderMarkdown(record.body);
   const evidenceSections = [...bodyHtml.matchAll(/<h[2-5] id="([^"]+)">([^<]+)<a class="heading-anchor"/g)]
     .filter(([, , heading]) => /protocol|reproduc|artifact|environment|data and review/i.test(heading))
@@ -182,7 +183,7 @@ for (const record of records.filter((entry) => entry.metadata.publish)) {
   const pinnedSource = sourceUrl.replace("/blob/main/", `/blob/${revision}/`);
   const evidencePanel = `<section class="evidence-panel" aria-labelledby="evidence-title"><h2 id="evidence-title">Evidence &amp; reproduction</h2>
 <p><a href="${pinnedSource}">Source at publication revision ${revision.slice(0, 12)}</a></p>
-${annotation ? `<p class="eyebrow">${escapeHtml(annotation[0])}</p><p>${escapeHtml(annotation[1])}</p>` : ""}
+${labels ? `<p class="eyebrow">Editorial evidence labels</p><ul class="tags">${labels.map((label) => `<li>${escapeHtml(label)}</li>`).join("")}</ul>` : ""}
 <dl>
 <dt>Protocol, code, data and environment</dt><dd>${evidenceSections ? `<ul>${evidenceSections}</ul>` : "See the source record for any documented methods, inputs, commands or versions."}</dd>
 <dt>Published attachments</dt><dd>${assets ? `<ul>${assets}</ul>` : "No direct attachments are listed for this labnote. The record may link to public code or artifacts elsewhere."}</dd>

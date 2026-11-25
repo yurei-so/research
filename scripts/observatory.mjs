@@ -23,16 +23,6 @@ const chains = [
   ["Voxel Guidance · Behavior, representation and perception", ["voxel-guidance-001", "voxel-guidance-006"]],
 ];
 
-export const evidence = {
-  "prosody-018": ["Pilot · Blinded · Single reviewer", "One listener compared two samples of one scene. The review does not isolate a causal effect of shared context."],
-  "narrative-steering-001": ["Pilot · Blinded", "Model identity was blinded. The public pilot does not establish the seven-axis framework."],
-  "voxel-guidance-002": ["Single participant · Restricted artifacts", "Raw streams and per-session predictions are absent from the public record."],
-  "voxel-guidance-006": ["Synthetic only · Frozen evaluation", "Deterministic scenes and disjoint seeds were used to compare temporal and single-frame models."],
-  "zenith-017": ["Fresh holdout · Live validation", "A fresh swamp holdout failed after stronger development results."],
-  "game-session-observation-001": ["Restricted artifacts · Live observation", "The recording and server evidence were retained privately."],
-  "multiview-cameras-006": ["Restricted artifacts · Live validation", "Full hashes and logs are omitted. Availability was inconsistent."],
-};
-
 export function observatory(manifest, siteUrl, repositoryUrl) {
   const { families, labnotes } = manifest;
   const byId = new Map(labnotes.map((note) => [note.id, note]));

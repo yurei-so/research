@@ -1,0 +1,31 @@
+{
+  "prosody-018": [
+    "Pilot",
+    "Blinded",
+    "Single reviewer"
+  ],
+  "narrative-steering-001": [
+    "Pilot",
+    "Blinded"
+  ],
+  "voxel-guidance-002": [
+    "Single participant",
+    "Restricted artifacts"
+  ],
+  "voxel-guidance-006": [
+    "Synthetic only",
+    "Frozen evaluation"
+  ],
+  "zenith-017": [
+    "Fresh holdout",
+    "Live validation"
+  ],
+  "game-session-observation-001": [
+    "Restricted artifacts",
+    "Live observation"
+  ],
+  "multiview-cameras-006": [
+    "Restricted artifacts",
+    "Live validation"
+  ]
+}

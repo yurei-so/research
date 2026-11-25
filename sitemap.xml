@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://yurei-so.github.io/research/programs/interactive-language/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/programs/grounded-perception/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/programs/embodied-observation/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/programs/research-systems/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/reviewers/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/maps/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/inventory/</loc></url>
+  <url><loc>https://yurei-so.github.io/research/dispatches/</loc></url>
   <url><loc>https://yurei-so.github.io/research/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://yurei-so.github.io/research/projects/composition/</loc><lastmod>2026-09-17</lastmod></url>
   <url><loc>https://yurei-so.github.io/research/projects/multiview-cameras/</loc><lastmod>2026-10-13</lastmod></url>
